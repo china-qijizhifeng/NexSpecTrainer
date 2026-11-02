@@ -60,6 +60,11 @@ from transformers import AutoConfig
 from specforge.algorithms.common.providers import OfflineCaptureLayout
 from specforge.application import resolve_offline_capture
 from specforge.config import Config
+from specforge.data.feature_file import (
+    FEATURE_SUFFIXES,
+    require_zstandard,
+    save_zstd_features,
+)
 from specforge.data.preprocessing import (
     build_eagle3_dataset,
     generate_vocab_mapping_file,
@@ -178,7 +183,8 @@ def parse_args():
         default=2000,
         help="Number of files per subdirectory.",
     )
-    others_group.add_argument(
+    codec_group = others_group.add_mutually_exclusive_group()
+    codec_group.add_argument(
         "--compress",
         action="store_true",
         help="Compress hidden state files on disk (gzip).",
@@ -188,6 +194,24 @@ def parse_args():
         type=int,
         default=6,
         help="Gzip compression level (1-9).",
+    )
+
+    codec_group.add_argument(
+        "--zstd",
+        action="store_true",
+        help="Save lossless BF16 fields + Zstd files (.ckpt.zst); requires compression extra.",
+    )
+    others_group.add_argument(
+        "--zstd-level",
+        type=int,
+        choices=range(1, 20),
+        default=1,
+        help="Zstd compression level (default: 1).",
+    )
+    others_group.add_argument(
+        "--interleave-layers",
+        action="store_true",
+        help="With --zstd, interleave the BF16 auxiliary feature's capture layers before compression.",
     )
 
     sglang_group = parser.add_argument_group("sglang")
@@ -214,7 +238,12 @@ def parse_args():
             "(FLA) at server init."
         ),
     )
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.interleave_layers and not args.zstd:
+        parser.error("--interleave-layers requires --zstd")
+    if args.zstd:
+        require_zstandard()
+    return args
 
 
 def _resolve_draft_vocab_size(draft_config: object) -> int:
@@ -398,6 +427,10 @@ class HiddenStatesGenerator:
         compress: bool = False,
         compression_level: int = 6,
         hidden_state_transfer: str = "async",
+        zstd: bool = False,
+        zstd_level: int = 1,
+        interleave_layers: bool = False,
+        capture_layers: tuple[int, ...] = (),
     ):
         """
         Args:
@@ -433,7 +466,28 @@ class HiddenStatesGenerator:
         self.file_group_size = file_group_size
         self.compress = compress
         self.compression_level = compression_level
-        self.file_extension = ".ckpt.gz" if self.compress else ".ckpt"
+        if compress and zstd:
+            raise ValueError("gzip and Zstd compression are mutually exclusive")
+        if interleave_layers and (
+            not zstd or not capture_layers or not self.capture_layout.aux_feature
+        ):
+            raise ValueError(
+                "Layer interleave requires Zstd and an auxiliary capture layout"
+            )
+        if zstd:
+            require_zstandard()
+            if not 1 <= zstd_level <= 19:
+                raise ValueError("Zstd level must be between 1 and 19")
+        self.zstd = zstd
+        self.zstd_level = zstd_level
+        self.interleave_layers = (
+            {self.capture_layout.aux_feature: capture_layers}
+            if interleave_layers
+            else {}
+        )
+        self.file_extension = (
+            ".ckpt.zst" if zstd else (".ckpt.gz" if compress else ".ckpt")
+        )
 
         # progress bar should only shown on TP rank = 0
         self.show_progress = dist.get_rank(get_tp_group()) == 0
@@ -572,7 +626,14 @@ class HiddenStatesGenerator:
                 )
                 return
 
-        if self.compress:
+        if self.zstd:
+            save_zstd_features(
+                persisted,
+                output_file,
+                level=self.zstd_level,
+                interleave_layers=self.interleave_layers,
+            )
+        elif self.compress:
             with gzip.open(
                 output_file, "wb", compresslevel=self.compression_level
             ) as f:
@@ -659,11 +720,10 @@ class HiddenStatesGenerator:
         def check_single_file(idx):
             if os.path.exists(self._get_file_path(output_path, idx)):
                 return True
-            uncompressed_ckpt = self._get_file_path(output_path, idx, extension=".ckpt")
-            compressed_ckpt = self._get_file_path(
-                output_path, idx, extension=".ckpt.gz"
+            return any(
+                os.path.exists(self._get_file_path(output_path, idx, extension=suffix))
+                for suffix in FEATURE_SUFFIXES
             )
-            return os.path.exists(uncompressed_ckpt) or os.path.exists(compressed_ckpt)
 
         # Parallel file existence check
         with ThreadPoolExecutor(max_workers=self.num_io_threads) as executor:
@@ -1007,6 +1067,10 @@ def main():
             num_io_threads=args.num_io_threads,
             io_queue_size=args.io_queue_size,
             file_group_size=args.file_group_size,
+            zstd=args.zstd,
+            zstd_level=args.zstd_level,
+            interleave_layers=args.interleave_layers,
+            capture_layers=capture_plan.capture_layers,
             compress=args.compress,
             compression_level=args.compression_level,
             hidden_state_transfer=args.hidden_state_transfer,

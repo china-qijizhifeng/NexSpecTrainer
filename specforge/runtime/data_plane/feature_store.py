@@ -46,8 +46,6 @@ from __future__ import annotations
 
 import abc
 import dataclasses
-import gzip
-import io
 import itertools
 import logging
 import os
@@ -59,6 +57,7 @@ from urllib.parse import parse_qs, quote, urlparse
 
 import torch
 
+from specforge.data.feature_file import load_feature_file as load_feature_file
 from specforge.runtime.contracts import (
     SCHEMA_VERSION,
     FeatureHandle,
@@ -273,14 +272,6 @@ def retry_feature_store_sample_removals(
             "attempts": 0,
         }
     return retry(ids)
-
-
-def load_feature_file(path: str) -> Dict[str, torch.Tensor]:
-    """Load one prepared SpecForge offline feature file."""
-    if path.endswith(".gz"):
-        with gzip.open(path, "rb") as f:
-            return torch.load(io.BytesIO(f.read()), weights_only=False)
-    return torch.load(path, weights_only=False, mmap=True)
 
 
 class LocalFeatureStore(FeatureStore):

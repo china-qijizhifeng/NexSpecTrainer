@@ -35,13 +35,14 @@ from __future__ import annotations
 import os
 from typing import Dict, Iterator, List, Optional, Tuple
 
+from specforge.data.feature_file import FEATURE_SUFFIXES
 from specforge.runtime.contracts import SCHEMA_VERSION, FeatureSpec, SampleRef
 from specforge.runtime.data_plane.feature_store import (
     load_feature_file,
     spec_from_tensor,
 )
 
-_FEATURE_SUFFIXES = (".ckpt", ".ckpt.gz")
+_FEATURE_SUFFIXES = FEATURE_SUFFIXES
 # Raw keys present in a SpecForge offline EAGLE3 feature file.
 _OFFLINE_EAGLE3_KEYS = ("input_ids", "loss_mask", "hidden_state", "aux_hidden_state")
 _VALIDATE_ENV = "SPECFORGE_VALIDATE_OFFLINE_FEATURES"
