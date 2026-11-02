@@ -33,6 +33,52 @@ The output directory now matches the hidden-state path in the checked-in
 recipe. It contains the feature checkpoints consumed by the unified trainer
 and `vocab_mapping/vocab_mapping.pt`, derived from the same processed corpus.
 
+### Optional lossless activation compression
+
+Install `pip install '.[compression]'` in both the capture and trainer
+environments, then append `--zstd` to the capture command. This writes
+`.ckpt.zst` records with BF16 sign/exponent/mantissa fields compressed separately
+using CPU Zstd level 1. `--zstd-level 1` through `19` controls the tradeoff.
+Other supported tensor dtypes retain their bytes and use plain Zstd.
+
+For BF16 auxiliary activations concatenated across capture layers, additionally
+pass `--interleave-layers`. The capture plan supplies the ordered layer IDs;
+the codec changes `[token, layer, dimension]` to `[token, dimension, layer]`
+before compression and reverses it on read. The feature's last dimension must
+contain equally sized layer slices. Final-layer targets, IDs and masks are
+not interleaved. This option rejects non-BF16 auxiliary features and capture
+plans without an auxiliary feature. It changes storage only; the decoded
+dtype, shape, values and layer order are identical, including BF16 NaN payloads
+at the codec boundary. The capture script still skips NaN-containing records.
+
+Training auto-detects raw `.ckpt`, existing gzip `.ckpt.gz` and new `.ckpt.zst`
+files, including mixed directories. `--compress` / `--compression-level` retain
+their gzip behavior and cannot be combined with `--zstd`. Resume recognizes
+all three extensions and skips existing samples; it does not transcode them.
+File listing stays lazy. A corrupt file raises an error when read, including
+in the legacy EAGLE3 dataset, rather than substituting another sample.
+
+The version-1 format uses an `NSACTZ01` magic, a bounded JSON manifest with a
+SHA-256 checksum, and length-prefixed Zstd frames with content checksums. Tensor
+blocks contain at most 1,048,576 elements; BF16 blocks have packed sign bits
+(little bit order), exponent bytes and low-seven-bit mantissa bytes. The manifest
+records feature names, dtypes, original shapes and optional ordered interleave
+layer IDs. Other tensors use raw little-endian bytes per block. No pickle is
+used by this format. Writes publish by an atomic rename in the destination
+directory; failed writes remove their temporary file. The format supports
+little-endian CPUs and dense BF16/FP16/FP32/FP64, signed integer, uint8, bool
+and complex64/128 tensors. Tensor strides and shared-storage aliases are not
+preserved. The shared reader limits decoded tensor storage to 8 GiB per record
+and the manifest to 1 MiB.
+
+Compressed records materialize in CPU RAM and cannot be mmap'ed. Interleave
+also needs a tensor-sized reorder buffer, so account for it in capture I/O
+queue and trainer prefetch memory. Compression runs after D2H completion in
+the existing bounded I/O pool, with one Zstd worker per save. No change is made
+to online/RDMA transport. See [research issue #1](https://github.com/china-qijizhifeng/NexSpecTrainer/issues/1)
+for the early-layer V4.1 measurements; deeper DSpark layers, training throughput
+and acceptance-rate effects have not been measured.
+
 ## 3. Use the checked-in run config
 
 The canonical recipe is
