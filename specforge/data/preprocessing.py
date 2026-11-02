@@ -20,8 +20,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import gzip
-import io
 import json
 import os
 import re
@@ -36,6 +34,7 @@ from tqdm import tqdm
 from transformers import PreTrainedTokenizer
 
 from ..distributed import get_draft_sp_group, get_sp_ring_group
+from .feature_file import FEATURE_SUFFIXES, load_feature_file
 from .loss_mask import has_consecutive_supervised_tokens
 from .parse import (
     DeepSeekV4Parser,
@@ -390,7 +389,7 @@ def build_eagle3_dataset(
 # modified from https://github.com/NickL77/BaldEagle/blob/master/train/modules/data/data.py
 def list_local_files(path, suffixes=None):
     if suffixes is None:
-        suffixes = [".ckpt", ".ckpt.gz"]
+        suffixes = FEATURE_SUFFIXES
     datapaths = []
     for root, directories, files in os.walk(path):
         for file in files:
@@ -541,23 +540,12 @@ class OfflineEagle3Dataset(torch.utils.data.Dataset):
         return len(self.datapaths)
 
     def _open_file(self, index):
-        """
-        Opens the file with memory mapping.
-        This operation is virtually instant and consumes negligible RAM
-        because no data is actually read from disk yet.
-        """
-        data_path = self.datapaths[index]
-        if data_path.endswith(".gz"):
-            with gzip.open(data_path, "rb") as f:
-                return torch.load(io.BytesIO(f.read()), weights_only=False)
-        return torch.load(data_path, weights_only=False, mmap=True)
+        """Load on demand; compressed records are materialized in CPU memory."""
+        return load_feature_file(self.datapaths[index])
 
     def __getitem__(self, index):
-        try:
-            data = self._open_file(index)
-        except Exception as e:
-            print(f"ERROR Failed to load {self.datapaths[index]} with error {e}")
-            data = self._open_file(0)
+        # A corrupt sample must not silently train on a different sample.
+        data = self._open_file(index)
 
         # 2. Read only specific bytes from disk
         if self.use_usp_preprocess:
