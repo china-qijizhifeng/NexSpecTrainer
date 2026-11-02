@@ -208,6 +208,9 @@ class SGLangServerCaptureAdapter:
         target_model_version: str = "unknown",
         server_capture: str = "patch",
         server_info_fn: Optional[Callable[[str, float], Mapping[str, Any]]] = None,
+        wire_encoding: str = "raw",
+        wire_max_object_bytes: Optional[int] = None,
+        wire_max_total_bytes: Optional[int] = None,
     ) -> None:
         if server_capture not in ("auto", *SERVER_CAPTURE_BACKENDS):
             raise ValueError(
@@ -228,6 +231,20 @@ class SGLangServerCaptureAdapter:
                 "SGLangServerCaptureAdapter needs a MooncakeFeatureStore-like "
                 f"store; missing {missing_store_api}"
             )
+        if wire_encoding not in ("raw", "bf16_fields_zstd_v1"):
+            raise ValueError(f"unsupported capture wire_encoding={wire_encoding!r}")
+        if wire_encoding != "raw":
+            from specforge.data.feature_file import require_zstandard
+
+            require_zstandard()
+        if any(
+            value is not None and (type(value) is not int or value <= 0)
+            for value in (wire_max_object_bytes, wire_max_total_bytes)
+        ):
+            raise ValueError("wire byte budgets must be positive integers")
+        self.wire_encoding = wire_encoding
+        self.wire_max_object_bytes = wire_max_object_bytes
+        self.wire_max_total_bytes = wire_max_total_bytes
         self.base_url = base_url.rstrip("/")
         self.store = store
         self.run_id = run_id
@@ -267,9 +284,19 @@ class SGLangServerCaptureAdapter:
                         f"cannot read {self.base_url}/server_info to detect its "
                         f"spec-capture backend: {exc}"
                     ) from exc
-                self.server_capture = detect_server_capture(
-                    info, server_url=self.base_url
-                )
+                detected = detect_server_capture(info, server_url=self.base_url)
+                advertised = {
+                    state.get("spec_capture_wire_encoding", "raw")
+                    for state in info.get("internal_states", [])
+                    if isinstance(state, Mapping)
+                    and state.get("spec_capture_backend") == "plugin"
+                }
+                if detected == "plugin" and advertised != {self.wire_encoding}:
+                    raise ValueError(
+                        f"capture server advertises wire encoding {advertised}, "
+                        f"client requested {self.wire_encoding!r}"
+                    )
+                self.server_capture = detected
                 logger.info(
                     "%s runs spec capture via the %s",
                     self.base_url,
@@ -357,6 +384,15 @@ class SGLangServerCaptureAdapter:
             "replace": int(task.attempt) > 0,
             "features": features,
             "passthrough": passthrough,
+            **(
+                {
+                    "wire_encoding": self.wire_encoding,
+                    "wire_max_object_bytes": self.wire_max_object_bytes,
+                    "wire_max_total_bytes": self.wire_max_total_bytes,
+                }
+                if self.wire_encoding != "raw"
+                else {}
+            ),
         }
 
     # -- ref construction ------------------------------------------------------
@@ -370,7 +406,14 @@ class SGLangServerCaptureAdapter:
         feats: Dict[str, Dict[str, Any]] = result["features"]
         specs: Dict[str, FeatureSpec] = {}
         nbytes = 0
+        decoded_bytes = 0
+        wire_features = {}
         for name, meta in feats.items():
+            if self.wire_encoding != "raw" and (
+                not isinstance(meta.get("shape"), list)
+                or any(type(d) is not int or d < 0 for d in meta["shape"])
+            ):
+                raise ValueError("compressed feature requires an integer shape")
             shape = tuple(int(d) for d in meta["shape"])
             dtype = str(meta["dtype"])
             extra: Dict[str, Any] = {}
@@ -381,7 +424,24 @@ class SGLangServerCaptureAdapter:
                         "vocab_map_version": capture.vocab_map_version
                     }
             specs[name] = FeatureSpec(name=name, shape=shape, dtype=dtype, **extra)
-            nbytes += _spec_nbytes(shape, dtype)
+            logical_bytes = _spec_nbytes(shape, dtype)
+            decoded_bytes += logical_bytes
+            wire = meta.get("wire")
+            if self.wire_encoding != "raw":
+                from specforge.data.wire_codec import validate_wire_metadata
+
+                nbytes += validate_wire_metadata(wire, shape=shape, dtype=dtype)
+                wire_features[name] = dict(wire)
+            elif wire is not None:
+                raise ValueError(
+                    "server returned compressed bytes for a raw capture request"
+                )
+            else:
+                nbytes += logical_bytes
+        if wire_features and decoded_bytes > 8 << 30:
+            raise ValueError(
+                "compressed capture exceeds the 8 GiB decoded sample limit"
+            )
         num_tokens = int(task.metadata.get("num_tokens", 0)) or len(
             task.payload["input_ids"]
         )
@@ -407,6 +467,11 @@ class SGLangServerCaptureAdapter:
                 "transport": "sglang_server_capture",
                 "server": self.base_url,  # which server captured it (provenance)
                 "generation": gen,  # the zero-copy get() locator
+                **(
+                    {"wire_features": wire_features, "decoded_bytes": decoded_bytes}
+                    if wire_features
+                    else {}
+                ),
                 "valid_anchor_count": sum(
                     left > 0.5 and right > 0.5
                     for left, right in zip(
@@ -416,6 +481,8 @@ class SGLangServerCaptureAdapter:
                 ),
             },
         )
+        if wire_features and "arena" in result:
+            raise ValueError("compressed capture objects cannot use the NVLink arena")
         if "arena" in result:
             # Arena objects stay on the capture server; currently only online
             # NVLink capture uses the arena.
@@ -442,6 +509,8 @@ class SGLangServerCaptureAdapter:
         retryable, mirroring ``generate_features`` semantics.
         """
         server_capture = self._resolve_server_capture()
+        if self.wire_encoding != "raw" and server_capture != "plugin":
+            raise ValueError("wire compression requires the SGLang capture plugin")
         body = self._request_inputs(tasks)
         # A fresh cache namespace forces a full prefill on every attempt while
         # leaving SGLang free to use the radix data structure required by hybrid
@@ -482,8 +551,7 @@ class SGLangServerCaptureAdapter:
         rows = _flatten_list_wrappers(rows)
         if len(rows) != len(tasks):
             raise RuntimeError(
-                f"spec-capture server returned {len(rows)} rows for "
-                f"{len(tasks)} tasks"
+                f"spec-capture server returned {len(rows)} rows for {len(tasks)} tasks"
             )
         capture_hint = _CAPTURE_HINTS[server_capture]
         out: List[Union[Any, ServerCaptureFailure]] = []
@@ -615,6 +683,7 @@ class SGLangServerCaptureAdapter:
             "backend": "sglang_server_capture",
             "base_url": self.base_url,
             "strategy": self.strategy,
+            "wire_encoding": self.wire_encoding,
         }
 
 

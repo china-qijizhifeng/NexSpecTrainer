@@ -6,15 +6,19 @@ pre-tokenized complete episodes, receives the original BF16 tensors through
 Mooncake, and compresses them on the CPU before publishing offline files:
 
 ```text
-SGLang BF16 → Mooncake BF16 → client CPU → .ckpt.zst → offline reader → original BF16
+Default: SGLang BF16 → Mooncake BF16 → client CPU → .ckpt.zst → offline reader → BF16
+Optional: SGLang BF16 → CPU lossless encode → Mooncake encoded bytes → CPU decode → .ckpt.zst → offline reader → BF16
 ```
 
 This reuses the lossless BF16 fields / Zstd format from
 [PR #2](https://github.com/china-qijizhifeng/NexSpecTrainer/pull/2), pinned codec
 source `c468c1997cc8ff991b6f4a1867378bed1fff79a5`. Compression reduces disk
-storage and disk I/O. Network traffic, SGLang GPU memory, and decoded training
-tensor sizes remain unchanged. Direct online Mooncake training also remains
-unchanged.
+storage and disk I/O. The default raw wire mode leaves network traffic unchanged. Optional
+`--wire-encoding bf16_fields_zstd_v1` also compresses before Mooncake and
+reduces transferred bytes and retained object storage. Source GPU memory and
+decoded training tensor sizes remain unchanged in both cases. Direct online
+Mooncake training defaults to raw; online producers can explicitly select the
+same wire codec through `DISAGG_WIRE_ENCODING`.
 
 Install the optional codec dependency in the capture client and trainer:
 
@@ -40,7 +44,11 @@ Each 83,542-token Qwen episode contains about 1.91 GiB of uncompressed tensors
 (`83542 * (10240 * 2 + 2048 * 2 + 16)` bytes). A 1 GiB source buffer is
 insufficient even if the resulting disk file is smaller. The CLI conservatively
 compares the complete raw record with the declared source/client capacities
-before sending each request. `--server-buffer-bytes` declares the capacity
+before sending each raw-wire request. With compressed wire, raw bytes instead
+bound decoded RAM (8 GiB per record); the sender encodes first, then checks
+actual compressed total against the global segment and largest object against
+source local/client local buffers before publication. No ratio is guessed.
+`--server-buffer-bytes` declares the global source capacity
 configured on the server; the client cannot resize or verify a remote server's
 buffers. It defaults to 4 GiB, as does `--client-buffer-bytes`.
 
@@ -98,3 +106,41 @@ process before removing its `.capture-writer.lock`; never remove a live
 writer's lock. Files ending in `.partial` are not training inputs. A disk or
 codec failure propagates and releases the current Mooncake object instead of
 silently training on another sample.
+
+To compress before transmission as well as on disk, make matching codec
+sources importable in the SGLang environment without upgrading its packages:
+
+```bash
+export PYTHONPATH=/path/to/NexSpecTrainer:${PYTHONPATH:-}
+export SGLANG_SPEC_CAPTURE_WIRE_ENCODING=bf16_fields_zstd_v1
+export SGLANG_SPEC_CAPTURE_GPU_PUT=0
+# Set before starting SGLang; 8 GiB for the 262,144-token capture example.
+export MOONCAKE_GLOBAL_SEGMENT_SIZE=8589934592
+export MOONCAKE_LOCAL_BUFFER_SIZE=8589934592
+```
+
+Ensure the server has `zstandard`, then pass the matching request mode:
+
+```bash
+python scripts/prepare_server_hidden_states.py \
+  --config /shared/train-long.yaml \
+  --server http://127.0.0.1:30000 \
+  --samples /shared/complete-episodes.jsonl \
+  --output /shared/captured-long-wire \
+  --target-model-version pinned-checkpoint-identity \
+  --wire-encoding bf16_fields_zstd_v1 \
+  --client-buffer-bytes 8589934592 \
+  --server-buffer-bytes 8589934592 \
+  --zstd
+```
+
+The result JSON and each sample's sidecar retain `wire_features` with versioned
+encoding, encoded/decoded byte counts and checksum per feature, `wire_bytes`
+for total compressed storage/traffic, and `wire_decoded_bytes` for original
+tensor storage. These are separate from compressed disk `file_bytes`. Every
+strategy still receives the original logical FeatureSpecs and restored BF16.
+Checksums protect the encoded object and individual Zstd frames; malformed
+metadata, shape/dtype mismatch, truncation or excessive decoded allocation
+fails instead of silently using corrupt tensors. Optional wire compression
+uses CPU decoding even when the trainer normally uses CUDA receive buffers;
+it cannot be combined with the NVLink arena or explicit GPU PUT.

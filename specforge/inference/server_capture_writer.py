@@ -1,8 +1,8 @@
-"""Persist externally captured tensors after their uncompressed Mooncake transfer.
+"""Persist externally captured tensors after their Mooncake transfer.
 
 One request is fetched to CPU, written atomically, then released before the
-next request. There is no asynchronous tensor queue or change to the wire
-format. The offline reader decodes Zstd records on demand during training.
+next request. The adapter restores tensors from the negotiated wire encoding
+before writing. The offline reader decodes Zstd records on demand during training.
 """
 
 from __future__ import annotations
@@ -241,6 +241,15 @@ class ServerCaptureFileWriter:
                     v.numel() * v.element_size() for v in record.values()
                 ),
                 "file_bytes": os.path.getsize(temporary),
+                **(
+                    {
+                        "wire_features": ref.metadata["wire_features"],
+                        "wire_bytes": ref.estimated_bytes,
+                        "wire_decoded_bytes": ref.metadata["decoded_bytes"],
+                    }
+                    if ref.metadata.get("wire_features")
+                    else {}
+                ),
             }
             _atomic_json(metadata, {"input": identity, "result": result})
             os.replace(temporary, final)

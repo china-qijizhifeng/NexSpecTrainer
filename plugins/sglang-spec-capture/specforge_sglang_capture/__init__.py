@@ -67,6 +67,10 @@ def _capture_internal_state(result, scheduler, *args, **kwargs):
     runtime = getattr(scheduler, "_specforge_capture_runtime", None)
     if runtime is not None:
         result.internal_state["spec_capture_backend"] = "plugin"
+        from specforge_sglang_capture.sink import wire_encoding
+
+        if wire_encoding() != "raw":
+            result.internal_state["spec_capture_wire_encoding"] = wire_encoding()
         if runtime.is_writer:
             control = runtime.sink.control_endpoint()
             if control is not None:

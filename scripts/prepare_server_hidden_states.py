@@ -60,6 +60,12 @@ def parse_args(argv=None):
     parser.add_argument("--zstd-level", type=int, choices=range(1, 20), default=1)
     parser.add_argument("--interleave-layers", action="store_true")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--wire-encoding",
+        choices=("raw", "bf16_fields_zstd_v1"),
+        default="raw",
+        help="Request sender-side compression before Mooncake (separate from --zstd disk codec)",
+    )
     args = parser.parse_args(argv)
     if args.interleave_layers and not args.zstd:
         parser.error("--interleave-layers requires --zstd")
@@ -67,7 +73,7 @@ def parse_args(argv=None):
         parser.error("buffer capacities must be positive")
     if not math.isfinite(args.timeout_s) or args.timeout_s <= 0:
         parser.error("--timeout-s must be finite and positive")
-    if args.zstd:
+    if args.zstd or args.wire_encoding != "raw":
         from specforge.data.feature_file import require_zstandard
 
         require_zstandard()  # before model config loading or Mooncake allocation
@@ -126,7 +132,9 @@ def iter_tasks(path, *, cfg, run_id, target_version, loss_mask_filter):
             )
 
 
-def check_capacity(tokens, *, capture, layout, client_bytes, server_bytes):
+def check_capacity(
+    tokens, *, capture, layout, client_bytes, server_bytes, wire_encoding="raw"
+):
     """Conservative single-record BF16 and INT64 transfer budget, no compression credit."""
     widths = (
         [capture.target_hidden_size * len(capture.aux_hidden_state_layer_ids)]
@@ -138,7 +146,7 @@ def check_capacity(tokens, *, capture, layout, client_bytes, server_bytes):
     feature_bytes = [tokens * width * 2 for width in widths]
     feature_bytes.extend(tokens * 8 for _ in layout.passthrough)
     total = sum(feature_bytes)
-    if total > min(client_bytes, server_bytes):
+    if wire_encoding == "raw" and total > min(client_bytes, server_bytes):
         raise ValueError(
             f"uncompressed capture needs {total} bytes; client/server declared buffers "
             f"are {client_bytes}/{server_bytes}. Enlarge the client buffer and the "
@@ -221,6 +229,9 @@ def main(argv=None):
                 target_model_version=args.target_model_version,
                 timeout_s=args.timeout_s,
                 server_capture=args.server_capture,
+                wire_encoding=args.wire_encoding,
+                wire_max_object_bytes=args.client_buffer_bytes,
+                wire_max_total_bytes=args.server_buffer_bytes,
                 schema=ServerCaptureSchema(
                     aux_feature=layout.aux_feature,
                     last_hidden_feature=layout.last_hidden_feature,
@@ -243,6 +254,7 @@ def main(argv=None):
                     layout=layout,
                     client_bytes=args.client_buffer_bytes,
                     server_bytes=args.server_buffer_bytes,
+                    wire_encoding=args.wire_encoding,
                 )
                 print(
                     json.dumps(writer.write(task, adapter=adapter, store=store)),

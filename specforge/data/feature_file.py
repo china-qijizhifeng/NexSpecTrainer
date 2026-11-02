@@ -116,7 +116,9 @@ def save_zstd_features(
     level: int = 1,
     interleave_layers: Mapping[str, Sequence[int]] | None = None,
 ):
-    """Atomically save CPU tensors; restore values/dtype/shape, not strides.
+    """Save CPU tensors to an atomic file path or an already-open binary stream.
+
+    Restore values/dtype/shape, not strides. Callers own stream publication.
 
     Interleave is opt-in per BF16 feature. Its last axis must be the ordered
     concatenation of equally sized layers named in ``interleave_layers``.
@@ -149,6 +151,46 @@ def save_zstd_features(
     if len(encoded) > _MAX_HEADER:
         raise ValueError("Activation manifest is too large")
     compressor = zstd.ZstdCompressor(level=level, write_checksum=True, threads=0)
+    if hasattr(path, "write"):
+        _write_zstd_stream(path, encoded, entries, record, compressor)
+    else:
+        _save_zstd_path(path, encoded, entries, record, compressor)
+
+
+def _write_zstd_stream(stream, encoded, entries, record, compressor):
+    stream.write(
+        _MAGIC
+        + struct.pack("<I", len(encoded))
+        + hashlib.sha256(encoded).digest()
+        + encoded
+    )
+    for entry in entries:
+        tensor = record[entry["name"]].detach().resolve_conj().resolve_neg()
+        layers = entry["interleave_layers"]
+        if layers:
+            tensor = tensor.reshape(
+                *tensor.shape[:-1], len(layers), tensor.shape[-1] // len(layers)
+            ).transpose(-1, -2)
+        raw = tensor.contiguous().reshape(-1).view(torch.uint8).numpy()
+        itemsize = tensor.element_size()
+        for start in range(0, tensor.numel(), _BLOCK_ELEMENTS):
+            block = raw[start * itemsize : (start + _BLOCK_ELEMENTS) * itemsize]
+            if tensor.dtype == torch.bfloat16:
+                bits = block.view("<u2")
+                fields = (
+                    np.packbits((bits >> 15).astype(np.uint8), bitorder="little"),
+                    ((bits >> 7) & 255).astype(np.uint8),
+                    (bits & 127).astype(np.uint8),
+                )
+            else:
+                fields = (block,)
+            for field in fields:
+                compressed = compressor.compress(field)
+                stream.write(struct.pack("<I", len(compressed)))
+                stream.write(compressed)
+
+
+def _save_zstd_path(path, encoded, entries, record, compressor):
     path = os.fspath(path)
     temporary = None
     try:
@@ -156,38 +198,7 @@ def save_zstd_features(
             dir=os.path.dirname(os.path.abspath(path)), suffix=".tmp", delete=False
         ) as stream:
             temporary = stream.name
-            stream.write(
-                _MAGIC
-                + struct.pack("<I", len(encoded))
-                + hashlib.sha256(encoded).digest()
-                + encoded
-            )
-            for entry in entries:
-                tensor = record[entry["name"]].detach().resolve_conj().resolve_neg()
-                layers = entry["interleave_layers"]
-                if layers:
-                    tensor = tensor.reshape(
-                        *tensor.shape[:-1], len(layers), tensor.shape[-1] // len(layers)
-                    ).transpose(-1, -2)
-                raw = tensor.contiguous().reshape(-1).view(torch.uint8).numpy()
-                itemsize = tensor.element_size()
-                for start in range(0, tensor.numel(), _BLOCK_ELEMENTS):
-                    block = raw[start * itemsize : (start + _BLOCK_ELEMENTS) * itemsize]
-                    if tensor.dtype == torch.bfloat16:
-                        bits = block.view("<u2")
-                        fields = (
-                            np.packbits(
-                                (bits >> 15).astype(np.uint8), bitorder="little"
-                            ),
-                            ((bits >> 7) & 255).astype(np.uint8),
-                            (bits & 127).astype(np.uint8),
-                        )
-                    else:
-                        fields = (block,)
-                    for field in fields:
-                        compressed = compressor.compress(field)
-                        stream.write(struct.pack("<I", len(compressed)))
-                        stream.write(compressed)
+            _write_zstd_stream(stream, encoded, entries, record, compressor)
         os.replace(temporary, path)
         temporary = None
     finally:
@@ -199,6 +210,7 @@ def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
     """Decode one record, rejecting truncation, corrupt frames and bad metadata.
 
     The decoded byte limit covers tensor storage, not temporary work buffers.
+    Accept a file path or an already-open binary stream (owned by the caller).
     Compressed records are materialized in RAM; they cannot be memory mapped.
     """
     zstd = require_zstandard()
@@ -226,7 +238,7 @@ def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
             raise ValueError("Invalid decoded activation frame length")
         return np.frombuffer(decoded, dtype=np.uint8)
 
-    with open(path, "rb") as stream:
+    def decode_stream(stream):
         if _read_exact(stream, len(_MAGIC)) != _MAGIC:
             raise ValueError("Invalid Zstd activation magic")
         size = struct.unpack("<I", _read_exact(stream, 4))[0]
@@ -277,6 +289,11 @@ def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
         if stream.read(1):
             raise ValueError("Trailing data in Zstd activation file")
         return record
+
+    if hasattr(path, "read"):
+        return decode_stream(path)
+    with open(path, "rb") as stream:
+        return decode_stream(stream)
 
 
 def load_feature_file(path: str) -> dict[str, torch.Tensor]:

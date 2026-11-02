@@ -68,7 +68,12 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 import torch
 
-from specforge.runtime.contracts import SCHEMA_VERSION, FeatureHandle, SampleRef
+from specforge.runtime.contracts import (
+    SCHEMA_VERSION,
+    FeatureHandle,
+    FeatureSpec,
+    SampleRef,
+)
 from specforge.runtime.data_plane.disaggregated import AuthPolicy
 from specforge.runtime.data_plane.feature_store import (
     DEFAULT_PENDING_DRAIN_MAX_ATTEMPTS,
@@ -587,11 +592,13 @@ class MooncakeFeatureStore(FeatureStore):
         self._credential = credential
         self.auth.check(credential)  # attach-time gate (B9)
         self.store_id = store_id or uuid.uuid4().hex[:8]
+        self._client_buffer_bytes = (setup_kwargs or {}).get("local_buffer_size")
         self._owns_store = store is None
         self._closed = False
         if store is None:
             kw = dict(_MOONCAKE_SETUP_DEFAULTS)
             kw.update(setup_kwargs or {})
+            self._client_buffer_bytes = kw["local_buffer_size"]
             if receive_buffers == "cuda" and kw["protocol"] != "rdma":
                 raise ValueError(
                     "receive_buffers=cuda needs an RDMA Mooncake transport; "
@@ -765,13 +772,17 @@ class MooncakeFeatureStore(FeatureStore):
             self._quarantined_bytes = 0
         self._closed = True
 
-    def _fetch_tensor(self, key: str, spec, device="cpu") -> torch.Tensor:
+    def _fetch_tensor(
+        self, key: str, spec, device="cpu", *, force_host=False
+    ) -> torch.Tensor:
         """Retry transient reads into fresh storage; return caller-owned tensors."""
         if self._closed:
             raise RuntimeError("Mooncake feature store is closed")
         attempts = len(_GET_RETRY_DELAYS_S) + 1
         for attempt in range(attempts):
             try:
+                if force_host:
+                    return self._fetch_tensor_once(key, spec, device, force_host=True)
                 return self._fetch_tensor_once(key, spec, device)
             except _MooncakeGetError as exc:
                 if exc.status not in _RETRYABLE_GET_STATUSES or attempt + 1 == attempts:
@@ -787,8 +798,10 @@ class MooncakeFeatureStore(FeatureStore):
                 time.sleep(delay)
         raise AssertionError("unreachable Mooncake fetch retry state")
 
-    def _fetch_tensor_once(self, key: str, spec, device) -> torch.Tensor:
-        pool = self._receive_pool
+    def _fetch_tensor_once(
+        self, key: str, spec, device, *, force_host=False
+    ) -> torch.Tensor:
+        pool = None if force_host else self._receive_pool
         if pool is None:
             dst = _alloc_from_spec(spec)
             try:
@@ -1079,7 +1092,7 @@ class MooncakeFeatureStore(FeatureStore):
                 discarded += 1
         if errors:
             raise RuntimeError(
-                "could not discard all provisional external captures: " f"{errors}"
+                f"could not discard all provisional external captures: {errors}"
             )
         return discarded
 
@@ -1156,6 +1169,22 @@ class MooncakeFeatureStore(FeatureStore):
             raise KeyError(f"sample {sid} ref carries no generation; cannot locate")
         gen = int(gen)
         out: Dict[str, torch.Tensor] = {}
+        wire_features = ref.metadata.get("wire_features", {})
+        if wire_features:
+            from specforge.data.wire_codec import validate_wire_metadata
+
+            if set(wire_features) != set(ref.feature_specs):
+                raise ValueError(
+                    "compressed capture must describe every feature's wire storage"
+                )
+            for name, spec in ref.feature_specs.items():
+                validate_wire_metadata(
+                    wire_features[name], shape=spec.shape, dtype=spec.dtype
+                )
+            if sum(wire["decoded_bytes"] for wire in wire_features.values()) > 8 << 30:
+                raise ValueError(
+                    "compressed capture exceeds the 8 GiB decoded sample limit"
+                )
         for n in wanted:
             spec = ref.feature_specs.get(n)
             if spec is None:
@@ -1168,7 +1197,42 @@ class MooncakeFeatureStore(FeatureStore):
                     f"(freed, stale, or never written)"
                 )
             # fresh alloc (or a pooled slot copied out) -> clone-on-fetch for free (B5)
-            out[n] = self._fetch_tensor(key, spec, device)
+            if wire_features:
+                from specforge.data.wire_codec import (
+                    decode_wire_tensor,
+                    validate_wire_metadata,
+                )
+
+                if set(wire_features) != set(ref.feature_specs):
+                    raise ValueError(
+                        "compressed capture must describe every feature's wire storage"
+                    )
+                wire = wire_features[n]
+                encoded_bytes = validate_wire_metadata(
+                    wire, shape=spec.shape, dtype=spec.dtype
+                )
+                # CPU decoding is required even if the consumer normally reads
+                # directly into CUDA buffers. Do not place uint8 packets on GPU.
+                if (
+                    self._client_buffer_bytes is not None
+                    and encoded_bytes > self._client_buffer_bytes
+                ):
+                    raise MemoryError(
+                        f"compressed capture object {encoded_bytes} exceeds client local buffer {self._client_buffer_bytes}"
+                    )
+                wire_spec = FeatureSpec(name=n, shape=(encoded_bytes,), dtype="uint8")
+                encoded = self._fetch_tensor(key, wire_spec, "cpu", force_host=True)
+                decoded = decode_wire_tensor(
+                    encoded, wire, shape=spec.shape, dtype=spec.dtype
+                )
+                target = (
+                    torch.device("cpu")
+                    if _stays_on_host(decoded.dtype)
+                    else torch.device(device)
+                )
+                out[n] = decoded if target.type == "cpu" else decoded.to(target)
+            else:
+                out[n] = self._fetch_tensor(key, spec, device)
         return out, gen
 
     # -- lifetime ----------------------------------------------------------

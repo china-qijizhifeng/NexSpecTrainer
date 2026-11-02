@@ -34,7 +34,9 @@ Use separate environments for the SGLang server and SpecForge training.
 SpecForge currently pins SGLang 0.5.18 and different Torch/Transformers versions;
 installing the main SpecForge package into the server environment would replace
 the server's dependencies. The server only needs this plugin, its SGLang build,
-and Mooncake; the plugin does not import the main SpecForge package.
+and Mooncake for the default raw mode. Optional sender-side compression also
+imports the small `specforge.data` codec modules from the matching checkout;
+it does not import model or training code.
 
 Install into the SGLang server's environment. The plugin declares no
 dependencies, so the server's pins stay intact:
@@ -166,3 +168,47 @@ with RDMA NICs. Without it, Mooncake installs its RDMA transport instead.
 | `SGLANG_SPEC_CAPTURE_ARENA_BYTES` | Arena size in bytes. Required with `MOONCAKE_PROTOCOL=nvlink`. |
 | `SGLANG_SPEC_CAPTURE_CONTROL_PORT` | Port of the NVLink free endpoint (default: ephemeral). |
 | `MOONCAKE_*` | Mooncake client settings. |
+
+## Optional lossless compression before Mooncake
+
+The default wire format is raw tensor bytes, including the existing GPU PUT
+and NVLink paths. To reduce Mooncake object storage and network traffic, use
+CPU BF16 fields + Zstd encoding before publication:
+
+```bash
+# Make matching codec sources importable without installing/upgrading Torch.
+export PYTHONPATH=/path/to/NexSpecTrainer:${PYTHONPATH:-}
+# Install a predownloaded zstandard wheel with --no-deps if the server is offline.
+python -m pip install --no-deps zstandard==0.25.0
+export SGLANG_SPEC_CAPTURE_WIRE_ENCODING=bf16_fields_zstd_v1
+export SGLANG_SPEC_CAPTURE_WIRE_ZSTD_LEVEL=1
+export SGLANG_SPEC_CAPTURE_GPU_PUT=0
+export MOONCAKE_PROTOCOL=tcp
+export MOONCAKE_GLOBAL_SEGMENT_SIZE=8589934592  # 8 GiB total objects
+export MOONCAKE_LOCAL_BUFFER_SIZE=8589934592   # 8 GiB per-object staging
+```
+
+The client must request the same mode: `--wire-encoding bf16_fields_zstd_v1`
+on `scripts/prepare_server_hidden_states.py`, or `DISAGG_WIRE_ENCODING` for
+an online producer. Schedulers advertise `spec_capture_wire_encoding` through
+`/server_info`. Mismatched requests fail instead of treating encoded bytes as
+BF16. This mode rejects explicit GPU PUT and NVLink; it stages source tensors
+to CPU for encoding. Uncompressed BF16 FeatureSpecs remain the model contract;
+per-feature `wire` metadata separately declares the version, encoded length,
+decoded length, and encoded SHA-256. The client verifies lengths, checksums,
+shape/dtype and the decoded allocation bound before returning original tensors.
+
+The sender encodes a complete batch before publishing any objects. It checks
+actual compressed bytes against the source global segment (sum of objects)
+and local buffer (largest object), as well as any client-declared budgets.
+Insufficient space fails clearly with the observed sizes. These are configured
+capacity checks; concurrent retained samples can still exhaust available
+Mooncake storage and cause a publication error. No predicted compression ratio
+or eviction is used to make a batch fit.
+
+Compression does **not** reduce the source GPU BF16 allocation, source CPU
+staging/encoding RAM, decoded client RAM or training tensors. It adds encoding
+and decoding work. Global object storage must hold all live compressed objects;
+a local transfer buffer is checked per encoded object. A 6.0 GiB raw record
+compressed to roughly 4.15 GiB still does not fit a 4 GiB global segment. Measure
+actual sizes and leave capacity for concurrent samples and Mooncake overhead.

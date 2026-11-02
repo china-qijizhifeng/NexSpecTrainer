@@ -83,9 +83,22 @@ def arena_bytes() -> int:
     return int(capacity)
 
 
+def wire_encoding() -> str:
+    encoding = os.environ.get("SGLANG_SPEC_CAPTURE_WIRE_ENCODING", "raw")
+    if encoding not in ("raw", "bf16_fields_zstd_v1"):
+        raise ValueError(f"unsupported SGLANG_SPEC_CAPTURE_WIRE_ENCODING={encoding!r}")
+    return encoding
+
+
 def gpu_put_enabled() -> bool:
     protocol = os.environ.get("MOONCAKE_PROTOCOL", "tcp")
     configured = os.environ.get("SGLANG_SPEC_CAPTURE_GPU_PUT")
+    if wire_encoding() != "raw":
+        if protocol == NVLINK or configured == "1":
+            raise ValueError(
+                "wire compression requires host publication; disable GPU_PUT and NVLink"
+            )
+        return False
     if protocol == NVLINK:
         # NVLink moves device memory only; captures never stage on the host.
         if configured == "0":
@@ -290,6 +303,17 @@ class SpecCaptureSink:
 
     def __init__(self, aux_layer_ids: Optional[Sequence[int]] = None) -> None:
         self.aux_layer_ids = list(aux_layer_ids) if aux_layer_ids else None
+        if wire_encoding() != "raw":
+            gpu_put_enabled()  # reject incompatible transport before scheduler startup
+            from specforge.data.feature_file import require_zstandard
+
+            require_zstandard()
+            level = int(os.environ.get("SGLANG_SPEC_CAPTURE_WIRE_ZSTD_LEVEL", "1"))
+            if not 1 <= level <= 19:
+                raise ValueError(
+                    "SGLANG_SPEC_CAPTURE_WIRE_ZSTD_LEVEL must be between 1 and 19"
+                )
+
         self._store = None
         self._put_config = None
         self._nvlink: Optional[NvlinkArena] = None
@@ -435,6 +459,7 @@ class SpecCaptureSink:
         store = None if nvlink_enabled() else self._connect()
         timing_enabled = os.environ.get("SGLANG_SPEC_CAPTURE_TIMING", "0") == "1"
         gpu_put = gpu_put_enabled()
+        encoding = wire_encoding()
         started = time.perf_counter()
         keys: List[str] = []
         tensors: List[torch.Tensor] = []
@@ -448,21 +473,37 @@ class SpecCaptureSink:
                 tensor = tensor.detach().contiguous()
             else:
                 tensor = tensor.detach().to("cpu").contiguous()
+            logical_shape = list(tensor.shape)
+            logical_dtype = DTYPE_STR.get(
+                tensor.dtype, str(tensor.dtype).replace("torch.", "")
+            )
+            wire = None
+            if encoding != "raw":
+                from specforge.data.wire_codec import encode_wire_tensor
+
+                tensor, wire = encode_wire_tensor(
+                    tensor,
+                    level=int(
+                        os.environ.get("SGLANG_SPEC_CAPTURE_WIRE_ZSTD_LEVEL", "1")
+                    ),
+                )
             key = object_key(store_id, sample_id, gen, name)
             keys.append(key)
             tensors.append(tensor)
             sizes.append(tensor.element_size() * tensor.numel())
             if replace:
                 replace_keys.append(key)
-            result_feats[name] = {
-                "shape": list(tensor.shape),
-                "dtype": DTYPE_STR.get(
-                    tensor.dtype, str(tensor.dtype).replace("torch.", "")
-                ),
-            }
+            result_feats[name] = {"shape": logical_shape, "dtype": logical_dtype}
+            if wire is not None:
+                result_feats[name]["wire"] = wire
             feature_meta.append(result_feats[name])
 
         for spec, aux, last_hidden in samples:
+            requested_encoding = spec.get("wire_encoding", "raw")
+            if requested_encoding != encoding:
+                raise ValueError(
+                    f"capture requested wire_encoding={requested_encoding!r} but server uses {encoding!r}"
+                )
             store_id = str(spec["store_id"])
             sample_id = str(spec["sample_id"])
             gen = int(spec.get("gen", 1))
@@ -508,6 +549,21 @@ class SpecCaptureSink:
                     tensor=tensor,
                     **common,
                 )
+            if encoding != "raw":
+                sample_wire = [
+                    meta["wire"]["encoded_bytes"] for meta in result_feats.values()
+                ]
+                for field, actual in (
+                    ("wire_max_object_bytes", max(sample_wire, default=0)),
+                    ("wire_max_total_bytes", sum(sample_wire)),
+                ):
+                    limit = spec.get(field)
+                    if limit is not None and (
+                        type(limit) is not int or limit <= 0 or actual > limit
+                    ):
+                        raise MemoryError(
+                            f"compressed capture {field}: actual={actual}, requested_limit={limit}; no objects published"
+                        )
             results.append(
                 {
                     "sample_id": sample_id,
@@ -517,6 +573,20 @@ class SpecCaptureSink:
                     "features": result_feats,
                 }
             )
+
+        if encoding != "raw":
+            # Global segment retains every compressed object until release.
+            # Local transfer staging is checked against the largest object,
+            # not the sum; no compression-ratio assumption enters admission.
+            segment = int(os.environ.get("MOONCAKE_GLOBAL_SEGMENT_SIZE", 1 << 30))
+            staging = int(os.environ.get("MOONCAKE_LOCAL_BUFFER_SIZE", 1 << 30))
+            if sum(sizes) > segment or max(sizes, default=0) > staging:
+                raise MemoryError(
+                    "compressed capture exceeds declared Mooncake buffers: "
+                    f"objects_total={sum(sizes)} segment={segment}; "
+                    f"largest_object={max(sizes, default=0)} local_buffer={staging}. "
+                    "Increase the appropriate source buffer; no objects were published."
+                )
 
         for device in {t.device for t in tensors if t.is_cuda}:
             # Complete the contiguous copies this thread made.
@@ -554,7 +624,11 @@ class SpecCaptureSink:
                         )
             register_ms = (time.perf_counter() - register_started) * 1000.0
             put_started = time.perf_counter()
-            batch_put = getattr(store, "batch_put_from", None)
+            # Serialize encoded object puts: the declared local staging
+            # requirement is the largest packet, not all packets concurrently.
+            batch_put = (
+                None if encoding != "raw" else getattr(store, "batch_put_from", None)
+            )
             if batch_put is None:
                 statuses = [
                     store.put_from(key, tensor.data_ptr(), nbytes, self._put_config)
