@@ -1993,6 +1993,9 @@ class OnlineDSparkModel(OnlineDFlashModel):
             loss_weight_mask = loss_weight_mask * decay_weights
         return loss_weight_mask
 
+    def _project_draft_logits(self, hidden):
+        return self._project_logits(hidden)
+
     def _dspark_objective_chunk_terms(
         self,
         hidden: torch.Tensor,
@@ -2008,7 +2011,7 @@ class OnlineDSparkModel(OnlineDFlashModel):
         """Return additive loss and telemetry numerators for one block slice."""
 
         draft_logits = self.draft_model.apply_logits_head(
-            self._project_logits(hidden),
+            self._project_draft_logits(hidden),
             prev_token_ids=prev_token_ids,
             hidden_states=hidden,
         )

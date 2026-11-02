@@ -998,9 +998,9 @@ class TrainingConfig(StrictConfigModel):
     #: remains on the accelerator.
     optimizer_cpu_offload: bool = False
     ttt_length: int = Field(default=7, gt=0)
-    attention_backend: Literal["eager", "sdpa", "flex_attention", "fa", "usp"] = (
-        "flex_attention"
-    )
+    attention_backend: Literal[
+        "eager", "sdpa", "flex_attention", "fa", "usp", "megatron_csa"
+    ] = "flex_attention"
     #: Trainer tensor parallelism. The unified runtime currently requires one;
     #: target-model TP belongs to external or managed capture servers.
     tp_size: int = Field(default=1, gt=0)

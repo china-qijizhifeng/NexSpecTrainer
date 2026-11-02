@@ -1,0 +1,9 @@
+# Independent full-stack dependencies, Python 3.12 and Hopper SM90.
+# For Weaver's preserved Torch/TE overlay, follow docker/deepseek-v41/README.md
+# instead: resolving this file normally can upgrade Torch through TileKernels.
+# Install the trainer first. Build these CUDA extensions on the target machine.
+# DeepGEMM and FlashMLA also need their recursively initialized git submodules;
+# see docker/deepseek-v41/README.md for the offline source-build workflow.
+tile-kernels @ git+https://github.com/deepseek-ai/TileKernels.git@c1cf914a82e6901c679445f872051ce44ac2cc63
+megatron-core @ git+https://github.com/NVIDIA/Megatron-LM.git@2fcef8359b977750f1868dbc5766baa9c26b2fb0
+nvidia-cudnn-frontend[cutedsl] @ git+https://github.com/NVIDIA/cudnn-frontend.git@97b7bc3128d6f7148133a61de7845eb3a9bbbef2

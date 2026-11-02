@@ -312,6 +312,11 @@ def preflight_draft_kernels(
     fails at startup. The trainer's ``build_draft`` still owns the resolution.
     """
 
+    if cfg.training.strategy == "deepseek_v41":
+        from specforge.modeling.draft.deepseek_v41.validation import preflight
+
+        preflight()
+        return
     if (
         cfg.model.use_liger_kernel is False
         or (

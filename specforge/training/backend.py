@@ -288,7 +288,10 @@ class FSDPTrainingBackend(TrainingBackend):
                 from torch.distributed.fsdp import BackwardPrefetch
                 from torch.distributed.fsdp import FullyShardedDataParallel as FSDP
                 from torch.distributed.fsdp import MixedPrecision, ShardingStrategy
-                from torch.distributed.fsdp.wrap import transformer_auto_wrap_policy
+                from torch.distributed.fsdp.wrap import (
+                    CustomPolicy,
+                    transformer_auto_wrap_policy,
+                )
 
                 sharding = getattr(ShardingStrategy, pc.sharding_strategy)
                 fsdp_kwargs = dict(
@@ -311,6 +314,23 @@ class FSDPTrainingBackend(TrainingBackend):
                         backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
                         limit_all_gathers=True,
                     )
+                if any(
+                    getattr(m, "_specforge_keep_fp32", False) for m in model.modules()
+                ):
+                    # Native V4.1 mHC/router weights must retain checkpoint FP32
+                    # precision, including while expert blocks use BF16 kernels.
+                    def native_wrap_policy(module):
+                        if getattr(module, "_specforge_keep_fp32", False):
+                            return {
+                                "mixed_precision": MixedPrecision(
+                                    param_dtype=torch.float32,
+                                    buffer_dtype=torch.float32,
+                                    cast_forward_inputs=False,
+                                )
+                            }
+                        return type(module) in block_classes
+
+                    fsdp_kwargs["auto_wrap_policy"] = CustomPolicy(native_wrap_policy)
                 model = FSDP(model, **fsdp_kwargs)
                 self._wrapper_kind = "fsdp"
             self.module = model

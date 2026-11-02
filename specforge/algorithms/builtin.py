@@ -9,6 +9,7 @@ from specforge.algorithms.dspine.providers import create_registration as dspine
 from specforge.algorithms.eagle3.providers import create_registration as eagle3
 from specforge.algorithms.mtp.providers import create_registration as mtp
 from specforge.algorithms.peagle.providers import create_registration as peagle
+from specforge.algorithms.deepseek_v41.providers import create_registration as deepseek_v41
 from specforge.algorithms.registry import AlgorithmRegistry
 
 
@@ -16,7 +17,7 @@ def builtin_algorithm_registry() -> AlgorithmRegistry:
     """Return a fresh immutable catalog without module-level mutation."""
 
     return AlgorithmRegistry(
-        (eagle3(), peagle(), dflash(), domino(), dspark(), dspine(), mtp())
+        (eagle3(), peagle(), dflash(), domino(), dspark(), dspine(), mtp(), deepseek_v41())
     )
 
 
