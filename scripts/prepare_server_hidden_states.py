@@ -9,7 +9,6 @@ being silently truncated. See docs/sections/examples/server-capture-to-disk.md.
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 import math
 import os
@@ -70,9 +69,10 @@ def parse_args(argv=None):
     )
     parser.add_argument("--interleave-layers", action="store_true")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--pipeline-depth", type=int, choices=(1, 2), default=1)
     parser.add_argument(
         "--wire-encoding",
-        choices=("raw", "bf16_fields_zstd_v1"),
+        choices=("raw", "bf16_fields_zstd_v1", "bf16_fields_zstd_v2"),
         default="raw",
         help="Request sender-side compression before Mooncake (separate from the disk codec)",
     )
@@ -157,7 +157,14 @@ def iter_tasks(path, *, cfg, run_id, target_version, loss_mask_filter):
 
 
 def check_capacity(
-    tokens, *, capture, layout, client_bytes, server_bytes, wire_encoding="raw"
+    tokens,
+    *,
+    capture,
+    layout,
+    client_bytes,
+    server_bytes,
+    wire_encoding="raw",
+    pipeline_depth=1,
 ):
     """Conservative single-record BF16 and INT64 transfer budget, no compression credit."""
     widths = (
@@ -170,6 +177,21 @@ def check_capacity(
     feature_bytes = [tokens * width * 2 for width in widths]
     feature_bytes.extend(tokens * 8 for _ in layout.passthrough)
     total = sum(feature_bytes)
+    if pipeline_depth not in (1, 2):
+        raise ValueError("capture pipeline depth must be 1 or 2")
+    if pipeline_depth > 1:
+        # Each source object may expand to the wire metadata's declared bound.
+        # Only one consumer receives at a time, but both source samples can live.
+        wire_bound = (
+            total
+            if wire_encoding == "raw"
+            else sum(n + n // 8 + (1 << 20) for n in feature_bytes)
+        )
+        if wire_bound > client_bytes or pipeline_depth * wire_bound > server_bytes:
+            raise ValueError(
+                f"pipeline needs client >= {wire_bound} and server >= "
+                f"{pipeline_depth * wire_bound} bytes for {pipeline_depth} captures"
+            )
     if wire_encoding == "raw" and total > min(client_bytes, server_bytes):
         raise ValueError(
             f"uncompressed capture needs {total} bytes; client/server declared buffers "
@@ -192,6 +214,7 @@ def main(argv=None):
     )
     from specforge.inference.capture import CaptureConfig
     from specforge.inference.server_capture_writer import ServerCaptureFileWriter
+    from specforge.runtime.data_plane.feature_store import drain_feature_store_removals
     from specforge.runtime.data_plane.mooncake_store import MooncakeFeatureStore
 
     cfg = load_config(args.config)
@@ -212,8 +235,6 @@ def main(argv=None):
         target_vocab_size=contract.target_vocab_size,
         draft_vocab_size=contract.draft_vocab_size,
     )
-    with args.samples.open("rb") as source:
-        source_sha256 = hashlib.file_digest(source, "sha256").hexdigest()
     run_id = "capture-files-" + uuid.uuid4().hex
     with ServerCaptureFileWriter(
         args.output,
@@ -230,7 +251,7 @@ def main(argv=None):
         interleave_layers=args.interleave_layers,
         resume=args.resume,
         source_identity={
-            "samples_sha256": source_sha256,
+            "samples_path": str(args.samples.resolve()),
         },
     ) as writer:
         store = MooncakeFeatureStore(
@@ -268,31 +289,45 @@ def main(argv=None):
                     ),
                 ),
             )
+
+            def tasks():
+                for task in iter_tasks(
+                    args.samples,
+                    cfg=cfg,
+                    run_id=run_id,
+                    target_version=args.target_model_version,
+                    loss_mask_filter=plan.loss_mask_filter,
+                ):
+                    # Reserve capacity for both captures; no compression credit.
+                    check_capacity(
+                        len(task.payload["input_ids"]),
+                        capture=capture,
+                        layout=layout,
+                        client_bytes=args.client_buffer_bytes,
+                        server_bytes=args.server_buffer_bytes,
+                        wire_encoding=args.wire_encoding,
+                        pipeline_depth=args.pipeline_depth,
+                    )
+                    yield task
+
+            from contextlib import closing
+
             count = 0
-            for task in iter_tasks(
-                args.samples,
-                cfg=cfg,
-                run_id=run_id,
-                target_version=args.target_model_version,
-                loss_mask_filter=plan.loss_mask_filter,
-            ):
-                check_capacity(
-                    len(task.payload["input_ids"]),
-                    capture=capture,
-                    layout=layout,
-                    client_bytes=args.client_buffer_bytes,
-                    server_bytes=args.server_buffer_bytes,
-                    wire_encoding=args.wire_encoding,
+            with closing(
+                writer.write_many(
+                    tasks(), adapter=adapter, store=store, depth=args.pipeline_depth
                 )
-                print(
-                    json.dumps(writer.write(task, adapter=adapter, store=store)),
-                    flush=True,
-                )
-                count += 1
+            ) as results:
+                for result in results:
+                    print(json.dumps(result), flush=True)
+                    count += 1
             if not count:
                 raise ValueError("sample file contains no records")
         finally:
-            store.close()
+            try:
+                drain_feature_store_removals(store)
+            finally:
+                store.close()
     return 0
 
 

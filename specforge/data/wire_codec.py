@@ -17,6 +17,8 @@ import torch
 from specforge.data.feature_file import load_zstd_features, save_zstd_features
 
 WIRE_ENCODING = "bf16_fields_zstd_v1"
+NO_HASH_WIRE_ENCODING = "bf16_fields_zstd_v2"
+WIRE_ENCODINGS = (WIRE_ENCODING, NO_HASH_WIRE_ENCODING)
 WIRE_METADATA_KEY = "wire_features"
 DEFAULT_MAX_DECODED_BYTES = 8 << 30
 
@@ -39,7 +41,7 @@ def validate_wire_metadata(
     meta, *, shape, dtype, max_decoded_bytes=DEFAULT_MAX_DECODED_BYTES
 ):
     """Validate before allocating either wire or decoded tensors."""
-    if not isinstance(meta, dict) or meta.get("encoding") != WIRE_ENCODING:
+    if not isinstance(meta, dict) or meta.get("encoding") not in WIRE_ENCODINGS:
         raise ValueError("Unsupported capture wire encoding")
     if (
         not isinstance(shape, (list, tuple))
@@ -68,28 +70,35 @@ def validate_wire_metadata(
         1 << 20
     ):
         raise ValueError("Capture wire encoded length exceeds bounded record size")
-    if not isinstance(meta.get("sha256"), str) or not re.fullmatch(
-        "[0-9a-f]{64}", meta["sha256"]
+    if meta["encoding"] == WIRE_ENCODING and (
+        not isinstance(meta.get("sha256"), str)
+        or not re.fullmatch("[0-9a-f]{64}", meta["sha256"])
     ):
         raise ValueError("Invalid capture wire checksum")
+    if meta["encoding"] == NO_HASH_WIRE_ENCODING and "sha256" in meta:
+        raise ValueError("Hash-free capture must not carry a checksum")
     return encoded_bytes
 
 
-def encode_wire_tensor(tensor, *, level=1):
+def encode_wire_tensor(tensor, *, level=1, encoding=WIRE_ENCODING):
     """Return CPU uint8 wire storage and its explicit encoding metadata."""
     if tensor.device.type != "cpu":
         raise ValueError("Stage capture tensor on CPU before wire compression")
+    if encoding not in WIRE_ENCODINGS:
+        raise ValueError("Unsupported capture wire encoding")
+    checksums = encoding == WIRE_ENCODING
     stream = io.BytesIO()
-    save_zstd_features({"tensor": tensor}, stream, level=level)
+    save_zstd_features({"tensor": tensor}, stream, level=level, checksums=checksums)
     # A writable BytesIO memoryview owns the buffer for the tensor lifetime.
     # Avoid getvalue()/bytes/clone copies of a potentially multi-GiB object.
     encoded = torch.frombuffer(stream.getbuffer(), dtype=torch.uint8)
     meta = {
-        "encoding": WIRE_ENCODING,
+        "encoding": encoding,
         "encoded_bytes": encoded.numel(),
         "decoded_bytes": tensor.numel() * tensor.element_size(),
-        "sha256": hashlib.sha256(memoryview(encoded.numpy())).hexdigest(),
     }
+    if checksums:
+        meta["sha256"] = hashlib.sha256(memoryview(encoded.numpy())).hexdigest()
     validate_wire_metadata(
         meta, shape=list(tensor.shape), dtype=str(tensor.dtype).removeprefix("torch.")
     )
@@ -111,10 +120,16 @@ def decode_wire_tensor(
         raise ValueError(
             "Capture wire payload does not match declared uint8 byte length"
         )
-    if hashlib.sha256(memoryview(encoded.numpy())).hexdigest() != meta["sha256"]:
+    checksums = meta["encoding"] == WIRE_ENCODING
+    if (
+        checksums
+        and hashlib.sha256(memoryview(encoded.numpy())).hexdigest() != meta["sha256"]
+    ):
         raise ValueError("Capture wire checksum mismatch")
     record = load_zstd_features(
-        _BufferReader(encoded), max_record_bytes=meta["decoded_bytes"]
+        _BufferReader(encoded),
+        max_record_bytes=meta["decoded_bytes"],
+        expected_version=1 if checksums else 2,
     )
     if set(record) != {"tensor"}:
         raise ValueError("Capture wire record must contain exactly one tensor")

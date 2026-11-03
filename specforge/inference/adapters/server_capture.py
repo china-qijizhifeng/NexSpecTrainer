@@ -231,7 +231,7 @@ class SGLangServerCaptureAdapter:
                 "SGLangServerCaptureAdapter needs a MooncakeFeatureStore-like "
                 f"store; missing {missing_store_api}"
             )
-        if wire_encoding not in ("raw", "bf16_fields_zstd_v1"):
+        if wire_encoding not in ("raw", "bf16_fields_zstd_v1", "bf16_fields_zstd_v2"):
             raise ValueError(f"unsupported capture wire_encoding={wire_encoding!r}")
         if wire_encoding != "raw":
             from specforge.data.feature_file import require_zstandard
@@ -431,6 +431,10 @@ class SGLangServerCaptureAdapter:
                 from specforge.data.wire_codec import validate_wire_metadata
 
                 nbytes += validate_wire_metadata(wire, shape=shape, dtype=dtype)
+                if wire["encoding"] != self.wire_encoding:
+                    raise ValueError(
+                        "Capture wire encoding differs from requested mode"
+                    )
                 wire_features[name] = dict(wire)
             elif wire is not None:
                 raise ValueError(

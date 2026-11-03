@@ -7,6 +7,7 @@ import os
 import sys
 import tempfile
 import unittest
+from dataclasses import replace
 from pathlib import Path
 from types import SimpleNamespace
 from unittest import mock
@@ -314,6 +315,49 @@ class TestWireCaptureTransport(unittest.TestCase):
             self.assertEqual(sidecar["result"], result)
             self.assertLess(result["wire_bytes"], result["wire_decoded_bytes"])
             self.assertFalse(self.backend._d)
+
+    def test_file_writer_drains_read_leases_after_success_and_failed_write(self):
+        layout = (
+            builtin_algorithm_registry()
+            .resolve("dspark")
+            .providers.offline_for("text")
+            .capture_layout
+        )
+
+        def leased_remove(key, *, force=False):
+            if key in self.backend._d and not force:
+                return -706  # Mooncake read lease outlives the application lease.
+            self.backend._d.pop(key, None)
+            return 0
+
+        self.backend.remove = leased_remove
+        for fail_write in (False, True):
+            task = replace(self.task, task_id=f"episode-{fail_write}")
+            with (
+                self.subTest(fail_write=fail_write),
+                tempfile.TemporaryDirectory() as directory,
+            ):
+                with ServerCaptureFileWriter(
+                    directory,
+                    capture=self.capture,
+                    layout=layout,
+                    algorithm="dspark",
+                    target_model_version="unknown",
+                    zstd=True,
+                ) as writer:
+                    if fail_write:
+                        with (
+                            mock.patch(
+                                "specforge.inference.server_capture_writer.save_zstd_features",
+                                side_effect=OSError("disk full"),
+                            ),
+                            self.assertRaisesRegex(OSError, "disk full"),
+                        ):
+                            writer.write(task, adapter=self.adapter(), store=self.store)
+                    else:
+                        writer.write(task, adapter=self.adapter(), store=self.store)
+                self.assertEqual(len(self.backend._d), 0)
+                self.assertEqual(self.store.health()["release_pending"], 0)
 
     def test_wire_failed_fetch_uses_existing_quarantine_and_retry_contract(self):
         ref = self.adapter().produce_refs([self.task], capture=self.capture)[0]

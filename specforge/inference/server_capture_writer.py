@@ -1,13 +1,12 @@
 """Persist externally captured tensors after their Mooncake transfer.
 
-One request is fetched to CPU, written atomically, then released before the
-next request. The adapter restores tensors from the negotiated wire encoding
+A bounded producer can overlap the next server request with CPU decoding,
+validation and atomic persistence of the current request. The adapter restores tensors from the negotiated wire encoding
 before writing. The offline reader decodes compressed records on demand during training.
 """
 
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 import re
@@ -26,6 +25,10 @@ from specforge.data.feature_file import (
 )
 from specforge.inference.adapters.server_capture import ServerCaptureFailure
 from specforge.inference.capture import verify_capture
+from specforge.runtime.data_plane.feature_store import (
+    drain_feature_store_removals,
+    drain_feature_store_sample_removals,
+)
 
 
 def _atomic_json(path: Path, value) -> None:
@@ -44,7 +47,7 @@ def _atomic_json(path: Path, value) -> None:
 
 
 class ServerCaptureFileWriter:
-    """A single-owner, synchronous server-to-offline-file capture client.
+    """A single-owner server-to-offline-file client with bounded request overlap.
 
     ``capture`` and ``layout`` come from the selected algorithm's capture
     plan. ``adapter`` requests those offline field names directly from the
@@ -104,7 +107,7 @@ class ServerCaptureFileWriter:
         self.resume = resume
         self.suffix = ".ckpt.hybrid" if hybrid else (".ckpt.zst" if zstd else ".ckpt")
         self.plan = {
-            "version": 1,
+            "version": 2,
             "algorithm": algorithm,
             "source_identity": source_identity,
             "target_model_version": target_model_version,
@@ -123,6 +126,7 @@ class ServerCaptureFileWriter:
                 else ("bf16_fields_zstd" if zstd else "torch")
             ),
             "zstd_level": zstd_level if zstd else None,
+            "zstd_checksums": False if zstd else None,
             "interleave_layers": interleave_layers or hybrid,
         }
         if hybrid:
@@ -198,7 +202,7 @@ class ServerCaptureFileWriter:
             record[name] = value
         return record
 
-    def write(self, task, *, adapter, store):
+    def _prepare(self, task):
         if self._lock is None:
             raise RuntimeError("use ServerCaptureFileWriter as a context manager")
         name = task.task_id
@@ -214,9 +218,7 @@ class ServerCaptureFileWriter:
         if task.target_model_version != self.plan["target_model_version"]:
             raise ValueError("task target model version does not match capture plan")
         identity = {
-            "input_sha256": hashlib.sha256(
-                json.dumps(task.payload, sort_keys=True, separators=(",", ":")).encode()
-            ).hexdigest(),
+            "payload": task.payload,
             "source_metadata": task.metadata,
         }
         final = self.output / (name + self.suffix)
@@ -242,12 +244,64 @@ class ServerCaptureFileWriter:
                 "status": "resumed",
                 "tokens": len(task.payload["input_ids"]),
             }
-        outcomes = adapter.produce_refs([task], capture=self.capture)
-        if len(outcomes) != 1:
-            raise RuntimeError("single-request capture must return exactly one outcome")
-        ref = outcomes[0]
-        if isinstance(ref, ServerCaptureFailure):
-            raise RuntimeError(f"capture failed for {name}: {ref.reason}")
+        return identity, final, metadata
+
+    def write(self, task, *, adapter, store):
+        return list(self.write_many([task], adapter=adapter, store=store, depth=1))[0]
+
+    def write_many(self, tasks, *, adapter, store, depth=1):
+        """Yield ordered results; close this iterator before closing writer/store.
+
+        One producer owns adapter calls; one consumer owns fetch/decode/write.
+        At depth two there are at most two full captures outstanding.
+        """
+        from specforge.inference.capture_pipeline import capture_pipeline
+
+        def produce(task):
+            prepared = self._prepare(task)
+            if isinstance(prepared, dict):
+                return None, prepared
+            outcomes = adapter.produce_refs([task], capture=self.capture)
+            if len(outcomes) != 1:
+                for outcome in outcomes:
+                    if not isinstance(outcome, ServerCaptureFailure):
+                        store.abort(
+                            outcome.sample_id, reason="unexpected-capture-count"
+                        )
+                        drain_feature_store_sample_removals(store, [outcome.sample_id])
+                raise RuntimeError(
+                    "single-request capture must return exactly one outcome"
+                )
+            ref = outcomes[0]
+            if isinstance(ref, ServerCaptureFailure):
+                raise RuntimeError(f"capture failed for {task.task_id}: {ref.reason}")
+            return ref, prepared
+
+        def consume(task, produced):
+            ref, prepared = produced
+            if ref is None:
+                return prepared
+            return self._persist(task, ref, prepared, store)
+
+        def discard(task, produced):
+            ref, _ = produced
+            if ref is not None:
+                store.abort(ref.sample_id, reason="capture-pipeline-stopped")
+                drain_feature_store_sample_removals(store, [ref.sample_id])
+
+        try:
+            yield from capture_pipeline(
+                tasks, produce=produce, consume=consume, discard=discard, depth=depth
+            )
+        finally:
+            # All producer threads have joined. Also reclaim writes whose HTTP
+            # response failed before they could become an adopted SampleRef.
+            store.discard_external_attempts(reason="capture-file-writer-stopped")
+            drain_feature_store_removals(store)
+
+    def _persist(self, task, ref, prepared, store):
+        identity, final, metadata = prepared
+        name = task.task_id
         handle = None
         temporary = None
         try:
@@ -270,6 +324,7 @@ class ServerCaptureFileWriter:
                     temporary,
                     level=self.zstd_level,
                     interleave_layers=self.interleave,
+                    checksums=False,
                 )
             else:
                 torch.save(record, temporary)
@@ -304,3 +359,7 @@ class ServerCaptureFileWriter:
                 store.release(handle)
             else:
                 store.abort(ref.sample_id, reason="capture-file-write-failed")
+            # This client exclusively owns this capture. The file is durable
+            # or the attempt is abandoned; a transport read lease must not keep
+            # accumulating hard-pinned objects until the server segment fills.
+            drain_feature_store_sample_removals(store, [ref.sample_id])

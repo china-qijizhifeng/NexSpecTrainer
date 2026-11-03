@@ -3,6 +3,7 @@
 import gzip
 import hashlib
 import importlib.util
+import io
 import json
 import struct
 import tempfile
@@ -82,6 +83,37 @@ class TestFeatureFile(unittest.TestCase):
                     ),
                 )
                 assert_bits_equal(source, load_feature_file(self.path)["hidden_states"])
+
+    def test_parallel_codec_preserves_serial_file_bytes_and_training_layout(self):
+        # More than the bounded queue, with a partial final block, all BF16 bit
+        # patterns, interleaved layers, and noncontiguous non-BF16 data.
+        bits = torch.arange(65536, dtype=torch.int32).to(torch.int16).repeat(145)
+        record = {
+            "hidden_states": bits.view(torch.bfloat16).reshape(1, -1, 64),
+            "input_ids": torch.arange(35).reshape(5, 7).t(),
+            "empty": torch.empty(0),
+            "scalar": torch.tensor(7),
+        }
+        layout = {"hidden_states": (37, 38, 39, 40)}
+        serial, parallel = io.BytesIO(), io.BytesIO()
+        save_zstd_features(record, serial, workers=1, interleave_layers=layout)
+        save_zstd_features(record, parallel, workers=4, interleave_layers=layout)
+        self.assertEqual(serial.getvalue(), parallel.getvalue())
+        for workers in (1, 4):
+            restored = feature_file.load_zstd_features(
+                io.BytesIO(parallel.getvalue()), workers=workers
+            )
+            for key, value in record.items():
+                assert_bits_equal(value, restored[key])
+        damaged = bytearray(parallel.getvalue())
+        damaged[-1] ^= 1
+        with self.assertRaises(ValueError):
+            feature_file.load_zstd_features(io.BytesIO(damaged), workers=4)
+
+    def test_zstd_worker_budget_is_validated(self):
+        for workers in (0, 33, True, 1.5):
+            with self.subTest(workers=workers), self.assertRaises(ValueError):
+                save_zstd_features({"x": torch.ones(8)}, self.path, workers=workers)
 
     def test_dtype_shape_and_noncontiguous_values(self):
         for dtype in feature_file._DTYPES.values():

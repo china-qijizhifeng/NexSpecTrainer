@@ -1,7 +1,7 @@
 """Offline tensor files with Zstd and conditional Brotli/Zstd compression.
 
 The versioned Zstd format contains a bounded JSON header followed by
-length-prefixed, checksummed frames. BF16 blocks store packed sign, exponent and
+length-prefixed frames. V1 includes checksums; V2 explicitly omits hashing. BF16 blocks store packed sign, exponent and
 mantissa separately; other dtypes retain their bytes. The hybrid format and its
 parallel conditional codec live in hybrid_feature_file.py. Neither uses pickle.
 """
@@ -15,13 +15,17 @@ import os
 import struct
 import sys
 import tempfile
+import threading
+from collections import deque
 from collections.abc import Mapping, Sequence
+from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
 import torch
 
 FEATURE_SUFFIXES = (".ckpt", ".ckpt.gz", ".ckpt.zst", ".ckpt.hybrid")
 _MAGIC = b"NSACTZ01"
+_NO_HASH_MAGIC = b"NSACTZ02"
 _BLOCK_ELEMENTS = 1 << 20
 _MAX_HEADER = 1 << 20
 _MAX_RECORD_BYTES = 8 << 30
@@ -42,6 +46,29 @@ _DTYPES = {
         "complex128",
     )
 }
+
+
+def _zstd_workers(workers):
+    if workers is None:
+        workers = int(os.environ.get("SPECFORGE_ZSTD_WORKERS", "1"))
+    if type(workers) is not int or not 1 <= workers <= 32:
+        raise ValueError("Zstd workers must be an integer between 1 and 32")
+    return workers
+
+
+def _ordered_blocks(function, blocks, workers):
+    """Preserve frame order with at most two blocks per worker in flight."""
+    if workers == 1:
+        yield from map(function, blocks)
+        return
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        pending = deque()
+        for block in blocks:
+            pending.append(pool.submit(function, block))
+            if len(pending) >= 2 * workers:
+                yield pending.popleft().result()
+        while pending:
+            yield pending.popleft().result()
 
 
 def require_zstandard():
@@ -88,7 +115,7 @@ def _validate_entries(header, max_record_bytes):
     if (
         not isinstance(header, dict)
         or type(header.get("version")) is not int
-        or header["version"] != 1
+        or header["version"] not in (1, 2)
     ):
         raise ValueError("Unsupported activation format version")
     entries = header.get("tensors")
@@ -135,15 +162,21 @@ def save_zstd_features(
     *,
     level: int = 1,
     interleave_layers: Mapping[str, Sequence[int]] | None = None,
+    workers: int | None = None,
+    checksums: bool = True,
 ):
     """Save CPU tensors to an atomic file path or an already-open binary stream.
 
     Restore values/dtype/shape, not strides. Callers own stream publication.
+    Workers compress independent blocks without changing the file bytes.
+    checksums=False selects the distinct V2 format without SHA256 or Zstd checksums.
+    None reads SPECFORGE_ZSTD_WORKERS (default 1); in-flight work is bounded.
 
     Interleave is opt-in per BF16 feature. Its last axis must be the ordered
     concatenation of equally sized layers named in ``interleave_layers``.
     """
-    zstd = require_zstandard()
+    require_zstandard()
+    workers = _zstd_workers(workers)
     if not 1 <= level <= 19:
         raise ValueError("Zstd level must be between 1 and 19")
     interleave_layers = interleave_layers or {}
@@ -165,23 +198,45 @@ def save_zstd_features(
                 ),
             }
         )
-    header = {"version": 1, "tensors": entries}
+    header = {"version": 1 if checksums else 2, "tensors": entries}
     _validate_entries(header, _MAX_RECORD_BYTES)
     encoded = json.dumps(header, separators=(",", ":")).encode("utf-8")
     if len(encoded) > _MAX_HEADER:
         raise ValueError("Activation manifest is too large")
-    compressor = zstd.ZstdCompressor(level=level, write_checksum=True, threads=0)
     if hasattr(path, "write"):
-        _write_zstd_stream(path, encoded, entries, record, compressor)
+        _write_zstd_stream(path, encoded, entries, record, level, workers, checksums)
     else:
-        _save_zstd_path(path, encoded, entries, record, compressor)
+        _save_zstd_path(path, encoded, entries, record, level, workers, checksums)
 
 
-def _write_zstd_stream(stream, encoded, entries, record, compressor):
+def _write_zstd_stream(stream, encoded, entries, record, level, workers, checksums):
+    local = threading.local()
+
+    def compress_block(item):
+        block, bf16 = item
+        if not hasattr(local, "compressor"):
+            local.compressor = require_zstandard().ZstdCompressor(
+                level=level, write_checksum=checksums, threads=0
+            )
+        if bf16:
+            bits = block.view("<u2")
+            fields = (
+                np.packbits((bits >> 15).astype(np.uint8), bitorder="little"),
+                ((bits >> 7) & 255).astype(np.uint8),
+                (bits & 127).astype(np.uint8),
+            )
+        else:
+            fields = (block,)
+        frames = []
+        for field in fields:
+            compressed = local.compressor.compress(field)
+            frames.extend((struct.pack("<I", len(compressed)), compressed))
+        return frames
+
     stream.write(
-        _MAGIC
+        (_MAGIC if checksums else _NO_HASH_MAGIC)
         + struct.pack("<I", len(encoded))
-        + hashlib.sha256(encoded).digest()
+        + (hashlib.sha256(encoded).digest() if checksums else b"")
         + encoded
     )
     for entry in entries:
@@ -193,24 +248,19 @@ def _write_zstd_stream(stream, encoded, entries, record, compressor):
             ).transpose(-1, -2)
         raw = tensor.contiguous().reshape(-1).view(torch.uint8).numpy()
         itemsize = tensor.element_size()
-        for start in range(0, tensor.numel(), _BLOCK_ELEMENTS):
-            block = raw[start * itemsize : (start + _BLOCK_ELEMENTS) * itemsize]
-            if tensor.dtype == torch.bfloat16:
-                bits = block.view("<u2")
-                fields = (
-                    np.packbits((bits >> 15).astype(np.uint8), bitorder="little"),
-                    ((bits >> 7) & 255).astype(np.uint8),
-                    (bits & 127).astype(np.uint8),
-                )
-            else:
-                fields = (block,)
-            for field in fields:
-                compressed = compressor.compress(field)
-                stream.write(struct.pack("<I", len(compressed)))
-                stream.write(compressed)
+        blocks = (
+            (
+                raw[start * itemsize : (start + _BLOCK_ELEMENTS) * itemsize],
+                tensor.dtype == torch.bfloat16,
+            )
+            for start in range(0, tensor.numel(), _BLOCK_ELEMENTS)
+        )
+        for frames in _ordered_blocks(compress_block, blocks, workers):
+            for frame in frames:
+                stream.write(frame)
 
 
-def _save_zstd_path(path, encoded, entries, record, compressor):
+def _save_zstd_path(path, encoded, entries, record, level, workers, checksums):
     path = os.fspath(path)
     temporary = None
     try:
@@ -218,7 +268,9 @@ def _save_zstd_path(path, encoded, entries, record, compressor):
             dir=os.path.dirname(os.path.abspath(path)), suffix=".tmp", delete=False
         ) as stream:
             temporary = stream.name
-            _write_zstd_stream(stream, encoded, entries, record, compressor)
+            _write_zstd_stream(
+                stream, encoded, entries, record, level, workers, checksums
+            )
         os.replace(temporary, path)
         temporary = None
     finally:
@@ -226,7 +278,13 @@ def _save_zstd_path(path, encoded, entries, record, compressor):
             os.unlink(temporary)
 
 
-def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
+def load_zstd_features(
+    path: str,
+    *,
+    max_record_bytes: int = _MAX_RECORD_BYTES,
+    workers: int | None = None,
+    expected_version: int | None = None,
+):
     """Decode one record, rejecting truncation, corrupt frames and bad metadata.
 
     The decoded byte limit covers tensor storage, not temporary work buffers.
@@ -234,22 +292,29 @@ def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
     Compressed records are materialized in RAM; they cannot be memory mapped.
     """
     zstd = require_zstandard()
-    decompressor = zstd.ZstdDecompressor(max_window_size=32 << 10)
+    workers = _zstd_workers(workers)
+    local = threading.local()
+    checksums = True
 
-    def read_frame(stream, expected):
+    def read_compressed(stream, expected):
         size = struct.unpack("<I", _read_exact(stream, 4))[0]
         if size > expected + (128 << 10):
             raise ValueError("Oversized activation frame")
-        compressed = _read_exact(stream, size)
+        return _read_exact(stream, size), expected
+
+    def decode_frame(frame):
+        compressed, expected = frame
+        if not hasattr(local, "decompressor"):
+            local.decompressor = zstd.ZstdDecompressor(max_window_size=32 << 10)
         try:
             params = zstd.get_frame_parameters(compressed)
             if (
                 params.content_size != expected
-                or not params.has_checksum
+                or params.has_checksum != checksums
                 or params.window_size > 32 << 20
             ):
                 raise ValueError("Invalid activation frame size or missing checksum")
-            decoded = decompressor.decompress(
+            decoded = local.decompressor.decompress(
                 compressed, max_output_size=expected, allow_extra_data=False
             )
         except zstd.ZstdError as exc:
@@ -258,18 +323,48 @@ def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
             raise ValueError("Invalid decoded activation frame length")
         return np.frombuffer(decoded, dtype=np.uint8)
 
+    def decode_block(item):
+        destination, n, bf16, frames = item
+        if bf16:
+            sign, exponent, mantissa = map(decode_frame, frames)
+            if np.any(mantissa > 127):
+                raise ValueError("Invalid BF16 mantissa")
+            bits = (
+                np.unpackbits(sign, bitorder="little", count=n).astype(np.uint16) << 15
+                | exponent.astype(np.uint16) << 7
+                | mantissa.astype(np.uint16)
+            )
+            destination[:] = bits.view(np.uint8)
+        else:
+            destination[:] = decode_frame(frames[0])
+
+    def blocks(stream, raw, count, itemsize, bf16):
+        for start in range(0, count, _BLOCK_ELEMENTS):
+            n = min(_BLOCK_ELEMENTS, count - start)
+            sizes = ((n + 7) // 8, n, n) if bf16 else (n * itemsize,)
+            frames = [read_compressed(stream, size) for size in sizes]
+            yield raw[start * itemsize : (start + n) * itemsize], n, bf16, frames
+
     def decode_stream(stream):
-        if _read_exact(stream, len(_MAGIC)) != _MAGIC:
+        nonlocal checksums
+        magic = _read_exact(stream, len(_MAGIC))
+        if magic not in (_MAGIC, _NO_HASH_MAGIC):
             raise ValueError("Invalid Zstd activation magic")
+        checksums = magic == _MAGIC
+        version = 1 if checksums else 2
+        if expected_version is not None and version != expected_version:
+            raise ValueError("Activation format does not match wire encoding")
         size = struct.unpack("<I", _read_exact(stream, 4))[0]
         if size > _MAX_HEADER:
             raise ValueError("Activation manifest is too large")
-        checksum = _read_exact(stream, 32)
+        checksum = _read_exact(stream, 32) if checksums else None
         encoded = _read_exact(stream, size)
-        if hashlib.sha256(encoded).digest() != checksum:
+        if checksums and hashlib.sha256(encoded).digest() != checksum:
             raise ValueError("Corrupt activation manifest checksum")
         header = json.loads(encoded)
         entries = _validate_entries(header, max_record_bytes)
+        if header["version"] != version:
+            raise ValueError("Activation header version does not match magic")
         record = {}
         for entry in entries:
             dtype = _DTYPES[entry["dtype"]]
@@ -277,27 +372,12 @@ def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
             tensor = torch.empty(count, dtype=dtype, device="cpu")
             raw = tensor.view(torch.uint8).numpy()
             itemsize = tensor.element_size()
-            for start in range(0, count, _BLOCK_ELEMENTS):
-                n = min(_BLOCK_ELEMENTS, count - start)
-                if dtype == torch.bfloat16:
-                    sign = read_frame(stream, (n + 7) // 8)
-                    exponent = read_frame(stream, n)
-                    mantissa = read_frame(stream, n)
-                    if np.any(mantissa > 127):
-                        raise ValueError("Invalid BF16 mantissa")
-                    bits = (
-                        np.unpackbits(sign, bitorder="little", count=n).astype(
-                            np.uint16
-                        )
-                        << 15
-                        | exponent.astype(np.uint16) << 7
-                        | mantissa.astype(np.uint16)
-                    )
-                    raw[start * 2 : (start + n) * 2] = bits.view(np.uint8)
-                else:
-                    raw[start * itemsize : (start + n) * itemsize] = read_frame(
-                        stream, n * itemsize
-                    )
+            for _ in _ordered_blocks(
+                decode_block,
+                blocks(stream, raw, count, itemsize, dtype == torch.bfloat16),
+                workers,
+            ):
+                pass
             shape, layers = entry["shape"], entry["interleave_layers"]
             if layers:
                 tensor = (

@@ -85,7 +85,7 @@ def arena_bytes() -> int:
 
 def wire_encoding() -> str:
     encoding = os.environ.get("SGLANG_SPEC_CAPTURE_WIRE_ENCODING", "raw")
-    if encoding not in ("raw", "bf16_fields_zstd_v1"):
+    if encoding not in ("raw", "bf16_fields_zstd_v1", "bf16_fields_zstd_v2"):
         raise ValueError(f"unsupported SGLANG_SPEC_CAPTURE_WIRE_ENCODING={encoding!r}")
     return encoding
 
@@ -483,6 +483,7 @@ class SpecCaptureSink:
 
                 tensor, wire = encode_wire_tensor(
                     tensor,
+                    encoding=encoding,
                     level=int(
                         os.environ.get("SGLANG_SPEC_CAPTURE_WIRE_ZSTD_LEVEL", "1")
                     ),

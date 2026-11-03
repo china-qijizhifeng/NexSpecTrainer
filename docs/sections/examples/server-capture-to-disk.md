@@ -14,7 +14,7 @@ This reuses the lossless BF16 fields / Zstd format from
 [PR #2](https://github.com/china-qijizhifeng/NexSpecTrainer/pull/2), pinned codec
 source `c468c1997cc8ff991b6f4a1867378bed1fff79a5`. Compression reduces disk
 storage and disk I/O. The default raw wire mode leaves network traffic unchanged. Optional
-`--wire-encoding bf16_fields_zstd_v1` also compresses before Mooncake and
+`--wire-encoding bf16_fields_zstd_v2` also compresses before Mooncake and
 reduces transferred bytes and retained object storage. Source GPU memory and
 decoded training tensor sizes remain unchanged in both cases. Direct online
 Mooncake training defaults to raw; online producers can explicitly select the
@@ -94,6 +94,13 @@ python scripts/prepare_server_hidden_states.py \
 Raw `.ckpt` remains the default. `--zstd-level` defaults to 1;
 `--interleave-layers` optionally reorders only the auxiliary feature according
 to the resolved capture plan, then reverses that reordering during decoding.
+Set `SPECFORGE_ZSTD_WORKERS=4` in both the server and client environments to
+compress and decode independent Zstd blocks concurrently. The default is 1;
+accepted values are 1–32. This preserves serialized bytes within the selected format version and the
+logical tensor contract. Each call keeps at most two blocks per worker in
+flight; budget the additional codec buffers and threads across capture clients
+and training data-loader workers. The Python APIs also accept `workers=` to
+override the environment. This setting does not control the hybrid codec.
 Use `--hybrid` instead of `--zstd` for conditional cross-layer compression.
 Hybrid automatically uses the capture layer IDs, applies Brotli 1.2+ quality 10
 to sign/exponent streams and Zstd level 1 to mantissas, and splits Brotli work
@@ -105,17 +112,26 @@ For DSpark, the files contain `input_ids` and `loss_mask` as `[T]`, auxiliary
 reads the directory through `data.hidden_states_path`, including mixtures of
 raw, gzip, Zstd, and hybrid feature files.
 
-Only one request and one CPU record are active at a time. The writer waits for
-compression and atomic publication before releasing the Mooncake lease and
-starting the next episode; it has no unbounded asynchronous tensor queue.
+By default `--pipeline-depth 1` processes requests serially. Set
+`--pipeline-depth 2` to overlap the next server request with the current
+record's transfer, decoding, validation and persistence. A single producer
+owns adapter calls and a single consumer owns CPU tensors; at most two captures
+are outstanding. The next request is submitted only after the previous CPU
+record finishes, so there is no unbounded queue. Capacity checks reserve both
+source captures using the maximum encoded-size bound, without assuming a
+compression ratio. The source local buffer must also fit one complete capture.
+After release or an abandoned write, it drains physical removal for that sample
+so Mooncake read leases cannot accumulate hard-pinned objects in the server
+segment. Shutdown also drains outstanding removals before closing transport.
 The raw tensors, codec work buffers, and optional interleave copy still need
 CPU RAM. Training fully decodes each compressed record in CPU RAM before
 normalization; compressed files cannot be memory mapped. Allow extra RAM per loader
 worker, and use a small worker/prefetch count for long episodes.
 
 Use `--resume` with the same output directory and capture plan. Completed
-samples are skipped only after comparing input identity and decoding/checking
-their stored tensors. A changed checkpoint, layout, codec, or input fails.
+samples are skipped only after directly comparing the saved input payload and
+metadata and decoding/checking their stored tensors. No input digest is computed.
+The version-2 capture plan does not resume older digest-based manifests. A changed checkpoint, layout, codec, or input fails.
 A lock rejects concurrent writers. After a process crash, inspect the owning
 process before removing its `.capture-writer.lock`; never remove a live
 writer's lock. Files ending in `.partial` are not training inputs. A disk or
@@ -127,7 +143,7 @@ sources importable in the SGLang environment without upgrading its packages:
 
 ```bash
 export PYTHONPATH=/path/to/NexSpecTrainer:${PYTHONPATH:-}
-export SGLANG_SPEC_CAPTURE_WIRE_ENCODING=bf16_fields_zstd_v1
+export SGLANG_SPEC_CAPTURE_WIRE_ENCODING=bf16_fields_zstd_v2
 export SGLANG_SPEC_CAPTURE_GPU_PUT=0
 # Set before starting SGLang; 8 GiB for the 262,144-token capture example.
 export MOONCAKE_GLOBAL_SEGMENT_SIZE=8589934592
@@ -143,19 +159,30 @@ python scripts/prepare_server_hidden_states.py \
   --samples /shared/complete-episodes.jsonl \
   --output /shared/captured-long-wire \
   --target-model-version pinned-checkpoint-identity \
-  --wire-encoding bf16_fields_zstd_v1 \
+  --wire-encoding bf16_fields_zstd_v2 \
   --client-buffer-bytes 8589934592 \
   --server-buffer-bytes 8589934592 \
   --zstd
 ```
 
 The result JSON and each sample's sidecar retain `wire_features` with versioned
-encoding, encoded/decoded byte counts and checksum per feature, `wire_bytes`
+encoding and encoded/decoded byte counts per feature, `wire_bytes`
 for total compressed storage/traffic, and `wire_decoded_bytes` for original
 tensor storage. These are separate from compressed disk `file_bytes`. Every
 strategy still receives the original logical FeatureSpecs and restored BF16.
-Checksums protect the encoded object and individual Zstd frames; malformed
-metadata, shape/dtype mismatch, truncation or excessive decoded allocation
-fails instead of silently using corrupt tensors. Optional wire compression
+The v2 wire mode and this writer's Zstd v2 files perform no SHA256 or Zstd
+checksum computation. Length limits, schema, shape/dtype, exact token/mask
+alignment and finite BF16 checks still run. These structural checks do not
+promise detection of every possible bit flip. Old v1 files/wire retain their
+checksum semantics; readers accept both versions, while wire negotiation
+requires the exact requested version. Upgrade the serving plugin, client and
+training reader together before using v2 files. Optional wire compression
 uses CPU decoding even when the trainer normally uses CUDA receive buffers;
 it cannot be combined with the NVLink arena or explicit GPU PUT.
+
+For the validated 64k V4.1 pipeline, use codec workers 8 on both sides,
+8 GiB source/client buffers, `--wire-encoding bf16_fields_zstd_v2 --zstd
+--pipeline-depth 2`. The pipeline does not alter attention, routing, prefill
+length, tensor precision or capture layer selection. If consumption fails,
+the current capture is released and the one in-flight producer is joined;
+its unconsumed capture is aborted and physically removed before transport closes.

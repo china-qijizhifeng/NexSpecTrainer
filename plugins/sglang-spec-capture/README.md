@@ -212,3 +212,13 @@ and decoding work. Global object storage must hold all live compressed objects;
 a local transfer buffer is checked per encoded object. A 6.0 GiB raw record
 compressed to roughly 4.15 GiB still does not fit a 4 GiB global segment. Measure
 actual sizes and leave capacity for concurrent samples and Mooncake overhead.
+
+### Hash-free wire encoding
+
+Set `SGLANG_SPEC_CAPTURE_WIRE_ENCODING=bf16_fields_zstd_v2` and request
+`--wire-encoding bf16_fields_zstd_v2` to omit SHA256 and Zstd frame checksums.
+V2 has a distinct format/magic and rejects V1 payloads under V2 metadata.
+Length bounds and logical tensor contracts still apply. Upgrade this plugin,
+the capture client and training reader together; V1 remains available for
+existing checksummed captures. With `--pipeline-depth 2`, reserve source
+capacity for both outstanding captures, not just the active GPU request.
