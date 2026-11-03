@@ -256,6 +256,22 @@ def _online_prompt_seed(cfg: Config) -> int:
     return cfg.training.seed if configured is None else configured
 
 
+def _online_byte_watermarks(cfg: Config) -> tuple[Optional[int], Optional[int]]:
+    return tuple(
+        int(os.environ[name]) if os.environ.get(name) else configured
+        for name, configured in (
+            (
+                "DISAGG_RESIDENT_HIGH_WATERMARK_BYTES",
+                cfg.runtime.resident_high_watermark_bytes,
+            ),
+            (
+                "DISAGG_RESIDENT_LOW_WATERMARK_BYTES",
+                cfg.runtime.resident_low_watermark_bytes,
+            ),
+        )
+    )
+
+
 def _online_flow_window(cfg: Config) -> tuple[int, Optional[int]]:
     """Resolve and validate producer ref watermarks before prompt preparation.
 
@@ -268,10 +284,14 @@ def _online_flow_window(cfg: Config) -> tuple[int, Optional[int]]:
     high, low = resolve_ref_watermarks(
         cfg.runtime.in_flight_high_watermark, cfg.runtime.in_flight_low_watermark
     )
+    high_bytes, low_bytes = _online_byte_watermarks(cfg)
     limits = FlowControlLimits(
         high_watermark_refs=high,
         low_watermark_refs=low,
+        high_watermark_bytes=high_bytes,
+        low_watermark_bytes=low_bytes,
         max_prompt_lease_per_worker=cfg.runtime.producer_lease,
+        capture_max_sample_bytes=cfg.runtime.capture_max_sample_bytes,
     )
     trainer = cfg.deployment.trainer
     consumer_quantum = consumer_dispatch_quantum(
@@ -295,6 +315,13 @@ def _online_flow_window(cfg: Config) -> tuple[int, Optional[int]]:
             f"consumer's dispatch quantum {consumer_quantum}; "
             "set DISAGG_IN_FLIGHT_LOW_WATERMARK to at least that value"
         )
+    limits.validate_capture_window(consumer_quantum)
+    if (
+        cfg.runtime.feature_store_max_resident_bytes is not None
+        and high_bytes is not None
+        and high_bytes > cfg.runtime.feature_store_max_resident_bytes
+    ):
+        raise ValueError("resident high byte watermark exceeds feature-store hard cap")
     return high, low
 
 
@@ -704,11 +731,13 @@ def _build_online(
                 target_model_version=cfg.model.target_model_path,
                 server_capture=_server_capture(cfg),
                 wire_encoding=os.environ.get("DISAGG_WIRE_ENCODING", "raw"),
+                wire_max_total_bytes=cfg.runtime.capture_max_sample_bytes,
             )
             for url in _server_urls(cfg)
         ]
         target_repr = streaming.target_representation
         peer_wait_timeout_s = _optional_timeout_s("DISAGG_PEER_WAIT_TIMEOUT")
+        high_bytes, low_bytes = _online_byte_watermarks(cfg)
         _workers, drive = build_disagg_online_producer(
             algorithm=algorithm,
             modality=modality,
@@ -729,16 +758,9 @@ def _build_online(
             lease=cfg.runtime.producer_lease,
             in_flight_high_watermark=in_flight_high_watermark,
             in_flight_low_watermark=in_flight_low_watermark,
-            resident_high_watermark_bytes=(
-                int(os.environ["DISAGG_RESIDENT_HIGH_WATERMARK_BYTES"])
-                if os.environ.get("DISAGG_RESIDENT_HIGH_WATERMARK_BYTES")
-                else cfg.runtime.resident_high_watermark_bytes
-            ),
-            resident_low_watermark_bytes=(
-                int(os.environ["DISAGG_RESIDENT_LOW_WATERMARK_BYTES"])
-                if os.environ.get("DISAGG_RESIDENT_LOW_WATERMARK_BYTES")
-                else cfg.runtime.resident_low_watermark_bytes
-            ),
+            resident_high_watermark_bytes=high_bytes,
+            resident_low_watermark_bytes=low_bytes,
+            capture_max_sample_bytes=cfg.runtime.capture_max_sample_bytes,
             feature_store_max_resident_bytes=(
                 cfg.runtime.feature_store_max_resident_bytes
             ),

@@ -92,6 +92,19 @@ Producer and consumer failures use distinct sentinels, so neither side can
 interpret a peer crash as successful EOF. Early consumer completion also
 signals the producer to stop and clean published Mooncake objects.
 
+## Capture admission and byte accounting
+
+`runtime.capture_max_sample_bytes` opts into a shared capture reservation budget.
+Before dispatch, each worker reserves one ref and this worst-case wire size per
+leased prompt. Published unconsumed refs and outstanding reservations both count
+against the high watermarks. A lease shrinks to available capacity; publication
+replaces its reservation with actual ref bytes, and failure/drain releases it.
+Invalid or oversized ref byte estimates fail the attempt and abort the batch.
+Low and high watermarks must hold a whole consumer dispatch quantum, including
+the worst-case sample sizes. Unset bounds retain legacy soft-watermark behavior.
+See [the DeNovoSWE plan](../../../docs/dspark-denovo-streaming.md) for a four-server
+configuration, memory scope and checkpoint retention.
+
 ## Freshness and recovery contract
 
 The canonical online launcher requires a new SQLite path for every fresh

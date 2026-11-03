@@ -1,4 +1,5 @@
 from .base import Eagle3DraftModel
+from .deepseek_v41 import DeepSeekV41DraftModel
 from .dflash import (
     DFlashDraftModel,
     build_target_layer_ids,
@@ -8,7 +9,6 @@ from .dflash import (
 from .dflash2 import DFlash2DraftModel
 from .domino import DominoDraftModel
 from .dspark import DSparkDraftModel
-from .deepseek_v41 import DeepSeekV41DraftModel
 from .dspine import DSpineDraftModel
 from .llama3_eagle import LlamaForCausalLMEagle3
 from .mtp import Qwen3_5MTPDraftModel
@@ -17,6 +17,7 @@ from .registry import DRAFT_REGISTRY, available_drafts, register_draft, resolve_
 
 __all__ = [
     "Eagle3DraftModel",
+    "DeepSeekV41DraftModel",
     "DFlashDraftModel",
     "DFlash2DraftModel",
     "DominoDraftModel",

@@ -516,9 +516,20 @@ class RuntimeConfig(StrictConfigModel):
     resident_low_watermark_bytes: Optional[int] = Field(default=None, ge=0)
     feature_store_max_resident_bytes: Optional[int] = Field(default=None, gt=0)
     feature_store_max_quarantined_bytes: int = Field(default=8 << 30, ge=0)
+    #: Reserve this worst-case wire size per sample before issuing capture.
+    #: Requires resident byte watermarks covering a full optimizer window.
+    capture_max_sample_bytes: Optional[int] = Field(default=None, gt=0)
 
     @model_validator(mode="after")
     def _validate_watermarks(self):
+        if (
+            self.capture_max_sample_bytes is not None
+            and self.resident_high_watermark_bytes is None
+        ):
+            raise ValueError(
+                "runtime.capture_max_sample_bytes requires "
+                "runtime.resident_high_watermark_bytes"
+            )
         resolve_ref_watermarks(
             self.in_flight_high_watermark, self.in_flight_low_watermark
         )
