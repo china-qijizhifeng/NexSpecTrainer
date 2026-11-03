@@ -42,7 +42,11 @@ positions `[a-128, a)` and has private, bidirectional draft positions `a..a+4`.
 
 FSDP wraps attention and MoE separately and retains mHC/router/sink/confidence
 parameters in FP32 units. The example uses eight trainers and CPU Adam state
-offload. There is no expert parallelism or trainer tensor parallelism in this
+offload. DSpark keeps `num_anchors` slots on every rank even when a sample has
+fewer supervised anchor positions. Extra slots are masked out of loss and
+metrics. This keeps objective-head FSDP collectives in the same order during
+forward and activation-checkpoint replay; selected valid anchors are unchanged.
+There is no expert parallelism or trainer tensor parallelism in this
 initial adapter. Every rank initially materializes the full BF16 draft before
 FSDP sharding; allow over 30 GB just for draft and frozen head/embedding storage,
 plus checkpoint conversion, activations, optimizer and communication memory.

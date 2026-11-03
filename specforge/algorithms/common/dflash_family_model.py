@@ -1944,6 +1944,23 @@ class OnlineDSparkModel(OnlineDFlashModel):
         self.dspark_l1_loss_alpha = float(dspark_l1_loss_alpha)
         self.dspark_confidence_head_alpha = float(dspark_confidence_head_alpha)
 
+    def _sample_anchor_positions(
+        self,
+        seq_len: int,
+        loss_mask: torch.Tensor,
+        device: torch.device,
+        max_valid_anchors: Optional[int] = None,
+    ) -> Tuple[torch.Tensor, torch.Tensor]:
+        anchors, keep = super()._sample_anchor_positions(
+            seq_len, loss_mask, device, max_valid_anchors=max_valid_anchors
+        )
+        # Native confidence heads are nested FULL_SHARD modules, called once
+        # per objective chunk (and again during checkpoint replay). Rank-local
+        # widths would interleave different all-gather counts with loss all-reduce.
+        # Keep the configured budget; masked slots contribute no loss or metrics.
+        padding = self.num_anchors - anchors.shape[1]
+        return F.pad(anchors, (0, padding)), F.pad(keep, (0, padding), value=False)
+
     def _build_dspark_labels_and_mask(
         self,
         input_ids: torch.Tensor,
