@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-03",
+  "scope": "CPU-only execution of both skill helpers in the pinned trainer image; no GPU or optimizer/checkpoint execution claim",
+  "job": {
+    "alias": "denovo-training-run-skill-cpu-20261103-r1",
+    "name": "job-85e041177fac-20261103214933",
+    "status": "Completed",
+    "exit": 0,
+    "deleted_and_confirmed_absent": true
+  },
+  "trainer_image": "harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df",
+  "checks": [
+    "compose 666 Python files against shared forward sources and pinned checkpoint Core",
+    "repeat composition validates existing files",
+    "CSA/MoE/native kernel imports and NFC async_strategy signature",
+    "synthetic local check rejects composed-source corruption",
+    "skill frontmatter, CLI help, relative links and bash syntax",
+    "changed-file pre-commit hooks"
+  ],
+  "script_sha256": {
+    "prepare_megatron_core.py": "35a30b1a7edd451f14d4c0f08955215bea9545fba2d5aea06b772772a3a6429d",
+    "preflight.py": "72a20201b31e35ad6a15f3bcedc26a66ce956ee955c1324f9254bf85404927ea"
+  },
+  "environment": {
+    "passed": true,
+    "gpu_preflight": false,
+    "python": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+    "torch": "2.10.0a0+b558c986e8.nv25.11",
+    "te": "2.20.2+6ea2a74",
+    "protobuf": "6.33.6",
+    "protobuf_backend": "python",
+    "nfc": "/gpfs/users/linlizhi/nfc-sharded-pipeline-20261103/source-cpuview-r2/src/nexflashcheckpoint/__init__.py",
+    "core": "/gpfs/users/linlizhi/dspark-denovo-specforge-naive-20261103/skill-validation/core/megatron/core/dist_checkpointing/serialization.py",
+    "core_sha256": "5f745e742b63b4d4f4c406edda9c09605746bd52faa24c1b5fb4446676799a65",
+    "module_locations": {
+      "deep_gemm": "/gpfs/users/linlizhi/nexspec-hopper-validation-20261102/compat-weaver-r2/overlay/deep_gemm/__init__.py",
+      "tile_kernels.quant": "/gpfs/users/linlizhi/nexspec-hopper-validation-20261102/compat-weaver-r2/tile/tile_kernels/quant/__init__.py",
+      "tile_kernels.mhc": "/gpfs/users/linlizhi/nexspec-hopper-validation-20261102/compat-weaver-r2/tile/tile_kernels/mhc/__init__.py",
+      "tile_kernels.moe": "/gpfs/users/linlizhi/nexspec-hopper-validation-20261102/compat-weaver-r2/tile/tile_kernels/moe/__init__.py",
+      "tile_kernels.transform": "/gpfs/users/linlizhi/nexspec-hopper-validation-20261102/compat-weaver-r2/tile/tile_kernels/transform/__init__.py",
+      "transformer_engine_torch": "/opt/venv/lib/python3.12/site-packages/transformer_engine/transformer_engine_torch.cpython-312-x86_64-linux-gnu.so",
+      "megatron.core.transformer.moe.moe_utils": "/gpfs/users/linlizhi/dspark-denovo-specforge-naive-20261103/skill-validation/core/megatron/core/transformer/moe/moe_utils.py",
+      "megatron.core.transformer.experimental_attention_variant.csa_utils.packed_sparse_attention": "/gpfs/users/linlizhi/dspark-denovo-specforge-naive-20261103/skill-validation/core/megatron/core/transformer/experimental_attention_variant/csa_utils/packed_sparse_attention.py",
+      "flash_mla": "/gpfs/users/linlizhi/nexspec-hopper-validation-20261102/compat-weaver-r2/overlay/flash_mla/__init__.py",
+      "cudnn.deepseek_sparse_attention": "/opt/venv/lib/python3.12/site-packages/cudnn/deepseek_sparse_attention/__init__.py"
+    },
+    "scope": "environment/API check; actual optimizer and checkpoint acceptance are separate"
+  }
+}
