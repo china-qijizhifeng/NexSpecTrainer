@@ -64,8 +64,8 @@ class DisaggregatedModelLoadingTest(unittest.TestCase):
                     return_value=target_config,
                 ),
                 mock.patch(
-                    "specforge.training.model_loading.draft_config_dict",
-                    return_value=draft_payload,
+                    "specforge.training.model_loading.resolve_draft_config",
+                    return_value=SimpleNamespace(**draft_payload),
                 ) as resolve,
             ):
                 contract = resolve_server_capture_contract(
@@ -123,8 +123,8 @@ class DisaggregatedModelLoadingTest(unittest.TestCase):
                 return_value=SimpleNamespace(hidden_size=64, vocab_size=128),
             ),
             mock.patch(
-                "specforge.training.model_loading.draft_config_dict",
-                return_value=draft_payload,
+                "specforge.training.model_loading.resolve_draft_config",
+                return_value=SimpleNamespace(**draft_payload),
             ),
         ):
             contract = resolve_server_capture_contract(
@@ -154,8 +154,8 @@ class DisaggregatedModelLoadingTest(unittest.TestCase):
                 return_value=SimpleNamespace(hidden_size=64, vocab_size=128),
             ),
             mock.patch(
-                "specforge.training.model_loading.draft_config_dict",
-                return_value=draft_payload,
+                "specforge.training.model_loading.resolve_draft_config",
+                return_value=SimpleNamespace(**draft_payload),
             ),
         ):
             contract = resolve_server_capture_contract(
