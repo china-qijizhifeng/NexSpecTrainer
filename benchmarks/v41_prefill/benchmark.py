@@ -155,7 +155,8 @@ def main(args):
                     + str(args.codec_workers)
                     + (f"-moe{args.moe_chunk_tokens}" if args.moe_chunk_tokens else "")
                     + ("-indexer" if args.fused_indexer else "")
-                    + ("-deepinfer" if args.deepinfer_indexer else ""),
+                    + ("-deepinfer" if args.deepinfer_indexer else "")
+                    + ("-compact" if args.compact_candidates else ""),
                     "detail": detail,
                 }
             )
@@ -371,6 +372,7 @@ def main(args):
             "moe_chunk_tokens": args.moe_chunk_tokens,
             "fused_indexer": args.fused_indexer,
             "deepinfer_indexer": args.deepinfer_indexer,
+            "compact_candidates": args.compact_candidates,
             "checked_files": checked,
             "summary": summary,
             "note": "no-publication retains global aux capture allocation; no Mooncake publication. Profiled timing synchronizes CUDA; throughput phases do not.",
@@ -400,5 +402,6 @@ if __name__ == "__main__":
     p.add_argument("--moe-chunk-tokens", type=int, choices=(0, 8192, 16384), default=0)
     p.add_argument("--fused-indexer", action="store_true")
     p.add_argument("--deepinfer-indexer", action="store_true")
+    p.add_argument("--compact-candidates", action="store_true")
     p.add_argument("--codec-workers", type=int, choices=(1, 4, 8), default=1)
     main(p.parse_args())

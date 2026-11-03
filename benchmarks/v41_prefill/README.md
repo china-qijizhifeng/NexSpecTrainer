@@ -195,3 +195,26 @@ forward latency−0.74%/−2.45%, full capture−4.14%/+1.54%. Small scorer shap
 regress; keep this opt-in rather than treating the kernel microbench as a
 universal throughput improvement. Upstream attribution/license is retained
 in `deepinfer_indexer.py` and `third_party/DeepInfer-LICENSE`.
+
+## Compact candidate scores
+
+Add `--compact-candidates` to keep candidate-consumer scores in candidate-list
+order, without allocating or filling a full `[query rows, all keys]` score
+matrix and gathering it again. Each query tile writes at most 64 MiB of FP32
+candidate scores (16 MiB for the tested 64k input). This is a per-score-tensor
+bound, not a bound on all selection scratch or model memory. Full-topk and
+candidate-publisher scoring remain on the
+selected existing backend. Use `--deepinfer-indexer --compact-candidates` for
+the combined experiment.
+
+The compact columns preserve the original candidate order and `torch.topk`
+tie behavior. A Triton epilogue maps selected slots back to logical keys; the
+existing SGLang request and pool-slot writeback contract is reused. Nextron
+HyScale informed the bounded-query approach, but its sampled thresholds,
+tie rule and score arithmetic are not copied.
+
+Run `python3 benchmarks/v41_prefill/validate_compact.py --output result.json`
+inside the pinned image before full-model paired validation. It compares every
+compact score and selected key against the existing fused dense/gather path,
+including real request planning/writeback, partial and invalid blocks, empty
+candidates, signed weights, BF16 ties, noncontiguous row strides and query tiles.

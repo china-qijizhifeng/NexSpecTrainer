@@ -33,6 +33,7 @@ def _score(
     CANDIDATE: tl.constexpr,
     R: tl.constexpr,
     N: tl.constexpr,
+    COMPACT: tl.constexpr = False,
 ):
     rb, kb = tl.program_id(0), tl.program_id(1)
     rr = rb * R + tl.arange(0, R)
@@ -67,10 +68,23 @@ def _score(
         score = tl.sum(weighted.reshape(R, H, N), 1).to(tl.bfloat16).to(tl.float32)
         keep = valid[None, :] & (key[None, :] < lens[:, None])
         score = tl.where(keep, score, -float("inf"))
+        if COMPACT:
+            tl.store(
+                OUT + rb * NBLOCKS * BLOCK_SIZE + col,
+                score.reshape(N),
+                col < NBLOCKS * BLOCK_SIZE,
+            )
+        else:
+            tl.store(
+                OUT + rr[:, None] * KEYS + key[None, :],
+                score,
+                (rr[:, None] < ROWS) & valid[None, :],
+            )
+    elif COMPACT:
         tl.store(
-            OUT + rr[:, None] * KEYS + key[None, :],
-            score,
-            (rr[:, None] < ROWS) & valid[None, :],
+            OUT + rb * NBLOCKS * BLOCK_SIZE + col,
+            -float("inf"),
+            col < NBLOCKS * BLOCK_SIZE,
         )
 
 
@@ -121,12 +135,13 @@ _original_consume = None
 _candidates = None
 _enabled = False
 _deepinfer = False
+_compact = False
 _audited = set()
 
 
 def _audit(indexer, q, k, weights, lens, blocks, block_size, got):
     """One final-chunk sample per layer/length, in warmup only; never timed."""
-    identity = (_deepinfer, id(indexer), k.shape[0])
+    identity = (_deepinfer, _compact, id(indexer), k.shape[0])
     if not os.environ.get("SPECFORGE_INDEXER_AUDIT") or identity in _audited:
         return
     _audited.add(identity)
@@ -144,7 +159,17 @@ def _audit(indexer, q, k, weights, lens, blocks, block_size, got):
     width = min(indexer.index_topk, k.shape[0])
     if blocks is not None:
         left = topk_among_blocks(want, lens[rows], blocks[rows], width, block_size)
-        right = topk_among_blocks(have, lens[rows], blocks[rows], width, block_size)
+        if _compact:
+            from compact_candidates import select_compact
+
+            right = select_compact(have, blocks[rows].contiguous(), width, block_size)
+            ids = (
+                blocks[rows, :, None].long() * block_size
+                + torch.arange(block_size, device=q.device)
+            ).flatten(1)
+            want = want.gather(1, ids.clamp(0, k.shape[0] - 1))
+        else:
+            right = topk_among_blocks(have, lens[rows], blocks[rows], width, block_size)
         valid = torch.isfinite(have)
     else:
         left = want.topk(width, sorted=False).indices
@@ -157,7 +182,11 @@ def _audit(indexer, q, k, weights, lens, blocks, block_size, got):
         "keys": k.shape[0],
         "sample_rows": len(rows),
         "candidate": blocks is not None,
-        "backend": "deepinfer" if _deepinfer and blocks is None else "triton",
+        "backend": (
+            "compact"
+            if _compact and blocks is not None
+            else ("deepinfer" if _deepinfer and blocks is None else "triton")
+        ),
         "score_exact_fraction": float((x == y).float().mean()),
         "max_abs": float((x - y).abs().max()),
         "relative_l2": float(
@@ -173,8 +202,8 @@ def _audit(indexer, q, k, weights, lens, blocks, block_size, got):
         f.write(json.dumps(record) + "\n")
 
 
-def configure(enabled, *, deepinfer=False):
-    global _original_chunks, _original_consume, _enabled, _deepinfer
+def configure(enabled, *, deepinfer=False, compact=False):
+    global _original_chunks, _original_consume, _enabled, _deepinfer, _compact
     from sglang.srt.layers.attention.dsv4.v41_indexer import dense_blocks, scoring
 
     if _original_chunks is None:
@@ -184,6 +213,7 @@ def configure(enabled, *, deepinfer=False):
         dense_blocks.DenseBlocksBackend._torch_consume_prefill = _consume
     _enabled = enabled
     _deepinfer = deepinfer
+    _compact = compact
 
 
 def deepinfer_scores(q, k, weights, lens):
@@ -209,6 +239,10 @@ def _consume(self, inputs, published):
     if _enabled and published is not None:
         _candidates = (published.blocks, self.block_size)
     try:
+        if _enabled and _compact and published is not None:
+            from compact_candidates import consume_prefill
+
+            return consume_prefill(self, inputs, published)
         return _original_consume(self, inputs, published)
     finally:
         _candidates = previous
@@ -225,11 +259,25 @@ def _score_chunks(*, indexer, q, weights, index_k, request):
     # Same row boundaries as reference, bounding final scores to 64 MiB and
     # preserving the shapes presented to the unchanged top-k implementation.
     rows_per_chunk = max(1, (1 << 30) // (q.shape[1] * index_k.shape[0] * 2))
+    compact = _compact and _candidates is not None
+    if compact:
+        candidate_width = _candidates[0].shape[1] * _candidates[1]
+        # Retain the original query batching when candidates span every key.
+        # A tighter 16 MiB cap quadrupled launch/selection count at 16k and
+        # regressed full prefill. At 64k the original row bound still gives a
+        # 16 MiB compact score tensor (256 rows x 16384 candidate columns).
+        rows_per_chunk = min(
+            rows_per_chunk, max(1, (64 << 20) // max(4 * candidate_width, 1))
+        )
     for start in range(0, request.tok.numel(), rows_per_chunk):
         rows = slice(start, start + rows_per_chunk)
         tok, lens = request.tok[rows], request.lens[rows]
         blocks = _candidates[0][tok].contiguous() if _candidates is not None else None
         score_fn = deepinfer_scores if _deepinfer and blocks is None else fused_scores
+        if compact:
+            from compact_candidates import compact_scores
+
+            score_fn = compact_scores
         score_args = (
             ()
             if score_fn is deepinfer_scores
@@ -253,4 +301,9 @@ def _score_chunks(*, indexer, q, weights, index_k, request):
                 _candidates[1] if blocks is not None else 8,
                 scores,
             )
-        yield ChunkScores(rows=rows, tok=tok, lens=lens, scores=scores[:, : request.lc])
+        yield ChunkScores(
+            rows=rows,
+            tok=tok,
+            lens=lens,
+            scores=scores if compact else scores[:, : request.lc],
+        )
