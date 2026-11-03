@@ -44,6 +44,10 @@ uses the final dependency source, remains queued for eight H100s and has no
 performance results yet. The queue is WeaverRSI / proj-32; resources remain
 64 CPU / 768 GiB, with no exclusive-node or reservation bypass.
 
+Repository formatting only reordered standard-library imports in the archived
+driver; its executable AST otherwise matches the uploaded driver, as recorded
+in `cpuview-source-equivalence.json`.
+
 The archived run/YAML and source hashes are reproduction inputs, not passing
 receipts. No real-size speedup, final-source GPU acceptance or zero-pause
 claim is made while the A/B test is pending. Earlier results below retain

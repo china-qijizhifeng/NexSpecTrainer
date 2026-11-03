@@ -1,7 +1,7 @@
 # Independent review record
 
 Scope: NexSpecTrainer native FSDP1/BF16Optimizer checkpoint integration against
-base `01ff8af94a447041e9377590ee3db5754b083523`, with NFC dependency
+base `01ff8af94a447041e9377590ee3db5754b083523`, initially with NFC dependency
 `79d838fc19ba1f179fc6c1dc36147e5183d82ac8`.
 
 Six independent read-only review rounds completed on 2026-11-03, within the

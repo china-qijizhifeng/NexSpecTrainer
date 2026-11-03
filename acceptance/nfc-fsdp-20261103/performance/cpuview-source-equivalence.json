@@ -1,0 +1,8 @@
+{
+  "uploaded_driver_sha256": "3db26b12def470bc7a3bc88cc855ac0f212bc4a5e21dd964532657d39262bdca",
+  "archived_driver_sha256": "61a30e97a8917a9f8010ca738d74d313703fe758e181a3e8e87a3783730dcc27",
+  "ast_identical": false,
+  "ast_identical_except_stdlib_import_order": true,
+  "nfc_final_source_commit": "be06ae228600d8c2eed3c6a15c740163392a8587",
+  "gpu_acceptance_status": "queued; no 199GB result"
+}
