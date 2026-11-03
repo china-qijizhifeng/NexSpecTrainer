@@ -29,17 +29,23 @@ staging memory, in addition to training/optimizer memory; reserve host RAM
 accordingly. The generic 2 GiB default still streams through bounded slots,
 but then source release depends on writer progress.
 
-The previous 14.23B dSpark benchmark (before exact-storage CPU aliases) measured warm source-release
-caller pauses of 12.40 / 11.31 / 10.47 seconds. Complete checkpoints finished
-at 23.83 / 22.23 / 21.11 seconds, including live source mutation and synthetic
-GPU work before the drain. Every complete state restored bitwise on all ranks.
-Core confirmed cached-plan reuse, but the remaining phase ending at `planned`
-still consumed 6.5–9.3 seconds on the slowest rank. That broad phase included
-Core `prepare_write_data()` cloning CPU slices; it was not isolated planner
-computation. The exact-storage dependency removes those redundant clones;
-its real-size A/B timing is awaiting an available 8-H100 node. The first save paid setup:
-36.34 seconds of caller pause. These measurements do not establish full
-training throughput.
+The controlled 14.23B/199 GB dSpark A/B measured warm caller pauses of
+14.36 / 10.45 seconds before the alias fix and 3.02 / 2.54 seconds after it,
+in one process with identical runtime/pool/cache. The two-observation medians
+fell from 12.41 to 2.78 seconds (77.6% less pause). Core CPU clones fell from
+163.07 GB across ranks to zero; `prepare_write_data()` fell to about 2 ms.
+The remaining pause primarily captures roughly 24.9 GB/rank into the immutable
+pool (slowest capture 2.92 / 2.44 seconds), with zero slot waiting. Persistence
+remained asynchronous on all ranks. Complete time including live mutation and
+synthetic GPU work was 11.75 / 12.47 seconds. These are checkpoint measurements,
+not complete training throughput.
+
+Five rounds restored the complete state on all ranks (40 checks). The final
+third optimized save was preempted before restore and is excluded from those
+counts and the comparison; whole-job success is not claimed. Final-source
+Core/CUDA regression tests and small-model Trainer receipts passed before the
+large measurements. The previous 6.5–9.3-second phase ending at `planned`
+included CPU view cloning and was not isolated planner computation.
 
 Historical synchronous pool and writer comparisons are recorded separately;
 increasing from four to eight or sixteen writers showed only small warm-save

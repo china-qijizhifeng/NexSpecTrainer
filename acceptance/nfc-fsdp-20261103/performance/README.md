@@ -8,50 +8,70 @@ Frozen V4.1 target weights are excluded. Logical training tensors total
 about 199.17 GB. This benchmark does not run the full target backbone or a
 training forward/backward.
 
-## CPU tile clone elimination: 8-H100 A/B awaiting resources
+## CPU tile clone elimination: controlled 199 GB A/B
 
-The current NFC dependency is `be06ae228600d8c2eed3c6a15c740163392a8587`.
-In the deployed Core `filesystem_async.py:165–166`, `prepare_write_data()`
-clones each CPU tensor whose storage extent differs from its logical bytes.
-The optimizer's CPU shards are views of larger allocations. This copied the
-payload once before NFC copied it again into staging, even with a cached plan.
-`shard_tiles()` now creates an exact-length storage alias for each contiguous
-CPU tile, retaining the source allocation and its explicit device. Special
-logical/noncontiguous views keep the previous path. The capture fence remains
-mandatory; this change removes the intermediate clone, not the snapshot copy.
+Current NFC dependency: `be06ae228600d8c2eed3c6a15c740163392a8587`.
+In deployed Core `filesystem_async.py:165–166`, `prepare_write_data()` clones
+CPU tensors whose storage extent differs from logical bytes. Optimizer shards
+are views of larger allocations, so they were copied before NFC copied them
+again into staging, even with cached planning. Exact-length storage aliases
+for contiguous CPU tiles remove the first copy, retain source ownership and
+explicit device, and preserve the source-release fence and descriptor layout.
 
-CPU regression: NFC 522 passed / 43 skipped; both default CPU and meta device
-contexts verify exact extent, pointer identity and lifetime after owner Tensor
-GC. The independent dependency review also passed actual NativeState plus
-BF16Optimizer capture/mutate/restore checks. See `../REVIEW.md`.
+The final-source job used eight H100s, 64 CPU, 768 GiB host memory,
+32 GiB/rank budgets, four writers/rank, one process/runtime/cache/pool and the
+same actual step-2 training state. Baseline and optimized cases only switched
+`shard_tiles`. Times below are maximum-rank measurements, in seconds.
 
-`cpuview-benchmark.py` alternates cold baseline, baseline1, optimized1,
-optimized2, baseline2, optimized3 in one process with the same backend,
-runtime, cached plan and 32 GiB/rank pool, four writers/rank. A scoped clone
-hook records CPU bytes and time inside Core preparation; each optimized round
-requires zero such clone bytes. Every round mutates live state after collective
-source release, overlaps synthetic CUDA work with the writer, then restores
-the complete state fingerprint. Original input mappings are private/read-only
-and generated payload deletion is restricted to the isolated workspace.
+| Interleaved round | Caller pause | Complete after mutation/GPU work | CPU clone bytes, all ranks | Core prepare, max rank |
+| --- | ---: | ---: | ---: | ---: |
+| Baseline 1 | 14.362 | 18.234 | 163,074,539,520 | 10.791 |
+| Optimized 1 | 3.023 | 11.754 | 0 | 0.00201 |
+| Optimized 2 | 2.541 | 12.470 | 0 | 0.00202 |
+| Baseline 2 | 10.451 | 17.192 | 163,074,539,520 | 7.181 |
 
-The first attempt passed 10 native Core/CUDA regression tests on `4592a54`
-before a higher-priority job preempted it at 19:27:52. It produced no 199 GB
-measurements and its exit file alone is not a success receipt. Its events,
-worker log and exact cleanup are preserved. A scheduling-only second attempt
-was removed after inspecting unschedulability. The current third attempt
-`nexspec-nfc-dspark-cpuview-20261103-r3` / `job-46b0d32c5ef9-20261103194134`
-uses the final dependency source, remains queued for eight H100s and has no
-performance results yet. The queue is WeaverRSI / proj-32; resources remain
-64 CPU / 768 GiB, with no exclusive-node or reservation bypass.
+Two warm baseline/optimized observations each give median caller pauses
+12.407 → 2.782 seconds: 77.6% less pause (4.46×). This is a controlled result
+for this node/runtime/state, not a statistical throughput guarantee. The
+optimized broad Core phase ending at `planned` was about 59 ms; actual capture
+occupied 2.924 / 2.440 seconds at the slowest rank. Pool/cache reuse held,
+slot waiting was zero, and writes were still pending on all eight ranks at
+collective optimized return. The remaining pause captures roughly 24.9 GB per
+rank into the immutable pool; increasing writer count or pool capacity does
+not directly remove that copy. The complete column includes source mutation
+and synthetic CUDA work, not just disk latency. No target or draft training
+forward/backward was measured.
 
-Repository formatting only reordered standard-library imports in the archived
-driver; its executable AST otherwise matches the uploaded driver, as recorded
-in `cpuview-source-equivalence.json`.
+The cold baseline paused 30.183 seconds, including setup, and is excluded
+from the warm comparison. All five completed rounds (cold plus the four
+warm rows) restored full model/master/Adam/scheduler/RNG fingerprints on all
+eight ranks after live state mutation: **40 complete restore checks**. Before
+the large test, final source passed **10 native Core/CUDA tests** and **40
+small-model rank receipts**, including write-blocked optimizer progress,
+failed-write propagation, previous-version preservation and next-step/restart
+bitwise equivalence. CPU: NFC 522 passed / 43 skipped; independent review
+round 6 passed for both repositories.
 
-The archived run/YAML and source hashes are reproduction inputs, not passing
-receipts. No real-size speedup, final-source GPU acceptance or zero-pause
-claim is made while the A/B test is pending. Earlier results below retain
-their original source identity and timing definitions.
+A sixth optimized save recorded 2.343 seconds and zero clones, but the job
+was preempted at 20:09:01 before its restore completed. Its eight save-only
+records are retained and excluded from the comparison/correctness count.
+There are no whole-job pass receipts; a misleading exit file alone is not
+accepted as success. The preemption event and exact deletion/read-back are
+archived. The earlier first attempt passed 10 tests before preemption and
+had no large measurements; scheduling-only attempt 2 was also removed. No
+exclusive-node reservation or priority bypass was used.
+
+`cpuview-results.json` retains all 48 records, explicitly distinguishable by
+`full_state_restored_bitwise`; `cpuview-summary.json` uses only the 40 completed
+records. Driver, run/YAML, exact source SHA-256s, Core identity, environment,
+small-model receipts and preemption/cleanup are included. Repository formatting
+only reordered standard-library imports in the archived driver; its executable
+AST otherwise matches the uploaded driver (`cpuview-source-equivalence.json`).
+Original checkpoint files were mapped privately and every completed round
+checked unchanged sizes/mtimes. The remaining 199.17 GB test payload was removed by a dedicated cleanup
+job, which completed and was deleted/read back absent; the input nine-file
+manifest and cleanup receipt are in `cpuview-payload-cleanup.json`. All test
+attempts are now removed; no GPU job is left running for this experiment.
 
 ## Previous asynchronous save with cached plans
 

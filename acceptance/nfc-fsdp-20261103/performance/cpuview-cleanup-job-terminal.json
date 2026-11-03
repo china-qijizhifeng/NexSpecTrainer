@@ -1,0 +1,13 @@
+[
+  {
+    "name": "job-ca659d3e68c8-20261103201251",
+    "user_def_name": "nexspec-nfc-cpuview-cleanup-20261103-r1",
+    "status": "Completed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 1,
+    "project": "WeaverRSI",
+    "queue": "proj-32"
+  }
+]

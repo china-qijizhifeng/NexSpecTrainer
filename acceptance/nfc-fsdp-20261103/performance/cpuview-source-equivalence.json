@@ -4,5 +4,5 @@
   "ast_identical": false,
   "ast_identical_except_stdlib_import_order": true,
   "nfc_final_source_commit": "be06ae228600d8c2eed3c6a15c740163392a8587",
-  "gpu_acceptance_status": "queued; no 199GB result"
+  "gpu_acceptance_status": "10 native tests and 40 small-model receipts passed; 40 real-state restore checks; final save-only 8 records excluded after preemption"
 }
