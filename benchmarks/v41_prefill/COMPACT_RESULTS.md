@@ -71,8 +71,10 @@ differ from this V4.1 path. Existing torch selection semantics are preserved.
 
 ## Reproduction and evidence
 
-Use `--deepinfer-indexer --compact-candidates` with the pinned serving image.
-The option is experimental and off by default. Run
+The benchmark now enables `--deepinfer-indexer --compact-candidates` by default
+with the pinned serving image. Use `--no-compact-candidates` to reproduce this
+report's prior DeepInfer baseline; add `--no-deepinfer-indexer` for the original
+scorer. The experiment recorded here supplied both positive flags explicitly. Run
 `python3 benchmarks/v41_prefill/validate_compact.py --output result.json`
 for the kernel and integration checks before paired full-model validation.
 

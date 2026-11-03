@@ -401,7 +401,17 @@ if __name__ == "__main__":
     p.add_argument("--pipeline-depth", type=int, choices=(1, 2), default=1)
     p.add_argument("--moe-chunk-tokens", type=int, choices=(0, 8192, 16384), default=0)
     p.add_argument("--fused-indexer", action="store_true")
-    p.add_argument("--deepinfer-indexer", action="store_true")
-    p.add_argument("--compact-candidates", action="store_true")
+    p.add_argument(
+        "--deepinfer-indexer",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Use the validated Hopper DeepInfer scorer (default: enabled)",
+    )
+    p.add_argument(
+        "--compact-candidates",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Store only candidate scores before top-k (default: enabled)",
+    )
     p.add_argument("--codec-workers", type=int, choices=(1, 4, 8), default=1)
     main(p.parse_args())

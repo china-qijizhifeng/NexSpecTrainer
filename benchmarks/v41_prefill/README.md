@@ -44,9 +44,12 @@ python3 "$SPECCAP_ROOT/source/benchmarks/v41_prefill/benchmark.py" \
 Use a new output directory each time. The server's diagnostic hook calls
 `instrument.install(scheduler)` after the capture plugin's scheduler install.
 For a clean launch this hook imports `runtime_control`; it switches codec
-workers and explicitly selected experimental kernels between fully drained,
-sequential phases. With both kernel flags omitted, model arithmetic uses the
-original implementation. `control.json` starts as `{"profile":false,"tag":"startup"}`.
+workers and selected kernels between fully drained, sequential phases. The driver
+enables DeepInfer scoring and compact candidate scores by default. Pass
+`--no-deepinfer-indexer --no-compact-candidates` to use the original scorer, or add
+`--fused-indexer` to those two flags for the earlier fused dense-score baseline.
+The positive flags remain accepted. These defaults apply to this pinned H100
+benchmark driver. `control.json` starts as `{"profile":false,"tag":"startup"}`.
 CUDA events enclose the complete model `_forward_raw` call on each rank;
 the report uses the maximum rank time. Nested attention/MoE/Engram durations
 must not be summed into a model total. Capture copy timing synchronizes the
@@ -180,32 +183,32 @@ comparison separately as the combined removal-of-hashing and pipeline change.
 
 ## DeepInfer Hopper pipeline port
 
-`--deepinfer-indexer` enables the experimental BF16 adaptation of DeepInfer
+The driver enables `--deepinfer-indexer` by default, using the BF16 adaptation of DeepInfer
 Hopper PR92's keys-major Gluon kernel. It preserves persistent visible-tile
 scheduling, TMA K prefetch, async WGMMA and packed BF16 epilogues. It replaces
-full scoring and candidate publishing; candidate consumers retain the existing
-fused gather scorer. The default path is unchanged. Use it with the pinned
-SM90 image; it is not an automatic portable backend selector.
+full scoring and candidate publishing; candidate consumers use compact scores
+by default. Pass `--no-deepinfer-indexer` to disable the DeepInfer scorer.
+Use it with the pinned SM90 image; it is not an automatic portable backend selector.
 
 Validate with `python3 benchmarks/v41_prefill/validate_deepinfer.py --output result.json`.
 FP32 head-sum order may change intermediate scores; synthetic top-k and complete
 model output must be validated. On the tested two traces all full outputs were
 bitwise identical. See `DEEPINFER_RESULTS.md` for the same-run16k/64k results:
 forward latency−0.74%/−2.45%, full capture−4.14%/+1.54%. Small scorer shapes
-regress; keep this opt-in rather than treating the kernel microbench as a
-universal throughput improvement. Upstream attribution/license is retained
+regress; use the disable flag for baseline comparisons rather than treating the
+kernel microbench as a universal throughput improvement. Upstream attribution/license is retained
 in `deepinfer_indexer.py` and `third_party/DeepInfer-LICENSE`.
 
 ## Compact candidate scores
 
-Add `--compact-candidates` to keep candidate-consumer scores in candidate-list
+The default `--compact-candidates` keeps candidate-consumer scores in candidate-list
 order, without allocating or filling a full `[query rows, all keys]` score
 matrix and gathering it again. Each query tile writes at most 64 MiB of FP32
 candidate scores (16 MiB for the tested 64k input). This is a per-score-tensor
 bound, not a bound on all selection scratch or model memory. Full-topk and
-candidate-publisher scoring remain on the
-selected existing backend. Use `--deepinfer-indexer --compact-candidates` for
-the combined experiment.
+candidate-publisher scoring remain on the selected backend. Pass
+`--no-compact-candidates` to disable compact storage independently; this selects
+the prior DeepInfer configuration when `--deepinfer-indexer` remains enabled.
 
 The compact columns preserve the original candidate order and `torch.topk`
 tie behavior. A Triton epilogue maps selected slots back to logical keys; the
