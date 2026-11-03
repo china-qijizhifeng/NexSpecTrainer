@@ -1,0 +1,2566 @@
+{
+  "FULL_SHARD-offload1-rank0.json": {
+    "rank": 0,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.828961904,
+          "descriptors_agreed": 708931.860927108,
+          "staging_dir_ready": 708931.862454097,
+          "strategy_enter": 708931.882965843,
+          "admitted": 708931.884504746,
+          "planned": 708945.877464127,
+          "pool_acquire": 708945.882327418,
+          "pool_ready": 708946.013290658,
+          "capture_dispatched": 708946.016131305,
+          "core_save_returned": 708946.01654414,
+          "returned": 708946.016633733,
+          "first_capture": 708946.016855785,
+          "capture_enqueued": 708946.0176766,
+          "capture_synchronized": 708946.017703184,
+          "snapshot_ready": 708946.017703786,
+          "writers_started": 708946.018303055
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.426956028,
+          "descriptors_agreed": 708946.430313828,
+          "staging_dir_ready": 708946.434579554,
+          "strategy_enter": 708946.440607314,
+          "admitted": 708946.442255583,
+          "planned": 708946.448575375,
+          "pool_acquire": 708946.448706865,
+          "pool_ready": 708946.561123257,
+          "capture_dispatched": 708946.563249867,
+          "first_capture": 708946.563326986,
+          "core_save_returned": 708946.563550283,
+          "returned": 708946.56357452,
+          "capture_enqueued": 708946.564129271,
+          "capture_synchronized": 708946.564146109,
+          "snapshot_ready": 708946.564146651,
+          "writers_started": 708946.564294816
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.67485491,
+          "descriptors_agreed": 708946.678211806,
+          "staging_dir_ready": 708946.679858059,
+          "strategy_enter": 708946.685789983,
+          "admitted": 708946.687407573,
+          "planned": 708946.693384987,
+          "pool_acquire": 708946.693502918,
+          "pool_ready": 708946.693661236,
+          "capture_dispatched": 708946.696769556,
+          "first_capture": 708946.696829348,
+          "core_save_returned": 708946.697010769,
+          "returned": 708946.69702535,
+          "capture_enqueued": 708946.697491693,
+          "capture_synchronized": 708946.697502862,
+          "snapshot_ready": 708946.697503258,
+          "writers_started": 708946.697638019
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.806047215,
+          "descriptors_agreed": 708946.809304628,
+          "staging_dir_ready": 708946.81047544,
+          "strategy_enter": 708946.816557573,
+          "admitted": 708946.818149108,
+          "planned": 708946.819672168,
+          "pool_acquire": 708946.81977733,
+          "pool_ready": 708946.819926697,
+          "capture_dispatched": 708946.825858563,
+          "first_capture": 708946.825914302,
+          "core_save_returned": 708946.826008114,
+          "returned": 708946.826023047,
+          "capture_enqueued": 708946.82650879,
+          "capture_synchronized": 708946.826519542,
+          "snapshot_ready": 708946.826519914,
+          "writers_started": 708946.826637113
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "FULL_SHARD-offload1-rank1.json": {
+    "rank": 1,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.852338721,
+          "descriptors_agreed": 708931.860906284,
+          "staging_dir_ready": 708931.862381751,
+          "strategy_enter": 708931.875271576,
+          "admitted": 708931.884416809,
+          "planned": 708945.85943264,
+          "pool_acquire": 708945.865405301,
+          "pool_ready": 708945.984824451,
+          "capture_dispatched": 708945.986533518,
+          "first_capture": 708945.98661761,
+          "core_save_returned": 708945.986846312,
+          "returned": 708945.986873723,
+          "capture_enqueued": 708945.987450487,
+          "capture_synchronized": 708945.987469537,
+          "snapshot_ready": 708945.987469945,
+          "writers_started": 708945.98751224
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.42705072,
+          "descriptors_agreed": 708946.430259347,
+          "staging_dir_ready": 708946.434515799,
+          "strategy_enter": 708946.440221917,
+          "admitted": 708946.442156994,
+          "planned": 708946.445341822,
+          "pool_acquire": 708946.445466084,
+          "pool_ready": 708946.555562787,
+          "capture_dispatched": 708946.557178989,
+          "first_capture": 708946.5572563,
+          "core_save_returned": 708946.557381581,
+          "returned": 708946.557403308,
+          "capture_enqueued": 708946.557902613,
+          "capture_synchronized": 708946.557916943,
+          "snapshot_ready": 708946.557917481,
+          "writers_started": 708946.558059739
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.674966293,
+          "descriptors_agreed": 708946.678133961,
+          "staging_dir_ready": 708946.679782588,
+          "strategy_enter": 708946.685394735,
+          "admitted": 708946.687319519,
+          "planned": 708946.690165827,
+          "pool_acquire": 708946.690277937,
+          "pool_ready": 708946.690419105,
+          "capture_dispatched": 708946.695558043,
+          "first_capture": 708946.69561096,
+          "core_save_returned": 708946.695693066,
+          "returned": 708946.695706139,
+          "capture_enqueued": 708946.696111344,
+          "capture_synchronized": 708946.696119542,
+          "snapshot_ready": 708946.696119859,
+          "writers_started": 708946.696229538
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.806160997,
+          "descriptors_agreed": 708946.809241177,
+          "staging_dir_ready": 708946.810383082,
+          "strategy_enter": 708946.815965487,
+          "admitted": 708946.818049474,
+          "planned": 708946.819541395,
+          "pool_acquire": 708946.819639936,
+          "pool_ready": 708946.81978808,
+          "capture_dispatched": 708946.825052144,
+          "first_capture": 708946.825104583,
+          "core_save_returned": 708946.825178814,
+          "returned": 708946.825191777,
+          "capture_enqueued": 708946.825571128,
+          "capture_synchronized": 708946.825579041,
+          "snapshot_ready": 708946.825579296,
+          "writers_started": 708946.825684342
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "FULL_SHARD-offload1-rank2.json": {
+    "rank": 2,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.852794469,
+          "descriptors_agreed": 708931.860936352,
+          "staging_dir_ready": 708931.8623997,
+          "strategy_enter": 708931.875256456,
+          "admitted": 708931.884427915,
+          "planned": 708945.880076532,
+          "pool_acquire": 708945.885129972,
+          "pool_ready": 708946.007221578,
+          "capture_dispatched": 708946.009376016,
+          "core_save_returned": 708946.009693863,
+          "returned": 708946.009758716,
+          "first_capture": 708946.009867532,
+          "capture_enqueued": 708946.010659841,
+          "capture_synchronized": 708946.010686594,
+          "snapshot_ready": 708946.010687584,
+          "writers_started": 708946.011045837
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.427070623,
+          "descriptors_agreed": 708946.430267847,
+          "staging_dir_ready": 708946.434527889,
+          "strategy_enter": 708946.440256662,
+          "admitted": 708946.442162076,
+          "planned": 708946.4453783,
+          "pool_acquire": 708946.445513655,
+          "pool_ready": 708946.560340792,
+          "capture_dispatched": 708946.562782805,
+          "first_capture": 708946.562862363,
+          "core_save_returned": 708946.563027345,
+          "returned": 708946.563053736,
+          "capture_enqueued": 708946.563611448,
+          "capture_synchronized": 708946.56362597,
+          "snapshot_ready": 708946.56362683,
+          "writers_started": 708946.563788114
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.674971988,
+          "descriptors_agreed": 708946.678145249,
+          "staging_dir_ready": 708946.679798369,
+          "strategy_enter": 708946.685408439,
+          "admitted": 708946.687326615,
+          "planned": 708946.690194672,
+          "pool_acquire": 708946.69031759,
+          "pool_ready": 708946.690460496,
+          "capture_dispatched": 708946.695991902,
+          "first_capture": 708946.696058103,
+          "core_save_returned": 708946.696144604,
+          "returned": 708946.696161322,
+          "capture_enqueued": 708946.696582986,
+          "capture_synchronized": 708946.696593041,
+          "snapshot_ready": 708946.696593581,
+          "writers_started": 708946.696715117
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.806169278,
+          "descriptors_agreed": 708946.809282329,
+          "staging_dir_ready": 708946.810414615,
+          "strategy_enter": 708946.816049937,
+          "admitted": 708946.818072032,
+          "planned": 708946.819608189,
+          "pool_acquire": 708946.819715486,
+          "pool_ready": 708946.819865817,
+          "capture_dispatched": 708946.825370334,
+          "first_capture": 708946.82542399,
+          "core_save_returned": 708946.825521441,
+          "returned": 708946.825536518,
+          "capture_enqueued": 708946.825976944,
+          "capture_synchronized": 708946.825987713,
+          "snapshot_ready": 708946.825988287,
+          "writers_started": 708946.826123886
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "FULL_SHARD-offload1-rank3.json": {
+    "rank": 3,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.852361061,
+          "descriptors_agreed": 708931.860915731,
+          "staging_dir_ready": 708931.86239703,
+          "strategy_enter": 708931.875258457,
+          "admitted": 708931.884432225,
+          "planned": 708945.896339674,
+          "pool_acquire": 708945.901964426,
+          "pool_ready": 708946.011044803,
+          "capture_dispatched": 708946.013280751,
+          "first_capture": 708946.013467672,
+          "core_save_returned": 708946.014025514,
+          "returned": 708946.014107272,
+          "capture_enqueued": 708946.014832009,
+          "capture_synchronized": 708946.01485836,
+          "snapshot_ready": 708946.014859263,
+          "writers_started": 708946.015334131
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.427068666,
+          "descriptors_agreed": 708946.430329464,
+          "staging_dir_ready": 708946.434524948,
+          "strategy_enter": 708946.440282415,
+          "admitted": 708946.442232981,
+          "planned": 708946.445393199,
+          "pool_acquire": 708946.445531209,
+          "pool_ready": 708946.560198233,
+          "capture_dispatched": 708946.562620257,
+          "first_capture": 708946.562690579,
+          "core_save_returned": 708946.56285531,
+          "returned": 708946.562880412,
+          "capture_enqueued": 708946.563423972,
+          "capture_synchronized": 708946.563438769,
+          "snapshot_ready": 708946.563439204,
+          "writers_started": 708946.563477933
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.674969347,
+          "descriptors_agreed": 708946.67819299,
+          "staging_dir_ready": 708946.67980676,
+          "strategy_enter": 708946.685432362,
+          "admitted": 708946.687343182,
+          "planned": 708946.690186766,
+          "pool_acquire": 708946.690303155,
+          "pool_ready": 708946.690453044,
+          "capture_dispatched": 708946.695859843,
+          "first_capture": 708946.695918346,
+          "core_save_returned": 708946.696031972,
+          "returned": 708946.696048909,
+          "capture_enqueued": 708946.696544088,
+          "capture_synchronized": 708946.696555129,
+          "snapshot_ready": 708946.696555504,
+          "writers_started": 708946.69659975
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.80616056,
+          "descriptors_agreed": 708946.809315928,
+          "staging_dir_ready": 708946.810397499,
+          "strategy_enter": 708946.815982613,
+          "admitted": 708946.818082002,
+          "planned": 708946.81963086,
+          "pool_acquire": 708946.819734107,
+          "pool_ready": 708946.819886223,
+          "capture_dispatched": 708946.825503678,
+          "core_save_returned": 708946.825571559,
+          "returned": 708946.825586564,
+          "first_capture": 708946.825626877,
+          "capture_enqueued": 708946.826133885,
+          "capture_synchronized": 708946.826144985,
+          "snapshot_ready": 708946.826145587,
+          "writers_started": 708946.826266374
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "FULL_SHARD-offload1-rank4.json": {
+    "rank": 4,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.849855187,
+          "descriptors_agreed": 708931.860858449,
+          "staging_dir_ready": 708931.862380603,
+          "strategy_enter": 708931.875262879,
+          "admitted": 708931.884410767,
+          "planned": 708945.861674287,
+          "pool_acquire": 708945.866297774,
+          "pool_ready": 708945.955998452,
+          "capture_dispatched": 708945.95777601,
+          "first_capture": 708945.957874652,
+          "core_save_returned": 708945.958043206,
+          "returned": 708945.958068103,
+          "capture_enqueued": 708945.958615982,
+          "capture_synchronized": 708945.958636487,
+          "snapshot_ready": 708945.95863699,
+          "writers_started": 708945.958787607
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.427051935,
+          "descriptors_agreed": 708946.430256004,
+          "staging_dir_ready": 708946.434631162,
+          "strategy_enter": 708946.440238071,
+          "admitted": 708946.44216311,
+          "planned": 708946.445421329,
+          "pool_acquire": 708946.445551534,
+          "pool_ready": 708946.543892487,
+          "capture_dispatched": 708946.546866673,
+          "first_capture": 708946.546938055,
+          "core_save_returned": 708946.547065684,
+          "returned": 708946.547091417,
+          "capture_enqueued": 708946.547577234,
+          "capture_synchronized": 708946.547590796,
+          "snapshot_ready": 708946.547591319,
+          "writers_started": 708946.547726761
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.674961931,
+          "descriptors_agreed": 708946.678127591,
+          "staging_dir_ready": 708946.679780046,
+          "strategy_enter": 708946.685406903,
+          "admitted": 708946.687315398,
+          "planned": 708946.69015802,
+          "pool_acquire": 708946.69026889,
+          "pool_ready": 708946.690409425,
+          "capture_dispatched": 708946.695027857,
+          "first_capture": 708946.695078199,
+          "core_save_returned": 708946.695162687,
+          "returned": 708946.695175633,
+          "capture_enqueued": 708946.695561315,
+          "capture_synchronized": 708946.695570243,
+          "snapshot_ready": 708946.695570523,
+          "writers_started": 708946.695680171
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.806155114,
+          "descriptors_agreed": 708946.809239884,
+          "staging_dir_ready": 708946.810388292,
+          "strategy_enter": 708946.815953268,
+          "admitted": 708946.818042712,
+          "planned": 708946.819530309,
+          "pool_acquire": 708946.819626952,
+          "pool_ready": 708946.819775941,
+          "capture_dispatched": 708946.824716862,
+          "first_capture": 708946.824761987,
+          "core_save_returned": 708946.824854969,
+          "returned": 708946.824866628,
+          "capture_enqueued": 708946.825282924,
+          "capture_synchronized": 708946.825293816,
+          "snapshot_ready": 708946.825294208,
+          "writers_started": 708946.825400935
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "FULL_SHARD-offload1-rank5.json": {
+    "rank": 5,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.850242308,
+          "descriptors_agreed": 708931.860760439,
+          "staging_dir_ready": 708931.862386435,
+          "strategy_enter": 708931.875264951,
+          "admitted": 708931.884417976,
+          "planned": 708945.876385449,
+          "pool_acquire": 708945.881125743,
+          "pool_ready": 708945.972092008,
+          "capture_dispatched": 708945.974664964,
+          "first_capture": 708945.974739674,
+          "core_save_returned": 708945.974948949,
+          "returned": 708945.974971089,
+          "capture_enqueued": 708945.975444245,
+          "capture_synchronized": 708945.975462199,
+          "snapshot_ready": 708945.975462561,
+          "writers_started": 708945.975483809
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.427052186,
+          "descriptors_agreed": 708946.430255146,
+          "staging_dir_ready": 708946.434516324,
+          "strategy_enter": 708946.44022049,
+          "admitted": 708946.442150365,
+          "planned": 708946.44532025,
+          "pool_acquire": 708946.445440647,
+          "pool_ready": 708946.542669186,
+          "capture_dispatched": 708946.546318521,
+          "first_capture": 708946.546382379,
+          "core_save_returned": 708946.546524581,
+          "returned": 708946.546544456,
+          "capture_enqueued": 708946.54709228,
+          "capture_synchronized": 708946.547105786,
+          "snapshot_ready": 708946.547106309,
+          "writers_started": 708946.547245016
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.674965432,
+          "descriptors_agreed": 708946.678129102,
+          "staging_dir_ready": 708946.679788627,
+          "strategy_enter": 708946.68540842,
+          "admitted": 708946.687310305,
+          "planned": 708946.690164121,
+          "pool_acquire": 708946.690274261,
+          "pool_ready": 708946.690415787,
+          "capture_dispatched": 708946.695389554,
+          "first_capture": 708946.695437282,
+          "core_save_returned": 708946.695528214,
+          "returned": 708946.69554271,
+          "capture_enqueued": 708946.695961342,
+          "capture_synchronized": 708946.695971108,
+          "snapshot_ready": 708946.695971425,
+          "writers_started": 708946.696084851
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.806153772,
+          "descriptors_agreed": 708946.809243256,
+          "staging_dir_ready": 708946.8103944,
+          "strategy_enter": 708946.815967918,
+          "admitted": 708946.81806742,
+          "planned": 708946.819568547,
+          "pool_acquire": 708946.819668177,
+          "pool_ready": 708946.819818017,
+          "capture_dispatched": 708946.825202534,
+          "first_capture": 708946.825248833,
+          "core_save_returned": 708946.825334009,
+          "returned": 708946.825346877,
+          "capture_enqueued": 708946.825707943,
+          "capture_synchronized": 708946.825715722,
+          "snapshot_ready": 708946.825715951,
+          "writers_started": 708946.825811201
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "FULL_SHARD-offload1-rank6.json": {
+    "rank": 6,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.850442345,
+          "descriptors_agreed": 708931.860764344,
+          "staging_dir_ready": 708931.86238448,
+          "strategy_enter": 708931.875288145,
+          "admitted": 708931.884414335,
+          "planned": 708945.87892302,
+          "pool_acquire": 708945.885196852,
+          "pool_ready": 708945.972907295,
+          "capture_dispatched": 708945.975621633,
+          "first_capture": 708945.975697607,
+          "core_save_returned": 708945.976072694,
+          "returned": 708945.976100512,
+          "capture_enqueued": 708945.976554113,
+          "capture_synchronized": 708945.976572043,
+          "snapshot_ready": 708945.976572423,
+          "writers_started": 708945.976728354
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.427067551,
+          "descriptors_agreed": 708946.430267737,
+          "staging_dir_ready": 708946.434517963,
+          "strategy_enter": 708946.440236911,
+          "admitted": 708946.442156582,
+          "planned": 708946.445342114,
+          "pool_acquire": 708946.445468563,
+          "pool_ready": 708946.542679532,
+          "capture_dispatched": 708946.546496347,
+          "first_capture": 708946.546565933,
+          "core_save_returned": 708946.546820818,
+          "returned": 708946.546839798,
+          "capture_enqueued": 708946.547314953,
+          "capture_synchronized": 708946.547328177,
+          "snapshot_ready": 708946.547328595,
+          "writers_started": 708946.547466947
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.67497174,
+          "descriptors_agreed": 708946.678131945,
+          "staging_dir_ready": 708946.67979067,
+          "strategy_enter": 708946.685426841,
+          "admitted": 708946.68731702,
+          "planned": 708946.690186694,
+          "pool_acquire": 708946.690304026,
+          "pool_ready": 708946.690454388,
+          "capture_dispatched": 708946.695737431,
+          "first_capture": 708946.695787203,
+          "core_save_returned": 708946.695880487,
+          "returned": 708946.69589401,
+          "capture_enqueued": 708946.696366381,
+          "capture_synchronized": 708946.696377483,
+          "snapshot_ready": 708946.696377778,
+          "writers_started": 708946.696487417
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.806163029,
+          "descriptors_agreed": 708946.809247025,
+          "staging_dir_ready": 708946.81039077,
+          "strategy_enter": 708946.815951186,
+          "admitted": 708946.818046891,
+          "planned": 708946.819654308,
+          "pool_acquire": 708946.819755073,
+          "pool_ready": 708946.819913201,
+          "capture_dispatched": 708946.825689933,
+          "first_capture": 708946.825738875,
+          "core_save_returned": 708946.825836508,
+          "returned": 708946.825848468,
+          "capture_enqueued": 708946.82632524,
+          "capture_synchronized": 708946.826335105,
+          "snapshot_ready": 708946.826335342,
+          "writers_started": 708946.826363733
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "FULL_SHARD-offload1-rank7.json": {
+    "rank": 7,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 29.287427010014653,
+        "durable_after_next_step_seconds": 29.613508645095862,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708931.849929466,
+          "descriptors_agreed": 708931.86085785,
+          "staging_dir_ready": 708931.862374069,
+          "strategy_enter": 708931.875263416,
+          "admitted": 708931.884408401,
+          "planned": 708945.881600042,
+          "pool_acquire": 708945.886473453,
+          "pool_ready": 708945.97328058,
+          "capture_dispatched": 708945.975861014,
+          "first_capture": 708945.97593298,
+          "core_save_returned": 708945.976230602,
+          "returned": 708945.976254151,
+          "capture_enqueued": 708945.976780467,
+          "capture_synchronized": 708945.976797878,
+          "snapshot_ready": 708945.97679846,
+          "writers_started": 708945.976820489
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.15067346894647926,
+        "durable_after_next_step_seconds": 0.19060721492860466,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.427063477,
+          "descriptors_agreed": 708946.430254087,
+          "staging_dir_ready": 708946.434513613,
+          "strategy_enter": 708946.440217751,
+          "admitted": 708946.442167088,
+          "planned": 708946.445473427,
+          "pool_acquire": 708946.445647317,
+          "pool_ready": 708946.542948753,
+          "capture_dispatched": 708946.546759388,
+          "first_capture": 708946.546824992,
+          "core_save_returned": 708946.547162564,
+          "returned": 708946.547181514,
+          "capture_enqueued": 708946.547739574,
+          "capture_synchronized": 708946.547750868,
+          "snapshot_ready": 708946.547751554,
+          "writers_started": 708946.547775847
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03599442692939192,
+        "durable_after_next_step_seconds": 0.07678443391341716,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.674968534,
+          "descriptors_agreed": 708946.678130678,
+          "staging_dir_ready": 708946.679784115,
+          "strategy_enter": 708946.685404648,
+          "admitted": 708946.687314907,
+          "planned": 708946.690325207,
+          "pool_acquire": 708946.690449656,
+          "pool_ready": 708946.69063865,
+          "capture_dispatched": 708946.696180674,
+          "first_capture": 708946.696235764,
+          "core_save_returned": 708946.696338202,
+          "returned": 708946.696352142,
+          "capture_enqueued": 708946.696979116,
+          "capture_synchronized": 708946.696989552,
+          "snapshot_ready": 708946.696989947,
+          "writers_started": 708946.697033947
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.033424508990719914,
+        "durable_after_next_step_seconds": 0.07730264705605805,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708946.806164413,
+          "descriptors_agreed": 708946.809241463,
+          "staging_dir_ready": 708946.810386793,
+          "strategy_enter": 708946.815985981,
+          "admitted": 708946.81804633,
+          "planned": 708946.819927366,
+          "pool_acquire": 708946.820051247,
+          "pool_ready": 708946.820245593,
+          "capture_dispatched": 708946.826066703,
+          "first_capture": 708946.826125761,
+          "core_save_returned": 708946.826224328,
+          "returned": 708946.826236213,
+          "capture_enqueued": 708946.826852073,
+          "capture_synchronized": 708946.826861665,
+          "snapshot_ready": 708946.826862043,
+          "writers_started": 708946.826883917
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "NO_SHARD-offload1-rank0.json": {
+    "rank": 0,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.396902146,
+          "descriptors_agreed": 708949.400309419,
+          "staging_dir_ready": 708949.401467468,
+          "strategy_enter": 708949.408574432,
+          "admitted": 708949.410549426,
+          "planned": 708949.415843894,
+          "pool_acquire": 708949.416020833,
+          "pool_ready": 708949.538078066,
+          "capture_dispatched": 708949.539643338,
+          "first_capture": 708949.539747525,
+          "core_save_returned": 708949.540312902,
+          "returned": 708949.540342554,
+          "capture_enqueued": 708949.540988832,
+          "capture_synchronized": 708949.541003333,
+          "snapshot_ready": 708949.541004522,
+          "writers_started": 708949.541036785
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.747593242,
+          "descriptors_agreed": 708949.75100653,
+          "staging_dir_ready": 708949.752282786,
+          "strategy_enter": 708949.758841909,
+          "admitted": 708949.760947947,
+          "planned": 708949.765710031,
+          "pool_acquire": 708949.765860477,
+          "pool_ready": 708949.766091222,
+          "capture_dispatched": 708949.767015033,
+          "first_capture": 708949.767100159,
+          "core_save_returned": 708949.767277729,
+          "returned": 708949.767293052,
+          "capture_enqueued": 708949.76803097,
+          "capture_synchronized": 708949.768043034,
+          "snapshot_ready": 708949.768043358,
+          "writers_started": 708949.768167877
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865206046,
+          "descriptors_agreed": 708949.868630376,
+          "staging_dir_ready": 708949.869729998,
+          "strategy_enter": 708949.876725194,
+          "admitted": 708949.878774439,
+          "planned": 708949.881219161,
+          "pool_acquire": 708949.881377372,
+          "pool_ready": 708949.881622331,
+          "capture_dispatched": 708949.88252177,
+          "first_capture": 708949.882601029,
+          "core_save_returned": 708949.882774963,
+          "returned": 708949.882797837,
+          "capture_enqueued": 708949.883533213,
+          "capture_synchronized": 708949.883544548,
+          "snapshot_ready": 708949.883544825,
+          "writers_started": 708949.883668873
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980121575,
+          "descriptors_agreed": 708949.983502718,
+          "staging_dir_ready": 708949.984600599,
+          "strategy_enter": 708949.990821263,
+          "admitted": 708949.99279892,
+          "planned": 708949.994831276,
+          "pool_acquire": 708949.994948719,
+          "pool_ready": 708949.995161262,
+          "capture_dispatched": 708949.99605582,
+          "first_capture": 708949.996112041,
+          "core_save_returned": 708949.996281956,
+          "returned": 708949.996295659,
+          "capture_enqueued": 708949.996979392,
+          "capture_synchronized": 708949.996990377,
+          "snapshot_ready": 708949.996990634,
+          "writers_started": 708949.997017476
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "NO_SHARD-offload1-rank1.json": {
+    "rank": 1,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.397016693,
+          "descriptors_agreed": 708949.40025069,
+          "staging_dir_ready": 708949.401383154,
+          "strategy_enter": 708949.40773709,
+          "admitted": 708949.410439443,
+          "planned": 708949.413933791,
+          "capture_dispatched": 708949.415781271,
+          "core_save_returned": 708949.415839593,
+          "returned": 708949.415856864,
+          "first_capture": 708949.416030829,
+          "capture_enqueued": 708949.416252266,
+          "capture_synchronized": 708949.41625373,
+          "snapshot_ready": 708949.416263667
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.747702997,
+          "descriptors_agreed": 708949.750948666,
+          "staging_dir_ready": 708949.752192287,
+          "strategy_enter": 708949.758539486,
+          "admitted": 708949.760883414,
+          "planned": 708949.763946892,
+          "capture_dispatched": 708949.765227117,
+          "core_save_returned": 708949.765276473,
+          "returned": 708949.765292079,
+          "first_capture": 708949.765400769,
+          "capture_enqueued": 708949.765589907,
+          "capture_synchronized": 708949.76559144,
+          "snapshot_ready": 708949.765609861
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865299414,
+          "descriptors_agreed": 708949.868580779,
+          "staging_dir_ready": 708949.869641773,
+          "strategy_enter": 708949.876440088,
+          "admitted": 708949.878684113,
+          "planned": 708949.880180991,
+          "capture_dispatched": 708949.880711092,
+          "core_save_returned": 708949.880756934,
+          "returned": 708949.880774381,
+          "first_capture": 708949.880938618,
+          "capture_enqueued": 708949.881049318,
+          "capture_synchronized": 708949.881051222,
+          "snapshot_ready": 708949.881085435
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980229778,
+          "descriptors_agreed": 708949.983495162,
+          "staging_dir_ready": 708949.98452068,
+          "strategy_enter": 708949.990702424,
+          "admitted": 708949.992746391,
+          "planned": 708949.994165151,
+          "capture_dispatched": 708949.995056259,
+          "core_save_returned": 708949.995100823,
+          "returned": 708949.995112885,
+          "first_capture": 708949.995210866,
+          "capture_enqueued": 708949.995227511,
+          "capture_synchronized": 708949.995228632,
+          "snapshot_ready": 708949.995237011
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "NO_SHARD-offload1-rank2.json": {
+    "rank": 2,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.397031814,
+          "descriptors_agreed": 708949.400270149,
+          "staging_dir_ready": 708949.401392766,
+          "strategy_enter": 708949.407798246,
+          "admitted": 708949.410459742,
+          "planned": 708949.414023135,
+          "capture_dispatched": 708949.417170932,
+          "core_save_returned": 708949.417228467,
+          "returned": 708949.417244294,
+          "first_capture": 708949.417376507,
+          "capture_enqueued": 708949.417605678,
+          "capture_synchronized": 708949.417607008,
+          "snapshot_ready": 708949.417629937
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.747717221,
+          "descriptors_agreed": 708949.751027274,
+          "staging_dir_ready": 708949.752222157,
+          "strategy_enter": 708949.758605671,
+          "admitted": 708949.760897771,
+          "planned": 708949.763979252,
+          "capture_dispatched": 708949.765414828,
+          "core_save_returned": 708949.765479122,
+          "returned": 708949.765496126,
+          "first_capture": 708949.765700323,
+          "capture_enqueued": 708949.76573082,
+          "capture_synchronized": 708949.765732039,
+          "snapshot_ready": 708949.765954855
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865296077,
+          "descriptors_agreed": 708949.868590463,
+          "staging_dir_ready": 708949.869655112,
+          "strategy_enter": 708949.876445813,
+          "admitted": 708949.878700549,
+          "planned": 708949.8802524,
+          "capture_dispatched": 708949.881324992,
+          "core_save_returned": 708949.881379983,
+          "returned": 708949.881395474,
+          "first_capture": 708949.881527289,
+          "capture_enqueued": 708949.881552056,
+          "capture_synchronized": 708949.881553029,
+          "snapshot_ready": 708949.88173285
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980263939,
+          "descriptors_agreed": 708949.983572853,
+          "staging_dir_ready": 708949.984533555,
+          "strategy_enter": 708949.990765315,
+          "admitted": 708949.992842446,
+          "planned": 708949.994628005,
+          "capture_dispatched": 708949.995525688,
+          "core_save_returned": 708949.995578527,
+          "returned": 708949.995610391,
+          "first_capture": 708949.995762528,
+          "capture_enqueued": 708949.996027127,
+          "capture_synchronized": 708949.996028399,
+          "snapshot_ready": 708949.996048837
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "NO_SHARD-offload1-rank3.json": {
+    "rank": 3,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.397021806,
+          "descriptors_agreed": 708949.400325831,
+          "staging_dir_ready": 708949.401392307,
+          "strategy_enter": 708949.40780185,
+          "admitted": 708949.410447325,
+          "planned": 708949.413944219,
+          "capture_dispatched": 708949.41601323,
+          "core_save_returned": 708949.416072219,
+          "returned": 708949.416089093,
+          "first_capture": 708949.416247361,
+          "capture_enqueued": 708949.416275812,
+          "capture_synchronized": 708949.416277498,
+          "snapshot_ready": 708949.416288754
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.74770524,
+          "descriptors_agreed": 708949.750998721,
+          "staging_dir_ready": 708949.752199431,
+          "strategy_enter": 708949.758575634,
+          "admitted": 708949.760867207,
+          "planned": 708949.763954146,
+          "capture_dispatched": 708949.765308871,
+          "core_save_returned": 708949.765365243,
+          "returned": 708949.765381181,
+          "first_capture": 708949.765494073,
+          "capture_enqueued": 708949.765517111,
+          "capture_synchronized": 708949.765518423,
+          "snapshot_ready": 708949.765734228
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865294871,
+          "descriptors_agreed": 708949.868653136,
+          "staging_dir_ready": 708949.869646402,
+          "strategy_enter": 708949.876453849,
+          "admitted": 708949.878683838,
+          "planned": 708949.880154513,
+          "capture_dispatched": 708949.881215357,
+          "core_save_returned": 708949.881265813,
+          "returned": 708949.881280713,
+          "first_capture": 708949.881420317,
+          "capture_enqueued": 708949.881445792,
+          "capture_synchronized": 708949.88144697,
+          "snapshot_ready": 708949.881661953
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980237129,
+          "descriptors_agreed": 708949.983496587,
+          "staging_dir_ready": 708949.984526863,
+          "strategy_enter": 708949.99074942,
+          "admitted": 708949.992759437,
+          "planned": 708949.994186448,
+          "capture_dispatched": 708949.995177151,
+          "core_save_returned": 708949.995223901,
+          "returned": 708949.995236952,
+          "first_capture": 708949.995341832,
+          "capture_enqueued": 708949.995362956,
+          "capture_synchronized": 708949.995363949,
+          "snapshot_ready": 708949.995435214
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "NO_SHARD-offload1-rank4.json": {
+    "rank": 4,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.397024919,
+          "descriptors_agreed": 708949.400259621,
+          "staging_dir_ready": 708949.401414869,
+          "strategy_enter": 708949.407775485,
+          "admitted": 708949.410437281,
+          "planned": 708949.413953322,
+          "capture_dispatched": 708949.416941384,
+          "core_save_returned": 708949.416996076,
+          "returned": 708949.417012575,
+          "first_capture": 708949.417181924,
+          "capture_enqueued": 708949.417212321,
+          "capture_synchronized": 708949.417214165,
+          "snapshot_ready": 708949.417501777
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.747701457,
+          "descriptors_agreed": 708949.750951424,
+          "staging_dir_ready": 708949.752195171,
+          "strategy_enter": 708949.758534667,
+          "admitted": 708949.76086431,
+          "planned": 708949.763943669,
+          "capture_dispatched": 708949.764890011,
+          "core_save_returned": 708949.764937466,
+          "returned": 708949.764951037,
+          "first_capture": 708949.765082138,
+          "capture_enqueued": 708949.765281979,
+          "capture_synchronized": 708949.765283924,
+          "snapshot_ready": 708949.765328636
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865290031,
+          "descriptors_agreed": 708949.868571842,
+          "staging_dir_ready": 708949.869640209,
+          "strategy_enter": 708949.876416914,
+          "admitted": 708949.878675654,
+          "planned": 708949.880079928,
+          "capture_dispatched": 708949.880554645,
+          "core_save_returned": 708949.880597937,
+          "returned": 708949.880609987,
+          "first_capture": 708949.880715795,
+          "capture_enqueued": 708949.880735861,
+          "capture_synchronized": 708949.880737014,
+          "snapshot_ready": 708949.880916165
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980247469,
+          "descriptors_agreed": 708949.98350456,
+          "staging_dir_ready": 708949.98452696,
+          "strategy_enter": 708949.990713733,
+          "admitted": 708949.992767551,
+          "planned": 708949.994190195,
+          "capture_dispatched": 708949.995325283,
+          "core_save_returned": 708949.995370427,
+          "returned": 708949.995382458,
+          "first_capture": 708949.995523429,
+          "capture_enqueued": 708949.995556006,
+          "capture_synchronized": 708949.995556982,
+          "snapshot_ready": 708949.995711322
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "NO_SHARD-offload1-rank5.json": {
+    "rank": 5,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.397020669,
+          "descriptors_agreed": 708949.400261959,
+          "staging_dir_ready": 708949.401384688,
+          "strategy_enter": 708949.407783165,
+          "admitted": 708949.410441011,
+          "planned": 708949.413924385,
+          "capture_dispatched": 708949.415142685,
+          "core_save_returned": 708949.41519704,
+          "returned": 708949.41521231,
+          "first_capture": 708949.415375451,
+          "capture_enqueued": 708949.415404152,
+          "capture_synchronized": 708949.415406064,
+          "snapshot_ready": 708949.415630115
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.747700944,
+          "descriptors_agreed": 708949.750947996,
+          "staging_dir_ready": 708949.752195799,
+          "strategy_enter": 708949.758550056,
+          "admitted": 708949.760861762,
+          "planned": 708949.7639353,
+          "capture_dispatched": 708949.76460108,
+          "core_save_returned": 708949.764650657,
+          "returned": 708949.764666468,
+          "first_capture": 708949.764781066,
+          "capture_enqueued": 708949.764972823,
+          "capture_synchronized": 708949.764974536,
+          "snapshot_ready": 708949.765002442
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865288591,
+          "descriptors_agreed": 708949.868575377,
+          "staging_dir_ready": 708949.869645726,
+          "strategy_enter": 708949.876426007,
+          "admitted": 708949.878685272,
+          "planned": 708949.880086253,
+          "capture_dispatched": 708949.880821646,
+          "core_save_returned": 708949.880867483,
+          "returned": 708949.880880189,
+          "first_capture": 708949.880993706,
+          "capture_enqueued": 708949.881092376,
+          "capture_synchronized": 708949.881093481,
+          "snapshot_ready": 708949.881197939
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980234687,
+          "descriptors_agreed": 708949.983496714,
+          "staging_dir_ready": 708949.984526248,
+          "strategy_enter": 708949.990711243,
+          "admitted": 708949.992749799,
+          "planned": 708949.994138635,
+          "capture_dispatched": 708949.994655924,
+          "core_save_returned": 708949.994698593,
+          "returned": 708949.994710219,
+          "first_capture": 708949.994815617,
+          "capture_enqueued": 708949.994838308,
+          "capture_synchronized": 708949.994839494,
+          "snapshot_ready": 708949.994984516
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "NO_SHARD-offload1-rank6.json": {
+    "rank": 6,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.397024034,
+          "descriptors_agreed": 708949.400260063,
+          "staging_dir_ready": 708949.401389848,
+          "strategy_enter": 708949.407820194,
+          "admitted": 708949.410450399,
+          "planned": 708949.413926356,
+          "capture_dispatched": 708949.415447553,
+          "core_save_returned": 708949.415505661,
+          "returned": 708949.415519982,
+          "first_capture": 708949.415674092,
+          "capture_enqueued": 708949.415702505,
+          "capture_synchronized": 708949.415704504,
+          "snapshot_ready": 708949.415931426
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.747708004,
+          "descriptors_agreed": 708949.750961707,
+          "staging_dir_ready": 708949.752201399,
+          "strategy_enter": 708949.758583515,
+          "admitted": 708949.760862826,
+          "planned": 708949.763937008,
+          "capture_dispatched": 708949.764734891,
+          "core_save_returned": 708949.764783463,
+          "returned": 708949.764796963,
+          "first_capture": 708949.764924567,
+          "capture_enqueued": 708949.764964965,
+          "capture_synchronized": 708949.764966911,
+          "snapshot_ready": 708949.76517466
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865289643,
+          "descriptors_agreed": 708949.868577902,
+          "staging_dir_ready": 708949.869648895,
+          "strategy_enter": 708949.876420817,
+          "admitted": 708949.878686367,
+          "planned": 708949.880097112,
+          "capture_dispatched": 708949.880951503,
+          "core_save_returned": 708949.880996695,
+          "returned": 708949.881008579,
+          "first_capture": 708949.881107371,
+          "capture_enqueued": 708949.881129554,
+          "capture_synchronized": 708949.88113043,
+          "snapshot_ready": 708949.881294987
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980236611,
+          "descriptors_agreed": 708949.983502267,
+          "staging_dir_ready": 708949.984529387,
+          "strategy_enter": 708949.990726352,
+          "admitted": 708949.992757887,
+          "planned": 708949.994155957,
+          "capture_dispatched": 708949.994931096,
+          "core_save_returned": 708949.994976099,
+          "returned": 708949.99498769,
+          "first_capture": 708949.995062939,
+          "capture_enqueued": 708949.995078608,
+          "capture_synchronized": 708949.995079728,
+          "snapshot_ready": 708949.995216031
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "NO_SHARD-offload1-rank7.json": {
+    "rank": 7,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "source_release_seconds": 0.15943224192596972,
+        "durable_after_next_step_seconds": 0.18987090198788792,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.397019268,
+          "descriptors_agreed": 708949.400257004,
+          "staging_dir_ready": 708949.401386176,
+          "strategy_enter": 708949.407766355,
+          "admitted": 708949.410446573,
+          "planned": 708949.413926724,
+          "capture_dispatched": 708949.414793757,
+          "core_save_returned": 708949.414846135,
+          "returned": 708949.41486482,
+          "first_capture": 708949.41501805,
+          "capture_enqueued": 708949.415234914,
+          "capture_synchronized": 708949.415236502,
+          "snapshot_ready": 708949.415281184
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.034007810056209564,
+        "durable_after_next_step_seconds": 0.0647926680976525,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.747708354,
+          "descriptors_agreed": 708949.7509522,
+          "staging_dir_ready": 708949.752195296,
+          "strategy_enter": 708949.75855351,
+          "admitted": 708949.760857865,
+          "planned": 708949.763934432,
+          "capture_dispatched": 708949.76504269,
+          "core_save_returned": 708949.765092799,
+          "returned": 708949.765107184,
+          "first_capture": 708949.765236144,
+          "capture_enqueued": 708949.765260861,
+          "capture_synchronized": 708949.765262497,
+          "snapshot_ready": 708949.765496253
+        }
+      },
+      {
+        "step": 4,
+        "source_release_seconds": 0.033975747996009886,
+        "durable_after_next_step_seconds": 0.06742177403066307,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.865289787,
+          "descriptors_agreed": 708949.868568582,
+          "staging_dir_ready": 708949.869642569,
+          "strategy_enter": 708949.876433518,
+          "admitted": 708949.878678611,
+          "planned": 708949.880114211,
+          "capture_dispatched": 708949.881096665,
+          "core_save_returned": 708949.881141128,
+          "returned": 708949.881154127,
+          "first_capture": 708949.88129726,
+          "capture_enqueued": 708949.881320327,
+          "capture_synchronized": 708949.881321449,
+          "snapshot_ready": 708949.881517358
+        }
+      },
+      {
+        "step": 5,
+        "source_release_seconds": 0.030230040894821286,
+        "durable_after_next_step_seconds": 0.06096309400163591,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708949.980240636,
+          "descriptors_agreed": 708949.983494314,
+          "staging_dir_ready": 708949.984523128,
+          "strategy_enter": 708949.99073232,
+          "admitted": 708949.992750995,
+          "planned": 708949.994139611,
+          "capture_dispatched": 708949.994817183,
+          "core_save_returned": 708949.994862325,
+          "returned": 708949.994875406,
+          "first_capture": 708949.994970299,
+          "capture_enqueued": 708949.99498997,
+          "capture_synchronized": 708949.994990934,
+          "snapshot_ready": 708949.995153828
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  "SHARD_GRAD_OP-offload0-rank0.json": {
+    "rank": 0,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.820950827,
+          "descriptors_agreed": 708947.824160124,
+          "staging_dir_ready": 708947.825354947,
+          "strategy_enter": 708947.831141299,
+          "admitted": 708947.832487728,
+          "planned": 708947.837010707,
+          "pool_acquire": 708947.837147127,
+          "pool_ready": 708947.947707729,
+          "capture_dispatched": 708947.949435309,
+          "first_capture": 708947.949505761,
+          "core_save_returned": 708947.949678545,
+          "returned": 708947.949702334,
+          "capture_enqueued": 708947.950146593,
+          "capture_synchronized": 708947.95016244,
+          "snapshot_ready": 708947.950162908,
+          "writers_started": 708947.950289598
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.060879422,
+          "descriptors_agreed": 708948.064290254,
+          "staging_dir_ready": 708948.065397584,
+          "strategy_enter": 708948.071382183,
+          "admitted": 708948.072851149,
+          "planned": 708948.079339307,
+          "pool_acquire": 708948.079456568,
+          "pool_ready": 708948.190199069,
+          "capture_dispatched": 708948.192124916,
+          "first_capture": 708948.192242958,
+          "core_save_returned": 708948.192663339,
+          "returned": 708948.192701492,
+          "capture_enqueued": 708948.193242569,
+          "capture_synchronized": 708948.193264531,
+          "snapshot_ready": 708948.193264975,
+          "writers_started": 708948.193453998
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460287241,
+          "descriptors_agreed": 708948.463548303,
+          "staging_dir_ready": 708948.46465479,
+          "strategy_enter": 708948.470436203,
+          "admitted": 708948.47191343,
+          "planned": 708948.477863007,
+          "pool_acquire": 708948.478012419,
+          "pool_ready": 708948.478173082,
+          "capture_dispatched": 708948.479084072,
+          "first_capture": 708948.47914408,
+          "core_save_returned": 708948.479316004,
+          "returned": 708948.479330916,
+          "capture_enqueued": 708948.479797143,
+          "capture_synchronized": 708948.47980792,
+          "snapshot_ready": 708948.479808216,
+          "writers_started": 708948.479838208
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.585919376,
+          "descriptors_agreed": 708948.589173292,
+          "staging_dir_ready": 708948.590349577,
+          "strategy_enter": 708948.596322033,
+          "admitted": 708948.597776549,
+          "planned": 708948.599423392,
+          "pool_acquire": 708948.599529123,
+          "pool_ready": 708948.599688831,
+          "capture_dispatched": 708948.605819421,
+          "first_capture": 708948.605891165,
+          "core_save_returned": 708948.605988547,
+          "returned": 708948.606002642,
+          "capture_enqueued": 708948.606490556,
+          "capture_synchronized": 708948.606501315,
+          "snapshot_ready": 708948.606501595,
+          "writers_started": 708948.606617008
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "SHARD_GRAD_OP-offload0-rank1.json": {
+    "rank": 1,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.821076724,
+          "descriptors_agreed": 708947.824152445,
+          "staging_dir_ready": 708947.82527669,
+          "strategy_enter": 708947.830632716,
+          "admitted": 708947.832397896,
+          "planned": 708947.834956988,
+          "pool_acquire": 708947.835090241,
+          "pool_ready": 708947.951560953,
+          "capture_dispatched": 708947.95289403,
+          "first_capture": 708947.95297435,
+          "core_save_returned": 708947.953125707,
+          "returned": 708947.95315157,
+          "capture_enqueued": 708947.953532463,
+          "capture_synchronized": 708947.953547003,
+          "snapshot_ready": 708947.953547453,
+          "writers_started": 708947.953688359
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.060987336,
+          "descriptors_agreed": 708948.064281336,
+          "staging_dir_ready": 708948.065319377,
+          "strategy_enter": 708948.070986583,
+          "admitted": 708948.072772411,
+          "planned": 708948.076168349,
+          "pool_acquire": 708948.076283208,
+          "pool_ready": 708948.202732251,
+          "capture_dispatched": 708948.204191184,
+          "first_capture": 708948.204269275,
+          "core_save_returned": 708948.204419288,
+          "returned": 708948.204435985,
+          "capture_enqueued": 708948.20492799,
+          "capture_synchronized": 708948.204943505,
+          "snapshot_ready": 708948.204943934,
+          "writers_started": 708948.204973188
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460405098,
+          "descriptors_agreed": 708948.463529818,
+          "staging_dir_ready": 708948.464569498,
+          "strategy_enter": 708948.470154234,
+          "admitted": 708948.471830925,
+          "planned": 708948.474655506,
+          "pool_acquire": 708948.474772739,
+          "pool_ready": 708948.474915328,
+          "capture_dispatched": 708948.476943722,
+          "first_capture": 708948.476994607,
+          "core_save_returned": 708948.477090821,
+          "returned": 708948.477105066,
+          "capture_enqueued": 708948.477542287,
+          "capture_synchronized": 708948.477553343,
+          "snapshot_ready": 708948.477553724,
+          "writers_started": 708948.477644765
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.586022793,
+          "descriptors_agreed": 708948.589150592,
+          "staging_dir_ready": 708948.590272196,
+          "strategy_enter": 708948.595857596,
+          "admitted": 708948.59769083,
+          "planned": 708948.59919067,
+          "pool_acquire": 708948.599290695,
+          "pool_ready": 708948.599441027,
+          "capture_dispatched": 708948.605202519,
+          "first_capture": 708948.605260409,
+          "core_save_returned": 708948.605357294,
+          "returned": 708948.605369944,
+          "capture_enqueued": 708948.605807121,
+          "capture_synchronized": 708948.605817351,
+          "snapshot_ready": 708948.605817598,
+          "writers_started": 708948.605911342
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "SHARD_GRAD_OP-offload0-rank2.json": {
+    "rank": 2,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.821089678,
+          "descriptors_agreed": 708947.824158557,
+          "staging_dir_ready": 708947.825295621,
+          "strategy_enter": 708947.830686717,
+          "admitted": 708947.832407664,
+          "planned": 708947.834981292,
+          "pool_acquire": 708947.835134989,
+          "pool_ready": 708947.950260381,
+          "capture_dispatched": 708947.951578059,
+          "first_capture": 708947.951655543,
+          "core_save_returned": 708947.951884713,
+          "returned": 708947.951907573,
+          "capture_enqueued": 708947.952314331,
+          "capture_synchronized": 708947.952330631,
+          "snapshot_ready": 708947.952331169,
+          "writers_started": 708947.952471763
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.061006894,
+          "descriptors_agreed": 708948.064290047,
+          "staging_dir_ready": 708948.065338082,
+          "strategy_enter": 708948.07109375,
+          "admitted": 708948.072798502,
+          "planned": 708948.0762776,
+          "pool_acquire": 708948.076413998,
+          "pool_ready": 708948.195512363,
+          "capture_dispatched": 708948.196914509,
+          "core_save_returned": 708948.197071287,
+          "returned": 708948.197104053,
+          "first_capture": 708948.197148976,
+          "capture_enqueued": 708948.197789395,
+          "capture_synchronized": 708948.197809705,
+          "snapshot_ready": 708948.197810315,
+          "writers_started": 708948.198002273
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460405131,
+          "descriptors_agreed": 708948.463586278,
+          "staging_dir_ready": 708948.464576299,
+          "strategy_enter": 708948.47019093,
+          "admitted": 708948.471836824,
+          "planned": 708948.474704151,
+          "pool_acquire": 708948.474838125,
+          "pool_ready": 708948.474983252,
+          "capture_dispatched": 708948.477337685,
+          "core_save_returned": 708948.477415487,
+          "returned": 708948.477432338,
+          "first_capture": 708948.477469293,
+          "capture_enqueued": 708948.477999979,
+          "capture_synchronized": 708948.478012181,
+          "snapshot_ready": 708948.478012732,
+          "writers_started": 708948.478043531
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.586055878,
+          "descriptors_agreed": 708948.589217303,
+          "staging_dir_ready": 708948.590283455,
+          "strategy_enter": 708948.595872974,
+          "admitted": 708948.597701713,
+          "planned": 708948.599237222,
+          "pool_acquire": 708948.599345551,
+          "pool_ready": 708948.599497982,
+          "capture_dispatched": 708948.605343837,
+          "first_capture": 708948.605403192,
+          "core_save_returned": 708948.605504819,
+          "returned": 708948.605521514,
+          "capture_enqueued": 708948.605985994,
+          "capture_synchronized": 708948.605996721,
+          "snapshot_ready": 708948.605997106,
+          "writers_started": 708948.606119434
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "SHARD_GRAD_OP-offload0-rank3.json": {
+    "rank": 3,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.821080343,
+          "descriptors_agreed": 708947.824218913,
+          "staging_dir_ready": 708947.825285655,
+          "strategy_enter": 708947.83067124,
+          "admitted": 708947.832402228,
+          "planned": 708947.834966794,
+          "pool_acquire": 708947.83510781,
+          "pool_ready": 708947.947906748,
+          "capture_dispatched": 708947.949560002,
+          "first_capture": 708947.949639208,
+          "core_save_returned": 708947.949841097,
+          "returned": 708947.949863691,
+          "capture_enqueued": 708947.950239254,
+          "capture_synchronized": 708947.950255437,
+          "snapshot_ready": 708947.950255905,
+          "writers_started": 708947.950380127
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.061026178,
+          "descriptors_agreed": 708948.064364214,
+          "staging_dir_ready": 708948.06531961,
+          "strategy_enter": 708948.071341578,
+          "admitted": 708948.072810352,
+          "planned": 708948.076349709,
+          "pool_acquire": 708948.076506718,
+          "pool_ready": 708948.19088035,
+          "capture_dispatched": 708948.192631206,
+          "core_save_returned": 708948.19280149,
+          "returned": 708948.192827269,
+          "first_capture": 708948.192873276,
+          "capture_enqueued": 708948.193648537,
+          "capture_synchronized": 708948.193669148,
+          "snapshot_ready": 708948.193669582,
+          "writers_started": 708948.193871245
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460414868,
+          "descriptors_agreed": 708948.463600542,
+          "staging_dir_ready": 708948.464567904,
+          "strategy_enter": 708948.470194872,
+          "admitted": 708948.471834919,
+          "planned": 708948.474695785,
+          "pool_acquire": 708948.474824002,
+          "pool_ready": 708948.47497051,
+          "capture_dispatched": 708948.477287892,
+          "first_capture": 708948.477350958,
+          "core_save_returned": 708948.477452016,
+          "returned": 708948.477467561,
+          "capture_enqueued": 708948.477941692,
+          "capture_synchronized": 708948.477952899,
+          "snapshot_ready": 708948.477953227,
+          "writers_started": 708948.478048735
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.586029535,
+          "descriptors_agreed": 708948.589179675,
+          "staging_dir_ready": 708948.590283175,
+          "strategy_enter": 708948.595878726,
+          "admitted": 708948.597700196,
+          "planned": 708948.59924453,
+          "pool_acquire": 708948.599352337,
+          "pool_ready": 708948.599503264,
+          "capture_dispatched": 708948.60547194,
+          "first_capture": 708948.605534505,
+          "core_save_returned": 708948.605650685,
+          "returned": 708948.605663565,
+          "capture_enqueued": 708948.606109092,
+          "capture_synchronized": 708948.606117702,
+          "snapshot_ready": 708948.606117996,
+          "writers_started": 708948.606232397
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "SHARD_GRAD_OP-offload0-rank4.json": {
+    "rank": 4,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.821084089,
+          "descriptors_agreed": 708947.82414891,
+          "staging_dir_ready": 708947.825270347,
+          "strategy_enter": 708947.830616445,
+          "admitted": 708947.832397205,
+          "planned": 708947.834961648,
+          "pool_acquire": 708947.835111786,
+          "pool_ready": 708947.933096315,
+          "capture_dispatched": 708947.936133986,
+          "first_capture": 708947.936194049,
+          "core_save_returned": 708947.936395206,
+          "returned": 708947.936414441,
+          "capture_enqueued": 708947.936727013,
+          "capture_synchronized": 708947.936740204,
+          "snapshot_ready": 708947.936740482,
+          "writers_started": 708947.936869797
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.060994744,
+          "descriptors_agreed": 708948.06428166,
+          "staging_dir_ready": 708948.065316658,
+          "strategy_enter": 708948.07123706,
+          "admitted": 708948.07276973,
+          "planned": 708948.076183844,
+          "pool_acquire": 708948.076304966,
+          "pool_ready": 708948.170049546,
+          "capture_dispatched": 708948.173822759,
+          "first_capture": 708948.173888398,
+          "core_save_returned": 708948.174002895,
+          "returned": 708948.174017512,
+          "capture_enqueued": 708948.174495959,
+          "capture_synchronized": 708948.174509404,
+          "snapshot_ready": 708948.174509695,
+          "writers_started": 708948.17462778
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460403163,
+          "descriptors_agreed": 708948.46352612,
+          "staging_dir_ready": 708948.464562945,
+          "strategy_enter": 708948.470163924,
+          "admitted": 708948.471835472,
+          "planned": 708948.474655766,
+          "pool_acquire": 708948.474774966,
+          "pool_ready": 708948.474914412,
+          "capture_dispatched": 708948.477156703,
+          "first_capture": 708948.4772087,
+          "core_save_returned": 708948.477296936,
+          "returned": 708948.47731058,
+          "capture_enqueued": 708948.477747254,
+          "capture_synchronized": 708948.477757759,
+          "snapshot_ready": 708948.477758054,
+          "writers_started": 708948.477868311
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.586026979,
+          "descriptors_agreed": 708948.589149612,
+          "staging_dir_ready": 708948.590347087,
+          "strategy_enter": 708948.595870742,
+          "admitted": 708948.597684914,
+          "planned": 708948.599173007,
+          "pool_acquire": 708948.599270521,
+          "pool_ready": 708948.599415411,
+          "capture_dispatched": 708948.604685411,
+          "first_capture": 708948.604728916,
+          "core_save_returned": 708948.604815057,
+          "returned": 708948.604826247,
+          "capture_enqueued": 708948.605248354,
+          "capture_synchronized": 708948.605257949,
+          "snapshot_ready": 708948.60525821,
+          "writers_started": 708948.605367578
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "SHARD_GRAD_OP-offload0-rank5.json": {
+    "rank": 5,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.82107859,
+          "descriptors_agreed": 708947.824151102,
+          "staging_dir_ready": 708947.825272471,
+          "strategy_enter": 708947.830657216,
+          "admitted": 708947.832406652,
+          "planned": 708947.834968636,
+          "pool_acquire": 708947.83513894,
+          "pool_ready": 708947.933379224,
+          "capture_dispatched": 708947.936554131,
+          "first_capture": 708947.936623385,
+          "core_save_returned": 708947.936792988,
+          "returned": 708947.936811248,
+          "capture_enqueued": 708947.937158943,
+          "capture_synchronized": 708947.937170673,
+          "snapshot_ready": 708947.937171042,
+          "writers_started": 708947.937280989
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.06098567,
+          "descriptors_agreed": 708948.064282053,
+          "staging_dir_ready": 708948.065321909,
+          "strategy_enter": 708948.071255246,
+          "admitted": 708948.072776168,
+          "planned": 708948.076166549,
+          "pool_acquire": 708948.076283288,
+          "pool_ready": 708948.170139964,
+          "capture_dispatched": 708948.173988359,
+          "first_capture": 708948.174044085,
+          "core_save_returned": 708948.17421511,
+          "returned": 708948.174229915,
+          "capture_enqueued": 708948.174627742,
+          "capture_synchronized": 708948.174638537,
+          "snapshot_ready": 708948.174638943,
+          "writers_started": 708948.174758022
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460394627,
+          "descriptors_agreed": 708948.463537248,
+          "staging_dir_ready": 708948.464578086,
+          "strategy_enter": 708948.470181111,
+          "admitted": 708948.471828121,
+          "planned": 708948.474647109,
+          "pool_acquire": 708948.47476136,
+          "pool_ready": 708948.474899756,
+          "capture_dispatched": 708948.476507895,
+          "first_capture": 708948.476565032,
+          "core_save_returned": 708948.476637851,
+          "returned": 708948.476650705,
+          "capture_enqueued": 708948.477061675,
+          "capture_synchronized": 708948.47707063,
+          "snapshot_ready": 708948.477070842,
+          "writers_started": 708948.477165615
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.586032043,
+          "descriptors_agreed": 708948.589156528,
+          "staging_dir_ready": 708948.590273967,
+          "strategy_enter": 708948.595877008,
+          "admitted": 708948.597692494,
+          "planned": 708948.599170653,
+          "pool_acquire": 708948.599269866,
+          "pool_ready": 708948.59941582,
+          "capture_dispatched": 708948.60503277,
+          "first_capture": 708948.605074635,
+          "core_save_returned": 708948.605162687,
+          "returned": 708948.605174937,
+          "capture_enqueued": 708948.605574957,
+          "capture_synchronized": 708948.605584224,
+          "snapshot_ready": 708948.605584474,
+          "writers_started": 708948.60567608
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "SHARD_GRAD_OP-offload0-rank6.json": {
+    "rank": 6,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.821079009,
+          "descriptors_agreed": 708947.824149546,
+          "staging_dir_ready": 708947.825284433,
+          "strategy_enter": 708947.830656401,
+          "admitted": 708947.832397542,
+          "planned": 708947.83498054,
+          "pool_acquire": 708947.835148798,
+          "pool_ready": 708947.933973674,
+          "capture_dispatched": 708947.936756704,
+          "first_capture": 708947.936831125,
+          "core_save_returned": 708947.936972863,
+          "returned": 708947.936991251,
+          "capture_enqueued": 708947.937387488,
+          "capture_synchronized": 708947.937399588,
+          "snapshot_ready": 708947.937399852,
+          "writers_started": 708947.937509265
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.060996811,
+          "descriptors_agreed": 708948.064292952,
+          "staging_dir_ready": 708948.065325368,
+          "strategy_enter": 708948.071279342,
+          "admitted": 708948.072777124,
+          "planned": 708948.07619248,
+          "pool_acquire": 708948.076310799,
+          "pool_ready": 708948.170036188,
+          "capture_dispatched": 708948.173624579,
+          "first_capture": 708948.173684527,
+          "core_save_returned": 708948.173913255,
+          "returned": 708948.173928707,
+          "capture_enqueued": 708948.174413726,
+          "capture_synchronized": 708948.174427913,
+          "snapshot_ready": 708948.174428257,
+          "writers_started": 708948.174545854
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460400922,
+          "descriptors_agreed": 708948.463539749,
+          "staging_dir_ready": 708948.464580881,
+          "strategy_enter": 708948.470183709,
+          "admitted": 708948.47183011,
+          "planned": 708948.47466982,
+          "pool_acquire": 708948.474786156,
+          "pool_ready": 708948.474940151,
+          "capture_dispatched": 708948.477063233,
+          "first_capture": 708948.47711596,
+          "core_save_returned": 708948.477213722,
+          "returned": 708948.477226093,
+          "capture_enqueued": 708948.477744547,
+          "capture_synchronized": 708948.47775519,
+          "snapshot_ready": 708948.477755586,
+          "writers_started": 708948.477868607
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.586029952,
+          "descriptors_agreed": 708948.589156212,
+          "staging_dir_ready": 708948.590279625,
+          "strategy_enter": 708948.595873033,
+          "admitted": 708948.597698682,
+          "planned": 708948.599291336,
+          "pool_acquire": 708948.599395223,
+          "pool_ready": 708948.599556796,
+          "capture_dispatched": 708948.605619819,
+          "first_capture": 708948.605671935,
+          "core_save_returned": 708948.605755198,
+          "returned": 708948.605767142,
+          "capture_enqueued": 708948.606231132,
+          "capture_synchronized": 708948.606237823,
+          "snapshot_ready": 708948.60623804,
+          "writers_started": 708948.606263552
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "SHARD_GRAD_OP-offload0-rank7.json": {
+    "rank": 7,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "source_release_seconds": 0.47228965093381703,
+        "durable_after_next_step_seconds": 0.5112606809707358,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708947.821076025,
+          "descriptors_agreed": 708947.824145384,
+          "staging_dir_ready": 708947.825271622,
+          "strategy_enter": 708947.830639477,
+          "admitted": 708947.832399798,
+          "planned": 708947.835037459,
+          "pool_acquire": 708947.835171239,
+          "pool_ready": 708947.932648832,
+          "capture_dispatched": 708947.934780355,
+          "first_capture": 708947.93483441,
+          "core_save_returned": 708947.935037115,
+          "returned": 708947.935058939,
+          "capture_enqueued": 708947.935537525,
+          "capture_synchronized": 708947.935550742,
+          "snapshot_ready": 708947.935551175,
+          "writers_started": 708947.935681011
+        }
+      },
+      {
+        "step": 1,
+        "source_release_seconds": 0.1565600240137428,
+        "durable_after_next_step_seconds": 0.3429558150237426,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.060998659,
+          "descriptors_agreed": 708948.064287284,
+          "staging_dir_ready": 708948.065315385,
+          "strategy_enter": 708948.071271825,
+          "admitted": 708948.072846317,
+          "planned": 708948.076242128,
+          "pool_acquire": 708948.076367843,
+          "pool_ready": 708948.169601257,
+          "capture_dispatched": 708948.173462984,
+          "first_capture": 708948.173523673,
+          "core_save_returned": 708948.173891864,
+          "returned": 708948.173911131,
+          "capture_enqueued": 708948.174528222,
+          "capture_synchronized": 708948.174540318,
+          "snapshot_ready": 708948.174540741,
+          "writers_started": 708948.174659289
+        }
+      },
+      {
+        "step": 2,
+        "source_release_seconds": 0.03420714091043919,
+        "durable_after_next_step_seconds": 0.07358131895307451,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.460398812,
+          "descriptors_agreed": 708948.463527253,
+          "staging_dir_ready": 708948.464568273,
+          "strategy_enter": 708948.470194211,
+          "admitted": 708948.471827056,
+          "planned": 708948.4748165,
+          "pool_acquire": 708948.474940753,
+          "pool_ready": 708948.475130191,
+          "capture_dispatched": 708948.477265084,
+          "first_capture": 708948.47731985,
+          "core_save_returned": 708948.477425262,
+          "returned": 708948.477438462,
+          "capture_enqueued": 708948.478099734,
+          "capture_synchronized": 708948.478110134,
+          "snapshot_ready": 708948.478110536,
+          "writers_started": 708948.478145333
+        }
+      },
+      {
+        "step": 3,
+        "source_release_seconds": 0.03327357396483421,
+        "durable_after_next_step_seconds": 0.07959043595474213,
+        "next_step_bitwise": true,
+        "marks": {
+          "enter": 708948.586026721,
+          "descriptors_agreed": 708948.589156709,
+          "staging_dir_ready": 708948.590280563,
+          "strategy_enter": 708948.595878718,
+          "admitted": 708948.597695938,
+          "planned": 708948.599587678,
+          "pool_acquire": 708948.599700214,
+          "pool_ready": 708948.599898472,
+          "capture_dispatched": 708948.606022136,
+          "first_capture": 708948.606071644,
+          "core_save_returned": 708948.606231883,
+          "returned": 708948.606244285,
+          "capture_enqueued": 708948.606885453,
+          "capture_synchronized": 708948.606896076,
+          "snapshot_ready": 708948.606896448,
+          "writers_started": 708948.607006361
+        }
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  "async-publication-rank0.json": {
+    "rank": 0,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "async-publication-rank1.json": {
+    "rank": 1,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "async-publication-rank2.json": {
+    "rank": 2,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "async-publication-rank3.json": {
+    "rank": 3,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "async-publication-rank4.json": {
+    "rank": 4,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "async-publication-rank5.json": {
+    "rank": 5,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "async-publication-rank6.json": {
+    "rank": 6,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "async-publication-rank7.json": {
+    "rank": 7,
+    "partial_ready_did_not_publish": true,
+    "optimizer_advanced_while_rank0_write_blocked": true,
+    "snapshot_restored_bitwise": true,
+    "rank0_failure_seen": true,
+    "previous_same_step_checkpoint_preserved": true
+  },
+  "trainer-lifecycle-rank0.json": {
+    "rank": 0,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  "trainer-lifecycle-rank1.json": {
+    "rank": 1,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  "trainer-lifecycle-rank2.json": {
+    "rank": 2,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  "trainer-lifecycle-rank3.json": {
+    "rank": 3,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  "trainer-lifecycle-rank4.json": {
+    "rank": 4,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  "trainer-lifecycle-rank5.json": {
+    "rank": 5,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  "trainer-lifecycle-rank6.json": {
+    "rank": 6,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  "trainer-lifecycle-rank7.json": {
+    "rank": 7,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  }
+}

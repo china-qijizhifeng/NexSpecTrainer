@@ -98,6 +98,16 @@ def resolve_training_state(checkpoint_path: str) -> Dict[str, Any]:
     ``{run_id}-latest`` pointer — the CheckpointManager layout); a ``file://``
     URI of any of these (the ``Checkpoint.checkpoint_uri`` form) also works.
     """
+    from specforge.training.checkpoint import CheckpointManager
+
+    try:
+        native_path = CheckpointManager.resolve_resume_dir(checkpoint_path)
+    except FileNotFoundError:
+        native_path = None
+    if native_path and os.path.isfile(os.path.join(native_path, "training_state.json")):
+        from specforge.training.nfc_checkpoint import load_draft_weights
+
+        return load_draft_weights(native_path)
     path = checkpoint_path
     if path.startswith("file://"):
         path = path[len("file://") :]

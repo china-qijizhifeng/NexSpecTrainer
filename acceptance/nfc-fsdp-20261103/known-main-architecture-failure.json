@@ -1,0 +1,12 @@
+[
+  {
+    "path": "scripts/prepare_server_hidden_states.py",
+    "unchanged_from_main": true,
+    "sha256": "ea0aaec17b42b945423a7a52da58707ccce7a332ef6a5879b40cf787419f6483"
+  },
+  {
+    "path": "tests/test_runtime/test_package_architecture.py",
+    "unchanged_from_main": true,
+    "sha256": "3e512a06bcde088107a684bec7a3b5df0842ac4c8950e260c6025c034ad23e00"
+  }
+]

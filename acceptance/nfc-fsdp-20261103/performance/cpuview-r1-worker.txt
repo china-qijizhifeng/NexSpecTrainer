@@ -1,0 +1,65 @@
+Processing /gpfs/users/linlizhi/nexspec-v41-rdma-realtrace-20261103/wheels/zstandard-0.25.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl
+Installing collected packages: zstandard
+Successfully installed zstandard-0.25.0
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+{"core_file": "/opt/Nex-Megatron-Bridge/3rdparty/Nex-Megatron/megatron/core/dist_checkpointing/serialization.py", "core_sha256": "5f745e742b63b4d4f4c406edda9c09605746bd52faa24c1b5fb4446676799a65", "python": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]", "torch": "2.10.0a0+b558c986e8.nv25.11", "host": "job-8d4f7800ee9e-20261103192142-validation-0", "te": "2.12.0+5671fd36", "protobuf": "6.33.5", "protobuf_backend": "upb", "gpu_count": 8, "gpu": "NVIDIA H100 80GB HBM3"}
+Running 10 items in this shard
+..........                                                               [100%]
+=============================== warnings summary ===============================
+../../../../../usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64
+  /usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+    import pynvml  # type: ignore[import]
+
+tests/test_megatron_cached_export.py::test_cached_exports_restore_new_values_and_changed_layout
+tests/test_megatron_cached_export.py::test_core_packed_export_reports_physical_groups_and_restores[False]
+tests/test_megatron_cached_export.py::test_core_packed_export_reports_physical_groups_and_restores[True]
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/checkpoint/utils.py:457: UserWarning: The argument order of load has been changed. Please check the document to avoid future breakages.
+    warnings.warn(
+
+tests/test_megatron_cached_export.py::test_cached_exports_restore_new_values_and_changed_layout
+tests/test_megatron_cached_export.py::test_core_packed_export_reports_physical_groups_and_restores[False]
+tests/test_megatron_cached_export.py::test_core_packed_export_reports_physical_groups_and_restores[True]
+  /usr/local/lib/python3.12/dist-packages/torch/distributed/checkpoint/state_dict_loader.py:160: UserWarning: torch.distributed is disabled, unavailable or uninitialized, assuming the intent is to load in a single process.
+    warnings.warn(
+
+tests/test_megatron_integration.py::test_native_megatron_tensor_optimizer_rng_and_pipeline_reshard
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type SwigPyPacked has no __module__ attribute
+
+tests/test_megatron_integration.py::test_native_megatron_tensor_optimizer_rng_and_pipeline_reshard
+  <frozen importlib._bootstrap>:488: DeprecationWarning: builtin type SwigPyObject has no __module__ attribute
+
+tests/test_megatron_integration.py::test_native_megatron_tensor_optimizer_rng_and_pipeline_reshard
+  /opt/venv/lib/python3.12/site-packages/modelopt/torch/__init__.py:36: UserWarning: transformers version 5.3.0 is not tested with nvidia-modelopt and may cause issues. Please install recommended version with `pip install nvidia-modelopt[hf]` if working with HF models.
+    _warnings.warn(
+
+tests/test_megatron_integration.py::test_native_megatron_tensor_optimizer_rng_and_pipeline_reshard
+  /opt/Nex-Megatron-Bridge/3rdparty/Nex-Megatron/megatron/rl/inference/inference_interface.py:15: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class InferenceInterface(BaseModel):
+
+tests/test_megatron_integration.py::test_native_megatron_tensor_optimizer_rng_and_pipeline_reshard
+tests/test_megatron_integration.py::test_native_megatron_tensor_optimizer_rng_and_pipeline_reshard
+  /opt/Nex-Megatron-Bridge/3rdparty/Nex-Megatron/megatron/rl/__init__.py:56: PydanticDeprecatedSince20: The `__fields__` attribute is deprecated, use the `model_fields` class property instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    cls.Library.type_names[register_type.__fields__['type_name'].default] = register_type
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+10 passed, 13 warnings in 283.59s (0:04:43)
+sys:1: DeprecationWarning: builtin type swigvarlink has no __module__ attribute
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]
+/usr/local/lib/python3.12/dist-packages/torch/cuda/__init__.py:64: FutureWarning: The pynvml package is deprecated. Please install nvidia-ml-py instead. If you did not install pynvml directly, please report this to the maintainers of the package that installed pynvml for you.
+  import pynvml  # type: ignore[import]

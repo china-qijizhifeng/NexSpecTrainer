@@ -1,0 +1,13 @@
+[
+  {
+    "name": "job-e2a656b9195a-20261103173337",
+    "user_def_name": "nexspec-nfc-dspark-perf-20261103-r4",
+    "status": "Completed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8,
+    "project": "WeaverRSI",
+    "queue": "proj-32"
+  }
+]

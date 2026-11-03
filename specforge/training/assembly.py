@@ -562,6 +562,9 @@ def _common_launch_kwargs(
         save_interval=t.save_interval,
         eval_interval=t.eval_interval,
         max_checkpoints=t.max_checkpoints,
+        nfc_checkpoint=(
+            t.nfc_checkpoint.model_dump() if t.nfc_checkpoint is not None else None
+        ),
         logger=logger,
         log_interval=t.log_interval,
         strategy_kwargs=bundle.strategy_kwargs,

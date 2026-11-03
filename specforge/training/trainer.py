@@ -109,6 +109,7 @@ class Trainer:
         dataset_size: Optional[int] = None,
         checkpoint_extra: Optional[dict] = None,
         max_checkpoints: int = 0,
+        nfc_checkpoint: Optional[dict] = None,
         tp_size: int = 1,
         sp_ulysses_size: int = 1,
         sp_ring_size: int = 1,
@@ -351,23 +352,29 @@ class Trainer:
                         f"{key}={comparison_current}; "
                         f"resume with the original configuration"
                     )
-            saved_weights = state["draft_state_dict"]
-            load_result = model.draft_model.load_state_dict(saved_weights, strict=False)
-            loaded = len(saved_weights) - len(load_result.unexpected_keys)
-            missing_keys = set(load_result.missing_keys)
-            disallowed_missing = missing_keys - allowed_missing_checkpoint_keys
-            # strict=False exists solely for provider-declared omissions such as
-            # EAGLE3's frozen target-copied embedding. Every other mismatch is
-            # checkpoint corruption or a different model contract.
-            if load_result.unexpected_keys or disallowed_missing or loaded == 0:
-                raise ValueError(
-                    f"checkpoint {resume_from} draft weights do not match this "
-                    f"model: {loaded}/{len(saved_weights)} keys loaded, "
-                    f"unexpected={sorted(load_result.unexpected_keys)}, "
-                    f"missing={sorted(disallowed_missing)}, "
-                    "provider_allowed_missing="
-                    f"{sorted(allowed_missing_checkpoint_keys)}"
+            native_resume = state.get("_nfc_checkpoint")
+            if native_resume and nfc_checkpoint is None:
+                raise ValueError("native resume requires training.nfc_checkpoint: {}")
+            if not native_resume:
+                saved_weights = state["draft_state_dict"]
+                load_result = model.draft_model.load_state_dict(
+                    saved_weights, strict=False
                 )
+                loaded = len(saved_weights) - len(load_result.unexpected_keys)
+                missing_keys = set(load_result.missing_keys)
+                disallowed_missing = missing_keys - allowed_missing_checkpoint_keys
+                # strict=False exists solely for provider-declared omissions such as
+                # EAGLE3's frozen target-copied embedding. Every other mismatch is
+                # checkpoint corruption or a different model contract.
+                if load_result.unexpected_keys or disallowed_missing or loaded == 0:
+                    raise ValueError(
+                        f"checkpoint {resume_from} draft weights do not match this "
+                        f"model: {loaded}/{len(saved_weights)} keys loaded, "
+                        f"unexpected={sorted(load_result.unexpected_keys)}, "
+                        f"missing={sorted(disallowed_missing)}, "
+                        "provider_allowed_missing="
+                        f"{sorted(allowed_missing_checkpoint_keys)}"
+                    )
             # Mid-epoch position persists in SAMPLES (batch-size independent);
             # Offline refs are rebuilt for the saved epoch before seek; a local
             # online queue arrives prepositioned from its deterministic prompt
@@ -417,13 +424,16 @@ class Trainer:
                 )
             resume = {
                 "backend": state["backend"],
+                "native_path": native_resume,
                 "global_step": state["global_step"],
                 "epoch": saved_epoch,
                 "epoch_batch": start_batch,
                 "epoch_samples": start_samples,
             }
             # drop the full draft state before the wrap
-            del state, saved_weights
+            del state
+            if not native_resume:
+                del saved_weights
 
         parallel = ParallelConfig.from_distributed(
             tp_size=tp_size,
@@ -435,13 +445,23 @@ class Trainer:
         # AFTER wrapping; the strategy MUST run forward through the wrapped module so
         # FSDP is actually in the forward/backward path (not bypassed at >1 rank).
         wrapped = backend.prepare_model(model, optimizer_target=model.draft_model)
-        if resume is not None:
+        if resume is not None and not resume["native_path"]:
             backend.load_state_dict(resume["backend"])
         strategy = make_step_strategy(
             wrapped,
             target_head=target_head,
             **resolved_strategy_kwargs,
         )
+        checkpoint_manager = CheckpointManager(
+            output_dir,
+            run_id,
+            max_checkpoints=max_checkpoints,
+            nfc_options=nfc_checkpoint,
+        )
+        if resume is not None and resume["native_path"]:
+            checkpoint_manager.restore_native(
+                backend, strategy.checkpoint_state_filter, resume["native_path"]
+            )
         core = TrainerCore(strategy, backend, accumulation_steps=accumulation_steps)
         ack_fn = None
         if durable_ack:
@@ -471,9 +491,7 @@ class Trainer:
             log_interval=log_interval,
             logger=logger,
             ack_fn=ack_fn,
-            checkpoint_manager=CheckpointManager(
-                output_dir, run_id, max_checkpoints=max_checkpoints
-            ),
+            checkpoint_manager=checkpoint_manager,
             checkpoint_extra=persisted_contract,
             start_step=resume["global_step"] if resume else 0,
             start_epoch=resume["epoch"] if resume else 0,
@@ -542,6 +560,7 @@ class Trainer:
                 step = self._controller.fit(self._loader)
             if step > 0 and self.last_checkpoint_step != step:
                 self.save_checkpoint()
+            self._controller._checkpoint_manager().finalize_pending()
             # A distributed consumer is not successful until prefetch has
             # stopped and every never-yielded lease has an explicit outcome.
             # Run this before on_fit_success publishes consumer_done.
@@ -565,6 +584,9 @@ class Trainer:
 
             if not loader_close_attempted:
                 capture_cleanup("FeatureDataLoader.close", close_loader)
+            capture_cleanup(
+                "CheckpointManager.close", self._controller._checkpoint_manager().close
+            )
             capture_cleanup(
                 "TrainerController.close_profiler",
                 self._controller.close_profiler,
@@ -602,8 +624,12 @@ class Trainer:
                 raise cleanup_error
 
     def save_checkpoint(self):
-        """Persist the current optimizer step through the one trainer surface."""
+        """Capture this step; native persistence continues in the background."""
         return self._controller.save_checkpoint(self.global_step)
+
+    def wait_for_checkpoint(self):
+        """Collectively drain native persistence before consuming a saved path."""
+        self._controller._checkpoint_manager().finalize_pending()
 
     def evaluate(self, data=None):
         """Run one eval pass, defaulting to the configured eval source.

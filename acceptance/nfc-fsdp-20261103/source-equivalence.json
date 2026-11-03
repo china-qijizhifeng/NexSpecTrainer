@@ -1,0 +1,6 @@
+{
+  "file": "specforge/training/checkpoint.py",
+  "gpu_source_sha256": "83f16e53e34b1404593b9efe48c5cbae8c88a37fa6e669ad844f2336ce1ea76f",
+  "final_source_sha256": "c2a26f19a23674f00939c622acab975b7932a99ed0c632ed6a96e7d93388beac",
+  "executable_ast_equal_after_removing_docstrings": true
+}

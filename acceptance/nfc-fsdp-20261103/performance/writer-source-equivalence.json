@@ -1,0 +1,6 @@
+{
+  "original_sha256": "ba77967705229caec2a4094ddf861c79b67ab9183ec7e9034a52b3e65fb668a5",
+  "saved_sha256": "08120e19800392569b35158aeb6204992623e3db93c3b1db47dee6794a3bea5a",
+  "ast_identical": true,
+  "change": "isort inserted one import-group blank line"
+}

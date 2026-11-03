@@ -990,6 +990,17 @@ class DeploymentConfig(StrictConfigModel):
         return self
 
 
+class NFCCheckpointConfig(BaseModel):
+    """Per-rank bounds for the mandatory native sharded NFC pipeline."""
+
+    model_config = ConfigDict(extra="forbid")
+    max_shared_memory_bytes: int = Field(default=2 << 30, gt=0, strict=True)
+    pipeline_max_inflight_bytes: int = Field(default=2 << 30, gt=0, strict=True)
+    staging_tile_bytes: int = Field(default=128 << 20, gt=0, strict=True)
+    writer_thread_count: int = Field(default=4, gt=0, strict=True)
+    load_worker_count: int = Field(default=16, gt=0, strict=True)
+
+
 class TrainingConfig(StrictConfigModel):
     strategy: str = "eagle3"
     num_epochs: int = Field(default=1, gt=0)
@@ -1077,6 +1088,9 @@ class TrainingConfig(StrictConfigModel):
     log_interval: int = Field(default=50, gt=0)
     #: CheckpointManager rotation: keep the newest N checkpoints (0 = keep all).
     max_checkpoints: int = Field(default=0, ge=0)
+    #: Enable native NFC checkpointing; {} uses bounded defaults per rank.
+    #: Requires an installed NFC native runtime and compatible Megatron Core.
+    nfc_checkpoint: Optional[NFCCheckpointConfig] = None
     #: Offline EAGLE3 teacher projection without materializing full-vocab fp32
     #: logits. Exact, but trades additional head passes for lower peak memory.
     compact_teacher: bool = False

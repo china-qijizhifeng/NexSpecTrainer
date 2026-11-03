@@ -8,7 +8,9 @@
 #     http://www.apache.org/licenses/LICENSE-2.0
 """On-disk checkpoint lifecycle: layout, rotation, best tracking, resume reads.
 
-A checkpoint is ``{run_id}-step{N}/`` under ``output_dir``: ``training_state.pt``
+A checkpoint is ``{run_id}-step{N}/`` under ``output_dir``. Native NFC saves
+hold ``nfc/`` shards and a ``training_state.json`` completion marker. Legacy
+saves hold ``training_state.pt``
 (rank0 shared payload) plus ``training_state_rank{r}.pt`` per rank. FSDP optimizer
 and all RNG state are rank-local; replicated DDP optimizer state is stored once
 in the shared payload. Run-scoped ``{run_id}-latest``/``{run_id}-best`` links and
@@ -41,15 +43,56 @@ class CheckpointManager:
         max_checkpoints: int = 0,
         best_metric: str = "eval/simulated_acc_len",
         best_min_delta: float = 0.0,
+        nfc_options: Optional[dict] = None,
     ) -> None:
         self.output_dir = output_dir
         self.run_id = run_id
         self.max_checkpoints = max_checkpoints
         self.best_metric = best_metric
         self.best_min_delta = best_min_delta
+        self.native = nfc_options is not None
+        self._nfc = None
+        self._nfc_options = nfc_options
         self.best_score: Optional[float] = None
         self.best_step: Optional[int] = None
         self._load_best_meta()
+
+    def _native_checkpoint(self):
+        if not self.native:
+            raise ValueError(
+                "set training.nfc_checkpoint to use native checkpoint restore"
+            )
+        if self._nfc is None:
+            from specforge.training.nfc_checkpoint import NativeCheckpoint
+
+            self._nfc = NativeCheckpoint(self, self._nfc_options)
+        return self._nfc
+
+    def save_native(self, backend, state_filter, training, step):
+        return self._native_checkpoint().save(backend, state_filter, training, step)
+
+    def restore_native(self, backend, state_filter, path):
+        return self._native_checkpoint().restore(backend, state_filter, path)
+
+    def finalize_pending(self, *, wait=True):
+        """Collectively publish a ready native save; wait only at drain points."""
+        return self._nfc is None or self._nfc.finalize_pending(wait=wait)
+
+    def close(self):
+        if self._nfc is not None:
+            self._nfc.close()
+
+    @staticmethod
+    def is_complete(path):
+        from specforge.training.nfc_state import MANIFEST
+
+        return os.path.isfile(os.path.join(path, STATE_FILE)) or (
+            os.path.isfile(os.path.join(path, MANIFEST))
+            and all(
+                os.path.isfile(os.path.join(path, "nfc", name))
+                for name in ("common.pt", "metadata.json", ".metadata")
+            )
+        )
 
     # -- layout ------------------------------------------------------------
     def checkpoint_dir(self, step: int) -> str:
@@ -106,10 +149,12 @@ class CheckpointManager:
         self._barrier()  # no rank proceeds before the checkpoint is complete
         return ckpt_dir
 
-    def _rewind(self, step: int) -> None:
+    def _rewind(self, step: int, *, keep_path: Optional[str] = None) -> None:
         # Fork semantics: saving step S invalidates on-disk steps >= S, including
         # a best record inside the deleted range.
-        stale = sorted(path for s, path in self._step_dirs() if s >= step)
+        stale = sorted(
+            path for s, path in self._step_dirs() if s >= step and path != keep_path
+        )
         if stale:
             logger.warning(
                 "rewinding checkpoint timeline at step %d: deleting %s",
@@ -157,14 +202,27 @@ class CheckpointManager:
         verdict = False
         if self.is_rank0():
             s = self.score(eval_metrics)
-            verdict = s is not None and (
-                self.best_score is None or s > self.best_score + self.best_min_delta
-            )
+            best = self.best_score
+            if self._nfc is not None and self._nfc.pending is not None:
+                if (
+                    self.best_step is not None
+                    and self.best_step >= self._nfc.pending.step
+                ):
+                    best = None  # publication will rewind this future best
+                candidate = self.score(self._nfc.pending.best_metrics)
+                if candidate is not None:
+                    best = candidate if best is None else max(best, candidate)
+            verdict = s is not None and (best is None or s > best + self.best_min_delta)
         return self._bcast_flag(verdict)
 
     def update_best(self, step: int, eval_metrics: Dict[str, Any]) -> None:
         """Record ``step`` as the tracked best unconditionally (callers gate with
         ``is_better``); rank0 repoints ``{run_id}-best`` and persists the meta."""
+        if self._nfc is not None and self._nfc.pending is not None:
+            if self._nfc.pending.step != step:
+                raise ValueError("best step does not match the in-flight checkpoint")
+            self._nfc.pending.best_metrics = dict(eval_metrics)
+            return
         self.best_score = self.score(eval_metrics)
         self.best_step = step
         if not self.is_rank0():
@@ -201,7 +259,7 @@ class CheckpointManager:
             or meta.get("metric") != self.best_metric
             or not isinstance(step, int)
             or not isinstance(score, (int, float))
-            or not os.path.isfile(self._state_path(self.checkpoint_dir(step)))
+            or not self.is_complete(self.checkpoint_dir(step))
         ):
             logger.warning(
                 "ignoring best meta %s: run_id/metric mismatch, malformed, or its "
@@ -217,6 +275,10 @@ class CheckpointManager:
         target = self.checkpoint_dir(step) if step is not None else self.latest_dir()
         if target is None:
             raise FileNotFoundError(f"no checkpoint to load under {self.output_dir}")
+        if os.path.isfile(os.path.join(target, "training_state.json")):
+            from specforge.training.nfc_checkpoint import load_draft_weights
+
+            return load_draft_weights(target)
         return torch.load(
             self._state_path(target), map_location=map_location, weights_only=False
         )
@@ -229,7 +291,9 @@ class CheckpointManager:
         map_location="cpu",
         require_full_state: bool = True,
     ) -> Dict[str, Any]:
-        """Read a checkpoint into this rank's resume dict: the shared payload plus
+        """Read resume state. Native checkpoints return typed common metadata and
+        ``_nfc_checkpoint`` for post-wrap shard restore, without model/Adam bytes.
+        Legacy checkpoints return the shared payload plus
         ``'backend'`` = this rank's ``training_state_rank{r}.pt`` content, passed
         through untouched (``{}`` when absent and ``require_full_state`` is False).
         Accepts a checkpoint dir, its ``training_state.pt``, a ``file://`` URI,
@@ -241,11 +305,21 @@ class CheckpointManager:
         state = None
         try:
             path = cls.resolve_resume_dir(path)
-            state = torch.load(
-                os.path.join(path, STATE_FILE),
-                map_location=map_location,
-                weights_only=False,
-            )
+            if os.path.isfile(os.path.join(path, "training_state.json")):
+                from specforge.training.nfc_checkpoint import read_manifest
+
+                manifest = read_manifest(path)
+                state = dict(
+                    manifest["training"],
+                    _nfc_checkpoint=path,
+                    _nfc_common_sha256=manifest["common_sha256"],
+                )
+            else:
+                state = torch.load(
+                    os.path.join(path, STATE_FILE),
+                    map_location=map_location,
+                    weights_only=False,
+                )
         except Exception as exc:
             local_error = exc
 
@@ -263,6 +337,10 @@ class CheckpointManager:
                 "run_id": None if state is None else state.get("run_id"),
                 "global_step": None if state is None else state.get("global_step"),
                 "strategy": None if state is None else state.get("strategy"),
+                "world_size": None if state is None else state.get("world_size"),
+                "native_common_sha256": (
+                    None if state is None else state.get("_nfc_common_sha256")
+                ),
             }
             descriptors = [None] * world
             torch.distributed.all_gather_object(descriptors, descriptor)
@@ -283,6 +361,8 @@ class CheckpointManager:
                     item["run_id"],
                     item["global_step"],
                     item["strategy"],
+                    item["world_size"],
+                    item["native_common_sha256"],
                 )
                 for item in descriptors
             }
@@ -297,6 +377,13 @@ class CheckpointManager:
 
         rank = torch.distributed.get_rank() if initialized else 0
         saved_world = state.get("world_size")
+        if "_nfc_checkpoint" in state:
+            if require_full_state and saved_world != world:
+                raise ValueError(
+                    "native checkpoint restore requires the original world size"
+                )
+            state["backend"] = {}
+            return state
         rank_path = os.path.join(path, cls._rank_file(rank))
         if os.path.exists(rank_path) and (saved_world is None or saved_world == world):
             state["backend"] = torch.load(
@@ -333,11 +420,11 @@ class CheckpointManager:
         if path.startswith("file://"):
             path = path[len("file://") :]
         path = os.path.abspath(os.path.expanduser(path))
-        if os.path.basename(path) == STATE_FILE:
+        if os.path.basename(path) in (STATE_FILE, "training_state.json"):
             if not os.path.isfile(path):
                 raise FileNotFoundError(f"checkpoint state file does not exist: {path}")
             path = os.path.dirname(path)
-        if os.path.isfile(os.path.join(path, STATE_FILE)):
+        if cls.is_complete(path):
             return path
         if not os.path.isdir(path):
             raise FileNotFoundError(f"checkpoint path does not exist: {path}")
@@ -345,7 +432,7 @@ class CheckpointManager:
         latest = []
         for candidate in glob.glob(os.path.join(glob.escape(path), "*-latest")):
             resolved = os.path.realpath(candidate)
-            if os.path.isfile(os.path.join(resolved, STATE_FILE)):
+            if cls.is_complete(resolved):
                 latest.append(resolved)
         latest = sorted(set(latest))
         if len(latest) == 1:
@@ -360,7 +447,7 @@ class CheckpointManager:
         pattern = re.compile(r"^(.+)-step(\d+)$")
         for candidate in glob.glob(os.path.join(glob.escape(path), "*-step*")):
             match = pattern.match(os.path.basename(candidate))
-            if match and os.path.isfile(os.path.join(candidate, STATE_FILE)):
+            if match and cls.is_complete(candidate):
                 by_run.setdefault(match.group(1), []).append(
                     (int(match.group(2)), candidate)
                 )
@@ -379,7 +466,7 @@ class CheckpointManager:
         link = os.path.join(self.output_dir, f"{self.run_id}-latest")
         if os.path.islink(link):
             target = os.path.realpath(link)
-            if os.path.isfile(self._state_path(target)):
+            if self.is_complete(target):
                 return target
         step = self._max_step_on_disk()
         return self.checkpoint_dir(step) if step is not None else None
@@ -422,8 +509,15 @@ class CheckpointManager:
     def _atomic_json(obj: Dict[str, Any], path: str) -> None:
         tmp = path + ".tmp"
         with open(tmp, "w") as fh:
-            json.dump(obj, fh, indent=2)
+            json.dump(obj, fh, indent=2, allow_nan=False)
+            fh.flush()
+            os.fsync(fh.fileno())
         os.replace(tmp, path)
+        fd = os.open(os.path.dirname(os.path.abspath(path)), os.O_RDONLY)
+        try:
+            os.fsync(fd)
+        finally:
+            os.close(fd)
 
     def _point(self, name: str, ckpt_dir: str) -> None:
         link = os.path.join(self.output_dir, name)
@@ -466,9 +560,9 @@ class CheckpointManager:
                 yield int(m.group(1)), path
 
     def _all_checkpoints(self) -> Iterator[Tuple[int, str]]:
-        # Only dirs holding STATE_FILE count: a truncated save is never a target.
+        # A truncated save without its completion marker is never a target.
         for step, path in self._step_dirs():
-            if os.path.isfile(self._state_path(path)):
+            if self.is_complete(path):
                 yield step, path
 
     def _max_step_on_disk(self) -> Optional[int]:

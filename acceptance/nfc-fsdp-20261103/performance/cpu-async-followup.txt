@@ -1,0 +1,2 @@
+.....................................................            [100%]
+53 passed, 1 deselected, 2 warnings, 8 subtests passed in 4.35s

@@ -362,10 +362,16 @@ def _runtime_state_file(source: str) -> Optional[str]:
 
     path = os.path.abspath(os.path.expanduser(_without_file_uri(str(source))))
     if os.path.isfile(path):
-        return path if os.path.basename(path) == _STATE_FILE else None
+        return (
+            path
+            if os.path.basename(path) in (_STATE_FILE, "training_state.json")
+            else None
+        )
     if not os.path.isdir(path):
         return None
 
+    if os.path.isfile(os.path.join(path, "training_state.json")):
+        return os.path.join(path, "training_state.json")
     direct = os.path.join(path, _STATE_FILE)
     if os.path.isfile(direct) and not _has_pretrained_weights(path):
         return direct
@@ -379,7 +385,12 @@ def _runtime_state_file(source: str) -> Optional[str]:
     from specforge.training.checkpoint import CheckpointManager
 
     checkpoint_dir = CheckpointManager.resolve_resume_dir(path)
-    return os.path.join(checkpoint_dir, _STATE_FILE)
+    filename = (
+        "training_state.json"
+        if os.path.isfile(os.path.join(checkpoint_dir, "training_state.json"))
+        else _STATE_FILE
+    )
+    return os.path.join(checkpoint_dir, filename)
 
 
 def _load_specforge_draft_state(
@@ -390,7 +401,12 @@ def _load_specforge_draft_state(
     try:
         # The restricted unpickler accepts tensors and primitive metadata while
         # refusing arbitrary checkpoint objects. Only draft_state_dict is used.
-        state = torch.load(state_path, map_location="cpu", weights_only=True)
+        if os.path.basename(state_path) == "training_state.json":
+            from specforge.training.nfc_checkpoint import load_draft_weights
+
+            state = load_draft_weights(os.path.dirname(state_path))
+        else:
+            state = torch.load(state_path, map_location="cpu", weights_only=True)
     except Exception as exc:
         raise ValueError(
             f"cannot read weights-only SpecForge checkpoint {state_path}: {exc}"

@@ -19,6 +19,7 @@ import abc
 import contextlib
 import logging
 import os
+import random
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -481,7 +482,11 @@ class FSDPTrainingBackend(TrainingBackend):
             and module.is_available()
         ):
             accelerator_state = module.get_rng_state(module.current_device())
+        import numpy as np
+
         return {
+            "python": random.getstate(),
+            "numpy": np.random.get_state(),
             "torch": torch.get_rng_state(),
             "device_type": device_type,
             # Named keys keep old CUDA checkpoints readable and make NPU state
@@ -492,6 +497,12 @@ class FSDPTrainingBackend(TrainingBackend):
 
     @staticmethod
     def _set_rng_state(rng: dict) -> None:
+        import numpy as np
+
+        if "python" in rng:
+            random.setstate(rng["python"])
+        if "numpy" in rng:
+            np.random.set_state(rng["numpy"])
         torch.set_rng_state(rng["torch"])
         # ``device_type``/``npu`` are new. Falling back to the legacy ``cuda``
         # key preserves every checkpoint written before NPU support.

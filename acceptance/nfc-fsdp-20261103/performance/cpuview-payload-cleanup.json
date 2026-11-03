@@ -1,0 +1,49 @@
+{
+  "complete_restore_rank_records": 40,
+  "excluded_save_only_rank_records": 8,
+  "removed": {
+    "results/payload": {
+      "file_count": 38,
+      "file_bytes": 199168396345
+    }
+  },
+  "original_manifest": {
+    "training_state_rank5.pt": {
+      "size": 21338094907,
+      "mtime_ns": 1793673520281132397
+    },
+    "training_state_rank7.pt": {
+      "size": 21338098901,
+      "mtime_ns": 1793673512668327958
+    },
+    "training_state_rank0.pt": {
+      "size": 21338094033,
+      "mtime_ns": 1793673517677416738
+    },
+    "training_state_rank6.pt": {
+      "size": 21338090557,
+      "mtime_ns": 1793673513082854694
+    },
+    "training_state_rank2.pt": {
+      "size": 21338089647,
+      "mtime_ns": 1793673512572558246
+    },
+    "training_state.pt": {
+      "size": 28460602321,
+      "mtime_ns": 1793673536976938678
+    },
+    "training_state_rank4.pt": {
+      "size": 21338095825,
+      "mtime_ns": 1793673515383876726
+    },
+    "training_state_rank3.pt": {
+      "size": 21338100103,
+      "mtime_ns": 1793673515047749596
+    },
+    "training_state_rank1.pt": {
+      "size": 21338089647,
+      "mtime_ns": 1793673514760570909
+    }
+  },
+  "payload_absent": true
+}
