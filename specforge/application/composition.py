@@ -75,9 +75,9 @@ def resolve_offline_capture(
         raise ValueError("offline capture preparation requires an offline run config")
 
     if target_config is None:
-        from transformers import AutoConfig
+        from specforge.modeling.target.target_utils import load_target_config
 
-        target_config = AutoConfig.from_pretrained(
+        target_config = load_target_config(
             cfg.model.target_model_path,
             cache_dir=cfg.model.cache_dir,
             trust_remote_code=cfg.model.trust_remote_code,

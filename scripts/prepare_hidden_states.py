@@ -80,6 +80,7 @@ from specforge.distributed import (
     init_distributed,
     is_tp_rank_0,
 )
+from specforge.modeling.target.target_utils import load_target_config
 from specforge.offline_capture import OfflineSGLangCapture, load_offline_capture
 from specforge.utils import (
     get_device_type,
@@ -985,7 +986,7 @@ def main():
             Path(__file__).parent.parent, "cache", "hidden_states"
         )
 
-    target_model_config = AutoConfig.from_pretrained(
+    target_model_config = load_target_config(
         args.target_model_path,
         cache_dir=args.cache_dir,
         trust_remote_code=args.trust_remote_code,
