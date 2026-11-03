@@ -45,7 +45,7 @@ class NPUDistributedTest(unittest.TestCase):
             setattr(sf_dist, name, value)
 
     def test_backend_mapping_is_device_specific(self):
-        self.assertEqual(sf_dist._distributed_backend("cuda"), "nccl")
+        self.assertEqual(sf_dist._distributed_backend("cuda"), "cpu:gloo,cuda:nccl")
         self.assertEqual(sf_dist._distributed_backend("npu"), "hccl")
         self.assertEqual(sf_dist._distributed_backend("cpu"), "gloo")
 

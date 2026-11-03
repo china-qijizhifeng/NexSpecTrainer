@@ -508,7 +508,23 @@ def main():
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
     torch.cuda.set_device(int(os.environ["LOCAL_RANK"]))
-    dist.init_process_group("nccl")
+    from specforge.distributed import _distributed_backend
+
+    dist.init_process_group(_distributed_backend("cuda"))
+    # Exercise Core's object-plan gather without staging its pickle on CUDA.
+    # The tensor all-reduce below must still dispatch to NCCL on the same WORLD.
+    before = torch.cuda.memory_allocated()
+    torch.cuda.reset_peak_memory_stats()
+    plans = [None] * dist.get_world_size() if dist.get_rank() == 0 else None
+    payload = {"rank": dist.get_rank(), "plan": b"x" * (2 << 20)}
+    dist.gather_object(payload, plans, dst=0)
+    assert torch.cuda.max_memory_allocated() == before
+    if plans is not None:
+        assert [p["rank"] for p in plans] == list(range(dist.get_world_size()))
+        assert all(p["plan"] == payload["plan"] for p in plans)
+    value = torch.tensor(float(dist.get_rank() + 1), device="cuda")
+    dist.all_reduce(value)
+    assert value.item() == dist.get_world_size() * (dist.get_world_size() + 1) / 2
     args.output.mkdir(parents=True, exist_ok=True)
     try:
         for strategy, offload in [

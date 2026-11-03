@@ -78,6 +78,11 @@ Noncontiguous, conjugate and negative views keep their existing behavior.
 
 ## State and ownership
 
+CUDA training registers `cpu:gloo,cuda:nccl` on WORLD. CPU object collectives
+(including Core's save-plan gather) use Gloo; CUDA FSDP tensor collectives keep
+using NCCL. This avoids routing host checkpoint metadata through CUDA gather
+and retains the default-group contract required by native Megatron.
+
 The adapter supports FSDP1 with `use_orig_params=True`, the WORLD process group,
 and `BF16Optimizer`. It reads FSDP's original-parameter shapes and local slice
 offsets, including uneven and empty shards. Each model weight, FP32 master and

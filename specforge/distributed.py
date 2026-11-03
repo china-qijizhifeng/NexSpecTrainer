@@ -19,7 +19,10 @@ _SP_RING_GROUP = None
 
 _DISTRIBUTED_BACKENDS = {
     "cpu": "gloo",
-    "cuda": "nccl",
+    # Object collectives carry CPU checkpoint plans and control metadata.
+    # Register Gloo on WORLD so PyTorch keeps those on the host, while FSDP
+    # tensors continue to use NCCL. Native Megatron requires the WORLD group.
+    "cuda": "cpu:gloo,cuda:nccl",
     "npu": "hccl",
     "xpu": "xccl",
 }
