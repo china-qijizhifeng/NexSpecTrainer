@@ -1,0 +1,82 @@
+[
+  {
+    "passed": true,
+    "rank": 0,
+    "records": 4,
+    "expected": {
+      "sha256": "ae3502a7c4454da931dba9a2757414c4c7b264abb237081cdbdb877e3ccb18f6",
+      "tensor_count": 227,
+      "tensor_bytes": 24895620084
+    }
+  },
+  {
+    "passed": true,
+    "rank": 1,
+    "records": 4,
+    "expected": {
+      "sha256": "5928d20f78e681d25e7561dc8649f775b5a9c162a88900f06a20b2685d688181",
+      "tensor_count": 212,
+      "tensor_bytes": 24895620064
+    }
+  },
+  {
+    "passed": true,
+    "rank": 2,
+    "records": 4,
+    "expected": {
+      "sha256": "fe25689a53908832e89f710db9b08e3ae338ef264d41ebf329a65c9e5c82c8c9",
+      "tensor_count": 212,
+      "tensor_bytes": 24895620064
+    }
+  },
+  {
+    "passed": true,
+    "rank": 3,
+    "records": 4,
+    "expected": {
+      "sha256": "0eabb217d19c1a0d13486dd05e44d584a5060a58be70bb719b1d839973c09300",
+      "tensor_count": 248,
+      "tensor_bytes": 24895620112
+    }
+  },
+  {
+    "passed": true,
+    "rank": 4,
+    "records": 4,
+    "expected": {
+      "sha256": "e85948120b5b6aa902a8771179b5e244c09fdf942ebd25b5a11919fe0ce06916",
+      "tensor_count": 233,
+      "tensor_bytes": 24895620092
+    }
+  },
+  {
+    "passed": true,
+    "rank": 5,
+    "records": 4,
+    "expected": {
+      "sha256": "0666b164d467ab5c7b1c3e5210abbcc9ee9cd2de84cc003d8830226fb806a03f",
+      "tensor_count": 230,
+      "tensor_bytes": 24895620088
+    }
+  },
+  {
+    "passed": true,
+    "rank": 6,
+    "records": 4,
+    "expected": {
+      "sha256": "5dbc179e1225813080f3d450ad5e42b67c0394e9cbc509664cd4e403b944237e",
+      "tensor_count": 215,
+      "tensor_bytes": 24895620068
+    }
+  },
+  {
+    "passed": true,
+    "rank": 7,
+    "records": 4,
+    "expected": {
+      "sha256": "007bcf6dfd61a644b720fe27bb45aec184bc061e1fbe81e1e383acfc96e235b2",
+      "tensor_count": 275,
+      "tensor_bytes": 24895610452
+    }
+  }
+]

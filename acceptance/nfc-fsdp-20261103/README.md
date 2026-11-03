@@ -19,7 +19,13 @@ CPU integration/config/export/resume and lifecycle checks: **249 passed,
 safety, timeout retry/error propagation, cache invalidation, best rollback,
 installation/retention directory sync ordering and umask preservation. The
 asynchronous GPU and real-size performance receipts are recorded separately
-under `performance/`.
+under `performance/`: the final exact source passed 40 small-model rank
+receipts and 32 real 199 GB save/restore checks, worker exit 0. The completed
+8-H100 job was removed and read back absent. Warm source-release caller pauses
+were 12.40 / 11.31 / 10.47 seconds; complete times (including live source
+mutation and synthetic GPU work before drain) were 23.83 / 22.23 / 21.11 seconds.
+Core confirmed cached-plan reuse; its remaining planning phase was 6.5–9.3
+seconds. These are state-save timings, not full training throughput.
 
 ## Historical synchronous integration results
 

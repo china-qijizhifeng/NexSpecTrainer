@@ -8,6 +8,63 @@ Frozen V4.1 target weights are excluded. Logical training tensors total
 about 199.17 GB. This benchmark does not run the full target backbone or a
 training forward/backward.
 
+## Current asynchronous save with cached plans
+
+The final production source is `b311a03e9ec54e872bd70e1e7b99779c08272af5`.
+The job ran on 8 H100s with 64 CPU and a 768 GiB host-memory limit, using
+32 GiB/rank budgets and four writers/rank. The staging arena actually occupied
+199,167,029,248 bytes in total (about 23.19 GiB/rank). All times are the maximum
+rank measurement, in seconds.
+
+| Save | Caller pause to collective source release | Complete after source mutation and GPU work | Core phase ending at planned |
+| --- | ---: | ---: | ---: |
+| First | 36.34 | 49.62 | 20.07 |
+| Warm 1 | 12.40 | 23.83 | 9.27 |
+| Warm 2 | 11.31 | 22.23 | 8.66 |
+| Warm 3 | 10.47 | 21.11 | 6.55 |
+
+The caller now returns before native persistence. Each save was collectively
+not ready at the immediate nonblocking poll. The test then mutated every
+nonempty live model/master/Adam tensor, LR, scheduler and all RNG sources,
+and ran synthetic CUDA matrix work before explicitly draining. At collective
+capture return, local writes remained pending on 7/7/8/8 ranks respectively;
+a fast rank may finish while it waits for other ranks' captures. All four
+checkpoints were restored and matched the original complete state fingerprint
+on all eight ranks. A changed fingerprint was required before each restore.
+The complete column includes that live mutation and synthetic work, so it is
+an end-to-end completion measurement, not isolated disk latency or training
+throughput. The large benchmark does not run draft/target forward/backward.
+
+All warm ranks report `validated_cache_reuse=true` and `pool_reused=true`.
+Core's cached structure/metadata planning is enabled; remaining Core work up
+to the `planned` mark still costs 6.5–9.3 seconds at the slowest rank. This
+change does not eliminate the planning phase. First-save timing includes
+runtime/planner/pool setup. The earlier synchronous measurements below ran
+separately on a shared filesystem and must not be used to infer a controlled
+speedup for this job.
+
+The same final source first passed 40 small-model rank receipts: three
+parallel modes with four full restores and the next update bitwise equal,
+public Trainer restart equivalence, and rank-0 write-delay/failure injection.
+In the delay test, every rank advanced the real optimizer while rank 0's disk
+worker was held; partial readiness did not publish best/latest. Failure
+injection reached every rank and preserved the previous same-step version.
+
+Final worker exit was 0. The 32 large-state save/restore records and all eight
+pass receipts are included in `async-results.json` / `async-passed.json`;
+small-model receipts are in `async-small-model-results.json`. Each generated
+199 GB payload was removed; the original nine input files kept their sizes
+and modification times. The exact completed job was removed and read back
+absent. An earlier scheduling-only attempt was cancelled after its node list
+could not fit the request; its cleanup receipt is included and it contributes
+no timings. The final attempt added a normal available GPU node and checked
+H100 identity at startup, without changing the resource budget.
+
+`async-source-sha256.json` verifies all relevant trainer/config/driver source
+hashes against the final uploaded source. The archived benchmark is AST
+identical to the tested benchmark after import-spacing formatting. CPU
+lifecycle/config/resume/export checks: 249 passed, 7 skipped, 470 subtests.
+
 ## Historical synchronous pool comparison
 
 8 H100, 64 CPU, 768 GiB host-memory limit; pinned Torch 2.10/mcore image in

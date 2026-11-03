@@ -1,0 +1,22 @@
+{
+  "trainer_base": "50a4c4ce101a83696f102bbde9d39de9249e25c0",
+  "nfc_revision": "79d838fc19ba1f179fc6c1dc36147e5183d82ac8",
+  "trainer_source": {
+    "specforge/training/nfc_checkpoint.py": "7ff2f5cfe30931990c929c734c37c8d17cdb310e6f797859459f77b476e1d90e",
+    "specforge/training/nfc_state.py": "90027db03be6eb288b6fa4ec23af0b03f43acef0783162c0887b1d57291eb945",
+    "specforge/training/checkpoint.py": "6d61d1638bb03508a0ae46a283dcbe2bdb1dabcdaeafdf132cb00276da455aeb",
+    "specforge/training/controller.py": "9883621c59af36bd761c521acdc3e0d3dae40174695ca8754255132cef017f66",
+    "specforge/training/trainer.py": "7ecab0a128a94fa70cffe1ed397638c7c23c6336063f62d8f95bb76d358a57b9",
+    "specforge/config/schema.py": "2cce7dc845a2fafc61d21c54a6f2e9ff705d1ec9faf143e9d6a24d40a2128e8f",
+    "tests/gpu/nfc_fsdp_acceptance.py": "1adde203560257cf8ac04a755b1f25cf9ae1520a8bb9e4c627444ed632aaa3ac",
+    "examples/configs/offline/colocated/deepseek-v41-flash-native.yaml": "59660f8cc8140d91e528ec21017ae9244c3610174c826f2bc17728d3d4444d92",
+    "examples/configs/online/disaggregated/external/deepseek-v41-flash-native.yaml": "2a21ef23d1ef284b1c0871b9811ab1302dd6fdb502f1c18f0dc2a4b8e00575d5"
+  },
+  "remote_matches": true,
+  "driver_files": {
+    "nfc_dspark_async_perf.py": "c9bb720770340b09e6f75ed02660e0eab61fef1b348e6f272469eabbc8fe1f1a",
+    "nfc_dspark_async_run_r2.sh": "2f3c6c6f08fe9efba006eefdc603f8a697f787fa539b6813c0125a3a73b3aee9",
+    "nfc_dspark_async_job_r2.yaml": "481d4ba4a7b915cb731aaa399e3f9b29caf91b6c094f24a2e67b60c5fdb8bc1c"
+  },
+  "trainer_revision": "b311a03e9ec54e872bd70e1e7b99779c08272af5"
+}

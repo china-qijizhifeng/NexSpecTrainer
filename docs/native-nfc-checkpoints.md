@@ -29,11 +29,18 @@ staging memory, in addition to training/optimizer memory; reserve host RAM
 accordingly. The generic 2 GiB default still streams through bounded slots,
 but then source release depends on writer progress.
 
-The historical synchronous 14.23B-parameter benchmark measured warm durable
-pauses of 14.8–16.4 seconds at 2 GiB/rank and 15.0–15.1 seconds at 24 GiB/rank.
-The larger pool released model sources at 6.2–6.4 seconds. The current trainer
-returns at source release and overlaps subsequent optimizer steps with disk
-writes. Historical and asynchronous measurements are distinguished in
+The real 14.23B dSpark benchmark with these settings measured warm source-release
+caller pauses of 12.40 / 11.31 / 10.47 seconds. Complete checkpoints finished
+at 23.83 / 22.23 / 21.11 seconds, including live source mutation and synthetic
+GPU work before the drain. Every complete state restored bitwise on all ranks.
+Core confirmed cached-plan reuse, but the remaining phase ending at `planned`
+still consumed 6.5–9.3 seconds on the slowest rank. The first save paid setup:
+36.34 seconds of caller pause. These measurements do not establish full
+training throughput.
+
+Historical synchronous pool and writer comparisons are recorded separately;
+increasing from four to eight or sixteen writers showed only small warm-save
+differences. See exact rank receipts, parameters and limits in
 [`acceptance/nfc-fsdp-20261103/performance/`](../acceptance/nfc-fsdp-20261103/performance/).
 
 ## Dependencies and verified runtime
