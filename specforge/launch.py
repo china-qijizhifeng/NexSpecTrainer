@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import logging
 import os
+from contextlib import contextmanager
 from typing import Any, Callable, List, Mapping, Optional, Tuple
 
 from specforge.algorithms.registry import AlgorithmRegistration
@@ -822,6 +823,7 @@ def build_disagg_online_producer(
     resident_high_watermark_bytes: Optional[int] = None,
     resident_low_watermark_bytes: Optional[int] = None,
     feature_store_max_resident_bytes: Optional[int] = None,
+    capture_max_sample_bytes: Optional[int] = None,
     backpressure_poll_s: float = 0.2,
     peer_wait_timeout_s: Optional[float] = None,
     max_worker_failures: int = 3,
@@ -874,10 +876,11 @@ def build_disagg_online_producer(
     truncating the run. Per-task retryable failures are bounded by
     ``max_prompt_attempts`` (a poisoned prompt goes terminal, not infinite).
     The pool counts as drained only when no prompt is pending *or leased* —
-    an all-failed round no longer reads as end-of-data. With N workers the
-    watermark can overshoot by up to N * ``producer_concurrency`` * lease
-    because each logical worker checks it independently before filling its
-    request slots.
+    an all-failed round no longer reads as end-of-data. With a configured
+    ``capture_max_sample_bytes``, workers reserve shared ref/byte capacity
+    before capture and release it only after publication or failure cleanup.
+    Returned refs must respect this wire-size bound. Without it, watermarks
+    remain soft and concurrent requests can overshoot them.
     """
     import concurrent.futures
     import os
@@ -930,6 +933,7 @@ def build_disagg_online_producer(
             high_watermark_bytes=resident_high_watermark_bytes,
             low_watermark_bytes=resident_low_watermark_bytes,
             max_prompt_lease_per_worker=lease,
+            capture_max_sample_bytes=capture_max_sample_bytes,
         )
     )
     if (
@@ -1065,6 +1069,7 @@ def build_disagg_online_producer(
             producer_timing(
                 f"consumer dispatch requirement ready quantum={consumer_quantum}"
             )
+            flow_control.limits.validate_capture_window(consumer_quantum)
         except BaseException as exc:
             try:
                 channel.fail(f"{type(exc).__name__}: {exc}")
@@ -1090,6 +1095,17 @@ def build_disagg_online_producer(
         ingest_closed = threading.Event()
         # Set on a fatal driver/worker error so every peer stops leasing.
         abort = threading.Event()
+
+        @contextmanager
+        def abort_on_accounting_error():
+            # Used inside publish_lock: close admission before releasing the
+            # lock, even if a partial publication or its cleanup failed.
+            try:
+                yield
+            except BaseException:
+                abort.set()
+                raise
+
         slots = len(workers) * producer_concurrency * worker_lease
         # A step (<= threshold) normalizes long before a threshold-sized pool
         # drains unless capture outpaces normalization, so capping at one
@@ -1141,17 +1157,20 @@ def build_disagg_online_producer(
         def resident_bytes() -> int:
             # The distributor reports bytes for the actual released refs;
             # consumption order may differ from publication order.
-            with publish_lock:
+            with publish_lock, abort_on_accounting_error():
                 return reconcile_consumed_locked()
 
         def publish_refs(w, refs, run_once_start: float) -> None:
             if not refs:
                 return
-            with publish_lock:
+            with publish_lock, abort_on_accounting_error():
                 current_bytes = reconcile_consumed_locked()
                 ref_sizes = [max(0, int(ref.estimated_bytes or 0)) for ref in refs]
                 projected_bytes = current_bytes + sum(ref_sizes)
-                if (
+                exceeds_sample_bound = capture_max_sample_bytes is not None and any(
+                    not 0 < size <= capture_max_sample_bytes for size in ref_sizes
+                )
+                if exceeds_sample_bound or (
                     feature_store_max_resident_bytes is not None
                     and projected_bytes > feature_store_max_resident_bytes
                 ):
@@ -1167,9 +1186,16 @@ def build_disagg_online_producer(
                                 f"{ref.sample_id}: {type(exc).__name__}: {exc}"
                             )
                     message = (
-                        "producer feature-store hard cap exceeded: "
-                        f"projected={projected_bytes} > "
-                        f"limit={feature_store_max_resident_bytes} bytes"
+                        (
+                            "capture result exceeds capture_max_sample_bytes "
+                            f"{capture_max_sample_bytes}: sizes={ref_sizes}"
+                        )
+                        if exceeds_sample_bound
+                        else (
+                            "producer feature-store hard cap exceeded: "
+                            f"projected={projected_bytes} > "
+                            f"limit={feature_store_max_resident_bytes} bytes"
+                        )
                     )
                     if cleanup_errors:
                         message += f"; cleanup errors={cleanup_errors}"
@@ -1207,10 +1233,11 @@ def build_disagg_online_producer(
 
         def abort_unpublished(futures) -> None:
             """Drain active capture calls and free refs after a fatal driver error."""
-            for future in futures:
+            for future, (_start, reserved) in futures.items():
                 try:
                     refs = future.result()
                 except BaseException:
+                    flow_control.release_prompt_lease(reserved)
                     continue
                 for ref in refs:
                     try:
@@ -1222,6 +1249,7 @@ def build_disagg_online_producer(
                         logger.exception(
                             "failed to abort unpublished ref %s", ref.sample_id
                         )
+                flow_control.release_prompt_lease(reserved)
 
         def run_worker(w) -> None:
             failures = 0
@@ -1246,16 +1274,18 @@ def build_disagg_online_producer(
                         in_flight = channel.in_flight_remote()
                         current_resident_bytes = resident_bytes()
                         # The consumer cannot acknowledge anything until a
-                        # complete dispatch group is available. Byte
-                        # backpressure below that ref quantum would deadlock
-                        # both roles; allow the required group to fill while
-                        # the explicit hard byte cap remains enforced by
-                        # publish_refs().
+                        # complete dispatch group is available. Legacy soft
+                        # byte bounds must let that group fill; bounded mode
+                        # validates this capacity up front and counts captures
+                        # which have not returned yet.
                         policy_paused = flow_control.should_pause(
                             in_flight_refs=in_flight,
                             resident_bytes=current_resident_bytes,
                         )
-                        paused = in_flight >= consumer_quantum and policy_paused
+                        paused = policy_paused and (
+                            capture_max_sample_bytes is not None
+                            or in_flight >= consumer_quantum
+                        )
                         if paused:
                             if backpressure_started is None:
                                 backpressure_started = time.monotonic()
@@ -1300,11 +1330,22 @@ def build_disagg_online_producer(
                             and status["prompts_pending"] > 0
                         ):
                             request_start = time.perf_counter()
-                            future = executor.submit(
-                                w.run_once,
-                                max_tasks=worker_lease,
-                            )
-                            futures[future] = request_start
+                            with publish_lock, abort_on_accounting_error():
+                                if abort.is_set():
+                                    break
+                                reserved = flow_control.reserve_prompt_lease(
+                                    worker_lease,
+                                    in_flight_refs=channel.in_flight_remote(),
+                                    resident_bytes=reconcile_consumed_locked(),
+                                )
+                            if not reserved:
+                                break
+                            try:
+                                future = executor.submit(w.run_once, max_tasks=reserved)
+                            except BaseException:
+                                flow_control.release_prompt_lease(reserved)
+                                raise
+                            futures[future] = (request_start, reserved)
                             submitted += 1
                             status = controller.status()
 
@@ -1330,34 +1371,38 @@ def build_disagg_online_producer(
                             return_when=concurrent.futures.FIRST_COMPLETED,
                         )
                         for future in done:
-                            request_start = futures.pop(future)
+                            request_start, reserved = futures.pop(future)
                             try:
-                                refs = future.result()
-                            except Exception as exc:
-                                # The worker already failed this call's leases
-                                # retryable. Other active calls keep draining.
-                                failures += 1
-                                logger.warning(
-                                    "rollout worker %s capture call failed (%d/%d): %s",
-                                    w.worker_id,
-                                    failures,
-                                    max_worker_failures,
-                                    exc,
-                                )
-                                if failures >= max_worker_failures:
-                                    accepting = False
-                                    dead[w.worker_id] = str(exc)
-                                    logger.error(
-                                        "dropping rollout worker %s after %d "
-                                        "consecutive capture failures; health=%s",
+                                try:
+                                    refs = future.result()
+                                except Exception as exc:
+                                    # The worker already failed this call's leases
+                                    # retryable. Other active calls keep draining.
+                                    failures += 1
+                                    logger.warning(
+                                        "rollout worker %s capture call failed (%d/%d): %s",
                                         w.worker_id,
                                         failures,
-                                        w.health(),
+                                        max_worker_failures,
+                                        exc,
                                     )
-                                continue
-                            failures = 0
-                            publish_refs(w, refs, request_start)
+                                    if failures >= max_worker_failures:
+                                        accepting = False
+                                        dead[w.worker_id] = str(exc)
+                                        logger.error(
+                                            "dropping rollout worker %s after %d "
+                                            "consecutive capture failures; health=%s",
+                                            w.worker_id,
+                                            failures,
+                                            w.health(),
+                                        )
+                                    continue
+                                failures = 0
+                                publish_refs(w, refs, request_start)
+                            finally:
+                                flow_control.release_prompt_lease(reserved)
                 except BaseException:
+                    abort.set()
                     abort_unpublished(futures)
                     raise
 

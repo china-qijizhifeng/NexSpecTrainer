@@ -934,6 +934,7 @@ class ConfigSchemaTest(unittest.TestCase):
                     "resident_low_watermark_bytes": 2048,
                     "feature_store_max_resident_bytes": 8192,
                     "feature_store_max_quarantined_bytes": 16384,
+                    "capture_max_sample_bytes": 1024,
                 },
             }
         )
@@ -942,6 +943,7 @@ class ConfigSchemaTest(unittest.TestCase):
         self.assertEqual(cfg.runtime.producer_concurrency, 3)
         self.assertEqual(cfg.runtime.in_flight_low_watermark, 16)
         self.assertEqual(cfg.runtime.feature_store_max_quarantined_bytes, 16384)
+        self.assertEqual(cfg.runtime.capture_max_sample_bytes, 1024)
         self.assertEqual(
             Config.model_validate(MINIMAL).runtime.feature_store_max_quarantined_bytes,
             8 << 30,
@@ -949,6 +951,8 @@ class ConfigSchemaTest(unittest.TestCase):
 
         invalid_runtime = (
             {"producer_concurrency": 0},
+            {"capture_max_sample_bytes": 1024},
+            {"capture_max_sample_bytes": 0},
             {
                 "in_flight_high_watermark": 4,
                 "in_flight_low_watermark": 5,

@@ -28,6 +28,10 @@ class TestResolveTotalSteps(unittest.TestCase):
                 in_flight_low_watermark=low,
                 producer_lease=8,
                 consumer_dispatch=policy,
+                resident_high_watermark_bytes=None,
+                resident_low_watermark_bytes=None,
+                feature_store_max_resident_bytes=None,
+                capture_max_sample_bytes=None,
             ),
             training=SimpleNamespace(batch_size=8, accumulation_steps=32),
             deployment=SimpleNamespace(
@@ -58,6 +62,28 @@ class TestResolveTotalSteps(unittest.TestCase):
         with mock.patch.dict(os.environ, environment, clear=False):
             os.environ.pop("DISAGG_IN_FLIGHT_LOW_WATERMARK", None)
             self.assertEqual(_online_flow_window(cfg), (1024, None))
+
+    def test_capture_bytes_validate_resolved_environment_before_data_build(self):
+        cfg = self._online_flow_config()
+        cfg.runtime.capture_max_sample_bytes = 10
+        cfg.runtime.resident_high_watermark_bytes = 20480
+        cfg.runtime.resident_low_watermark_bytes = 10240
+        self.assertEqual(_online_flow_window(cfg), (1152, 1024))
+        with (
+            mock.patch.dict(
+                os.environ, {"DISAGG_RESIDENT_LOW_WATERMARK_BYTES": "10239"}
+            ),
+            self.assertRaisesRegex(ValueError, "low byte watermark.*quantum 1024"),
+        ):
+            _online_flow_window(cfg)
+        cfg.runtime.feature_store_max_resident_bytes = 20480
+        with (
+            mock.patch.dict(
+                os.environ, {"DISAGG_RESIDENT_HIGH_WATERMARK_BYTES": "20481"}
+            ),
+            self.assertRaisesRegex(ValueError, "exceeds feature-store hard cap"),
+        ):
+            _online_flow_window(cfg)
 
     def test_two_window_flow_validates_environment_overrides(self):
         for policy in ("two_window_bucketed", "two_window_joint_balanced"):
