@@ -33,6 +33,11 @@ long-trace experiment, these are `1 10 19 28 37`, with auxiliary width 10240
 and final width 2048. The CLI resolves these values from the model/draft
 configuration; it does not accept a manually duplicated layer list.
 
+For persistent Triton/TileLang/DeepGEMM compilation and FlashInfer MoE tuning
+caches, wrap the server command with the [kernel cache launcher](kernel-cache.md).
+It also enables sampled DeepGEMM prewarm by default, with an environment opt-out.
+Cache settings must be applied before server startup, not just to this client.
+
 Set the server's source buffers before launching SGLang. For example:
 
 ```bash

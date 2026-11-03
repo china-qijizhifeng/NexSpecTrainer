@@ -121,6 +121,12 @@ plugin. Add V4.1's hardware-specific target TP, FP4 expert and Engram settings
 from the SGLang deployment that already runs on your cluster. Stock trainer
 SGLang 0.5.18 is not the V4.1 capture environment.
 
+Use the [kernel cache launcher](sections/examples/kernel-cache.md) around that
+server command to retain Triton, TileLang, DeepGEMM, and FlashInfer caches across
+jobs. It enables sampled DeepGEMM prewarm by default; keep separate namespaces
+for the preserved Weaver trainer and the V4.1 serving image. The guide also
+covers local NVMe mounts and the DSPARK MoE prefill autotune limitation.
+
 **Capture acceptance remains required:** send a complete prompt+response with
 `max_new_tokens=0`; check full token coverage, 15360-wide layer-input features
 and 5120-wide final states. V4.1's CED bounded replay must not truncate deep-layer
