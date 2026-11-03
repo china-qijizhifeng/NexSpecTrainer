@@ -29,12 +29,15 @@ staging memory, in addition to training/optimizer memory; reserve host RAM
 accordingly. The generic 2 GiB default still streams through bounded slots,
 but then source release depends on writer progress.
 
-The real 14.23B dSpark benchmark with these settings measured warm source-release
+The previous 14.23B dSpark benchmark (before exact-storage CPU aliases) measured warm source-release
 caller pauses of 12.40 / 11.31 / 10.47 seconds. Complete checkpoints finished
 at 23.83 / 22.23 / 21.11 seconds, including live source mutation and synthetic
 GPU work before the drain. Every complete state restored bitwise on all ranks.
 Core confirmed cached-plan reuse, but the remaining phase ending at `planned`
-still consumed 6.5–9.3 seconds on the slowest rank. The first save paid setup:
+still consumed 6.5–9.3 seconds on the slowest rank. That broad phase included
+Core `prepare_write_data()` cloning CPU slices; it was not isolated planner
+computation. The exact-storage dependency removes those redundant clones;
+its real-size A/B timing is awaiting an available 8-H100 node. The first save paid setup:
 36.34 seconds of caller pause. These measurements do not establish full
 training throughput.
 
@@ -46,7 +49,7 @@ differences. See exact rank receipts, parameters and limits in
 ## Dependencies and verified runtime
 
 This integration requires [NexFlashCheckpoint PR #49](https://github.com/china-qijizhifeng/NexFlashCheckpoint/pull/49),
-revision `79d838fc19ba1f179fc6c1dc36147e5183d82ac8`, with its built Rust extension,
+revision `be06ae228600d8c2eed3c6a15c740163392a8587`, with its built Rust extension,
 and a compatible Megatron Core **mcore async** implementation. The newer NVRx
 async API is not interchangeable. Install NFC without its `checkpoint` extra
 or use `--no-deps`; that extra pins Torch 2.9 and must not replace the trainer's
@@ -57,7 +60,15 @@ GPU acceptance uses the pinned image
 Torch `2.10.0a0+b558c986e8.nv25.11` and Core serialization source SHA-256
 `5f745e742b63b4d4f4c406edda9c09605746bd52faa24c1b5fb4446676799a65`.
 The repository's Torch 2.13 development environment is used for CPU contract
-checks; a complete native GPU round trip on Torch 2.13 is not claimed.
+checks; a complete native save on Torch 2.13 has not passed. Independent CPU DCP
+checks found an existing `Tensor.names` incompatibility in NFC serialization;
+this integration remains limited to the pinned Torch 2.10/Core GPU runtime.
+
+Contiguous CPU optimizer tiles use exact-length storage aliases. This avoids
+Core cloning a view of a larger backing allocation before NFC captures the
+same bytes into its staging pool. The aliases retain the original allocation;
+training must still wait for collective `source_released` before mutation.
+Noncontiguous, conjugate and negative views keep their existing behavior.
 
 ## State and ownership
 

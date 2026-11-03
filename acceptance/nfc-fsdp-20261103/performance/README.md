@@ -8,7 +8,48 @@ Frozen V4.1 target weights are excluded. Logical training tensors total
 about 199.17 GB. This benchmark does not run the full target backbone or a
 training forward/backward.
 
-## Current asynchronous save with cached plans
+## CPU tile clone elimination: 8-H100 A/B awaiting resources
+
+The current NFC dependency is `be06ae228600d8c2eed3c6a15c740163392a8587`.
+In the deployed Core `filesystem_async.py:165–166`, `prepare_write_data()`
+clones each CPU tensor whose storage extent differs from its logical bytes.
+The optimizer's CPU shards are views of larger allocations. This copied the
+payload once before NFC copied it again into staging, even with a cached plan.
+`shard_tiles()` now creates an exact-length storage alias for each contiguous
+CPU tile, retaining the source allocation and its explicit device. Special
+logical/noncontiguous views keep the previous path. The capture fence remains
+mandatory; this change removes the intermediate clone, not the snapshot copy.
+
+CPU regression: NFC 522 passed / 43 skipped; both default CPU and meta device
+contexts verify exact extent, pointer identity and lifetime after owner Tensor
+GC. The independent dependency review also passed actual NativeState plus
+BF16Optimizer capture/mutate/restore checks. See `../REVIEW.md`.
+
+`cpuview-benchmark.py` alternates cold baseline, baseline1, optimized1,
+optimized2, baseline2, optimized3 in one process with the same backend,
+runtime, cached plan and 32 GiB/rank pool, four writers/rank. A scoped clone
+hook records CPU bytes and time inside Core preparation; each optimized round
+requires zero such clone bytes. Every round mutates live state after collective
+source release, overlaps synthetic CUDA work with the writer, then restores
+the complete state fingerprint. Original input mappings are private/read-only
+and generated payload deletion is restricted to the isolated workspace.
+
+The first attempt passed 10 native Core/CUDA regression tests on `4592a54`
+before a higher-priority job preempted it at 19:27:52. It produced no 199 GB
+measurements and its exit file alone is not a success receipt. Its events,
+worker log and exact cleanup are preserved. A scheduling-only second attempt
+was removed after inspecting unschedulability. The current third attempt
+`nexspec-nfc-dspark-cpuview-20261103-r3` / `job-46b0d32c5ef9-20261103194134`
+uses the final dependency source, remains queued for eight H100s and has no
+performance results yet. The queue is WeaverRSI / proj-32; resources remain
+64 CPU / 768 GiB, with no exclusive-node or reservation bypass.
+
+The archived run/YAML and source hashes are reproduction inputs, not passing
+receipts. No real-size speedup, final-source GPU acceptance or zero-pause
+claim is made while the A/B test is pending. Earlier results below retain
+their original source identity and timing definitions.
+
+## Previous asynchronous save with cached plans
 
 The final production source is `b311a03e9ec54e872bd70e1e7b99779c08272af5`.
 The job ran on 8 H100s with 64 CPU and a 768 GiB host-memory limit, using
@@ -37,8 +78,9 @@ throughput. The large benchmark does not run draft/target forward/backward.
 
 All warm ranks report `validated_cache_reuse=true` and `pool_reused=true`.
 Core's cached structure/metadata planning is enabled; remaining Core work up
-to the `planned` mark still costs 6.5–9.3 seconds at the slowest rank. This
-change does not eliminate the planning phase. First-save timing includes
+to the `planned` mark still costs 6.5–9.3 seconds at the slowest rank. The phase includes `prepare_write_data()` and its CPU view clones; it is
+not isolated planner computation. The newer exact-storage alias dependency
+removes those redundant clones without changing source capture ownership. First-save timing includes
 runtime/planner/pool setup. The earlier synchronous measurements below ran
 separately on a shared filesystem and must not be used to infer a controlled
 speedup for this job.

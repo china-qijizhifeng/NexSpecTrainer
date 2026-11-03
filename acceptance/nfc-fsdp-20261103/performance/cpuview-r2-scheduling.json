@@ -1,0 +1,88 @@
+{
+  "pods": {
+    "page": -1,
+    "page_size": -1,
+    "pods": [
+      {
+        "namespace": "qiji",
+        "name": "job-eb6d21a9daac-20261103193834-validation-0",
+        "status": "Pending",
+        "ready_status": "0/1",
+        "restarts": 0,
+        "age": 0,
+        "ip": "",
+        "node": "",
+        "nodeip": "",
+        "jobname": "",
+        "create_time": "2026-11-03 19:38:39",
+        "cpu_requests": "64",
+        "memory_requests": "768Gi",
+        "gpu_num": "8",
+        "gpu_type": "nvidia.com/gpu",
+        "host_network": false
+      }
+    ],
+    "total": 1
+  },
+  "events": {
+    "code": 200,
+    "data": [
+      {
+        "event_name": "job-eb6d21a9daac-20261103193834.18e48607c45cf790",
+        "type": "Warning",
+        "reason": "PodGroupPending",
+        "involvedObject": "job-eb6d21a9daac-20261103193834",
+        "involvedObject_type": "Job",
+        "namespace": "qiji",
+        "message": "PodGroup qiji:job-eb6d21a9daac-20261103193834 unschedule,reason: 1/0 tasks in gang unschedulable: pod group is not ready, 1 minAvailable",
+        "create_time": "2026-11-03 19:38:39",
+        "update_time": "2026-11-03 19:38:39",
+        "delete_time": "",
+        "creation_timestamp": "2026-11-03 19:38:39",
+        "first_timestamp": "2026-11-03 19:38:39",
+        "last_timestamp": "2026-11-03 19:38:39",
+        "preemption_time": "",
+        "count": 1,
+        "predator": "",
+        "priority": 0,
+        "in_preemptable_queue": false,
+        "is_reclaimable": false,
+        "preemptor_priority": 0,
+        "preemptor_in_preemptable_queue": false,
+        "preemptor_is_reclaimable": false
+      },
+      {
+        "event_name": "job-eb6d21a9daac-20261103193834.18e4860958b598bf",
+        "type": "Warning",
+        "reason": "PodGroupPending",
+        "involvedObject": "job-eb6d21a9daac-20261103193834",
+        "involvedObject_type": "Job",
+        "namespace": "qiji",
+        "message": "PodGroup qiji:job-eb6d21a9daac-20261103193834 unschedule,reason: 1/1 tasks in gang unschedulable: pod group is not ready, 1 Pending, 1 minAvailable; Pending: 1 Unschedulable",
+        "create_time": "2026-11-03 19:38:46",
+        "update_time": "2026-11-03 19:38:46",
+        "delete_time": "",
+        "creation_timestamp": "2026-11-03 19:38:46",
+        "first_timestamp": "2026-11-03 19:38:46",
+        "last_timestamp": "2026-11-03 19:38:46",
+        "preemption_time": "",
+        "count": 1,
+        "predator": "",
+        "priority": 0,
+        "in_preemptable_queue": false,
+        "is_reclaimable": false,
+        "preemptor_priority": 0,
+        "preemptor_in_preemptable_queue": false,
+        "preemptor_is_reclaimable": false
+      }
+    ],
+    "message": "Success",
+    "request_id": "ReqID-20261103-194000-9566-5971"
+  },
+  "scheduler": {
+    "code": 200,
+    "data": "Start allocating resource at 2026-11-03 19:39:59\nJob <qiji/job-eb6d21a9daac-20261103193834> has <1> tasks to allocate resource, totalRequest is <cpu 64000.00, memory 824633720832.00, pods 1.00, attachable-volumes-csi-spectrumscale.csi.ibm.com 3.00, nvidia.com/gpu 8000.00>, there have <325> nodes in scheduler, job priority <0> queue <proj-32> inPreemptableQueue <true> isReclaimable <true>\nTask <job-eb6d21a9daac-20261103193834-validation-0> scheduled failed, reason: no nodes fit it, message:\n0/325 nodes are unavailable: 1 node is reserved for reclaiming job qiji/job-4312674a9990-20261103171148-26878b53-bfd8-4a5e-87f8-2042fe807784 node(s) <node120>, 1 node node087 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node087>, 1 node node089 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node089>, 1 node node090 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node090>, 1 node node115 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node115>, 1 node node134 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node134>, 1 node node161 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node161>, 1 node node225 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node225>, 1 node node251 is exclusive mode, but task qiji/job-eb6d21a9daac-20261103193834-validation-0 does not match label in nodeSelector or nodeAffinity node(s) <node251>, 1 plugin NodeAffinity predicates failed node(s) didn't match Pod's node affinity/selector node(s) <node226>, 197 Insufficient memory node(s) <node248,cpu034,node028,node126,node198,node227,node-b300-002,cpu035,node201,cpu067,node113,node103,cpu025,cpu047,master003,cpu064,node063,node108,node123,node183,node242,cpu055,node080,node173,node104,node102,node179,node200,node032,node112,node131,cpu044,node082,node194,node214,cpu030,cpu056,cpu051,node234,node206,node099,cpu083,node121,node044,node062,node155,node241,master001,node-b300-004,node220,node204,cpu073,node141,cpu014,node078,node203,node-b300-001,node-b300-008,node030,node156,node152,node068,node191,node167,node217,node195,node065,node091,node172,node202,cpu084,cpu043,node211,node170,node058,node094,node146,node119,node222,cpu063,node083,node052,node117,node142,node165,node237,node101,cpu072,node122,node023,node059,node133,node148,node036,node088,node097,node190,node168,cpu049,node171,node144,cpu039,cpu038,node231,node244,node-b300-006,node034,node084,cpu070,node100,node116,node182,cpu069,cpu031,cpu032,node033,node069,cpu048,cpu054,node215,node064,node187,cpu071,cpu078,node-b300-005,node139,cpu068,cpu066,node151,node229,node243,node095,node159,cpu074,node048,node071,node240,node027,cpu057,node056,node140,node018,node118,node060,node110,node-b300-003,cpu013,master002,node073,node180,node024,node051,node193,node077,node114,node109,cpu027,cpu065,cpu087,node228,node188,node208,cpu060,node125,node066,node079,node096,node037,node250,node219,node218,node196,node178,cpu045,cpu088,node092,node111,cpu028,cpu037,node045,node093,node049,node247,cpu042,node031,node098,node184,node054,node189,node221,node230,node213,node074,node106,node175,node249,cpu061>, 35 Insufficient cpu node(s) <cpu020,cpu036,boss01,cpu033,cpu052,cpu018,cpu053,cpu041,cpu017,boss04,cpu086,cpu040,cpu012,boss03,cpu011,cpu046,boss02,cpu029,cpu015,cpu024,boss05,node107,cpu019,cpu062,cpu058,cpu077,cpu026,cpu079,cpu085,cpu075,cpu059,cpu016,boss06,cpu010,cpu076>, 83 Insufficient nvidia.com/gpu node(s) <node138,node026,node076,node205,node166,node086,node153,node216,node197,node021,node174,node039,node061,node212,node019,node057,node224,node041,node081,node050,node149,node209,node210,node067,node245,node135,node160,node158,node223,node186,node235,node038,node025,node055,node136,node199,node085,node124,node143,node163,node130,node070,node043,node150,node239,node053,node035,node162,node246,node020,node042,node128,node147,node145,node177,node192,node207,node040,node105,node154,node072,node164,node238,node252,node137,node157,node232,node233,node176,node127,node132,node-b300-007,node022,node029,node236,node185,node046,node075,node181,node169,node017,node047,node129>.\nJob <qiji/job-eb6d21a9daac-20261103193834> scheduled failed\nEnd allocating resource at 2026-11-03 19:39:59",
+    "message": "success",
+    "request_id": "ReqID-20261103-194000-9617-d218"
+  }
+}

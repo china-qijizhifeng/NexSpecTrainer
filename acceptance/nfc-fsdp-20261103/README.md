@@ -2,7 +2,7 @@
 
 NexSpecTrainer base: `01ff8af94a447041e9377590ee3db5754b083523`.
 NFC dependency: PR [#49](https://github.com/china-qijizhifeng/NexFlashCheckpoint/pull/49),
-`79d838fc19ba1f179fc6c1dc36147e5183d82ac8` (not merged at validation time).
+`be06ae228600d8c2eed3c6a15c740163392a8587` (not merged at validation time).
 Runtime and source hashes are recorded alongside this receipt.
 
 ## Current asynchronous implementation
