@@ -1,0 +1,4 @@
+interface:
+  display_name: "临时训练运行"
+  short_description: "复用已验证的 BP Dev 环境执行 SpecForge 训练；正式镜像可用后优先使用镜像"
+  default_prompt: "使用 $training-run 为本次 NexSpecTrainer 训练核对环境、启动配置和 checkpoint 验收；优先使用可用的正式镜像。"
