@@ -1,0 +1,49 @@
+# Two-call pipeline validation on eight H100s; not a convergence recipe.
+# The 2026-11-03 run used 16 prepared 4096-token windows and the native draft.
+model:
+  target_model_path: /models/DeepSeek-V4.1-Flash-1017
+  draft_model_config: configs/deepseek-v41-flash-native.json
+  target_backend: sglang
+  embedding_key: embed.weight
+  lm_head_key: head.weight
+  torch_dtype: bfloat16
+  use_liger_kernel: false
+
+data:
+  hidden_states_path: /shared/activations-train
+  max_length: 4096
+  dataloader_num_workers: 0
+  cache_dir: ./cache/training
+
+training:
+  strategy: deepseek_v41
+  fsdp_sharding: FULL_SHARD
+  optimizer_cpu_offload: true
+  batch_size: 1
+  accumulation_steps: 1
+  num_epochs: 1
+  learning_rate: 1.0e-5
+  warmup_ratio: 0.03
+  max_grad_norm: 1.0
+  attention_backend: megatron_csa
+  num_anchors: 4
+  objective_chunk_blocks: 2
+  objective_checkpointing: true
+  loss_decay_gamma: 4.0
+  dspark_ce_loss_alpha: 0.1
+  dspark_l1_loss_alpha: 0.9
+  dspark_confidence_head_alpha: 1.0
+  save_interval: 2
+  log_interval: 1
+  dist_timeout: 30
+  seed: 42
+  max_steps: 2
+
+run_id: deepseek-v41-native-smoke
+output_dir: ./outputs/deepseek-v41-native-smoke
+
+deployment:
+  mode: local_colocated
+  trainer:
+    nnodes: 1
+    nproc_per_node: 8

@@ -3,8 +3,12 @@
 This candidate strategy trains the released three-stage DSpark module under
 `mtp.*`. It initializes from the native checkpoint, freezes the target embedding
 and output head, and exports a separate checkpoint directory for SGLang.
-**Full-checkpoint Hopper training and exported SGLang inference have not yet
-been validated.** All 17 small checkpoint, kernel and training acceptance tests
+**Full-checkpoint eight-H100 training and native export passed a short
+real-trajectory validation. Exported SGLang DSPARK inference ran, but strict
+target-output preservation did not pass.** See the
+[2026-11-03 validation record](validation/deepseek-v41-20261103.md) for the
+two-call smoke run, RDMA/compression measurements and unresolved inference limit.
+All 17 small checkpoint, kernel and training acceptance tests
 passed on H100 with the preserved Weaver Torch 2.10 / TE 2.20.2 stack. The initial learning rate is a conservative
 starting point, not a reproduced training recipe.
 
@@ -42,7 +46,10 @@ offload. There is no expert parallelism or trainer tensor parallelism in this
 initial adapter. Every rank initially materializes the full BF16 draft before
 FSDP sharding; allow over 30 GB just for draft and frozen head/embedding storage,
 plus checkpoint conversion, activations, optimizer and communication memory.
-The eight-GPU recipe is not a measured memory guarantee.
+The larger training recipe is not a measured memory guarantee. The separate
+[bounded smoke recipe](../examples/configs/offline/colocated/deepseek-v41-flash-smoke.yaml)
+used four anchors and two-block objective chunks and peaked at 38.33 GiB of
+allocated CUDA memory per rank in that validation.
 
 ## Install the trainer stack
 
@@ -64,7 +71,8 @@ alone is insufficient. The base Megatron also lacks packed CSA; attention
 still needs the pinned CSA implementation, FlashMLA and compatible cuDNN DSA.
 The small acceptance suite also passed fused MoE dispatch, private-window
 attention forward/backward and two DSpark AdamW steps with recomputation.
-Full-checkpoint and multi-GPU training remain unvalidated.
+The subsequent full-checkpoint, multi-GPU smoke run is recorded above; longer
+training and convergence remain unvalidated.
 
 The K-grouped wgrad binding uses aligned host K lengths and an FP32
 accumulator required by SM90. Each MoE dispatch synchronizes padded counts to
@@ -133,7 +141,10 @@ and 5120-wide final states. V4.1's CED bounded replay must not truncate deep-lay
 features. Merely starting an inference server does not establish this contract.
 Persist `input_ids`, `loss_mask`, `hidden_states`, `target_last_hidden_states`
 using SpecForge's manifest format and `strategy=deepseek_v41` for offline use.
-The plugin/native V4.1 combination still needs a real full-sequence smoke test.
+The plugin/native V4.1 combination passed capture of the prepared 4k windows
+described in the validation record; longer full-episode capture remains a
+separate acceptance target. For device allocation, transport settings and the
+larger startup window, see the [Mooncake RDMA recipe](sections/examples/mooncake-rdma.md).
 
 ## Train and export
 
