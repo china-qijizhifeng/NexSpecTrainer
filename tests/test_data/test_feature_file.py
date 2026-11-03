@@ -57,7 +57,8 @@ def make_generator(**kwargs):
 
 
 @unittest.skipUnless(
-    importlib.util.find_spec("zstandard"), "requires compression extra"
+    importlib.util.find_spec("zstandard") and importlib.util.find_spec("brotli"),
+    "requires compression extra",
 )
 class TestFeatureFile(unittest.TestCase):
     def setUp(self):
@@ -193,6 +194,14 @@ class TestFeatureFile(unittest.TestCase):
             zstd=True, interleave_layers=True, capture_layers=(1, 4, 7)
         )
         generator._save_after_transfer(record, str(self.path), [])
+        hybrid_path = self.directory / "2.ckpt.hybrid"
+        hybrid_generator = make_generator(
+            hybrid=True,
+            capture_layers=(1, 4, 7),
+            hybrid_chunk_size=4096,
+            compression_workers=2,
+        )
+        hybrid_generator._save_after_transfer(record, str(hybrid_path), [])
         torch.save(record, self.directory / "0.ckpt")
         with gzip.open(self.directory / "1.ckpt.gz", "wb") as stream:
             torch.save(record, stream)
@@ -206,8 +215,8 @@ class TestFeatureFile(unittest.TestCase):
                 target_repr=None,
                 max_len=8,
             ).read()
-        self.assertEqual(len(refs), 3)
-        self.assertEqual(len(list_local_files(self.directory)), 3)
+        self.assertEqual(len(refs), 4)
+        self.assertEqual(len(list_local_files(self.directory)), 4)
         loader = FeatureDataLoader(
             LocalFeatureStore("compression"),
             refs=refs,
@@ -216,12 +225,12 @@ class TestFeatureFile(unittest.TestCase):
             strategy="eagle3",
         )
         batches = list(loader)
-        self.assertEqual(len(batches), 3)
+        self.assertEqual(len(batches), 4)
         for batch in batches:
             for key in record:
                 assert_bits_equal(record[key], batch.tensors[key])
         eager = OfflineManifestReader(
-            str(self.path),
+            str(hybrid_path),
             run_id="compression",
             strategy="eagle3",
             feature_keys=keys,
@@ -231,11 +240,11 @@ class TestFeatureFile(unittest.TestCase):
         ).read()
         self.assertEqual(eager[0].feature_specs["aux_hidden_state"].shape, (1, 8, 12))
         # Legacy training must use the same decoder and propagate errors.
-        legacy = OfflineEagle3Dataset([str(self.path)], max_len=8)
+        legacy = OfflineEagle3Dataset([str(hybrid_path)], max_len=8)
         assert_bits_equal(
             legacy._open_file(0)["aux_hidden_state"], record["aux_hidden_state"]
         )
-        self.path.write_bytes(b"corrupt")
+        hybrid_path.write_bytes(b"corrupt")
         with self.assertRaises(ValueError):
             legacy[0]
 
@@ -281,13 +290,25 @@ class TestFeatureFile(unittest.TestCase):
             args = parse_args()
             self.assertTrue(args.zstd and args.interleave_layers)
             self.assertEqual(args.zstd_level, 1)
+        with mock.patch("sys.argv", argv + ["--hybrid"]):
+            args = parse_args()
+            self.assertTrue(args.hybrid)
+            self.assertEqual(args.brotli_quality, 10)
+            self.assertEqual(args.hybrid_chunk_size, 256 << 10)
         for flags in (
             ["--zstd", "--compress"],
+            ["--hybrid", "--zstd"],
             ["--interleave-layers"],
             ["--zstd-level", "0"],
+            ["--brotli-quality", "0"],
+            ["--hybrid-chunk-size", "0"],
+            ["--hybrid-chunk-size", str((64 << 20) + 1)],
+            ["--compression-workers", "0"],
         ):
             with mock.patch("sys.argv", argv + flags), self.assertRaises(SystemExit):
                 parse_args()
+        with self.assertRaisesRegex(ValueError, "2 to 64 layers"):
+            make_generator(hybrid=True, capture_layers=(1,))
 
 
 class TestOptionalCompressionDependency(unittest.TestCase):

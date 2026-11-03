@@ -2,7 +2,7 @@
 
 One request is fetched to CPU, written atomically, then released before the
 next request. The adapter restores tensors from the negotiated wire encoding
-before writing. The offline reader decodes Zstd records on demand during training.
+before writing. The offline reader decodes compressed records on demand during training.
 """
 
 from __future__ import annotations
@@ -18,8 +18,11 @@ import torch
 
 from specforge.data.feature_file import (
     load_feature_file,
+    require_hybrid_compression,
     require_zstandard,
+    save_hybrid_features,
     save_zstd_features,
+    validate_hybrid_options,
 )
 from specforge.inference.adapters.server_capture import ServerCaptureFailure
 from specforge.inference.capture import verify_capture
@@ -58,28 +61,46 @@ class ServerCaptureFileWriter:
         target_model_version: str,
         zstd: bool = False,
         zstd_level: int = 1,
+        hybrid: bool = False,
+        brotli_quality: int = 10,
+        hybrid_chunk_size: int = 256 << 10,
+        compression_workers: int = min(12, os.cpu_count() or 1),
         interleave_layers: bool = False,
         resume: bool = False,
         source_identity=None,
     ):
+        if zstd and hybrid:
+            raise ValueError("zstd and hybrid compression are mutually exclusive")
         if zstd:
             require_zstandard()
+        if hybrid:
+            require_hybrid_compression()
+            validate_hybrid_options(
+                brotli_quality,
+                hybrid_chunk_size,
+                compression_workers,
+                layer_count=len(capture.aux_hidden_state_layer_ids),
+            )
         if not 1 <= zstd_level <= 19:
             raise ValueError("zstd_level must be between 1 and 19")
-        if interleave_layers and (
-            not zstd or not layout.aux_feature or not capture.aux_hidden_state_layer_ids
+        if (interleave_layers or hybrid) and (
+            not layout.aux_feature or not capture.aux_hidden_state_layer_ids
         ):
-            raise ValueError("interleave_layers requires Zstd and an auxiliary feature")
+            raise ValueError("layer compression requires an auxiliary feature")
         self.output = Path(output)
         self.capture, self.layout = capture, layout
         self.zstd, self.zstd_level = zstd, zstd_level
+        self.hybrid = hybrid
+        self.brotli_quality = brotli_quality
+        self.hybrid_chunk_size = hybrid_chunk_size
+        self.compression_workers = compression_workers
         self.interleave = (
             {layout.aux_feature: capture.aux_hidden_state_layer_ids}
-            if interleave_layers
+            if interleave_layers or hybrid
             else {}
         )
         self.resume = resume
-        self.suffix = ".ckpt.zst" if zstd else ".ckpt"
+        self.suffix = ".ckpt.hybrid" if hybrid else (".ckpt.zst" if zstd else ".ckpt")
         self.plan = {
             "version": 1,
             "algorithm": algorithm,
@@ -94,9 +115,16 @@ class ServerCaptureFileWriter:
                 "last_hidden_feature": layout.last_hidden_feature,
                 "passthrough": [list(p) for p in layout.passthrough],
             },
-            "codec": "bf16_fields_zstd" if zstd else "torch",
+            "codec": (
+                "conditional_hybrid"
+                if hybrid
+                else ("bf16_fields_zstd" if zstd else "torch")
+            ),
             "zstd_level": zstd_level if zstd else None,
-            "interleave_layers": interleave_layers,
+            "brotli_quality": brotli_quality if hybrid else None,
+            "hybrid_chunk_size": hybrid_chunk_size if hybrid else None,
+            "compression_workers": compression_workers if hybrid else None,
+            "interleave_layers": interleave_layers or hybrid,
         }
         self._lock = None
         self._seen = set()
@@ -222,7 +250,16 @@ class ServerCaptureFileWriter:
             record = self._validate(tensors, task)
             fd, temporary = tempfile.mkstemp(dir=self.output, suffix=".partial")
             os.close(fd)
-            if self.zstd:
+            if self.hybrid:
+                save_hybrid_features(
+                    record,
+                    temporary,
+                    quality=self.brotli_quality,
+                    chunk_size=self.hybrid_chunk_size,
+                    workers=self.compression_workers,
+                    interleave_layers=self.interleave,
+                )
+            elif self.zstd:
                 save_zstd_features(
                     record,
                     temporary,

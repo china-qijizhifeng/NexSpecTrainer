@@ -90,11 +90,17 @@ class TestServerCaptureFiles(unittest.TestCase):
         )
 
     def test_uncompressed_transport_compressed_files_feed_real_dspark_reader(self):
-        for zstd in (False, True):
-            with self.subTest(zstd=zstd):
-                self.output = Path(self.temp.name) / str(zstd)
-                task = replace(self.task, task_id=f"episode-{zstd}")
-                with self.writer(zstd=zstd, interleave_layers=zstd) as writer:
+        for codec in ("raw", "zstd", "hybrid"):
+            with self.subTest(codec=codec):
+                self.output = Path(self.temp.name) / codec
+                task = replace(self.task, task_id=f"episode-{codec}")
+                with self.writer(
+                    zstd=codec == "zstd",
+                    hybrid=codec == "hybrid",
+                    interleave_layers=codec == "zstd",
+                    hybrid_chunk_size=4096,
+                    compression_workers=2,
+                ) as writer:
                     result = writer.write(task, adapter=self.adapter, store=self.store)
                 self.assertEqual(result["status"], "captured")
                 self.assertFalse(
@@ -313,6 +319,31 @@ class TestServerCaptureFiles(unittest.TestCase):
             store_factory.call_args.kwargs["setup_kwargs"]["local_buffer_size"], 4 << 30
         )
         self.assertFalse(self.backend._d)
+
+    def test_hybrid_cli_validation(self):
+        argv = [
+            "--config",
+            "train.yaml",
+            "--server",
+            "http://server",
+            "--samples",
+            "samples.jsonl",
+            "--output",
+            "features",
+            "--target-model-version",
+            "pinned",
+        ]
+        args = parse_args(argv + ["--hybrid", "--hybrid-chunk-size", "4096"])
+        self.assertTrue(args.hybrid)
+        self.assertEqual(args.brotli_quality, 10)
+        for flags in (
+            ["--hybrid", "--zstd"],
+            ["--hybrid", "--compression-workers", "0"],
+            ["--hybrid", "--hybrid-chunk-size", "1"],
+            ["--hybrid", "--hybrid-chunk-size", str((64 << 20) + 1)],
+        ):
+            with self.assertRaises(SystemExit):
+                parse_args(argv + flags)
 
     def test_optional_dependency_fails_before_transport(self):
         argv = [

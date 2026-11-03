@@ -58,17 +58,29 @@ def parse_args(argv=None):
         help="Client-side lossless BF16 fields + Zstd persistence",
     )
     parser.add_argument("--zstd-level", type=int, choices=range(1, 20), default=1)
+    parser.add_argument(
+        "--hybrid",
+        action="store_true",
+        help="Client-side conditional Brotli/Zstd persistence (.ckpt.hybrid)",
+    )
+    parser.add_argument("--brotli-quality", type=int, choices=range(1, 12), default=10)
+    parser.add_argument("--hybrid-chunk-size", type=int, default=256 << 10)
+    parser.add_argument(
+        "--compression-workers", type=int, default=min(12, os.cpu_count() or 1)
+    )
     parser.add_argument("--interleave-layers", action="store_true")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument(
         "--wire-encoding",
         choices=("raw", "bf16_fields_zstd_v1"),
         default="raw",
-        help="Request sender-side compression before Mooncake (separate from --zstd disk codec)",
+        help="Request sender-side compression before Mooncake (separate from the disk codec)",
     )
     args = parser.parse_args(argv)
-    if args.interleave_layers and not args.zstd:
-        parser.error("--interleave-layers requires --zstd")
+    if args.zstd and args.hybrid:
+        parser.error("--zstd and --hybrid are mutually exclusive")
+    if args.interleave_layers and not (args.zstd or args.hybrid):
+        parser.error("--interleave-layers requires --zstd or --hybrid")
     if min(args.client_buffer_bytes, args.server_buffer_bytes) <= 0:
         parser.error("buffer capacities must be positive")
     if not math.isfinite(args.timeout_s) or args.timeout_s <= 0:
@@ -77,6 +89,18 @@ def parse_args(argv=None):
         from specforge.data.feature_file import require_zstandard
 
         require_zstandard()  # before model config loading or Mooncake allocation
+    from specforge.data.feature_file import validate_hybrid_options
+
+    try:
+        validate_hybrid_options(
+            args.brotli_quality, args.hybrid_chunk_size, args.compression_workers
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
+    if args.hybrid:
+        from specforge.data.feature_file import require_hybrid_compression
+
+        require_hybrid_compression()
     return args
 
 
@@ -199,6 +223,10 @@ def main(argv=None):
         target_model_version=args.target_model_version,
         zstd=args.zstd,
         zstd_level=args.zstd_level,
+        hybrid=args.hybrid,
+        brotli_quality=args.brotli_quality,
+        hybrid_chunk_size=args.hybrid_chunk_size,
+        compression_workers=args.compression_workers,
         interleave_layers=args.interleave_layers,
         resume=args.resume,
         source_identity={

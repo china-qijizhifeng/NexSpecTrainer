@@ -62,8 +62,11 @@ from specforge.application import resolve_offline_capture
 from specforge.config import Config
 from specforge.data.feature_file import (
     FEATURE_SUFFIXES,
+    require_hybrid_compression,
     require_zstandard,
+    save_hybrid_features,
     save_zstd_features,
+    validate_hybrid_options,
 )
 from specforge.data.preprocessing import (
     build_eagle3_dataset,
@@ -208,10 +211,34 @@ def parse_args():
         default=1,
         help="Zstd compression level (default: 1).",
     )
+    codec_group.add_argument(
+        "--hybrid",
+        action="store_true",
+        help="Save conditional Brotli/Zstd files (.ckpt.hybrid) using explicit capture layers.",
+    )
+    others_group.add_argument(
+        "--brotli-quality",
+        type=int,
+        choices=range(1, 12),
+        default=10,
+        help="Brotli quality for hybrid sign/exponent streams (default: 10).",
+    )
+    others_group.add_argument(
+        "--hybrid-chunk-size",
+        type=int,
+        default=256 << 10,
+        help="Brotli chunk size in bytes for hybrid compression (default: 262144).",
+    )
+    others_group.add_argument(
+        "--compression-workers",
+        type=int,
+        default=min(12, os.cpu_count() or 1),
+        help="Parallel Brotli workers for hybrid compression (default: up to 12).",
+    )
     others_group.add_argument(
         "--interleave-layers",
         action="store_true",
-        help="With --zstd, interleave the BF16 auxiliary feature's capture layers before compression.",
+        help="With --zstd or --hybrid, interleave the BF16 auxiliary feature's capture layers before compression.",
     )
 
     sglang_group = parser.add_argument_group("sglang")
@@ -239,10 +266,18 @@ def parse_args():
         ),
     )
     args = parser.parse_args()
-    if args.interleave_layers and not args.zstd:
-        parser.error("--interleave-layers requires --zstd")
+    if args.interleave_layers and not (args.zstd or args.hybrid):
+        parser.error("--interleave-layers requires --zstd or --hybrid")
+    try:
+        validate_hybrid_options(
+            args.brotli_quality, args.hybrid_chunk_size, args.compression_workers
+        )
+    except ValueError as exc:
+        parser.error(str(exc))
     if args.zstd:
         require_zstandard()
+    if args.hybrid:
+        require_hybrid_compression()
     return args
 
 
@@ -429,6 +464,10 @@ class HiddenStatesGenerator:
         hidden_state_transfer: str = "async",
         zstd: bool = False,
         zstd_level: int = 1,
+        hybrid: bool = False,
+        brotli_quality: int = 10,
+        hybrid_chunk_size: int = 256 << 10,
+        compression_workers: int = min(12, os.cpu_count() or 1),
         interleave_layers: bool = False,
         capture_layers: tuple[int, ...] = (),
     ):
@@ -466,28 +505,43 @@ class HiddenStatesGenerator:
         self.file_group_size = file_group_size
         self.compress = compress
         self.compression_level = compression_level
-        if compress and zstd:
-            raise ValueError("gzip and Zstd compression are mutually exclusive")
-        if interleave_layers and (
-            not zstd or not capture_layers or not self.capture_layout.aux_feature
+        if sum((compress, zstd, hybrid)) > 1:
+            raise ValueError("gzip, Zstd and hybrid compression are mutually exclusive")
+        if interleave_layers and not (zstd or hybrid):
+            raise ValueError("Layer interleave requires Zstd or hybrid compression")
+        if (interleave_layers or hybrid) and (
+            not capture_layers or not self.capture_layout.aux_feature
         ):
-            raise ValueError(
-                "Layer interleave requires Zstd and an auxiliary capture layout"
-            )
+            raise ValueError("Layer compression requires an auxiliary capture layout")
         if zstd:
             require_zstandard()
             if not 1 <= zstd_level <= 19:
                 raise ValueError("Zstd level must be between 1 and 19")
+        if hybrid:
+            require_hybrid_compression()
+            validate_hybrid_options(
+                brotli_quality,
+                hybrid_chunk_size,
+                compression_workers,
+                layer_count=len(capture_layers),
+            )
         self.zstd = zstd
         self.zstd_level = zstd_level
+        self.hybrid = hybrid
+        self.brotli_quality = brotli_quality
+        self.hybrid_chunk_size = hybrid_chunk_size
+        self.compression_workers = compression_workers
         self.interleave_layers = (
             {self.capture_layout.aux_feature: capture_layers}
-            if interleave_layers
+            if interleave_layers or hybrid
             else {}
         )
-        self.file_extension = (
-            ".ckpt.zst" if zstd else (".ckpt.gz" if compress else ".ckpt")
-        )
+        if hybrid:
+            self.file_extension = ".ckpt.hybrid"
+        else:
+            self.file_extension = (
+                ".ckpt.zst" if zstd else (".ckpt.gz" if compress else ".ckpt")
+            )
 
         # progress bar should only shown on TP rank = 0
         self.show_progress = dist.get_rank(get_tp_group()) == 0
@@ -626,7 +680,16 @@ class HiddenStatesGenerator:
                 )
                 return
 
-        if self.zstd:
+        if self.hybrid:
+            save_hybrid_features(
+                persisted,
+                output_file,
+                quality=self.brotli_quality,
+                chunk_size=self.hybrid_chunk_size,
+                workers=self.compression_workers,
+                interleave_layers=self.interleave_layers,
+            )
+        elif self.zstd:
             save_zstd_features(
                 persisted,
                 output_file,
@@ -1069,6 +1132,10 @@ def main():
             file_group_size=args.file_group_size,
             zstd=args.zstd,
             zstd_level=args.zstd_level,
+            hybrid=args.hybrid,
+            brotli_quality=args.brotli_quality,
+            hybrid_chunk_size=args.hybrid_chunk_size,
+            compression_workers=args.compression_workers,
             interleave_layers=args.interleave_layers,
             capture_layers=capture_plan.capture_layers,
             compress=args.compress,

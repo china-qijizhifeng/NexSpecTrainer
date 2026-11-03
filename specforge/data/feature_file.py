@@ -1,9 +1,9 @@
-"""Offline tensor files, including lossless BF16 fields + Zstd (.ckpt.zst).
+"""Offline tensor files with Zstd and conditional Brotli/Zstd compression.
 
-The versioned format contains a bounded JSON header followed by length-prefixed,
-checksummed Zstd frames. Each tensor is split into blocks of at most 1M elements.
-BF16 blocks store packed sign, exponent and mantissa in separate frames; other
-dtypes store their original bytes. No pickle is used in the new format.
+The versioned Zstd format contains a bounded JSON header followed by
+length-prefixed, checksummed frames. BF16 blocks store packed sign, exponent and
+mantissa separately; other dtypes retain their bytes. The hybrid format and its
+parallel conditional codec live in hybrid_feature_file.py. Neither uses pickle.
 """
 
 import gzip
@@ -20,7 +20,7 @@ from collections.abc import Mapping, Sequence
 import numpy as np
 import torch
 
-FEATURE_SUFFIXES = (".ckpt", ".ckpt.gz", ".ckpt.zst")
+FEATURE_SUFFIXES = (".ckpt", ".ckpt.gz", ".ckpt.zst", ".ckpt.hybrid")
 _MAGIC = b"NSACTZ01"
 _BLOCK_ELEMENTS = 1 << 20
 _MAX_HEADER = 1 << 20
@@ -55,6 +55,26 @@ def require_zstandard():
     if sys.byteorder != "little":
         raise RuntimeError("Zstd activation files currently require little-endian CPUs")
     return zstandard
+
+
+def require_brotli():
+    try:
+        import brotli
+    except ImportError as exc:
+        raise ImportError(
+            "Hybrid activation files require Brotli >= 1.2: pip install 'specforge[compression]'"
+        ) from exc
+    try:
+        version = tuple(int(part) for part in brotli.__version__.split(".")[:2])
+    except (AttributeError, ValueError) as exc:
+        raise ImportError("Unable to determine Brotli version") from exc
+    if version < (1, 2):
+        raise ImportError("Hybrid activation files require Brotli >= 1.2")
+    return brotli
+
+
+def require_hybrid_compression():
+    return require_zstandard(), require_brotli()
 
 
 def _read_exact(stream, size):
@@ -296,9 +316,29 @@ def load_zstd_features(path: str, *, max_record_bytes: int = _MAX_RECORD_BYTES):
         return decode_stream(stream)
 
 
+def validate_hybrid_options(*args, **kwargs):
+    from specforge.data.hybrid_feature_file import validate_hybrid_options as validate
+
+    return validate(*args, **kwargs)
+
+
+def save_hybrid_features(*args, **kwargs):
+    from specforge.data.hybrid_feature_file import save_hybrid_features as save
+
+    return save(*args, **kwargs)
+
+
+def load_hybrid_features(*args, **kwargs):
+    from specforge.data.hybrid_feature_file import load_hybrid_features as load
+
+    return load(*args, **kwargs)
+
+
 def load_feature_file(path: str) -> dict[str, torch.Tensor]:
-    """Shared reader for raw/gzip checkpoints and versioned Zstd records."""
+    """Shared reader for raw/gzip checkpoints and versioned compressed records."""
     path = os.fspath(path)
+    if path.endswith(".ckpt.hybrid"):
+        return load_hybrid_features(path)
     if path.endswith(".ckpt.zst"):
         return load_zstd_features(path)
     if path.endswith(".gz"):

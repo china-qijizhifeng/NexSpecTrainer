@@ -224,6 +224,7 @@ class PrepareHiddenStatesSerializationTest(unittest.TestCase):
     def _generator(*, compress: bool) -> HiddenStatesGenerator:
         generator = HiddenStatesGenerator.__new__(HiddenStatesGenerator)
         generator.zstd = False
+        generator.hybrid = False
         generator.compress = compress
         generator.compression_level = 1
         return generator

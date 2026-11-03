@@ -51,12 +51,22 @@ plans without an auxiliary feature. It changes storage only; the decoded
 dtype, shape, values and layer order are identical, including BF16 NaN payloads
 at the codec boundary. The capture script still skips NaN-containing records.
 
-Training auto-detects raw `.ckpt`, existing gzip `.ckpt.gz` and new `.ckpt.zst`
-files, including mixed directories. `--compress` / `--compression-level` retain
-their gzip behavior and cannot be combined with `--zstd`. Resume recognizes
-all three extensions and skips existing samples; it does not transcode them.
-File listing stays lazy. A corrupt file raises an error when read, including
-in the legacy EAGLE3 dataset, rather than substituting another sample.
+For higher compression with parallel CPU encoding, use `--hybrid` instead. This
+writes `.ckpt.hybrid` and automatically uses the auxiliary feature's explicit
+capture layers. Later-layer signs are conditioned on the previous sign and
+exponent, exponents on the previous exponent, and mantissas on the exponent
+delta. Sign and exponent streams use Brotli 1.2+ quality 10 in independent
+256 KiB chunks; mantissas and other tensors retain Zstd level 1. Configure these
+with `--brotli-quality`, `--hybrid-chunk-size` and `--compression-workers` (up
+to 12 workers by default). This format supports 2–64 auxiliary capture layers.
+
+Training auto-detects raw `.ckpt`, gzip `.ckpt.gz`, `.ckpt.zst` and
+`.ckpt.hybrid` files, including mixed directories. `--compress` /
+`--compression-level` retain their gzip behavior and cannot be combined with
+`--zstd` or `--hybrid`. Resume recognizes all four extensions and skips existing
+samples; it does not transcode them. File listing stays lazy. A corrupt file
+raises an error when read, including in the legacy EAGLE3 dataset, rather than
+substituting another sample.
 
 The version-1 format uses an `NSACTZ01` magic, a bounded JSON manifest with a
 SHA-256 checksum, and length-prefixed Zstd frames with content checksums. Tensor
@@ -71,11 +81,18 @@ and complex64/128 tensors. Tensor strides and shared-storage aliases are not
 preserved. The shared reader limits decoded tensor storage to 8 GiB per record
 and the manifest to 1 MiB.
 
+Hybrid files use an `NSACTH01` magic and the same bounded manifest convention,
+plus a SHA-256 digest for every original tensor. Each stream records its codec
+and frame count; each frame records decoded and compressed sizes. Brotli chunks
+are independent for parallel decoding as well as encoding; Zstd uses 1 MiB
+chunks. Decoded streams have tensor-derived cumulative budgets, and Brotli output
+is bounded by each frame's declared size. No pickle is used.
+
 Compressed records materialize in CPU RAM and cannot be mmap'ed. Interleave
 also needs a tensor-sized reorder buffer, so account for it in capture I/O
 queue and trainer prefetch memory. Compression runs after D2H completion in
-the existing bounded I/O pool, with one Zstd worker per save. No change is made
-to online/RDMA transport. See [research issue #1](https://github.com/china-qijizhifeng/NexSpecTrainer/issues/1)
+the existing bounded I/O pool. Zstd uses one worker per save; hybrid Brotli
+uses the configured bounded worker pool. No change is made to online/RDMA transport. See [research issue #1](https://github.com/china-qijizhifeng/NexSpecTrainer/issues/1)
 for the early-layer V4.1 measurements; deeper DSpark layers, training throughput
 and acceptance-rate effects have not been measured.
 

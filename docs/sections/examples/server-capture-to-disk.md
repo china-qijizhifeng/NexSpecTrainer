@@ -84,18 +84,23 @@ python scripts/prepare_server_hidden_states.py \
 Raw `.ckpt` remains the default. `--zstd-level` defaults to 1;
 `--interleave-layers` optionally reorders only the auxiliary feature according
 to the resolved capture plan, then reverses that reordering during decoding.
+Use `--hybrid` instead of `--zstd` for conditional cross-layer compression.
+Hybrid automatically uses the capture layer IDs, applies Brotli 1.2+ quality 10
+to sign/exponent streams and Zstd level 1 to mantissas, and splits Brotli work
+into 256 KiB chunks. Tune it with `--brotli-quality`, `--hybrid-chunk-size` and
+`--compression-workers`; it supports 2–64 auxiliary capture layers.
 For DSpark, the files contain `input_ids` and `loss_mask` as `[T]`, auxiliary
 `hidden_states` as `[1,T,aux_width]`, and
 `target_last_hidden_states` as `[1,T,target_width]`. Existing offline training
 reads the directory through `data.hidden_states_path`, including mixtures of
-raw, gzip, and Zstd feature files.
+raw, gzip, Zstd, and hybrid feature files.
 
 Only one request and one CPU record are active at a time. The writer waits for
 compression and atomic publication before releasing the Mooncake lease and
 starting the next episode; it has no unbounded asynchronous tensor queue.
 The raw tensors, codec work buffers, and optional interleave copy still need
 CPU RAM. Training fully decodes each compressed record in CPU RAM before
-normalization; Zstd files cannot be memory mapped. Allow extra RAM per loader
+normalization; compressed files cannot be memory mapped. Allow extra RAM per loader
 worker, and use a small worker/prefetch count for long episodes.
 
 Use `--resume` with the same output directory and capture plan. Completed
