@@ -353,6 +353,36 @@ class DomainTrainerWiringTest(unittest.TestCase):
         self.assertEqual(events, ["fit", "failure:fit failed", "finally"])
         self.assertEqual(cap["loader_closes"], 1)
 
+    def test_final_async_checkpoint_drains_before_success(self):
+        events = []
+        trainer, cap, _, _ = self._build(
+            {"refs": list(range(6))},
+            events=events,
+            on_fit_success=lambda step: events.append("success"),
+        )
+        manager = cap["ctrl_kw"]["checkpoint_manager"]
+        with mock.patch.object(
+            manager, "finalize_pending", side_effect=lambda: events.append("drain")
+        ):
+            self.assertEqual(trainer.fit(), 42)
+        self.assertEqual(events, ["fit", "save", "drain", "success"])
+
+    def test_async_checkpoint_failure_prevents_success(self):
+        events = []
+        trainer, cap, _, _ = self._build(
+            {"refs": list(range(6))},
+            events=events,
+            on_fit_success=lambda step: events.append("success"),
+            on_fit_failure=lambda exc: events.append(str(exc)),
+        )
+        manager = cap["ctrl_kw"]["checkpoint_manager"]
+        with mock.patch.object(
+            manager, "finalize_pending", side_effect=OSError("disk full")
+        ):
+            with self.assertRaisesRegex(OSError, "disk full"):
+                trainer.fit()
+        self.assertEqual(events, ["fit", "save", "disk full"])
+
     def test_loader_cleanup_failure_does_not_mask_primary_fit_error(self):
         try:
             import torch  # noqa: F401

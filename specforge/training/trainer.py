@@ -560,6 +560,7 @@ class Trainer:
                 step = self._controller.fit(self._loader)
             if step > 0 and self.last_checkpoint_step != step:
                 self.save_checkpoint()
+            self._controller._checkpoint_manager().finalize_pending()
             # A distributed consumer is not successful until prefetch has
             # stopped and every never-yielded lease has an explicit outcome.
             # Run this before on_fit_success publishes consumer_done.
@@ -623,8 +624,12 @@ class Trainer:
                 raise cleanup_error
 
     def save_checkpoint(self):
-        """Persist the current optimizer step through the one trainer surface."""
+        """Capture this step; native persistence continues in the background."""
         return self._controller.save_checkpoint(self.global_step)
+
+    def wait_for_checkpoint(self):
+        """Collectively drain native persistence before consuming a saved path."""
+        self._controller._checkpoint_manager().finalize_pending()
 
     def evaluate(self, data=None):
         """Run one eval pass, defaulting to the configured eval source.

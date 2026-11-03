@@ -41,8 +41,8 @@ logger = logging.getLogger(__name__)
 
 @dataclass(frozen=True)
 class Checkpoint:
-    """A saved training checkpoint location (resume target) — deliberately NOT a
-    published weight version (weight publication is not implemented)."""
+    """Training checkpoint location. Native saves return after source capture;
+    drain the manager before using the location as a durable resume target."""
 
     checkpoint_uri: str
     global_step: int
@@ -762,7 +762,7 @@ class _AsyncAckRunner:
 class TrainerController:
     """Lifecycle: fit / evaluate / checkpoint.
 
-    ``save_checkpoint`` persists resumable draft state and returns a
+    ``save_checkpoint`` submits resumable draft state and returns a
     :class:`Checkpoint`; ``specforge export`` materializes that state into the
     serving or Hugging Face model format.  Evaluation is configured once at
     construction time, so the public training lifecycle remains one no-argument
@@ -906,9 +906,15 @@ class TrainerController:
             step = self._fit(data, progress)
             # Every optimizer boundary this call reached is durable on return.
             self._close_ack_runner(None)
+            self._checkpoint_manager().finalize_pending()
             return step
         except BaseException as exc:
             self._close_ack_runner(exc)
+            try:
+                self._checkpoint_manager().finalize_pending()
+            except BaseException as checkpoint_error:
+                if checkpoint_error is not exc:
+                    exc.add_note(f"checkpoint drain also failed: {checkpoint_error}")
             raise
         finally:
             if progress is not None:
@@ -1018,6 +1024,8 @@ class TrainerController:
                 if not result.optimizer_stepped:
                     continue
                 self.global_step += 1
+                if self._checkpoint_mgr is not None and self._checkpoint_mgr.native:
+                    self._checkpoint_mgr.finalize_pending(wait=False)
                 self._last_result = result
                 self._last_eval_metrics = {}
                 perf_window_steps += 1
@@ -1257,6 +1265,7 @@ class TrainerController:
                 global_step=step,
                 epoch=self.epoch,
                 strategy=self.core.strategy.name,
+                metadata={"durability": "source_released"},
             )
         full = self.core.backend.state_dict()
         replicated_optimizer = bool(

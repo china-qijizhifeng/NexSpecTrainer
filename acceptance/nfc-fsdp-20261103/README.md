@@ -5,7 +5,23 @@ NFC dependency: PR [#49](https://github.com/china-qijizhifeng/NexFlashCheckpoint
 `79d838fc19ba1f179fc6c1dc36147e5183d82ac8` (not merged at validation time).
 Runtime and source hashes are recorded alongside this receipt.
 
-## Results
+## Current asynchronous implementation
+
+`save_checkpoint()` now returns after collective source capture, with disk
+persistence continuing while the optimizer advances. Native saves always use
+cached Core metadata plans; the V4.1 recipes budget 32 GiB/rank. A training-lane
+nonblocking collective poll finalizes ready saves, and final/close explicitly
+drain them before reporting success. Completion markers, best/latest and
+rotation follow successful persistence.
+
+CPU integration/config/export/resume and lifecycle checks: **249 passed,
+7 skipped**, 470 subtests. Independent review rounds 4–5 verified source-release
+safety, timeout retry/error propagation, cache invalidation, best rollback,
+installation/retention directory sync ordering and umask preservation. The
+asynchronous GPU and real-size performance receipts are recorded separately
+under `performance/`.
+
+## Historical synchronous integration results
 
 - CPU integration/config/export/resume: **230 passed, 7 skipped**, 465 subtests.
 - Package architecture: **17 passed**. One existing main failure concerning
@@ -40,7 +56,9 @@ DDP reducer migration.
 
 ## Scope and reproducibility
 
-Run `tests/gpu/nfc_fsdp_acceptance.py` with 8 torchrun ranks in the image pinned
+The current driver adds disk-delay/error injection and asynchronous source
+isolation to the earlier cases. Run `tests/gpu/nfc_fsdp_acceptance.py` with 8
+torchrun ranks in the image pinned
 in `gpu-job.yaml`. `gpu-run.sh` records runtime versions, Core API/source hash,
 GPU identity and the worker exit code. `gpu-results.json` holds all rank records.
 The accepted GPU source is recorded in `source-sha256.json`; the final

@@ -6,6 +6,9 @@ import hashlib
 import json
 import math
 import os
+import shutil
+import uuid
+from dataclasses import dataclass
 
 import torch
 import torch.distributed as dist
@@ -81,6 +84,15 @@ def validate_layouts(layouts):
             )
 
 
+@dataclass
+class _PendingCheckpoint:
+    ticket: object
+    directory: str
+    step: int
+    training: dict
+    best_metrics: dict | None = None
+
+
 class NativeCheckpoint:
     def __init__(self, manager, options):
         self.manager = manager
@@ -88,6 +100,7 @@ class NativeCheckpoint:
 
         self.options = NFCCheckpointConfig.model_validate(options).model_dump()
         self.runtime = None
+        self.pending = None
 
     def _checked(self, action):
         result, error = None, ""
@@ -104,12 +117,17 @@ class NativeCheckpoint:
             def create():
                 from nexflashcheckpoint import MegatronCheckpointRuntime
 
-                return MegatronCheckpointRuntime(**self.options)
+                return MegatronCheckpointRuntime(
+                    **self.options, cached_metadata=True, defer_source_release=True
+                )
 
             self.runtime = self._checked(create)
         return self.runtime
 
     def save(self, backend, state_filter, training, step):
+        # One reusable staging arena and one in-flight save. Only the next save
+        # applies backpressure; ordinary optimizer steps poll without waiting.
+        self.finalize_pending()
         state = self._checked(lambda: NativeState(backend, state_filter))
         local = self._checked(state.layout)
         layouts = [None] * dist.get_world_size()
@@ -129,42 +147,108 @@ class NativeCheckpoint:
         manager = self.manager
         path = manager.checkpoint_dir(step)
 
+        directory = [None]
+
         def prepare():
             if manager.is_rank0():
-                manager._rewind(step)
-                os.makedirs(path, exist_ok=True)
+                os.makedirs(manager.output_dir, exist_ok=True)
+                directory[0] = os.path.join(
+                    manager.output_dir,
+                    f".{manager.run_id}-step{step}-{uuid.uuid4().hex}",
+                )
+                # Match ordinary checkpoint permissions and the process umask;
+                # mkdtemp's fixed 0700 would hide the published checkpoint from
+                # the shared-filesystem export/resume account.
+                os.mkdir(directory[0])
 
         self._checked(prepare)
+        dist.broadcast_object_list(directory, src=0)
         ticket = runtime.save(
             native,
-            os.path.join(path, "nfc"),
+            os.path.join(directory[0], "nfc"),
             training_mode="fullft",
             metadata={"format": FORMAT, "step": step},
         )
-        # Both waits stay on the training lane. No parameter mutation is allowed
-        # before capture completes; no latest/best publication before durability.
-        ticket.wait("recoverable")
+        self.pending = _PendingCheckpoint(ticket, directory[0], step, training)
+        # This is the only source-safety fence. Disk writes continue on NFC's
+        # workers; they never call distributed collectives or read live tensors
+        # after this collective capture-success check returns.
+        self._checked(lambda: ticket.wait("source_released"))
+        return path
+
+    def finalize_pending(self, *, wait=True):
+        pending = self.pending
+        if pending is None:
+            return True
+        # NFC's timeout=0 performs a collective readiness/error agreement and
+        # leaves the ticket retryable on TimeoutError. Core finalizers and all
+        # publication collectives remain on this training lane.
+        try:
+            pending.ticket.wait("recoverable", timeout=None if wait else 0)
+        except TimeoutError:
+            if wait:
+                raise
+            return False
+        manager = self.manager
+        path = manager.checkpoint_dir(pending.step)
+
+        def sync_output():
+            if manager.is_rank0():
+                fd = os.open(manager.output_dir, os.O_RDONLY)
+                try:
+                    os.fsync(fd)
+                finally:
+                    os.close(fd)
 
         def publish():
             if manager.is_rank0():
-                with open(os.path.join(path, "nfc", "common.pt"), "rb") as stream:
+                with open(
+                    os.path.join(pending.directory, "nfc", "common.pt"), "rb"
+                ) as stream:
                     digest = hashlib.file_digest(stream, "sha256").hexdigest()
                 manager._atomic_json(
                     {
                         "format": FORMAT,
                         "common_sha256": digest,
-                        "global_step": training["global_step"],
-                        "run_id": training["run_id"],
+                        "global_step": pending.training["global_step"],
+                        "run_id": pending.training["run_id"],
                     },
-                    os.path.join(path, MANIFEST),
+                    os.path.join(pending.directory, MANIFEST),
                 )
+                # Keep the previous complete version throughout capture/write.
+                # A same-step replacement is rolled back if installation fails.
+                backup = pending.directory + ".previous"
+                replacing = os.path.exists(path)
+                if replacing:
+                    os.replace(path, backup)
+                try:
+                    os.replace(pending.directory, path)
+                except BaseException:
+                    if replacing:
+                        os.replace(backup, path)
+                    raise
+                sync_output()
                 manager._point(f"{manager.run_id}-latest", path)
-                manager._rotate(keep_step=step)
+                manager._rewind(pending.step, keep_path=path)
+                if replacing:
+                    shutil.rmtree(backup)
 
         self._checked(publish)
-        return path
+        if manager.best_step is not None and manager.best_step >= pending.step:
+            manager.best_score = manager.best_step = None
+        self.pending = None
+        if pending.best_metrics is not None:
+            self._checked(
+                lambda: manager.update_best(pending.step, pending.best_metrics)
+            )
+        self._checked(
+            lambda: manager._rotate(pending.step) if manager.is_rank0() else None
+        )
+        self._checked(sync_output)
+        return True
 
     def restore(self, backend, state_filter, path):
+        self.finalize_pending()
         manifest = self._checked(lambda: read_manifest(path))
         digests = [None] * dist.get_world_size()
         dist.all_gather_object(digests, manifest["common_sha256"])
@@ -191,8 +275,18 @@ class NativeCheckpoint:
 
     def close(self):
         if self.runtime is not None:
-            self.runtime.close()
-            self.runtime = None
+            try:
+                self.finalize_pending()
+            except BaseException as exc:
+                try:
+                    self.runtime.close()
+                except BaseException as close_error:
+                    exc.add_note(f"NFC close also failed: {close_error}")
+                raise
+            else:
+                self.runtime.close()
+            finally:
+                self.runtime = None
 
 
 def load_draft_weights(path):

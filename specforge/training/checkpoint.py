@@ -74,6 +74,10 @@ class CheckpointManager:
     def restore_native(self, backend, state_filter, path):
         return self._native_checkpoint().restore(backend, state_filter, path)
 
+    def finalize_pending(self, *, wait=True):
+        """Collectively publish a ready native save; wait only at drain points."""
+        return self._nfc is None or self._nfc.finalize_pending(wait=wait)
+
     def close(self):
         if self._nfc is not None:
             self._nfc.close()
@@ -145,10 +149,12 @@ class CheckpointManager:
         self._barrier()  # no rank proceeds before the checkpoint is complete
         return ckpt_dir
 
-    def _rewind(self, step: int) -> None:
+    def _rewind(self, step: int, *, keep_path: Optional[str] = None) -> None:
         # Fork semantics: saving step S invalidates on-disk steps >= S, including
         # a best record inside the deleted range.
-        stale = sorted(path for s, path in self._step_dirs() if s >= step)
+        stale = sorted(
+            path for s, path in self._step_dirs() if s >= step and path != keep_path
+        )
         if stale:
             logger.warning(
                 "rewinding checkpoint timeline at step %d: deleting %s",
@@ -196,14 +202,27 @@ class CheckpointManager:
         verdict = False
         if self.is_rank0():
             s = self.score(eval_metrics)
-            verdict = s is not None and (
-                self.best_score is None or s > self.best_score + self.best_min_delta
-            )
+            best = self.best_score
+            if self._nfc is not None and self._nfc.pending is not None:
+                if (
+                    self.best_step is not None
+                    and self.best_step >= self._nfc.pending.step
+                ):
+                    best = None  # publication will rewind this future best
+                candidate = self.score(self._nfc.pending.best_metrics)
+                if candidate is not None:
+                    best = candidate if best is None else max(best, candidate)
+            verdict = s is not None and (best is None or s > best + self.best_min_delta)
         return self._bcast_flag(verdict)
 
     def update_best(self, step: int, eval_metrics: Dict[str, Any]) -> None:
         """Record ``step`` as the tracked best unconditionally (callers gate with
         ``is_better``); rank0 repoints ``{run_id}-best`` and persists the meta."""
+        if self._nfc is not None and self._nfc.pending is not None:
+            if self._nfc.pending.step != step:
+                raise ValueError("best step does not match the in-flight checkpoint")
+            self._nfc.pending.best_metrics = dict(eval_metrics)
+            return
         self.best_score = self.score(eval_metrics)
         self.best_step = step
         if not self.is_rank0():

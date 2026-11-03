@@ -14,7 +14,9 @@ data:
   cache_dir: ./cache
 
 training:
-  nfc_checkpoint: {}
+  nfc_checkpoint:
+    max_shared_memory_bytes: 34359738368  # 32 GiB per rank
+    pipeline_max_inflight_bytes: 34359738368
   strategy: deepseek_v41
   fsdp_sharding: FULL_SHARD
   optimizer_cpu_offload: true

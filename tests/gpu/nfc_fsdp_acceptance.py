@@ -9,6 +9,7 @@ import hashlib
 import json
 import os
 import random
+import threading
 import time
 from pathlib import Path
 from types import SimpleNamespace
@@ -210,9 +211,17 @@ def run(output, strategy, offload):
             started = time.perf_counter()
             checkpoint = controller.save_checkpoint(step)
             elapsed = maximum(time.perf_counter() - started)
-            path = CheckpointManager.resolve_resume_dir(checkpoint.checkpoint_uri)
+            manager.update_best(step, {"eval/simulated_acc_len": float(step)})
+            # Exercise a real optimizer update before the disk/publication fence.
+            # The captured checkpoint must remain immutable after source release.
+            assert manager._nfc.pending is not None
+            assert not Path(manager.checkpoint_dir(step)).exists()
             reference_loss = update(backend, inputs)
             reference = fingerprint(snapshot(backend))
+            manager.finalize_pending()
+            durable = maximum(time.perf_counter() - started)
+            path = CheckpointManager.resolve_resume_dir(checkpoint.checkpoint_uri)
+            assert manager.best_step == step
             metadata = CheckpointManager.read_resume_state(path)
             assert metadata["epoch_samples"] == step * 4
             assert metadata["global_step"] == step
@@ -228,9 +237,14 @@ def run(output, strategy, offload):
             assert (
                 fingerprint(snapshot(backend)) == reference
             ), f"{case} step{step}: next step differs"
-            manager.update_best(step, {"eval/simulated_acc_len": float(step)})
             results.append(
-                {"step": step, "seconds": elapsed, "next_step_bitwise": True}
+                {
+                    "step": step,
+                    "source_release_seconds": elapsed,
+                    "durable_after_next_step_seconds": durable,
+                    "next_step_bitwise": True,
+                    "marks": dict(manager._nfc.runtime.last_save_marks),
+                }
             )
         # Restore into a fresh wrapped model and lazy Adam optimizer, at a new
         # master placement. Then replay the exact next step again.
@@ -402,6 +416,93 @@ def trainer_lifecycle(output):
     print(json.dumps(record), flush=True)
 
 
+def async_publication(output):
+    """Hold rank 0's disk worker while every rank advances the optimizer."""
+    rank = dist.get_rank()
+    backend = create_backend(True, "FULL_SHARD")
+    inputs = torch.ones(4, 17, device="cuda", dtype=torch.bfloat16)
+    update(backend, inputs)
+    expected = fingerprint(snapshot(backend))
+    manager = CheckpointManager(
+        str(output / "async-publication"),
+        "async",
+        nfc_options={
+            "max_shared_memory_bytes": 16 << 20,
+            "pipeline_max_inflight_bytes": 16 << 20,
+            "staging_tile_bytes": 1 << 20,
+            "load_worker_count": 2,
+        },
+    )
+    native = manager._native_checkpoint()
+    runtime = native._runtime()
+    executor = runtime._writer
+    gate = threading.Event()
+    fail = False
+
+    def submit(fn):
+        def write():
+            if rank == 0:
+                assert gate.wait(120), "test did not release the disk worker"
+            fn()
+            if fail and rank == 0:
+                raise OSError("injected rank-0 disk failure")
+
+        return executor.submit(write)
+
+    runtime._writer = SimpleNamespace(submit=submit)
+    metadata = {
+        "global_step": 1,
+        "world_size": dist.get_world_size(),
+        "run_id": "async",
+    }
+    try:
+        path = manager.save_native(backend, state_filter, metadata, 1)
+        manager.update_best(1, {manager.best_metric: 1.0})
+        assert not manager.finalize_pending(wait=False)
+        assert manager.latest_dir() is None
+        assert manager.best_step is None
+        update(backend, inputs)
+        gate.set()
+        manager.finalize_pending()
+        assert manager.best_step == 1
+        assert manager.latest_dir() == path
+        manager.restore_native(backend, state_filter, path)
+        assert fingerprint(snapshot(backend)) == expected
+        previous_marker = (Path(path) / "training_state.json").read_bytes()
+        fail = True
+        update(backend, inputs)
+        manager.save_native(backend, state_filter, metadata, 1)
+        manager.update_best(1, {manager.best_metric: 2.0})
+        try:
+            manager.finalize_pending()
+        except Exception as exc:
+            assert "injected rank-0 disk failure" in str(exc), str(exc)
+        else:
+            raise AssertionError("all ranks must observe the disk failure")
+        assert manager.best_step == 1
+        assert manager.latest_dir() == path
+        assert (Path(path) / "training_state.json").read_bytes() == previous_marker
+        record = {
+            "rank": rank,
+            "partial_ready_did_not_publish": True,
+            "optimizer_advanced_while_rank0_write_blocked": True,
+            "snapshot_restored_bitwise": True,
+            "rank0_failure_seen": True,
+            "previous_same_step_checkpoint_preserved": True,
+        }
+        (output / f"async-publication-rank{rank}.json").write_text(
+            json.dumps(record) + "\n"
+        )
+        print(json.dumps(record), flush=True)
+    finally:
+        gate.set()
+        runtime._writer = executor
+        try:
+            manager.close()
+        except Exception as exc:
+            assert fail and "injected rank-0 disk failure" in str(exc), str(exc)
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", required=True, type=Path)
@@ -417,6 +518,7 @@ def main():
         ]:
             run(args.output, strategy, offload)
         trainer_lifecycle(args.output)
+        async_publication(args.output)
     finally:
         dist.destroy_process_group()
 

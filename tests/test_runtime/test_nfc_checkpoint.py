@@ -2,7 +2,9 @@
 
 import hashlib
 import json
+import os
 import sys
+from concurrent.futures import Future
 from pathlib import Path
 from types import SimpleNamespace
 from unittest import mock
@@ -165,6 +167,7 @@ def test_native_writer_failure_does_not_publish_latest(tmp_path):
         ),
         mock.patch("specforge.training.nfc_checkpoint.validate_layouts"),
         mock.patch("torch.distributed.get_world_size", return_value=1),
+        mock.patch("torch.distributed.broadcast_object_list"),
         mock.patch(
             "torch.distributed.all_gather_object",
             side_effect=lambda out, value: out.__setitem__(0, value),
@@ -175,6 +178,199 @@ def test_native_writer_failure_does_not_publish_latest(tmp_path):
         writer.save(None, None, {"world_size": 1}, 1)
     assert manager.latest_dir() is None
     assert not (Path(manager.checkpoint_dir(1)) / MANIFEST).exists()
+
+
+@pytest.fixture
+def async_writer(tmp_path):
+    """Control local capture and write completion at the NFC ticket boundary."""
+    from specforge.training.nfc_checkpoint import NativeCheckpoint
+
+    manager = CheckpointManager(str(tmp_path), "run", nfc_options={}, max_checkpoints=1)
+    writer = NativeCheckpoint(manager, {})
+    manager._nfc = writer
+    tickets = []
+
+    def save(state, path, **kwargs):
+        path = Path(path)
+        path.mkdir()
+        torch.save(state, path / "common.pt")
+        for name in ("metadata.json", ".metadata"):
+            (path / name).touch()
+        capture, durable = Future(), Future()
+        capture.set_result(None)
+        ticket = SimpleNamespace(
+            capture=capture,
+            durable=durable,
+            wait=mock.Mock(
+                side_effect=lambda milestone, timeout=None: (
+                    capture if milestone == "source_released" else durable
+                ).result(timeout)
+            ),
+        )
+        tickets.append(ticket)
+        return ticket
+
+    writer.runtime = SimpleNamespace(save=save, close=mock.Mock())
+    state = SimpleNamespace(
+        layout=lambda: {},
+        build=lambda training, layouts: {"training": training, "nfc_layout": layouts},
+    )
+
+    def submit(step):
+        return writer.save(
+            None, None, {"world_size": 1, "run_id": "run", "global_step": step}, step
+        )
+
+    with (
+        mock.patch("specforge.training.nfc_checkpoint.NativeState", return_value=state),
+        mock.patch("specforge.training.nfc_checkpoint.validate_layouts"),
+        mock.patch("torch.distributed.get_world_size", return_value=1),
+        mock.patch("torch.distributed.broadcast_object_list"),
+        mock.patch(
+            "torch.distributed.all_gather_object",
+            side_effect=lambda out, value: out.__setitem__(0, value),
+        ),
+    ):
+        yield manager, writer, tickets, submit
+
+
+def test_async_source_fence_defers_best_latest_and_rotation(async_writer):
+    manager, writer, tickets, submit = async_writer
+    first = submit(1)
+    tickets[-1].durable.set_result(None)
+    manager.update_best(1, {manager.best_metric: 1.0})
+    assert manager.finalize_pending()
+    second = submit(2)
+    assert tickets[-1].wait.call_args == mock.call("source_released")
+    manager.update_best(2, {manager.best_metric: 3.0})
+    assert not manager.finalize_pending(wait=False)
+    assert manager.latest_dir() == first
+    assert manager.best_step == 1
+    assert Path(first).is_dir()
+    assert not Path(second).exists()
+    assert not manager.is_better({manager.best_metric: 2.0})
+    assert manager.is_better({manager.best_metric: 4.0})
+    tickets[-1].durable.set_result(None)
+    assert manager.finalize_pending(wait=False)
+    assert manager.latest_dir() == second
+    assert manager.best_step == 2
+    assert not Path(first).exists()
+    assert writer.pending is None
+
+
+@pytest.mark.parametrize("step", [1, 2])
+def test_async_write_failure_preserves_previous_complete_best(async_writer, step):
+    manager, writer, tickets, submit = async_writer
+    previous = submit(1)
+    tickets[-1].durable.set_result(None)
+    manager.update_best(1, {manager.best_metric: 1.0})
+    manager.finalize_pending()
+    old_marker = (Path(previous) / MANIFEST).read_bytes()
+    submit(step)
+    manager.update_best(step, {manager.best_metric: 2.0})
+    tickets[-1].durable.set_exception(OSError("disk full"))
+    with pytest.raises(OSError, match="disk full"):
+        manager.finalize_pending(wait=False)
+    assert manager.latest_dir() == previous
+    assert manager.best_step == 1
+    assert (Path(previous) / MANIFEST).read_bytes() == old_marker
+    assert writer.pending is not None
+
+
+def test_next_save_and_close_drain_before_reusing_pool(async_writer):
+    manager, writer, tickets, submit = async_writer
+    submit(1)
+    first = tickets[-1]
+    first.durable.set_result(None)
+    submit(2)
+    assert first.wait.call_args == mock.call("recoverable", timeout=None)
+    assert manager.latest_dir() == manager.checkpoint_dir(1)
+    runtime = writer.runtime
+    tickets[-1].durable.set_result(None)
+    manager.close()
+    runtime.close.assert_called_once()
+    assert writer.pending is None
+    assert manager.latest_dir() == manager.checkpoint_dir(2)
+
+
+def test_pending_rollback_compares_against_new_timeline_best(async_writer):
+    manager, _, tickets, submit = async_writer
+    submit(5)
+    tickets[-1].durable.set_result(None)
+    manager.update_best(5, {manager.best_metric: 10.0})
+    manager.finalize_pending()
+    submit(2)
+    manager.update_best(2, {manager.best_metric: 2.0})
+    assert manager.is_better({manager.best_metric: 3.0})
+    assert not manager.is_better({manager.best_metric: 1.0})
+    assert manager.best_step == 5  # old complete version survives until commit
+
+
+def test_plain_save_syncs_install_before_deleting_old_versions(async_writer):
+    manager, writer, tickets, submit = async_writer
+    submit(2)
+    tickets[-1].durable.set_result(None)
+    events = []
+    final = manager.checkpoint_dir(2)
+    directory_inode = os.stat(manager.output_dir).st_ino
+    replace, fsync, rewind, rotate = (
+        os.replace,
+        os.fsync,
+        manager._rewind,
+        manager._rotate,
+    )
+
+    def recorded_replace(src, dst):
+        if dst == final:
+            events.append("install")
+        replace(src, dst)
+
+    def recorded_fsync(fd):
+        if os.fstat(fd).st_ino == directory_inode:
+            events.append("sync-output")
+        fsync(fd)
+
+    def recorded_rewind(*args, **kwargs):
+        events.append("rewind")
+        rewind(*args, **kwargs)
+
+    def recorded_rotate(*args, **kwargs):
+        events.append("rotate")
+        rotate(*args, **kwargs)
+
+    with (
+        mock.patch("os.replace", side_effect=recorded_replace),
+        mock.patch("os.fsync", side_effect=recorded_fsync),
+        mock.patch.object(manager, "_rewind", side_effect=recorded_rewind),
+        mock.patch.object(manager, "_rotate", side_effect=recorded_rotate),
+    ):
+        writer.finalize_pending()
+    assert events == ["install", "sync-output", "rewind", "rotate", "sync-output"]
+
+
+def test_published_directory_uses_the_checkpoint_umask(async_writer):
+    manager, _, tickets, submit = async_writer
+    previous_umask = os.umask(0o027)
+    try:
+        path = submit(1)
+        tickets[-1].durable.set_result(None)
+        manager.finalize_pending()
+    finally:
+        os.umask(previous_umask)
+    assert os.stat(path).st_mode & 0o777 == 0o750
+
+
+def test_native_runtime_always_caches_plans_and_defers_capture(async_writer):
+    _, writer, _, _ = async_writer
+    writer.runtime = None
+    create = mock.Mock()
+    with mock.patch.dict(
+        sys.modules,
+        {"nexflashcheckpoint": SimpleNamespace(MegatronCheckpointRuntime=create)},
+    ):
+        writer._runtime()
+    assert create.call_args.kwargs["cached_metadata"] is True
+    assert create.call_args.kwargs["defer_source_release"] is True
 
 
 @pytest.mark.parametrize(

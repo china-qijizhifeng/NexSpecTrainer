@@ -1,0 +1,6 @@
+{
+  "executed_sha256": "5cc4f57d7652eb12408569c65184a7eba3a386a5d9569c194a3f93e7d1da6c85",
+  "archived_sha256": "bb4c7cf3aec4940a67307edbc8c5be59309999fdcb9d29d2cfe72b6fcf7fc8e7",
+  "executable_ast_equal": true,
+  "difference": "isort inserted one blank line"
+}

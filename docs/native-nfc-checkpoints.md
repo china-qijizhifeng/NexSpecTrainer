@@ -22,6 +22,20 @@ bounded by their minimum; the pool need not hold a rank's complete checkpoint.
 Eight ranks at the defaults use at most 16 GiB of staging memory in total,
 plus runtime overhead. There is no `pipeline: false` setting.
 
+The V4.1 recipes use a 32 GiB/rank budget to fit the approximately 23.19 GiB
+rank payload and capture the entire rank before the writers drain it. Actual
+allocation follows payload size. Eight ranks need about 185.5 GiB of pinned
+staging memory, in addition to training/optimizer memory; reserve host RAM
+accordingly. The generic 2 GiB default still streams through bounded slots,
+but then source release depends on writer progress.
+
+The historical synchronous 14.23B-parameter benchmark measured warm durable
+pauses of 14.8–16.4 seconds at 2 GiB/rank and 15.0–15.1 seconds at 24 GiB/rank.
+The larger pool released model sources at 6.2–6.4 seconds. The current trainer
+returns at source release and overlaps subsequent optimizer steps with disk
+writes. Historical and asynchronous measurements are distinguished in
+[`acceptance/nfc-fsdp-20261103/performance/`](../acceptance/nfc-fsdp-20261103/performance/).
+
 ## Dependencies and verified runtime
 
 This integration requires [NexFlashCheckpoint PR #49](https://github.com/china-qijizhifeng/NexFlashCheckpoint/pull/49),
@@ -62,10 +76,22 @@ provider/model provenance contracts, epoch/sample progress and global step.
 
 ## Lifecycle and export
 
-Saving flushes the durable data acknowledgement first. The caller waits for
-NFC durability before advancing checkpoint state or publishing latest/best.
-NFC overlaps tile capture with rank-local storage writes internally; this
-initial integration does not overlap subsequent optimizer steps with saving.
+Saving flushes the durable data acknowledgement first, then captures the
+native shards. `save_checkpoint()` returns a `Checkpoint` with
+`metadata["durability"] == "source_released"` once all ranks have safely
+released their model/optimizer sources. Its final path is not yet a resume
+target. Training can mutate those sources while NFC workers finish local
+writes and fsync. Only one save is in flight; the next save drains it before
+reusing the staging pool.
+
+At optimizer boundaries the training thread collectively polls the ticket
+with `timeout=0`. A rank that is still writing postpones finalization; any
+rank's write error fails all ranks. Core finalizers, distributed collectives
+and directory publication always run on the training thread. The runtime
+always enables Core's save-plan cache and reuses its staging pool. NFC
+compares shard signatures across ranks and invalidates cached plans on layout
+changes, including lazy Adam initialization; new tensor values are bound on
+every save. Changing step counters or RNG does not reuse old payload data.
 
 A completed step directory contains:
 
@@ -78,9 +104,17 @@ validates training contracts, then restores rank-local tensors after wrapping
 the model. Tuple-valued provider contracts retain their types. Every rank
 agrees on the common metadata checksum before loading.
 
-Run-scoped latest/best links, retention, rollback and final-save behavior use
-the same completed-directory check. Normal `Trainer.fit()` cleanup closes the
-runtime; checkpoints returned by `save_checkpoint()` are already durable.
+Run-scoped latest/best links and retention change only after every rank's
+write succeeds. A save uses a private directory, preserving the previous
+complete checkpoint throughout capture and disk writing, including a same-step
+replacement. Directory installation is synced before rollback/rotation can
+remove older versions, and final pointer/retention changes are synced again.
+
+Call `trainer.wait_for_checkpoint()` collectively when a saved path must be
+consumed immediately. `Trainer.fit()` drains before reporting success or
+publishing consumer completion; controller fit and runtime close also drain.
+`last_checkpoint_step` tracks the most recently submitted capture and prevents
+a duplicate final save; it is not a durability notification.
 
 The existing export and weights-only warm-start readers recognize the native
 format. A single CPU process materializes only the draft weights through DCP,
