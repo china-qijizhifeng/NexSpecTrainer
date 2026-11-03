@@ -1,0 +1,9 @@
+{
+  "specforge/training/nfc_state.py": "90027db03be6eb288b6fa4ec23af0b03f43acef0783162c0887b1d57291eb945",
+  "specforge/training/nfc_checkpoint.py": "72cb731af146a374e639d1eb24032c4a90fc44823ea9d358c1b2a2be811a5508",
+  "specforge/training/checkpoint.py": "c2a26f19a23674f00939c622acab975b7932a99ed0c632ed6a96e7d93388beac",
+  "specforge/training/controller.py": "e4b7f614af0f18a75d4fb875f23895a8590e7811ed85bdca3aadf61a2ea65eb2",
+  "specforge/training/trainer.py": "11750b614d557b12a702d08c7f5fc093246ea641df8db027c9b4b060ceeffdf5",
+  "specforge/launch.py": "572f84f88cf78d857730c05ab355a1c0ed4790c54e2a2373eb68f5d27bc7db1f",
+  "tests/gpu/nfc_fsdp_acceptance.py": "bf33b241db16092bdbf2ff154927e4f23344f36371959fee5dfd4e295e89c307"
+}

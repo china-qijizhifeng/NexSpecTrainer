@@ -1,0 +1,762 @@
+[
+  {
+    "rank": 0,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 1,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 2,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 3,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 4,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 5,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 6,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 7,
+    "case": "FULL_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 28.611212018877268,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.20527911186218262,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06122490391135216,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05665816739201546,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 0,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 1,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 2,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 3,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 4,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 5,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 6,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 7,
+    "case": "NO_SHARD-offload1",
+    "passed": true,
+    "saves": [
+      {
+        "step": 2,
+        "seconds": 0.1843664664775133,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.06040831468999386,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 4,
+        "seconds": 0.05752202123403549,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 5,
+        "seconds": 0.05493899807333946,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 2
+  },
+  {
+    "rank": 0,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 1,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 2,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 3,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 4,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 5,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 6,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 7,
+    "case": "SHARD_GRAD_OP-offload0",
+    "passed": true,
+    "saves": [
+      {
+        "step": 0,
+        "seconds": 0.6416414119303226,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 1,
+        "seconds": 0.1794309038668871,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 2,
+        "seconds": 0.06809563934803009,
+        "next_step_bitwise": true
+      },
+      {
+        "step": 3,
+        "seconds": 0.05621683783829212,
+        "next_step_bitwise": true
+      }
+    ],
+    "fresh_restore": true,
+    "placement_switch": true,
+    "ddp_warmup_steps": 0
+  },
+  {
+    "rank": 0,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  {
+    "rank": 1,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  {
+    "rank": 2,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  {
+    "rank": 3,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  {
+    "rank": 4,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  {
+    "rank": 5,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  {
+    "rank": 6,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  },
+  {
+    "rank": 7,
+    "public_trainer_resume_bitwise": true,
+    "final_durable": true
+  }
+]

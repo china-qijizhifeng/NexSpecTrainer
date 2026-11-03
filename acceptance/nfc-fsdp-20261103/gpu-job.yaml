@@ -1,0 +1,66 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: nexspec-nfc-native-20261103-r5
+  namespace: qiji
+  annotations:
+    JobAlias: nexspec-nfc-native-20261103-r5
+    project: WeaverRSI
+    scheduling.volcano.sh/queue-name: proj-32
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  queue: proj-32
+  tasks:
+  - replicas: 1
+    name: validation
+    template:
+      spec:
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values: [node068, node087, node089, node090, node101, node102, node110, node115, node120, node134, node152, node155, node156, node161, node207, node225, node232, node251]
+        tolerations:
+        - key: task-type
+          operator: Equal
+          value: rsi-weaver
+          effect: NoSchedule
+        - key: task-type
+          operator: Equal
+          value: weaver
+          effect: NoSchedule
+        activeDeadlineSeconds: 1800
+        restartPolicy: Never
+        volumes:
+        - name: gpfs
+          hostPath:
+            path: /gpfs
+            type: Directory
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 16Gi
+        containers:
+        - name: validation
+          image: harbor.local.clusters/bp/weaver-trainer-slim:20261016-6ec59d8d8079@sha256:b8a311e4c399369117c89164a1304d8110cfacb5038483c045d57a45dd5eea32
+          resources:
+            requests:
+              nvidia.com/gpu: '8'
+              cpu: '32'
+              memory: 256Gi
+            limits:
+              nvidia.com/gpu: '8'
+              cpu: '32'
+              memory: 256Gi
+          volumeMounts:
+          - name: gpfs
+            mountPath: /gpfs
+          - name: shm
+            mountPath: /dev/shm
+          command:
+          - /bin/bash
+          - /gpfs/users/linlizhi/nexspec-nfc-native-20261103/run-r5.sh

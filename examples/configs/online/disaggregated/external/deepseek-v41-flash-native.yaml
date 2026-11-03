@@ -19,6 +19,7 @@ data:
   cache_dir: cache
   dataloader_num_workers: 2
 training:
+  nfc_checkpoint: {}
   strategy: deepseek_v41
   fsdp_sharding: FULL_SHARD
   optimizer_cpu_offload: true

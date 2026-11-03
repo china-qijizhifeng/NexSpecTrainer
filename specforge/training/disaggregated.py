@@ -595,6 +595,11 @@ def _build_offline(
         strategy_kwargs=bundle.strategy_kwargs,
         resume_from=cfg.training.resume_from,
         max_checkpoints=cfg.training.max_checkpoints,
+        nfc_checkpoint=(
+            cfg.training.nfc_checkpoint.model_dump()
+            if cfg.training.nfc_checkpoint is not None
+            else None
+        ),
         tp_size=cfg.training.tp_size,
         sp_ulysses_size=cfg.training.sp_ulysses_size,
         sp_ring_size=cfg.training.sp_ring_size,
@@ -872,6 +877,11 @@ def _build_online(
         log_interval=cfg.training.log_interval,
         strategy_kwargs=bundle.strategy_kwargs,
         max_checkpoints=cfg.training.max_checkpoints,
+        nfc_checkpoint=(
+            cfg.training.nfc_checkpoint.model_dump()
+            if cfg.training.nfc_checkpoint is not None
+            else None
+        ),
         tp_size=cfg.training.tp_size,
         sp_ulysses_size=cfg.training.sp_ulysses_size,
         sp_ring_size=cfg.training.sp_ring_size,

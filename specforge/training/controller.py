@@ -1233,8 +1233,32 @@ class TrainerController:
         # Every rank participates: FSDP model gathering is collective and every
         # rank persists its RNG. Sharded optimizer state stays rank-local; the
         # identical DDP optimizer is written once in the shared rank0 payload.
-        full = self.core.backend.state_dict()
         mgr = self._checkpoint_manager()
+        if mgr.native:
+            training = {
+                "global_step": step,
+                "epoch": self.epoch,
+                "epoch_batch": self._epoch_batch,
+                "epoch_samples": self._epoch_samples,
+                "strategy": self.core.strategy.name,
+                "run_id": self.run_id,
+                "world_size": torch.distributed.get_world_size(),
+                **self.checkpoint_extra,
+            }
+            ckpt_dir = mgr.save_native(
+                self.core.backend,
+                self.core.strategy.checkpoint_state_filter,
+                training,
+                step,
+            )
+            self.last_checkpoint_step = step
+            return Checkpoint(
+                checkpoint_uri=f"file://{os.path.abspath(ckpt_dir)}",
+                global_step=step,
+                epoch=self.epoch,
+                strategy=self.core.strategy.name,
+            )
+        full = self.core.backend.state_dict()
         replicated_optimizer = bool(
             getattr(self.core.backend, "optimizer_state_is_replicated", False)
         )

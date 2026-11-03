@@ -1,0 +1,13 @@
+[
+  {
+    "name": "job-f8d3622221b8-20261103164649",
+    "user_def_name": "nexspec-nfc-native-20261103-r5",
+    "status": "Completed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8,
+    "project": "WeaverRSI",
+    "queue": "proj-32"
+  }
+]

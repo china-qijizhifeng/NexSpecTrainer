@@ -95,6 +95,9 @@ class DomainTrainerWiringTest(unittest.TestCase):
                 self.last_checkpoint_step = step
                 return SimpleNamespace(global_step=step)
 
+            def _checkpoint_manager(self):
+                return cap["ctrl_kw"]["checkpoint_manager"]
+
             def close_profiler(self):
                 cap["profiler_closes"] = cap.get("profiler_closes", 0) + 1
 

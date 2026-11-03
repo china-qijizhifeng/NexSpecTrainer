@@ -69,6 +69,7 @@ def _assemble_trainer(
     dataset_size: Optional[int] = None,
     checkpoint_extra: Optional[dict] = None,
     max_checkpoints: int = 0,
+    nfc_checkpoint: Optional[dict] = None,
     tp_size: int = 1,
     sp_ulysses_size: int = 1,
     sp_ring_size: int = 1,
@@ -144,6 +145,7 @@ def _assemble_trainer(
         dataset_size=dataset_size,
         checkpoint_extra=checkpoint_extra,
         max_checkpoints=max_checkpoints,
+        nfc_checkpoint=nfc_checkpoint,
         tp_size=tp_size,
         sp_ulysses_size=sp_ulysses_size,
         sp_ring_size=sp_ring_size,
@@ -326,14 +328,18 @@ def _checkpoint_global_step(resume_from: str) -> int:
 
     import torch
 
-    from specforge.training.checkpoint import STATE_FILE
+    from specforge.training.checkpoint import STATE_FILE, CheckpointManager
+    from specforge.training.nfc_state import MANIFEST
 
-    path = str(resume_from)
-    if path.startswith("file://"):
-        path = path[len("file://") :]
-    if os.path.basename(path) != STATE_FILE:
-        path = os.path.join(path, STATE_FILE)
-    state = torch.load(path, map_location="cpu", weights_only=False)
+    path = CheckpointManager.resolve_resume_dir(resume_from)
+    if os.path.isfile(os.path.join(path, MANIFEST)):
+        from specforge.training.nfc_checkpoint import read_manifest
+
+        state = read_manifest(path)["training"]
+    else:
+        state = torch.load(
+            os.path.join(path, STATE_FILE), map_location="cpu", weights_only=False
+        )
     return int(state.get("global_step", 0) or 0)
 
 
@@ -569,6 +575,7 @@ def build_offline_runtime(
     log_interval: int = 50,
     resume_from: Optional[str] = None,
     max_checkpoints: int = 0,
+    nfc_checkpoint: Optional[dict] = None,
     strategy_kwargs: Optional[Mapping[str, Any]] = None,
     dataloader_num_workers: int = 0,
     profiling_options=None,
@@ -656,6 +663,7 @@ def build_offline_runtime(
             "source_dataset_size": len(source_refs),
         },
         max_checkpoints=max_checkpoints,
+        nfc_checkpoint=nfc_checkpoint,
         tp_size=tp_size,
         sp_ulysses_size=sp_ulysses_size,
         sp_ring_size=sp_ring_size,
@@ -695,6 +703,7 @@ def build_disagg_offline_runtime(
     log_interval: int = 50,
     resume_from: Optional[str] = None,
     max_checkpoints: int = 0,
+    nfc_checkpoint: Optional[dict] = None,
     strategy_kwargs: Optional[Mapping[str, Any]] = None,
     dataloader_num_workers: int = 0,
     profiling_options=None,
@@ -778,6 +787,7 @@ def build_disagg_offline_runtime(
             "source_dataset_size": len(source_refs),
         },
         max_checkpoints=max_checkpoints,
+        nfc_checkpoint=nfc_checkpoint,
         tp_size=tp_size,
         sp_ulysses_size=sp_ulysses_size,
         sp_ring_size=sp_ring_size,
@@ -1600,6 +1610,7 @@ def build_disagg_online_consumer(
     log_interval: int = 50,
     strategy_kwargs: Optional[Mapping[str, Any]] = None,
     max_checkpoints: int = 0,
+    nfc_checkpoint: Optional[dict] = None,
     tp_size: int = 1,
     sp_ulysses_size: int = 1,
     sp_ring_size: int = 1,
@@ -1956,6 +1967,7 @@ def build_disagg_online_consumer(
             strategy_kwargs=strategy_kwargs,
             per_sample_transform=None,
             max_checkpoints=max_checkpoints,
+            nfc_checkpoint=nfc_checkpoint,
             tp_size=tp_size,
             sp_ulysses_size=sp_ulysses_size,
             sp_ring_size=sp_ring_size,

@@ -305,6 +305,7 @@ Common fields:
 | `training.eval_interval` | `0` | Evaluate every N optimizer steps; 0 disables evaluation. |
 | `training.log_interval` | `50` | Positive optimizer-step logging interval. |
 | `training.max_checkpoints` | `0` | Keep the newest N checkpoints; 0 keeps all. |
+| `training.nfc_checkpoint` | `null` | Set `{}` for the native sharded NFC pipeline; per-rank memory and worker settings are documented in [native NFC checkpoints](../../docs/native-nfc-checkpoints.md). V4.1 native recipes enable it. |
 | `training.resume_from` | `null` | Full-run checkpoint/run root: draft, optimizer/scheduler, counters, data position, and RNG. Mutually exclusive with `model.draft_checkpoint_path`. |
 | `training.compact_teacher` | `false` | Exact lower-peak-memory teacher projection for offline text EAGLE3. |
 | `training.compact_teacher_chunk_size` | `null` | Positive vocabulary chunk size; requires `compact_teacher: true`. |
@@ -509,6 +510,7 @@ unless tuning throughput or memory pressure.
 | `runtime.in_flight_low_watermark` | `192` | Resume production at or below this count; it cannot exceed the high watermark. |
 | `runtime.resident_high_watermark_bytes` | `null` | Optional byte-level pause threshold. |
 | `runtime.resident_low_watermark_bytes` | `null` | Optional byte-level resume threshold; requires and cannot exceed the resident high watermark. |
+| `runtime.capture_max_sample_bytes` | `null` | Positive maximum single-sample feature bytes reserved before capture; requires `runtime.resident_high_watermark_bytes`. |
 | `runtime.feature_store_max_resident_bytes` | `null` | Optional hard store budget; it cannot be smaller than the resident high watermark. |
 | `runtime.feature_store_max_quarantined_bytes` | `8589934592` | Per-process Mooncake receive-buffer quarantine limit; exceeding it fails loudly. |
 

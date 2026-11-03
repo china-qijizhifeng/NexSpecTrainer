@@ -8,7 +8,6 @@ import inspect
 import json
 import os
 import shutil
-import socket
 import tempfile
 import unittest
 from datetime import timedelta
@@ -32,12 +31,6 @@ def _state(step, **extra):
 
 def _steps(mgr):
     return sorted(step for step, _ in mgr._all_checkpoints())
-
-
-def _free_port():
-    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-        s.bind(("127.0.0.1", 0))
-        return s.getsockname()[1]
 
 
 class TestLayoutAndAtomicity(unittest.TestCase):
@@ -409,12 +402,12 @@ class TestReadResumeState(unittest.TestCase):
             CheckpointManager.read_resume_state(ckpt)
 
 
-def _dist_worker(rank, world, port, out_dir, results_dir):
+def _dist_worker(rank, world, rendezvous_path, out_dir, results_dir):
     import torch.distributed as dist
 
     dist.init_process_group(
         "gloo",
-        init_method=f"tcp://127.0.0.1:{port}",
+        store=dist.FileStore(rendezvous_path, world),
         rank=rank,
         world_size=world,
         timeout=timedelta(seconds=60),
@@ -456,7 +449,10 @@ class TestDistributedSaveAndResume(unittest.TestCase):
         out = tempfile.mkdtemp(prefix="ckpt_dist_")
         results = tempfile.mkdtemp(prefix="ckpt_dist_res_")
         mp.spawn(
-            _dist_worker, args=(2, _free_port(), out, results), nprocs=2, join=True
+            _dist_worker,
+            args=(2, os.path.join(results, "rendezvous"), out, results),
+            nprocs=2,
+            join=True,
         )
 
         loaded = []

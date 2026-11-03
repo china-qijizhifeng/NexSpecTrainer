@@ -1,0 +1,12 @@
+{
+  "cpu_passed": 230,
+  "cpu_skipped": 7,
+  "cpu_subtests": 465,
+  "gpu_world_size": 8,
+  "gpu_rank_records": 32,
+  "gpu_passed": true,
+  "gpu_exit": 0,
+  "checkpoint_mode": "native-sharded-pipeline",
+  "nfc_sha": "79d838fc19ba1f179fc6c1dc36147e5183d82ac8",
+  "formal_training_started": false
+}
