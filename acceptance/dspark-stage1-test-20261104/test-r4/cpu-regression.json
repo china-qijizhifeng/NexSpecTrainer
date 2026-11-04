@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "script": "check_runner.py",
+      "passed": true,
+      "scope": "multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters"
+    },
+    {
+      "script": "check_eos.py",
+      "passed": true,
+      "scope": "Actual pinned native EOS/cap methods and spec metric function, real HTTP/SSE client, short/one-token/budget completions, post-EOS and premature-finish rejection, terminal block counters, variable length timing; no GPU numerical parity claim",
+      "old_client_short_eos_failure_reproduced": true
+    }
+  ],
+  "shell_syntax_passed": true
+}

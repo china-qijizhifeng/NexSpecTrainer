@@ -1,0 +1,87 @@
+{
+  "source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "run_root": "/gpfs/users/linlizhi/dspark-test-20261104-r4",
+  "scope": "Canonical repository-formatted scripts copied before execution freeze; private inputs/reference/weights excluded from Git",
+  "files": {
+    "controller.py": {
+      "executed_sha256": "8cefa278df5749d4dbaacf3deb83faff829b26b541db7f51490197f7ea5072b4",
+      "archived_sha256": "8cefa278df5749d4dbaacf3deb83faff829b26b541db7f51490197f7ea5072b4",
+      "byte_identical": true
+    },
+    "monitor.py": {
+      "executed_sha256": "e7f8eeca33825251553dc4bf8e9448a0a5790475dd7dff4f4cd9924fcc690c75",
+      "archived_sha256": "e7f8eeca33825251553dc4bf8e9448a0a5790475dd7dff4f4cd9924fcc690c75",
+      "byte_identical": true
+    },
+    "launch_controller.py": {
+      "executed_sha256": "16d52ae8880bb4288646ee876dd60c6fb06dce4caab40f159eeda36105f33814",
+      "archived_sha256": "16d52ae8880bb4288646ee876dd60c6fb06dce4caab40f159eeda36105f33814",
+      "byte_identical": true
+    },
+    "with_kernel_cache.py": {
+      "executed_sha256": "03ae7611135114fb823d5f28d8bfed1ba8a1334301b05e34b5decdcd733679b9",
+      "archived_sha256": "03ae7611135114fb823d5f28d8bfed1ba8a1334301b05e34b5decdcd733679b9",
+      "byte_identical": true
+    },
+    "check_runner.py": {
+      "executed_sha256": "c1d113f29e7bc37275231d183255e70035b67b3c1f4028712a2c58cd8bdede90",
+      "archived_sha256": "c1d113f29e7bc37275231d183255e70035b67b3c1f4028712a2c58cd8bdede90",
+      "byte_identical": true
+    },
+    "common.py": {
+      "executed_sha256": "a29cc0b15ed3ec3d43da9dba7681918ab67f5951e31d2ca759faf4f148cd0fe2",
+      "archived_sha256": "a29cc0b15ed3ec3d43da9dba7681918ab67f5951e31d2ca759faf4f148cd0fe2",
+      "byte_identical": true
+    },
+    "copy_cache.py": {
+      "executed_sha256": "c5eeaac257cf4e0205000f0f5080de9a005df5c8aa57cb6084cc473e5af949b1",
+      "archived_sha256": "c5eeaac257cf4e0205000f0f5080de9a005df5c8aa57cb6084cc473e5af949b1",
+      "byte_identical": true
+    },
+    "evaluate.py": {
+      "executed_sha256": "829dbd9f35ebe28e982e5cc5f7899c8fbd68ea218058563ed1d7b8dcc6ae19b5",
+      "archived_sha256": "829dbd9f35ebe28e982e5cc5f7899c8fbd68ea218058563ed1d7b8dcc6ae19b5",
+      "byte_identical": true
+    },
+    "northjob_remote.py": {
+      "executed_sha256": "7db93215a538085b506f86612f06d78feafa9abab6e2d115b61dc5db4131f9a3",
+      "archived_sha256": "7db93215a538085b506f86612f06d78feafa9abab6e2d115b61dc5db4131f9a3",
+      "byte_identical": true
+    },
+    "check_eos.py": {
+      "executed_sha256": "286e57062e0d351219f2f61cf435b7820fd3f79e80406a876c491b90b1597718",
+      "archived_sha256": "286e57062e0d351219f2f61cf435b7820fd3f79e80406a876c491b90b1597718",
+      "byte_identical": true
+    },
+    "run_eval.sh": {
+      "executed_sha256": "75fd569de9f73cbde798b5fd6501fa1b76c6debb7c36d38037fd3c59a27befe3",
+      "archived_sha256": "75fd569de9f73cbde798b5fd6501fa1b76c6debb7c36d38037fd3c59a27befe3",
+      "byte_identical": true
+    },
+    "eval-job.yaml": {
+      "executed_sha256": "b6c8bfcc6f5bc3333d1f10b298fefede86ec5750e9f91f09e56d5b90d8cabe38",
+      "archived_sha256": "b6c8bfcc6f5bc3333d1f10b298fefede86ec5750e9f91f09e56d5b90d8cabe38",
+      "byte_identical": true
+    },
+    "protocol.json": {
+      "executed_sha256": "8f7853e3bacb161be3eee4892d646bcde199e2beae95e11bb7f5be72d731bdd8",
+      "archived_sha256": "8f7853e3bacb161be3eee4892d646bcde199e2beae95e11bb7f5be72d731bdd8",
+      "byte_identical": true
+    },
+    "serving-source-pins.json": {
+      "executed_sha256": "01d3467dcbc5531a164aa117b2887f745f4c3746737608d179e458a986d0517b",
+      "archived_sha256": "01d3467dcbc5531a164aa117b2887f745f4c3746737608d179e458a986d0517b",
+      "byte_identical": true
+    },
+    "RUN.md": {
+      "executed_sha256": "87639b477edaa55160473c426f5b94de17791d4b2d3deadf889f9bc09ecfeac5",
+      "archived_sha256": "87639b477edaa55160473c426f5b94de17791d4b2d3deadf889f9bc09ecfeac5",
+      "byte_identical": true
+    },
+    "static-contract-review.json": {
+      "executed_sha256": "cd4454797a1cf74bc9c1d1de72865ba977c1614d63b4e09d8a80721807f2448d",
+      "archived_sha256": "cd4454797a1cf74bc9c1d1de72865ba977c1614d63b4e09d8a80721807f2448d",
+      "byte_identical": true
+    }
+  }
+}

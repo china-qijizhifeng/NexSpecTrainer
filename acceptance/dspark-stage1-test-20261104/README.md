@@ -5,6 +5,12 @@ before any test output. See [the A/A failure audit](aa-audit/README.md) for
 the EOS boundary, raw-event evidence and unresolved numerical limitations.
 The older execution and regression receipts below remain historical records.
 
+The user subsequently selected EOS-aware generation capped at 1,024 tokens.
+The [r4 runner and protocol](test-r4/RUN.md) implement that choice with actual
+output-length metrics, native EOS/verify counter regression checks, and a new
+single-use job identity. A passing CPU contract check is not a GPU A/A result
+or a test score.
+
 The executed source fixes are now on GitHub `main`:
 
 - `952e70c3e8109e5295436141b6c6336897448bc2` pads masked anchor slots so every

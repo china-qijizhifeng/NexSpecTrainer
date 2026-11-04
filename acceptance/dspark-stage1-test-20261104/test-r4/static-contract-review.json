@@ -1,0 +1,33 @@
+{
+  "passed": true,
+  "scope": "Preflight static contract review, not GPU numerical acceptance",
+  "amendment_authorized_by_user": true,
+  "prior_test_requests": 0,
+  "unmodified_inputs": true,
+  "source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "serving_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "inspected": [
+    "Req._check_token_based_finish/update_finish_state/output_ids_through_stop; EOS beats length and terminal speculative suffix trimmed",
+    "Scheduler passes model EOS IDs even when tokenizer init is skipped",
+    "Output streamer uses clipped output IDs for completion_tokens and raw native verify/draft counts",
+    "spec_decoding_metrics uses completion/verify and proposed=verify*(num_draft_tokens-1)",
+    "generate/SSE/finish/actual-token timing, one-token TPOT and no-verify prefill EOS",
+    "variable length comparisons and safe common-prefix probe indexing",
+    "all10 A/A before first test; original r3 EOS-prefix exact reference",
+    "one-time launch/submit, prior terminal deletion, exact cleanup, cached image-only YAML"
+  ],
+  "no_numerical_root_cause_claim": true,
+  "regressions": [
+    {
+      "script": "check_runner.py",
+      "passed": true,
+      "scope": "multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters"
+    },
+    {
+      "script": "check_eos.py",
+      "passed": true,
+      "scope": "Actual pinned native EOS/cap methods and spec metric function, real HTTP/SSE client, short/one-token/budget completions, post-EOS and premature-finish rejection, terminal block counters, variable length timing; no GPU numerical parity claim",
+      "old_client_short_eos_failure_reproduced": true
+    }
+  ]
+}
