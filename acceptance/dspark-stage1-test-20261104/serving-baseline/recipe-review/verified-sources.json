@@ -1,0 +1,48 @@
+{
+  "time_utc": "2026-11-04T03:56:31.956502+00:00",
+  "commit": "4c7c775cf4adcbd2c7419d13b51ec838a17e559e",
+  "sources": [
+    {
+      "file": "cookbook.mdx",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/4c7c775cf4adcbd2c7419d13b51ec838a17e559e/docs/cookbook/autoregressive/DeepSeek/DeepSeek-V4_1.mdx",
+      "sha256": "a5e28b07dc31189afbb54270dc08a387abf12f78fe15e4cd9bc28f1162fe0b35",
+      "bytes": 22282
+    },
+    {
+      "file": "deployment-config.jsx",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/4c7c775cf4adcbd2c7419d13b51ec838a17e559e/docs/src/snippets/configs/deepseek-ai/deepseek-v4_1.jsx",
+      "sha256": "e461ed901cfb579b773af0a13160e0398e6b3e36da8b507e973f228199d7f75b",
+      "bytes": 23194
+    },
+    {
+      "file": "agentx-config.jsx",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/4c7c775cf4adcbd2c7419d13b51ec838a17e559e/docs/src/snippets/agentx/deepseek-ai/deepseek-v4_1.jsx",
+      "sha256": "c627a81675bafcf01b0636d7b70aaafddc7ff6f0329ad9a965d418b440a56bc8",
+      "bytes": 137713
+    },
+    {
+      "file": "model-overrides.py",
+      "url": "https://raw.githubusercontent.com/sgl-project/sglang/4c7c775cf4adcbd2c7419d13b51ec838a17e559e/python/sglang/srt/arg_groups/model_overrides/deepseek_v4.py",
+      "sha256": "926be95cecf83d5051a1b4a4caf7250ff29e5c55b4fef390e83e390ccb96c098",
+      "bytes": 3557
+    },
+    {
+      "file": "h100-inferencex.sh",
+      "url": "https://raw.githubusercontent.com/SemiAnalysisAI/InferenceX/510568c51a127f46c6fcc54d66e925395a512ed1/benchmarks/single_node/agentic/dsv41flash_fp4_h100_sglang_mtp.sh",
+      "sha256": "51cae8504a4d3fa3d2f7812dce5945f09cedc73e7a11f57b58b2d830774f9485",
+      "bytes": 10050
+    },
+    {
+      "file": "model-1017-README.md",
+      "url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017/raw/1bae0e1088993b9b82de08f59de5be5a34e42170/README.md",
+      "sha256": "b72b796e4f4c739eca5d0ad360a7679b39118ca7eb64891f7151a527b292c42a",
+      "bytes": 5231
+    },
+    {
+      "file": "deepseek-recipe-README.md",
+      "url": "https://raw.githubusercontent.com/deepseek-ai/deepseek-recipe/935817c66f5d6e64838f419692545f06787e485f/README.md",
+      "sha256": "e3ea4bd6b3a3debd8431af23d81935b93858636883dfc651f7ecc3416e099a67",
+      "bytes": 7141
+    }
+  ]
+}
