@@ -1,0 +1,144 @@
+{
+  "time": 1793795388.3032298,
+  "execution_manifest_verified": true,
+  "files": {
+    "worker-started.json": {
+      "uid": 0,
+      "mode": "0o644",
+      "bytes": 119,
+      "value": {
+        "pid": 1,
+        "time": 1793794909.6988971,
+        "job": "job-5c838f4eb38e-20261104200236",
+        "node": "node054",
+        "single_use": true
+      }
+    },
+    "environment.json": {
+      "uid": 0,
+      "mode": "0o644",
+      "bytes": 1918,
+      "value": {
+        "passed": true,
+        "node": "node054",
+        "hostname": "job-5c838f4eb38e-20261104200236-worker-0",
+        "gpus": [
+          "NVIDIA H100 80GB HBM3",
+          "NVIDIA H100 80GB HBM3",
+          "NVIDIA H100 80GB HBM3",
+          "NVIDIA H100 80GB HBM3",
+          "NVIDIA H100 80GB HBM3",
+          "NVIDIA H100 80GB HBM3",
+          "NVIDIA H100 80GB HBM3",
+          "NVIDIA H100 80GB HBM3"
+        ],
+        "versions": {
+          "sglang": "0.0.0.dev1+g38d9e4a3f",
+          "torch": "2.14.1+cu130",
+          "transformers": "5.19.0",
+          "protobuf": "7.36.2",
+          "flashinfer-python": "0.7.2"
+        },
+        "protobuf_backend": "upb",
+        "source_pins": {
+          "srt/speculative/spec_decoding_metrics.py": "693489e43f995486ca92b00426bdfcb10753b95f0a296ca0dd5e2ac578073fab",
+          "srt/speculative/ragged_verify.py": "618139c94a14c61e313aff2e92c4cf8caf0692e12aad7e637299cc6e827c2f34",
+          "srt/arg_groups/fields/spec.py": "6145427612d917a673baf978eec86ddb2561ad7c881e92583d5feaeac76bcf3e",
+          "srt/managers/schedule_batch.py": "78264125d59279410d7d6dc0a79c9e84e8a48e783ea9bcfe402fdc49517cc588",
+          "srt/managers/scheduler_components/output_streamer.py": "862f6bf3ea32c48557b75f3e1a41d03bc6d275f2e5164108ba5b67e703b09ce1",
+          "srt/managers/scheduler_components/batch_result_processor.py": "31870b8591b10ce6232546ff89171f49c20f066a40cbc848ee2901f5a53aaaa3",
+          "srt/speculative/dspark_components/dspark_config.py": "351e15bea157ce66b49f44a6c733f84534e38e95fdf316728c4193b959e2d27e",
+          "srt/arg_groups/overrides.py": "ec3e99814a67dd82e9432c60e1427bfb99d95dd0c8afcdb526d3dee8ab93175a",
+          "srt/managers/io_struct.py": "61144c8623ea144412069348f1b880d023ba16e0c03af431c250fd80ef64b216",
+          "srt/managers/tokenizer_manager.py": "a284c62b5980b27d2bc5e2c13b90f702bc187ce9a69dcf33608c7c4e5e7fae8a",
+          "srt/layers/sampler.py": "76c6de8bae5055af1b1c1690029c06e531fc58296ee42e24ab137331ce9c6b56",
+          "srt/layers/logits_processor.py": "9829e7511486b1d92894f23ac2a388c8115c38e7a2c125e5f12fc9fc3ac99c27"
+        }
+      }
+    },
+    "phase.json": {
+      "uid": 0,
+      "mode": "0o644",
+      "bytes": 99,
+      "value": {
+        "stage": "probe_server_starting",
+        "time_utc": "2026-11-04T12:21:55Z",
+        "mode": "baseline"
+      }
+    },
+    "baseline/launch.json": {
+      "uid": 0,
+      "mode": "0o644",
+      "bytes": 951,
+      "value": {
+        "command": [
+          "sglang",
+          "serve",
+          "--model-path",
+          "/gpfs/users/linlizhi/models/huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+          "--trust-remote-code",
+          "--tp-size",
+          "8",
+          "--ep-size",
+          "8",
+          "--attention-backend",
+          "dsv4",
+          "--moe-runner-backend",
+          "flashinfer_mxfp4",
+          "--engram-config",
+          "{\"placement\":\"cpu\"}",
+          "--mem-fraction-static",
+          "0.8",
+          "--context-length",
+          "69632",
+          "--max-total-tokens",
+          "131072",
+          "--swa-full-tokens-ratio",
+          "0.8",
+          "--max-prefill-tokens",
+          "65536",
+          "--max-running-requests",
+          "1",
+          "--skip-tokenizer-init",
+          "--chunked-prefill-size",
+          "-1",
+          "--disable-radix-cache",
+          "--no-enable-decoder-swa-bounded-replay",
+          "--cuda-graph-backend-prefill",
+          "disabled",
+          "--cuda-graph-backend-decode",
+          "disabled",
+          "--host",
+          "127.0.0.1",
+          "--port",
+          "30000"
+        ],
+        "single_variable": null
+      }
+    },
+    "baseline/server-process.json": {
+      "uid": 0,
+      "mode": "0o644",
+      "bytes": 61,
+      "value": {
+        "pid": 24,
+        "pgid": 24,
+        "start_ticks": "3623200102"
+      }
+    },
+    "baseline/resolved.json": null,
+    "result.json": null,
+    "image-import/result.json": {
+      "uid": 0,
+      "mode": "0o600",
+      "bytes": 1349,
+      "private_init_permissions_preserved": true
+    },
+    "image-import/gpu-preflight.json": {
+      "uid": 0,
+      "mode": "0o600",
+      "bytes": 378,
+      "private_init_permissions_preserved": true
+    }
+  }
+}
