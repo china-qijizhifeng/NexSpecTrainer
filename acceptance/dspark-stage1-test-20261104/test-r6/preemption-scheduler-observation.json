@@ -1,0 +1,6 @@
+{
+  "code": 200,
+  "data": "Start preempting resource at 2026-11-04 17:07:53\nJob <qiji/job-b086ea04cfd9-20261104164429> has <1> tasks to preempt resource, job priority <0> isReclaimable <true>\nConsidering the job recycling strategies, as well as priority strategies, there no job can be preempted.\nEnd preempting resource at 2026-11-04 17:07:53",
+  "message": "success",
+  "request_id": "ReqID-20261104-170758-1172-2c13"
+}

@@ -1,0 +1,24 @@
+{
+  "code": 200,
+  "data": {
+    "jobName": "job-b086ea04cfd9-20261104164429",
+    "phases": [
+      {
+        "status": "Created",
+        "timeStamp": "2026-11-04 16:44:29",
+        "restartReason": "",
+        "predator": "",
+        "priority": 0,
+        "in_preemptable_queue": false,
+        "is_reclaimable": false,
+        "preemptor_priority": 0,
+        "preemptor_in_preemptable_queue": false,
+        "preemptor_is_reclaimable": false,
+        "preemption_time": ""
+      }
+    ],
+    "phasesNums": 1
+  },
+  "message": "success",
+  "request_id": "ReqID-20261104-170911-190-6036"
+}

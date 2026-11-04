@@ -1,0 +1,15 @@
+{
+  "checked": true,
+  "script_sha256": "671855150736af64b91fad9bca70bd42cf0a85159674512749e0462b86ccdc1a",
+  "first_commit": "47c687fae0cdd0906c73ea600659994fb555100e",
+  "credential_source_user_authorized": true,
+  "ephemeral_docker_config": true,
+  "no_secret_in_git_or_argv": true,
+  "tls_verified": true,
+  "redirects_refused": true,
+  "both_repository_grants_checked": true,
+  "trainer_image_receipt_passed": true,
+  "serving_image_receipt_passed": true,
+  "publication_complete": true,
+  "ephemeral_auth_cleanup_verified": true
+}

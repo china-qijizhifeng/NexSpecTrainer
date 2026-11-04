@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "commit": "47c687fae0cdd0906c73ea600659994fb555100e",
+  "api_main_sha": "47c687fae0cdd0906c73ea600659994fb555100e",
+  "prior_main": "f3cbdce309bf5e9f715fc9f2dbaa68895b36074e",
+  "ancestry_verified": true,
+  "pre_commit_passed": true,
+  "time": 1793782812.368978,
+  "repository": "https://github.com/china-qijizhifeng/NexSpecTrainer",
+  "scope": "scheduler-selected r6 startup and checked Harbor publisher; image receipts still pending archival; no GPU A/A/test pass claim"
+}

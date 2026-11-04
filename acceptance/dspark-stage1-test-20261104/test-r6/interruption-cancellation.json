@@ -1,0 +1,26 @@
+{
+  "time": 1793783337.855621,
+  "job": {
+    "name": "job-b086ea04cfd9-20261104164429",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r6",
+    "status": "Pending",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "controller_stopped": true,
+  "alias_absent": true,
+  "execution_complete": false,
+  "test_requests_completed": 0,
+  "gpu_aa_complete": false,
+  "reason": "external runtime interruption; cause investigation retained separately",
+  "delete": {
+    "name": "job-b086ea04cfd9-20261104164429",
+    "alias": "denovo-dspark-test-eval-20261104-r6",
+    "response": {
+      "success": true
+    }
+  },
+  "automatic_retry": false
+}

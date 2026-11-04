@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "images": [
+    {
+      "passed": true,
+      "registry": "harbor.local.clusters",
+      "destination": "harbor.local.clusters/bp/nexspec-trainer:v41-weaver-torch210-20261103-r1",
+      "pinned_image": "harbor.local.clusters/bp/nexspec-trainer@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+      "manifest_digest": "sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+      "config_digest": "sha256:da11e080cc11b041ecb97342c80da74ff66d48b612faa7d4e5a8ca7c0b093336",
+      "rootfs_layers": 127,
+      "manifest_tag_and_digest_readback": true,
+      "config_sha_and_rootfs_verified": true,
+      "scope": "historical runtime; current NFC/source compatibility requires separate acceptance",
+      "time": 1793782659.628111
+    },
+    {
+      "passed": true,
+      "registry": "harbor.local.clusters",
+      "destination": "harbor.local.clusters/bp/nexspec-sglang:v41-c6da252c6837-20261104",
+      "pinned_image": "harbor.local.clusters/bp/nexspec-sglang@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+      "manifest_digest": "sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+      "config_digest": "sha256:31d58781877bdcd322d5fcc7a858d427db54f5cbf5a9e6342c5fafc01bc67c6e",
+      "rootfs_layers": 70,
+      "manifest_tag_and_digest_readback": true,
+      "config_sha_and_rootfs_verified": true,
+      "scope": "exact existing serving image; no worker restart or frozen manifest change",
+      "time": 1793783979.9145596
+    }
+  ],
+  "credentials_persisted": false
+}

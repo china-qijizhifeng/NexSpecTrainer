@@ -1,0 +1,35 @@
+{
+  "scope": "all evaluation shell, cache exec wrapper, Python signal cleanup, controller state/cleanup and task replay paths",
+  "findings": [
+    {
+      "path": "test-r6/run_eval.sh:5",
+      "issue": "EXIT trap can write0 after SIGTERM, reproduced on actual OS; file0 does not establish completion",
+      "fix": "new supervisor records explicit interruption status and requires audited result for exit0"
+    },
+    {
+      "path": "test-r6/evaluate.py:main",
+      "issue": "default SIGTERM does not unwind owned-server finally blocks",
+      "fix": "next evaluator installs TERM/INT/HUP handlers raising SystemExit so existing finally cleanup runs"
+    },
+    {
+      "path": "test-r6/controller.py:run_stage",
+      "issue": "Running-to-Pending not rejected and no worker-exit-without-result guard",
+      "fix": "interrupted_state rejects both; next controller saves interruption receipt and cancels exact owned identity"
+    },
+    {
+      "path": "test-r6/run_eval.sh",
+      "issue": "platform-created replacement may truncate evidence or replay same directory",
+      "fix": "worker-started open-x before logs, immutable rerun guard"
+    }
+  ],
+  "unchanged_good_paths": [
+    "with_kernel_cache os.execvpe preserves child identity/status",
+    "evaluate.launch/stop owns exact created process groups",
+    "controller exact alias/name checks and one-shot submit intent",
+    "pidfd migration stops only verified source controller"
+  ],
+  "external_interruption_cause": "not established; timeline only Created and preempt log is this job attempting to preempt others",
+  "new_gpu_attempt_submitted": false,
+  "next_ram": "512Gi",
+  "next_node_binding": false
+}

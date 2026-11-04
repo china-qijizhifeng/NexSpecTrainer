@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "registry": "harbor.local.clusters",
+  "destination": "harbor.local.clusters/bp/nexspec-trainer:v41-weaver-torch210-20261103-r1",
+  "pinned_image": "harbor.local.clusters/bp/nexspec-trainer@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+  "manifest_digest": "sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+  "config_digest": "sha256:da11e080cc11b041ecb97342c80da74ff66d48b612faa7d4e5a8ca7c0b093336",
+  "rootfs_layers": 127,
+  "manifest_tag_and_digest_readback": true,
+  "config_sha_and_rootfs_verified": true,
+  "scope": "historical runtime; current NFC/source compatibility requires separate acceptance",
+  "time": 1793782659.628111
+}
