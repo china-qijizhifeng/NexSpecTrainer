@@ -29,6 +29,8 @@ tensors.  The application composition root injects an algorithm-owned
 
 from __future__ import annotations
 
+from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
 import json
 import logging
 import threading
@@ -442,9 +444,9 @@ class SGLangServerCaptureAdapter:
                 )
             else:
                 nbytes += logical_bytes
-        if wire_features and decoded_bytes > 8 << 30:
+        if wire_features and decoded_bytes > MAX_CAPTURE_RECORD_BYTES:
             raise ValueError(
-                "compressed capture exceeds the 8 GiB decoded sample limit"
+                f"compressed capture exceeds the {MAX_CAPTURE_RECORD_BYTES}-byte decoded sample limit"
             )
         num_tokens = int(task.metadata.get("num_tokens", 0)) or len(
             task.payload["input_ids"]

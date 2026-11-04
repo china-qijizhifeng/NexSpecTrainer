@@ -66,6 +66,8 @@ import uuid
 import weakref
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
+from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
 import torch
 
 from specforge.runtime.contracts import (

@@ -21,6 +21,8 @@ from collections.abc import Mapping, Sequence
 from concurrent.futures import ThreadPoolExecutor
 
 import numpy as np
+from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
 import torch
 
 from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES

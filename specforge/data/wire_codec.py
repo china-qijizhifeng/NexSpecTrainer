@@ -12,6 +12,8 @@ import io
 import math
 import re
 
+from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
 import torch
 
 from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES

@@ -9,6 +9,8 @@ being silently truncated. See docs/sections/examples/server-capture-to-disk.md.
 from __future__ import annotations
 
 import argparse
+from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
 import json
 import math
 import os
