@@ -4,6 +4,7 @@
 """Preserve MHC arithmetic while promoting wide residual row offsets to int64."""
 import triton
 import triton.language as tl
+from triton.language.extra import libdevice
 
 @triton.jit
 def _mhc_combine_kernel(
@@ -81,8 +82,48 @@ def _hc_mix_stats_partial_kernel(
     )
     tl.store(part_sq_ptr + pid_s * M + offs_m, sq, mask=mask_m)
 
+@triton.jit
+def _engram_gate_kernel(
+    X,
+    KV,
+    QW,
+    KW,
+    IDS,
+    O,
+    IMAGE_ID,
+    D: tl.constexpr,
+    HC: tl.constexpr,
+    EPS: tl.constexpr,
+    CLAMP: tl.constexpr,
+    B: tl.constexpr,
+    HAS_IDS: tl.constexpr,
+):
+    row = tl.program_id(0).to(tl.int64)
+    token = row // HC
+    hc = row % HC
+    col = tl.arange(0, B)
+    mask = col < D
+    x = tl.load(X + row * D + col, mask, 0).to(tl.float32)
+    key = tl.load(KV + token * (HC + 1) * D + hc * D + col, mask, 0).to(tl.float32)
+    q_weight = tl.load(QW + hc * D + col, mask, 0).to(tl.float32)
+    k_weight = tl.load(KW + hc * D + col, mask, 0).to(tl.float32)
+    weight = q_weight * k_weight
+    rstd = tl.rsqrt(tl.sum(x * x, 0) / D + EPS) * tl.rsqrt(
+        tl.sum(key * key, 0) / D + EPS
+    )
+    dot = tl.sum((x * weight) * key, 0) * rstd * (D**-0.5)
+    gate = tl.sigmoid(libdevice.copysign(tl.sqrt(tl.maximum(tl.abs(dot), CLAMP)), dot))
+    value = tl.load(KV + token * (HC + 1) * D + HC * D + col, mask, 0).to(tl.float32)
+    out = x + gate * value
+    if HAS_IDS:
+        out = tl.where(tl.load(IDS + token) == IMAGE_ID, x, out)
+    tl.store(O + row * D + col, out, mask)
+
 def install():
     from sglang.kernels.ops.layernorm import mhc
+    from sglang.kernels.ops.embeddings import engram_gate
+
+    engram_gate._engram_gate_kernel = _engram_gate_kernel
 
     mhc._mhc_combine_kernel = _mhc_combine_kernel
     mhc._hc_mix_stats_partial_kernel = _hc_mix_stats_partial_kernel

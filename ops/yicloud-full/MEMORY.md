@@ -23,3 +23,21 @@ CPU contract regression uses the pinned image's actual standard and packed
 route definitions, 8192+1 token tail, unchanged IDs/weights and exact output.
 Prior GPU parity evidence is in speculative-decoding-training-research/v41/
 prefill-long-20261103/evidence/moe-parity16k.json and moe-parity64k.json.
+
+
+R3 reached MoE layer39 but failed with CUDA illegal access/TMA700, peak allocated
+103892217344 bytes. All replicas terminal Failed. Standalone job
+j-1793818857-148111 reproduced illegal access in the original mhc_combine at
+234048 rows, directly synchronized after the call. Widened combine + stats
+partial kernels match row-tiled originals bitwise at8193,104858,234048; all
+three existing packed stream-mean aux slots also match. The general combine
+fallback runs above65536 rows on Hopper; int32 row*20480 overflows at104858.
+This is a proven operator bug; full-model attribution remains pending.
+
+Static audit found the same issue in Engram gate (token*25600 and row*5120).
+R4 widens these indices too, and runs GPU differential before model load for
+masked/unmasked gate plus unchanged adjacent TileLang post. BF16 arithmetic
+and accumulation order stay unchanged. The original stream-mean and broadcast
+kernels already widen their row offsets; small stats arrays do not exceed int32.
+Bounded MoE keeps local token products below the boundary. Probe diagnostics
+synchronize each boundary to localize any remaining asynchronous CUDA failure.

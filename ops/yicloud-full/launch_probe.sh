@@ -12,6 +12,7 @@ fi
 cp -a "$REPO_ROOT/plugins/sglang-spec-capture" "$RUN_DIR/plugin-source"
 python3 -m pip install --no-index --no-deps --no-build-isolation --target "$RUN_DIR/python-deps" "$RUN_DIR/plugin-source"
 python3 ops/yicloud-full/prepare_probe.py
+python3 ops/yicloud-full/test_mhc_index64.py --output "$RUN_DIR/index64-regression.json" > "$RUN_DIR/index64-regression.log" 2>&1
 python3 - <<'CACHE'
 import json,os,shutil
 from pathlib import Path
@@ -27,6 +28,7 @@ fi
 python3 ops/yicloud-capture/probe_server_image.py > "$RUN_DIR/environment.json"
 unset MC_FORCE_TCP MC_MS_AUTO_DISC MC_USE_TENT MC_USE_TEV1 MC_TE_FILTERS MOONCAKE_RDMA_DEVICES
 export SPECFORGE_SPEC_CAPTURE=1 SGLANG_PLUGINS=specforge_spec_capture
+export SPECFORGE_MHC_INDEX64=1
 export SPECFORGE_MOE_CHUNK_TOKENS=8192 SPECFORGE_MEMORY_AUDIT=1
 export MOONCAKE_PROTOCOL=tcp MOONCAKE_LOCAL_HOSTNAME=127.0.0.1
 export MOONCAKE_MASTER_SERVER_ADDR=127.0.0.1:35551

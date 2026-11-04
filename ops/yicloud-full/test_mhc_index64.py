@@ -14,6 +14,7 @@ import torch
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "plugins/sglang-spec-capture"))
 from specforge_sglang_capture import mhc_index64
 from sglang.kernels.ops.layernorm import mhc
+from sglang.kernels.ops.embeddings import engram_gate
 
 p = argparse.ArgumentParser()
 p.add_argument("--baseline", action="store_true")
@@ -23,6 +24,7 @@ torch.manual_seed(20261105)
 torch.set_grad_enabled(False)
 original_combine = mhc._mhc_combine_kernel
 original_mix = mhc._hc_mix_stats_partial_kernel
+original_gate = engram_gate._engram_gate_kernel
 if not args.baseline:
     mhc_index64.install()
 results = []
@@ -52,6 +54,22 @@ for n in ([234048] if args.baseline else [8193, 104858, 234048]):
             want = mhc.mhc_stream_mean(x[start:start + 4096].view(-1, 4, 5120))
             assert torch.equal(out[start:start + 4096], want), ("aux", n, slot, start)
     del packed
+    kv = torch.empty((n, 5 * 5120), dtype=torch.bfloat16, device="cuda")
+    for start in range(0, n, 4096):
+        kv[start:start + 4096].normal_()
+    qw = torch.randn((4, 5120), dtype=torch.bfloat16, device="cuda")
+    kw = torch.randn_like(qw)
+    for use_image_mask in (False, True):
+        ids = torch.arange(n, device="cuda").remainder(7) if use_image_mask else None
+        got = engram_gate.fused_engram_gate(x.view(n, 4, 5120), kv, qw, kw, 1e-6, 1e-6, ids, 3 if use_image_mask else None)
+        torch.cuda.synchronize()
+        engram_gate._engram_gate_kernel = original_gate
+        for start in range(0, n, 4096):
+            want = engram_gate.fused_engram_gate(x[start:start + 4096].view(-1, 4, 5120), kv[start:start + 4096], qw, kw, 1e-6, 1e-6, None if ids is None else ids[start:start + 4096], 3 if use_image_mask else None)
+            assert torch.equal(got[start:start + 4096], want), ("engram", n, start, use_image_mask)
+        mhc_index64.install()
+        del got
+    del kv, qw, kw, ids
     # Batch-invariant stats fallback has the same wide-row multiplication.
     weight = torch.randn((24, 20480), dtype=torch.float32, device="cuda") * 0.001
     got = mhc.hc_mix_stats(x, weight, 1e-6)
@@ -61,8 +79,22 @@ for n in ([234048] if args.baseline else [8193, 104858, 234048]):
         want = mhc.hc_mix_stats(x[start:start + 4096], weight, 1e-6)
         assert torch.equal(got[start:start + 4096], want), ("stats", n, start)
     mhc_index64.install()
-    del x, weight, got
+    del weight, got
+    # Adjacent TileLang post uses multidimensional addressing; verify its
+    # compiler-generated wide offsets without changing that implementation.
+    activation = torch.randn((n, 5120), dtype=torch.bfloat16, device="cuda")
+    post = torch.randn((n, 4), dtype=torch.float32, device="cuda")
+    comb = torch.randn((n, 4, 4), dtype=torch.float32, device="cuda")
+    residual = x.view(n, 4, 5120)
+    got = torch.empty_like(residual)
+    mhc.mhc_post_tilelang(comb, residual, post, activation, got, 4, 5120)
+    torch.cuda.synchronize()
+    for start in range(0, n, 4096):
+        want = torch.empty_like(residual[start:start + 4096])
+        mhc.mhc_post_tilelang(comb[start:start + 4096], residual[start:start + 4096], post[start:start + 4096], activation[start:start + 4096], want, 4, 5120)
+        assert torch.equal(got[start:start + 4096], want), ("post", n, start)
+    del x, residual, activation, post, comb, got
     results.append({"tokens": n, "combine_bitwise": True, "stats_bitwise": True,
-                    "all_aux_slots_bitwise": True})
+                    "all_aux_slots_bitwise": True, "engram_masked_unmasked_bitwise": True, "native_post_bitwise": True})
     print(json.dumps(results[-1]), flush=True)
 args.output.write_text(json.dumps({"passed": True, "cases": results}, indent=2))

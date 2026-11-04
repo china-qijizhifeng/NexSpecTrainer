@@ -16,6 +16,7 @@ def install():
             @functools.wraps(original)
             def traced(self, *args, **kwargs):
                 def record(stage):
+                    torch.cuda.synchronize()
                     print("SPECFORGE_MEMORY " + json.dumps({
                         "module": name, "stage": stage,
                         "layer": getattr(self, "layer_id", getattr(self, "layer_hash_index", None)),

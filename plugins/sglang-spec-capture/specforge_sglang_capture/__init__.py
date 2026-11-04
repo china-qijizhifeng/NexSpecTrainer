@@ -85,6 +85,11 @@ def _install(result, scheduler, *args, **kwargs):
 
         bounded_moe.configure(limit)
         print(f"SpecForge bounded MoE enabled: tokens={limit}", flush=True)
+    if os.environ.get("SPECFORGE_MHC_INDEX64") == "1":
+        from specforge_sglang_capture.mhc_index64 import install as widen
+
+        widen()
+        print("SpecForge MHC int64 row offsets enabled", flush=True)
     if os.environ.get("SPECFORGE_MEMORY_AUDIT") == "1":
         from specforge_sglang_capture.memory_audit import install as audit
 
