@@ -1,0 +1,46 @@
+{
+  "scope": "Interim12-of24 validation-only numerical probe; no completed comparison or numerical root-cause claim",
+  "exact_job": "job-5c838f4eb38e-20261104200236",
+  "frozen_execution_verified": true,
+  "baseline_summary_sha256": "1435186fe2382bd5d4f7b91daf2b2e42ac8a9df63dcd72e39ce7d1f13279a8de",
+  "baseline_requests_completed": 12,
+  "original_decode_repetitions": 4,
+  "unique_output_hashes": 3,
+  "token20_historical_candidate_margins": [
+    0.25,
+    0.0,
+    -0.24999994039535522,
+    0.0
+  ],
+  "baseline_selected_token_differences_recorded": true,
+  "observed_candidate_logprob_variability": true,
+  "history_validation_output_lengths": [
+    59,
+    60
+  ],
+  "history_validation_recorded_r7_output_match": [
+    false,
+    false
+  ],
+  "shared_prefix_comparison": {
+    "outputs_equal": true,
+    "output_tokens": [
+      1,
+      1
+    ],
+    "first_difference_zero_based": null,
+    "same_input_prefix_logprob_steps": 1,
+    "max_abs_candidate_logprob_difference": 0.0,
+    "scope": "Compare logprobs only through first output divergence; later prefixes differ."
+  },
+  "comparison_group_complete": false,
+  "held_out_requests": 0,
+  "numerical_root_cause_confirmed": false,
+  "numerical_fix_validated": false,
+  "limitations": [
+    "Logprob instrumentation can alter execution.",
+    "Incremental decode and fresh prefix-prefill are distinct paths.",
+    "Four repetitions are finite observations, not determinism certification.",
+    "Candidate margins are logprob differences; no layer or operator snapshots captured."
+  ]
+}
