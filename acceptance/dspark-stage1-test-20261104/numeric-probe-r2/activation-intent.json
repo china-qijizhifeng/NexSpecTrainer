@@ -1,0 +1,7 @@
+{
+  "time": 1793793753.6476722,
+  "single_use": true,
+  "scope": "Independent validation-only24-request probe after full permission/source/HTTP/SSE/lifecycle CPU regression and read-only API check",
+  "predecessor_cancelled_before_worker": true,
+  "frozen_manifest_sha256": "e0c85a2eed5adf12002067a88a2dad47e95d4ad86e396aee55c8e94d40569d79"
+}

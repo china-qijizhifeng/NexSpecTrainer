@@ -1,0 +1,18 @@
+{
+  "execution_manifest_entries": 33,
+  "execution_manifest_sha256": "e0c85a2eed5adf12002067a88a2dad47e95d4ad86e396aee55c8e94d40569d79",
+  "all_authored_execution_files_archived_byte_identical": true,
+  "pre_commit_passed": true,
+  "r7_manifest_unchanged_sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2",
+  "predecessor_r1_cancelled_before_worker": true,
+  "permission_regression_passed": true,
+  "runtime_upstream_fixtures_omitted_from_git": {
+    "contract-source/python/sglang/srt/arg_groups/overrides.py": "ec3e99814a67dd82e9432c60e1427bfb99d95dd0c8afcdb526d3dee8ab93175a",
+    "contract-source/python/sglang/srt/managers/schedule_batch.py": "78264125d59279410d7d6dc0a79c9e84e8a48e783ea9bcfe402fdc49517cc588",
+    "contract-source/python/sglang/srt/speculative/spec_decoding_metrics.py": "693489e43f995486ca92b00426bdfcb10753b95f0a296ca0dd5e2ac578073fab"
+  },
+  "upstream_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "held_out_requests": 0,
+  "numerical_root_cause_confirmed": false,
+  "numerical_fix_validated": false
+}

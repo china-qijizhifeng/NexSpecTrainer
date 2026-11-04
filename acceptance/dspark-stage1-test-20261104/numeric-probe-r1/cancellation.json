@@ -1,0 +1,11 @@
+{
+  "cancelled": true,
+  "reason": "Static inspection: probe umask077 would create root0600 control receipts unreadable by the SSH controller; no numerical inference started.",
+  "controller_stopped": true,
+  "job_alias_absent": true,
+  "worker_started": false,
+  "phase_exists": false,
+  "held_out_requests": 0,
+  "automatic_retry": false,
+  "time": 1793793269.608841
+}

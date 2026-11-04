@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "time": 1793793844.0879629,
+  "job": "job-5c838f4eb38e-20261104200236",
+  "project": "WeaverRSI",
+  "node_selector": {
+    "node_shcheduleable": "true"
+  },
+  "task_resource_info": {
+    "cpu_limit": "64.00",
+    "cpu_request": "64.00",
+    "memory_limit": "512.00",
+    "memory_request": "512.00"
+  },
+  "auto_retry": 0,
+  "phase": "Pending",
+  "instances": {
+    "instances": [
+      {
+        "name": "job-5c838f4eb38e-20261104200236-worker-0",
+        "status": "Pending",
+        "node_ip": "",
+        "node_name": "",
+        "running_time": "0s",
+        "actions": "\u63a7\u5236\u53f0, \u65e5\u5fd7"
+      }
+    ]
+  },
+  "resource_unit_basis": "API512 display matches frozen requests/limits512Gi YAML",
+  "held_out_requests": 0,
+  "controller": {
+    "pid": 41007,
+    "start_ticks": "2352041260",
+    "command": "/usr/bin/python3 -u /gpfs/users/linlizhi/dspark-aa-numerics-20261104-r2/controller.py ",
+    "root": "/gpfs/users/linlizhi/dspark-aa-numerics-20261104-r2"
+  },
+  "controller_verified": true,
+  "scope": "Validation-only probe submitted; CPU regressions passed, GPU inference not completed"
+}

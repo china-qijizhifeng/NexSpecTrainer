@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "scope": "Complete static check and batched regression of control/private output permission boundaries, request/logprob/EOS/scheduling/lifecycle contracts; numerical root cause unresolved",
+  "predecessor": "r1 cancelled whilePending with no worker-started or phase file; exact job deleted and controller identity stopped",
+  "root_cause_of_cancelled_probe": "Process-wide077 would make uid0 control receipts unreadable to the separate SSH controller UID",
+  "all_writers_checked": {
+    "common.public_stream/write": "atomic public phase/result/environment/resolved/summary/process receipts forced0644, independent of inherited umask",
+    "worker_lifecycle": "worker-started, interruption, supervision failure, log and exit forced0644; open-x replay guard preserved",
+    "probe": "raw merged result and SSE use exclusive0600; group directory0755 and non-sensitive server log0644; server-info whitelist only",
+    "controller/launcher": "created by the sameSSH user; exact-owned-identity guards and single-use intents preserved",
+    "init": "077 outputs remain private; regular worker uid0 validates them, no old permissions changed"
+  },
+  "regression": "Actual public/private writers under077/022, originalr1 private-phase reproduction, real supervised child/replay/signals, native serving EOS/override source, realHTTP/SSE and finite exact logprob counts, actual frozen validation-only request plan, alias/root/no-fixed-node checks",
+  "source_and_protocol": "Same r7 input/protocol/source SHA; exactly24validation-only requests, no held-out access; one supported allreduce override and no global deterministic flag",
+  "new_gpu_attempt_submitted": false,
+  "numerical_root_cause_confirmed": false,
+  "numerical_fix_validated": false
+}
