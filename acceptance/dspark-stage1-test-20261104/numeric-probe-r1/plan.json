@@ -1,0 +1,55 @@
+{
+  "scope": "validation-only numerical diagnosis; no held-out test or fix certification",
+  "source_attempt": "r7",
+  "historical_input_id": "podhmo__alchemyjsonschema__239822ad0685__rollout_0005",
+  "historical_input_tokens": 50527,
+  "historical_input_sha256": "38db48ae0a9e0cd58315b31edae50f04631466b0557d3d21d26ee7d6ba009296",
+  "common_output_prefix_tokens": 19,
+  "modes": [
+    "baseline",
+    "no-fused-allreduce"
+  ],
+  "single_variable": "--enforce-disable-flashinfer-allreduce-fusion",
+  "each_mode": {
+    "history_requests": 6,
+    "history_max_tokens": 1024,
+    "original_input_toplogprob_requests": 4,
+    "original_input_max_tokens": 32,
+    "common_prefix_toplogprob_requests": 2,
+    "common_prefix_max_tokens": 1
+  },
+  "total_requests": 24,
+  "held_out_requests": 0,
+  "generation": {
+    "temperature": 0,
+    "ignore_eos": false,
+    "eos_token": 1
+  },
+  "limits": {
+    "worker_seconds": 14400,
+    "controller_seconds": 21600,
+    "per_request_seconds": 2400,
+    "per_request_evidence_bytes": 33554432
+  },
+  "resources": {
+    "gpu": 8,
+    "gpu_model": "H100 verified in init and worker",
+    "cpu": 64,
+    "memory": "512Gi",
+    "hostname_binding": false,
+    "project": "WeaverRSI",
+    "queue": "proj-32"
+  },
+  "interpretation": [
+    "Finite repetitions do not prove deterministic kernels.",
+    "Top-logprob instrumentation can change the execution path.",
+    "Prefix-prefill and incremental decode use distinct paths.",
+    "Compare step probabilities only while the preceding tokens match.",
+    "Disagreement is diagnostic evidence, not an execution error; new HTTP/count/logprob/lifecycle errors stop without retries.",
+    "No change to frozen r7 protocol, execution manifest, input selection, or held-out gate."
+  ],
+  "source_manifest_sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2",
+  "source_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "numerical_root_cause_confirmed": false,
+  "numerical_fix_validated": false
+}

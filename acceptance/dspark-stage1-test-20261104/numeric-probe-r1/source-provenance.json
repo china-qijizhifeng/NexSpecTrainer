@@ -1,0 +1,14 @@
+{
+  "execution_manifest_entries": 33,
+  "execution_manifest_sha256": "41ee3f34b201dd873401110b81c0412df20ff4bf4d558a7d877e2d325864c24f",
+  "r7_manifest_unchanged_sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2",
+  "all_authored_execution_files_archived_byte_identical": true,
+  "runtime_upstream_fixtures_omitted_from_git": {
+    "contract-source/python/sglang/srt/arg_groups/overrides.py": "ec3e99814a67dd82e9432c60e1427bfb99d95dd0c8afcdb526d3dee8ab93175a",
+    "contract-source/python/sglang/srt/managers/schedule_batch.py": "78264125d59279410d7d6dc0a79c9e84e8a48e783ea9bcfe402fdc49517cc588",
+    "contract-source/python/sglang/srt/speculative/spec_decoding_metrics.py": "693489e43f995486ca92b00426bdfcb10753b95f0a296ca0dd5e2ac578073fab"
+  },
+  "upstream_fixtures_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "raw_inputs_or_outputs_published": false,
+  "held_out_requests": 0
+}

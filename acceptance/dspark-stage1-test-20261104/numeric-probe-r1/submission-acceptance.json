@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "time": 1793793000.134913,
+  "identity": {
+    "name": "job-fe890712eecc-20261104194701",
+    "user_def_name": "denovo-dspark-aa-numerics-20261104-r1",
+    "status": "Pending",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "api_project": "WeaverRSI",
+  "api_node_selector": {
+    "node_shcheduleable": "true"
+  },
+  "api_task_resource_info": {
+    "cpu_limit": "64.00",
+    "cpu_request": "64.00",
+    "memory_limit": "512.00",
+    "memory_request": "512.00"
+  },
+  "resource_unit_basis": "API display agrees512 with submitted requests/limits512Gi YAML",
+  "api_auto_retry": 0,
+  "api_node_assignment": "",
+  "controller": {
+    "pid": 21679,
+    "start_ticks": "2351947779",
+    "command": "/usr/bin/python3 -u /gpfs/users/linlizhi/dspark-aa-numerics-20261104-r1/controller.py ",
+    "root": "/gpfs/users/linlizhi/dspark-aa-numerics-20261104-r1"
+  },
+  "controller_verified": true,
+  "frozen_manifest_sha256": "41ee3f34b201dd873401110b81c0412df20ff4bf4d558a7d877e2d325864c24f",
+  "held_out_requests": 0,
+  "scope": "Submitted validation-only probe, not GPU numeric completion"
+}

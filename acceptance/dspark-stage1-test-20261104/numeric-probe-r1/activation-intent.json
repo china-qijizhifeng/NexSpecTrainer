@@ -1,0 +1,6 @@
+{
+  "time": 1793792818.9171069,
+  "single_use": true,
+  "scope": "Independent24-request validation-only numerical probe after static checks and Linux CPU regression; no held-out rerun",
+  "frozen_manifest_sha256": "41ee3f34b201dd873401110b81c0412df20ff4bf4d558a7d877e2d325864c24f"
+}

@@ -1,0 +1,25 @@
+{
+  "passed": false,
+  "phase": "CPU configuration guard before any new GPU submission",
+  "type": "AssertionError",
+  "reason": "copied YAML retained predecessor metadata.name and JobAlias; expected independent numeric-probe identity",
+  "static_scope": [
+    "YAML metadata/annotation",
+    "controller ALIASES and exact delete",
+    "init/worker command roots and task mount",
+    "old source references vs new output directories",
+    "worker result and bounded request counts"
+  ],
+  "fixed_instances": [
+    "metadata.name",
+    "metadata.annotations.JobAlias"
+  ],
+  "added_rejections": [
+    "either alias field differs",
+    "old worker command root",
+    "fixed node"
+  ],
+  "gpu_submission_occurred": false,
+  "automatic_retry": false,
+  "time": 1793792390.301428
+}

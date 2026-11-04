@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "script": "check_probe.py",
+      "sha256": "ef890491182cdf25935b4883c42ea27618f338f0f348cf5f634351cce1962b37",
+      "passed": true,
+      "real_http_sse_capture": true,
+      "finite_logprobs_and_exact_counts": true,
+      "post_eos_rejected": true,
+      "comparison_stops_at_prefix_divergence": true,
+      "private_metadata_omitted": true,
+      "native_disable_override_checked": true,
+      "actual_private_validation_plan_checked": true,
+      "no_fixed_node": true,
+      "scope": "CPU client/source/resource contracts; no GPU numeric inference"
+    },
+    {
+      "script": "check_lifecycle.py",
+      "sha256": "3b75d79f9b554f202e9de4b60cca12563a55958ae0bc09d805311ff82c70073b",
+      "passed": true,
+      "actual_term_and_int_zero_exit_children": true,
+      "legacy_exit_zero_on_term_reproduced": true,
+      "directory_replay_preserves_evidence": true,
+      "incomplete_zero_exit_rejected": true,
+      "running_to_pending_detected": true,
+      "evaluator_signal_unwinds_cleanup": true,
+      "hup_preserved": true
+    },
+    {
+      "script": "check_runner.py",
+      "sha256": "c1d113f29e7bc37275231d183255e70035b67b3c1f4028712a2c58cd8bdede90",
+      "passed": true,
+      "scope": "multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters"
+    },
+    {
+      "script": "check_eos.py",
+      "sha256": "286e57062e0d351219f2f61cf435b7820fd3f79e80406a876c491b90b1597718",
+      "passed": true,
+      "scope": "Actual pinned native EOS/cap methods and spec metric function, real HTTP/SSE client, short/one-token/budget completions, post-EOS and premature-finish rejection, terminal block counters, variable length timing; no GPU numerical parity claim",
+      "old_client_short_eos_failure_reproduced": false
+    }
+  ],
+  "python": "3.10.12 (main, Jan 26 2026, 14:55:28) [GCC 11.4.0]",
+  "scope": "CPU source/HTTP/SSE/logprob/resource/lifecycle checks; no GPU inference"
+}

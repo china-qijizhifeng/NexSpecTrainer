@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "scope": "Static configuration/request/source/API/lifecycle inspection before a single validation-only numerical probe; no review agent and no numerical fix claim",
+  "failed_gpu_attempt": "r7 target-only pre-EOS A/A mismatch; test0, exact job deleted",
+  "hypotheses": [
+    "near-tie logits change under numerical reductions/MoE",
+    "sparse score/topk/attention or persistent state varies",
+    "request-history/overlap/allocation affects forward"
+  ],
+  "probe_prediction": "Native top10 and fixed two-candidate logprobs on matching prefixes distinguish score variability from client reconstruction; one supported allreduce override provides a finite intervention comparison. It does not identify a kernel on its own.",
+  "call_chain": [
+    "frozen validation input -> body_for -> real urllib /generate SSE -> native GenerateReqInput -> greedy argmax/log_softmax -> native output logprob triples -> merge/EOS/count checks -> bounded shared-prefix comparison",
+    "r7 launch command + sole supported enforce-disable flag -> native overrides postprocess -> whitelisted effective config validation",
+    "init image manifest/config/rootfs/CRI + actual8H100 -> regular actual8H100 + installed7serving and5numeric source pins ->24predeclared requests",
+    "controller open-x intents -> exact owned alias -> signal-preserving supervisor ->24request result audit -> receipt -> exact identity deletion -> alias absent"
+  ],
+  "preflight_failure_preserved": "cpu-precheck-alias-rejected.json; both stale YAML alias instances corrected and neighboring roots/mounts/cleanup checked before CPU batch",
+  "source_dependencies": "Three unchanged upstream SGLang fixtures stay runtime-only under contract-source and are SHA-pinned in execution manifest; commit38d9e4a3fe4a493b0ae468477a274e83defda81a. All authored scripts are archived.",
+  "r7_execution_files_unchanged": true,
+  "validation_only": true,
+  "held_out_requests": 0,
+  "pre_commit_passed": true,
+  "new_gpu_attempt_submitted": false,
+  "numerical_root_cause_confirmed": false,
+  "numerical_fix_validated": false
+}

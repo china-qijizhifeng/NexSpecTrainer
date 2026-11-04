@@ -1,0 +1,6 @@
+{
+  "pid": 21679,
+  "start_ticks": "2351947779",
+  "command": "/usr/bin/python3 -u /gpfs/users/linlizhi/dspark-aa-numerics-20261104-r1/controller.py ",
+  "root": "/gpfs/users/linlizhi/dspark-aa-numerics-20261104-r1"
+}
