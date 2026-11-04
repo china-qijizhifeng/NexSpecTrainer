@@ -16,7 +16,10 @@ if ! python3 -c 'import zstandard' >/dev/null 2>&1; then
 fi
 python3 "$REPO_ROOT/ops/yicloud-pilot/prepare.py"
 python3 "$REPO_ROOT/.agents/skills/training-run/scripts/preflight.py" --output "$RUN_DIR/environment.json"
-if [[ ${PILOT_CPU_ONLY:-0} == 1 ]]; then exit 0; fi
+if [[ ${PILOT_CPU_ONLY:-0} == 1 ]]; then
+  python3 "$REPO_ROOT/ops/yicloud-pilot/test_config.py" -v
+  exit 0
+fi
 python3 - <<'PY'
 import torch,shutil,json,os
 from pathlib import Path
