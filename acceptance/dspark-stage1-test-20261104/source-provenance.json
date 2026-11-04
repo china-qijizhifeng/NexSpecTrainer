@@ -1,0 +1,180 @@
+{
+  "source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "kind": "executed run scripts, repository-formatted copies with original and archive provenance; runtime inputs remain at original run roots",
+  "files": {
+    "stage1-wrapper/audit_train.py": {
+      "sha256": "fbc6406a62aff529564b44d04429f9ffc79474d5f65aeabad8bb183af8edd2ac",
+      "original": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/audit_train.py",
+      "byte_identical": false,
+      "executed_sha256": "f597295fd7a4a6f7a95866480e4a11aafd8d5d1f905dc2c4afdb4a5678bbd939",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "stage1-wrapper/wrapper_regression.py": {
+      "sha256": "ca50158d68a00a937159f7c4a81d1ddf7d1662303f0c4af326cbd74d45ca12a9",
+      "original": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/wrapper_regression.py",
+      "byte_identical": false,
+      "executed_sha256": "d8a73198c4bc2d9c40f6f3d7c2fc50a61412ef5b73e697940b6fc0e5b23a5399",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": [
+        [
+          "import",
+          "sys",
+          null
+        ]
+      ]
+    },
+    "stage1-wrapper/nfc_probe.py": {
+      "sha256": "0df67a7574e0d8fcd39592df4c3478dda55044222efea4f568d1e83bacdff8ce",
+      "original": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/nfc_probe.py",
+      "byte_identical": false,
+      "executed_sha256": "0f1a20f8203986554655fbd63a7faf66a82fda9ab498987872b8a4e4e57080b3",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "stage1-wrapper/cpu-regression.json": {
+      "sha256": "c73e8e1308992a7439c002c1172e67e46e82ffe65304942f7a7a95558d70daef",
+      "original": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/cpu-regression.json",
+      "byte_identical": true,
+      "executed_sha256": "c73e8e1308992a7439c002c1172e67e46e82ffe65304942f7a7a95558d70daef"
+    },
+    "test-r2/common.py": {
+      "sha256": "3cf75dcdf468f4c4f3b7bd243ce7d7d3e3a8979bfc20acba8af5d78691d82646",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/common.py",
+      "byte_identical": false,
+      "executed_sha256": "2c726ac94079a759bad6c3ab62d7d4ea719ce3f2806eea64fb87c620b464f328",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "test-r2/export_models.py": {
+      "sha256": "17ba2d4708aba203b6e7c1732fb6b460cf420699a51f1f1a96b689c696e8e188",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/export_models.py",
+      "byte_identical": false,
+      "executed_sha256": "2e0338df428299a9d13c7a9596e5ebae865e0c22a628e2a439575b2ef766ec37",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "test-r2/evaluate.py": {
+      "sha256": "ae800489f40b070d2e479e6dbcec3eefc8f3b0b079aa4662c62aea66ce6b48ac",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/evaluate.py",
+      "byte_identical": false,
+      "executed_sha256": "d39cd1dca7ce945f45883652705a4d31964a3777629b3c077f0dca50732a560f",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": [
+        [
+          "import",
+          "collections",
+          null
+        ],
+        [
+          "import",
+          "google.protobuf",
+          null
+        ]
+      ]
+    },
+    "test-r2/check_runner.py": {
+      "sha256": "e3f112110e00525616d136e88e9f5e3a19ebb94c887bf5f286297741dac1613b",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/check_runner.py",
+      "byte_identical": false,
+      "executed_sha256": "9368e1507b4fc83a9e11d1c2f26caca25b427dc83ab44bd038867ac0c54a914a",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": [
+        [
+          "import",
+          "math",
+          null
+        ]
+      ]
+    },
+    "test-r2/controller.py": {
+      "sha256": "4329ae3cb0de84cd8f9291b3c2cbf590e8321fcd82ebf7bba3ddb128d0dd690b",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/controller.py",
+      "byte_identical": false,
+      "executed_sha256": "3d7c8f95c9895bfcb3703e2a74f482a5a4f0fcc054ce6c2aa83d139b22e10d43",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "test-r2/monitor.py": {
+      "sha256": "fd4cf8bfc0a6acc695474b13c6257f282dea8292e7eef42793975765d53e6b86",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/monitor.py",
+      "byte_identical": false,
+      "executed_sha256": "fc0de90e9134c2e3e3ea42447c52c3b8bf104b76d51be450e5e2968a2d1bb4d2",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "test-r2/prepare_inputs.py": {
+      "sha256": "00437e5b938f5672c6f4f33c5e546c17d30e6ca96169dd65a56e6e747e7dd29a",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/prepare_inputs.py",
+      "byte_identical": false,
+      "executed_sha256": "50a2d732e25444c856d78fedcdea4781c7b661412d215c150720c4764da0f976",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "test-r2/run_export.sh": {
+      "sha256": "7bb2b09a38163e060e167b8c34241a14297d15a6fc98c0b2fca03f120bdba605",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/run_export.sh",
+      "byte_identical": true,
+      "executed_sha256": "7bb2b09a38163e060e167b8c34241a14297d15a6fc98c0b2fca03f120bdba605"
+    },
+    "test-r2/run_eval.sh": {
+      "sha256": "34d609d110dec46aec74d7264eec38f4ee27fc736ae83b8fb72e085ecb27c5aa",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/run_eval.sh",
+      "byte_identical": true,
+      "executed_sha256": "34d609d110dec46aec74d7264eec38f4ee27fc736ae83b8fb72e085ecb27c5aa"
+    },
+    "test-r2/export-job.yaml": {
+      "sha256": "ad77ef6c414c2f5594da739bd16708a5b5febc729d49ac79c48bb42a5e46fbe5",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/export-job.yaml",
+      "byte_identical": true,
+      "executed_sha256": "ad77ef6c414c2f5594da739bd16708a5b5febc729d49ac79c48bb42a5e46fbe5"
+    },
+    "test-r2/eval-job.yaml": {
+      "sha256": "068a58e9601af6049da5cad9d36e8a7ae42a0283450560edbef7d69c6ca36fde",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/eval-job.yaml",
+      "byte_identical": true,
+      "executed_sha256": "068a58e9601af6049da5cad9d36e8a7ae42a0283450560edbef7d69c6ca36fde"
+    },
+    "test-r2/with_kernel_cache.py": {
+      "sha256": "03ae7611135114fb823d5f28d8bfed1ba8a1334301b05e34b5decdcd733679b9",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/with_kernel_cache.py",
+      "byte_identical": true,
+      "executed_sha256": "03ae7611135114fb823d5f28d8bfed1ba8a1334301b05e34b5decdcd733679b9",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "test-r2/northjob_remote.py": {
+      "sha256": "7db93215a538085b506f86612f06d78feafa9abab6e2d115b61dc5db4131f9a3",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/northjob_remote.py",
+      "byte_identical": false,
+      "executed_sha256": "4844862c7adee5d833af69e10816b23512b29639cb6e69a1ab3befd7721c3c3c",
+      "non_import_ast_identical": true,
+      "removed_redundant_imports": []
+    },
+    "test-r2/protocol.json": {
+      "sha256": "7466c2a9cabb4f6fdf5f184ffe18b74670eee969fffd4e87d3ee8d5e647d9792",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/protocol.json",
+      "byte_identical": true,
+      "executed_sha256": "7466c2a9cabb4f6fdf5f184ffe18b74670eee969fffd4e87d3ee8d5e647d9792"
+    },
+    "test-r2/static-contract-review.json": {
+      "sha256": "dd554a4918cb932de6db5e7f7676350a34f691cc2eda92bcc79cc9dcb857722b",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/static-contract-review.json",
+      "byte_identical": true,
+      "executed_sha256": "dd554a4918cb932de6db5e7f7676350a34f691cc2eda92bcc79cc9dcb857722b"
+    },
+    "test-r2/r1-failure-analysis.json": {
+      "sha256": "53c59e1d3b49768e60c75b6c4a8f1222ef464f05dbf4da77260737829863808c",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/r1-failure-analysis.json",
+      "byte_identical": true,
+      "executed_sha256": "53c59e1d3b49768e60c75b6c4a8f1222ef464f05dbf4da77260737829863808c"
+    },
+    "test-r2/serving-source-pins.json": {
+      "sha256": "d213179e246f05fa63115cf3774d18354dab10e54173c42f80ff565ffb7e892a",
+      "original": "/Users/shom/Downloads/dspark-test-20261104-r2/serving-source-pins.json",
+      "byte_identical": true,
+      "executed_sha256": "d213179e246f05fa63115cf3774d18354dab10e54173c42f80ff565ffb7e892a"
+    }
+  },
+  "formatting": "Repository pre-commit formatting and import ordering; non-import AST identical; only unused stdlib imports and a redundant google.protobuf import (still loaded by Type import) removed. Executed run files unchanged."
+}

@@ -1,0 +1,37 @@
+{
+  "frozen_before_test_outputs": true,
+  "stage1_source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "sglang_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "train_export_image": "harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df",
+  "serve_image": "lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa",
+  "variants": [
+    "target-only",
+    "official-mtp",
+    "step25",
+    "step118"
+  ],
+  "primary_candidate": "step25, selected using validation before test",
+  "test_selection": "one last eligible supervised assistant boundary per each of 247 test trajectories; complete original history, input<=64512",
+  "test_instances": 36,
+  "generation": {
+    "temperature": 0,
+    "ignore_eos": true,
+    "max_new_tokens": 1024,
+    "concurrency": 1,
+    "gamma": 5
+  },
+  "cache_policy": "radix disabled for every request; same independent compile cache copied from old run, warm-up32tokens per variant; startup excluded",
+  "correctness": "10 fixed diagnostics including 2 old mismatch prompts and 8 held-out validation prefixes; target A/A must be stable; common-prefix logprob probes for mismatches",
+  "known_parity_issue": "Prior AR vs DSPARK FP4 output mismatch remains unresolved. No lossless claim unless diagnostics AND 247 test outputs all match. Finite, pre-declared matrix measures discrepancy; no tuning or automatic reruns on test.",
+  "scope": "complete-prefix prompt replay with fixed output length, not full trajectories or closed-loop SWE solve rate; long trajectories represented by earlier prefix, never called full long-context coverage",
+  "failure_policy": "worker/API errors stop with evidence and no resubmission; inspect full static call chain before changing and re-validating",
+  "resource_policy": "export 0GPU; evaluation one8H100 job serial variants on previously verified cache nodes; never import host runtime or affect other jobs; terminal evidence then exact deletion",
+  "cached_nodes": [
+    "node021",
+    "node026",
+    "node035",
+    "node036",
+    "node044"
+  ],
+  "headroom_bytes": 850000000000
+}

@@ -1,0 +1,80 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: denovo-dspark-test-eval-20261104-r2
+  namespace: qiji
+  annotations:
+    JobAlias: denovo-dspark-test-eval-20261104-r2
+    project: WeaverRSI
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  queue: proj-32
+  tasks:
+  - replicas: 1
+    name: worker
+    template:
+      spec:
+        restartPolicy: Never
+        activeDeadlineSeconds: 86400
+        tolerations:
+        - key: task-type
+          operator: Equal
+          value: rsi-weaver
+          effect: NoSchedule
+        - key: task-type
+          operator: Equal
+          value: weaver
+          effect: NoSchedule
+        volumes:
+        - name: gpfs
+          hostPath:
+            path: /gpfs
+            type: Directory
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 64Gi
+        containers:
+        - name: worker
+          image: lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa
+          imagePullPolicy: Never
+          resources:
+            requests:
+              cpu: '64'
+              memory: 768Gi
+              nvidia.com/gpu: '8'
+            limits:
+              cpu: '64'
+              memory: 768Gi
+              nvidia.com/gpu: '8'
+          command:
+          - /bin/bash
+          - /gpfs/users/linlizhi/dspark-test-20261104-r2/run_eval.sh
+          volumeMounts:
+          - name: gpfs
+            mountPath: /gpfs
+          - name: shm
+            mountPath: /dev/shm
+          securityContext:
+            capabilities:
+              add:
+              - IPC_LOCK
+          env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+        affinity:
+          nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              nodeSelectorTerms:
+              - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: In
+                  values:
+                  - node021
+                  - node026
+                  - node035
+                  - node036
+                  - node044

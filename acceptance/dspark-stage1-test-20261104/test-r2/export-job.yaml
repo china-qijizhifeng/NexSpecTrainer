@@ -1,0 +1,50 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: denovo-dspark-test-export-20261104-r2
+  namespace: qiji
+  annotations:
+    JobAlias: denovo-dspark-test-export-20261104-r2
+    project: WeaverRSI
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  queue: proj-32
+  tasks:
+  - replicas: 1
+    name: worker
+    template:
+      spec:
+        restartPolicy: Never
+        activeDeadlineSeconds: 10800
+        tolerations:
+        - key: task-type
+          operator: Equal
+          value: rsi-weaver
+          effect: NoSchedule
+        - key: task-type
+          operator: Equal
+          value: weaver
+          effect: NoSchedule
+        volumes:
+        - name: gpfs
+          hostPath:
+            path: /gpfs
+            type: Directory
+        containers:
+        - name: worker
+          image: harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: '32'
+              memory: 256Gi
+            limits:
+              cpu: '32'
+              memory: 256Gi
+          command:
+          - /bin/bash
+          - /gpfs/users/linlizhi/dspark-test-20261104-r2/run_export.sh
+          volumeMounts:
+          - name: gpfs
+            mountPath: /gpfs

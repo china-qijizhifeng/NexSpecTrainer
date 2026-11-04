@@ -1,0 +1,12 @@
+{
+  "r1_terminal": "Failed",
+  "r1_export_job": "job-4b5fbb01dc77-20261104090540",
+  "r1_alias_absent_verified": true,
+  "r1_no_model_exported": true,
+  "r1_no_gpu_job_submitted": true,
+  "cause": "temporary metadata hash helper used checkpoint/common.pt; native contract is checkpoint/nfc/common.pt",
+  "static_review": "read_manifest and load_draft_weights; native export/CheckpointManager; all temporary common.pt references and producer manifest; both retained checkpoints actual tree and SHA",
+  "fix": "central checkpoint_metadata validates format/global_step/nfc-common SHA/32 tensor shards; same helper in controller before submission and exporter before+after",
+  "regression": "valid nested layout accepted, corrupt metadata checksum rejected, root-level decoy common.pt rejected; same SSE and pooled metrics regression",
+  "new_attempt": "r2 with distinct controller/aliases/intents; no reuse or restart of r1"
+}

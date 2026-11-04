@@ -1,0 +1,8 @@
+{
+  "reviewed": true,
+  "export": "deepseek_v41.export -> resolve_training_state -> NFC load_draft_weights(no_dist=True, CPU model tensors only) -> export_native source-format quantize; all kernel imports deferred to forward; frozen target shared symlink",
+  "metrics": "TokenizerManager.populate_spec_info original raw correct/proposed/verify; gamma5 implies6 numdraft, rate denominator verify*5, tau completion/verify",
+  "stream": "BatchTokenIDOutput supports both incremental and cumulative streams; parse completion count and assert exact prefix/count; retain raw event/chunk times",
+  "parity": "Prior short smoke differs at output29; same-prefix fresh prefill chooses DSPARK token. This does not isolate sampler bug or hardware cause. Historical baseline launch settings incomplete; current matrix fixes all visible args, disables radix, checks A/A, probes first differing prefix. Numerical cause still open.",
+  "checks": "CPU SSE/aggregation regression passed; actual image import/export/CLI and runtime preflight still required"
+}
