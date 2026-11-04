@@ -1,0 +1,74 @@
+{
+  "executed_root": "/Users/shom/Downloads/dspark-test-20261104-r3",
+  "formatting": "repository formatting and redundant-import cleanup only; runtime files unchanged",
+  "files": {
+    "check_runner.py": {
+      "executed_sha256": "5dc0c155e051e53c4141f726f75fd92c2975c203b55f99cc827d1f3648b675a2",
+      "archive_sha256": "18ceaba57ae7b671f9c19d3195f058da5aa1093bf99467dded4a24f82c29a603",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "common.py": {
+      "executed_sha256": "491746e0ab6cbb10d972de6783f84a75a011640a12c0abf8e68ec9375bf8e678",
+      "archive_sha256": "a29cc0b15ed3ec3d43da9dba7681918ab67f5951e31d2ca759faf4f148cd0fe2",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "controller.py": {
+      "executed_sha256": "616261c63dfb27194a8793768a08c52054ff73fdfbd4ad2e18084efe42129033",
+      "archive_sha256": "3ce2eca56463cfb588895ccd9f0725774cc5092142de4eaf255518c9b2f39cc5",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "ctr_contract.py": {
+      "executed_sha256": "6aac961c8dfeac89340cff63736fdb41080077e03597d60c2940b62ce3942f50",
+      "archive_sha256": "15c161ccf2db5a48c897b27cf4a65dbde3c66a99eea1fd04036f2f51efb31f6c",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "eval-job.yaml": {
+      "executed_sha256": "7d524f0530923aa20d48237d3cf1f3932aa0ec2570ef6a74c924e2633c541c5d",
+      "archive_sha256": "7d524f0530923aa20d48237d3cf1f3932aa0ec2570ef6a74c924e2633c541c5d",
+      "byte_identical": true
+    },
+    "evaluate.py": {
+      "executed_sha256": "8647ef394ed54e470d5eef6aa8e6222e97f7630f723bde1e4e713d02679d74f1",
+      "archive_sha256": "436729e2a3fef2cd4283f1b499221da94a90e7517b9b9ba31bdacacc15572a57",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "import_worker_image.py": {
+      "executed_sha256": "a0c0cbc67733e8fdbe47f7bf69dc41ad9691a117db580bd713246d73c2f92102",
+      "archive_sha256": "fecf73b908d492f79a4c1c836336a7370ddedf8303aadfa3b58da0c6d902b2e4",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "migrate_previous.py": {
+      "executed_sha256": "5b285380b74f6fcc78166768f6807d3700bd04d70725f243a526152bb6b6e79a",
+      "archive_sha256": "892fb9a3f4d07b7e567f95b73968103d7ee2c56ecb413da52ae5b4fde452318c",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "monitor.py": {
+      "executed_sha256": "0fb5cc6a7554671e51639d2a27c6ed3f684c8a3ce4a40bc39d4a90b46c94650a",
+      "archive_sha256": "06abec31e161d0b8b470ee297333f6ce64d95d15bd6b43d40c78cdfb2f4d2a23",
+      "byte_identical": false,
+      "non_import_ast_identical": true
+    },
+    "protocol.json": {
+      "executed_sha256": "90d83c27460f6198fd22f2c14b33f1f02bf40f87dc2beee207c229324e0c0e72",
+      "archive_sha256": "90d83c27460f6198fd22f2c14b33f1f02bf40f87dc2beee207c229324e0c0e72",
+      "byte_identical": true
+    },
+    "run_eval.sh": {
+      "executed_sha256": "6106ca4ba024a9fcc9b54fb90f074d4af2decf6d398390335565bf9d27b47efe",
+      "archive_sha256": "6106ca4ba024a9fcc9b54fb90f074d4af2decf6d398390335565bf9d27b47efe",
+      "byte_identical": true
+    },
+    "run_image_import.sh": {
+      "executed_sha256": "83621a43e40c76addb128930e06036b94f66b1508960bcdd24ef458c3fd5daee",
+      "archive_sha256": "83621a43e40c76addb128930e06036b94f66b1508960bcdd24ef458c3fd5daee",
+      "byte_identical": true
+    }
+  }
+}
