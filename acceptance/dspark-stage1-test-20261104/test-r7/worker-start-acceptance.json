@@ -1,0 +1,39 @@
+{
+  "time": 1793790000.952137,
+  "job": {
+    "name": "job-6b4dd801c01d-20261104173837",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r7",
+    "status": "Running",
+    "ready_status": "1/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "node": "node054",
+  "gpus": [
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3"
+  ],
+  "controller_identity_verified": true,
+  "phase": {
+    "stage": "validation_diagnostics",
+    "time_utc": "2026-11-04T10:56:58Z",
+    "group": "target-only"
+  },
+  "server_readiness_seconds": 391.05496003478765,
+  "actual_worker_cpu_regression_passed": true,
+  "serving_source_pin_count": 7,
+  "private_init_receipts": "not directly readable by SSH user; original permissions preserved",
+  "pre_server_control_flow": "evaluate.py verifies full export hashes and init passed receipt before environment/readiness",
+  "gpu_aa_passed": false,
+  "test_requests_completed": 0,
+  "execution_complete": false,
+  "source_manifest_sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2",
+  "scope": "worker startup and target-only diagnostic entry; not A/A or held-out completion"
+}

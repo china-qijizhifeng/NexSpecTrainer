@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "source": "/gpfs/users/linlizhi/dspark-test-20261104-r3/cache",
+  "destination": "/gpfs/users/linlizhi/dspark-test-20261104-r7/cache",
+  "copied_files": 1515,
+  "copied_bytes": 50452876,
+  "skipped": [],
+  "free_bytes_after": 7420378087424,
+  "previous_cache_modified": false
+}
