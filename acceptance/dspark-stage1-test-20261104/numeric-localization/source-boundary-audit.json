@@ -1,0 +1,164 @@
+{
+  "passed": true,
+  "upstream_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "source_sha256": {
+    "debug_utils/tensor_dump_forward_hook.py": "03482f2993fede849aa312502d8acf58ad6f507fb5a230a279e00c1e7ef4e26d",
+    "layers/attention/dsv4/indexer.py": "4d0da92df2d73c9100ff9a235bb8312a02b412f457ea976a14fbd01825b0b9f6",
+    "layers/layer_boundary/residual/batch.py": "e59e317451f133f0d58bdf27781784db84a8847e89987f1f6654fe30f13f18ec",
+    "layers/layer_boundary/stage.py": "782bbc56750c38b8e9cd1fd6adbb315e33289a1fa135a0720b1c830c274aec7f",
+    "layers/logits_processor.py": "9829e7511486b1d92894f23ac2a388c8115c38e7a2c125e5f12fc9fc3ac99c27",
+    "layers/sampler.py": "76c6de8bae5055af1b1c1690029c06e531fc58296ee42e24ab137331ce9c6b56",
+    "models/deepseek_v2.py": "8d70d5f0664eab6bd10532210a5c8df979f94c220c3a122663448cc7be0eb66f",
+    "models/deepseek_v4.py": "8e2acf2aa143abfa76955508d5f01bb622274da9c1bee86cf228fcfb8532b73d",
+    "models/deepseek_v4_boundary.py": "de7193b2f038387b7c99292e5b95a2c6d8a953964e38994f3d746196e3a684b9",
+    "models/deepseek_v4_mhc.py": "73ce5de739d4931617e78cec36740c0b92c3efd585c6725a9743df36f1f33cb8",
+    "plugins/__init__.py": "3a975a73f1a7887e68c81ea7a2530250597ac8ae978efc0b0f70f038a99a3164",
+    "plugins/hook_registry.py": "0144d8c3e5ee294322894f88b8ad3bd49edad15c124650e4e834d0366815dc7d",
+    "state_capturer/indexer_topk.py": "a17e9a85a5b16e41ad92dec203b2acfbdee12d412526493fe32e9eff6de0a1d8"
+  },
+  "contracts": [
+    {
+      "file": "models/deepseek_v4.py",
+      "class": "DeepseekV4ForCausalLM",
+      "method": "forward",
+      "line": 4926,
+      "parameters": [
+        "self",
+        "input_ids",
+        "positions",
+        "forward_batch",
+        "input_embeds",
+        "pp_proxy_tensors"
+      ]
+    },
+    {
+      "file": "models/deepseek_v4.py",
+      "class": "DeepseekV4Model",
+      "method": "forward",
+      "line": 4394,
+      "parameters": [
+        "self",
+        "input_ids",
+        "positions",
+        "forward_batch",
+        "input_embeds",
+        "pp_proxy_tensors"
+      ]
+    },
+    {
+      "file": "models/deepseek_v4.py",
+      "class": "DeepseekV4CudaDecoderLayer",
+      "method": "forward",
+      "line": 3589,
+      "parameters": [
+        "self",
+        "positions",
+        "hidden_states",
+        "input_ids",
+        "forward_batch",
+        "input_ids_global",
+        "allow_cross_layer_fusion"
+      ]
+    },
+    {
+      "file": "models/deepseek_v4.py",
+      "class": "MQALayer",
+      "method": "forward",
+      "line": 2603,
+      "parameters": [
+        "self",
+        "x",
+        "positions",
+        "forward_batch",
+        "x_quant",
+        "defer_all_reduce"
+      ]
+    },
+    {
+      "file": "models/deepseek_v2.py",
+      "class": "DeepseekV2MoE",
+      "method": "forward",
+      "line": 1055,
+      "parameters": [
+        "self",
+        "hidden_states",
+        "forward_batch",
+        "gemm_output_zero_allocator",
+        "input_ids",
+        "input_ids_global",
+        "skip_shared_experts",
+        "return_moe_output",
+        "leave_output_sum"
+      ]
+    },
+    {
+      "file": "layers/attention/dsv4/indexer.py",
+      "class": "C4IndexerBackendMixin",
+      "method": "forward_c4_indexer",
+      "line": 774,
+      "parameters": [
+        "self",
+        "x",
+        "q_lora",
+        "c4_indexer",
+        "forward_batch",
+        "alt_streams",
+        "enable_multi_stream",
+        "q_lora_ready",
+        "skip_compressor",
+        "q_lora_quant"
+      ]
+    },
+    {
+      "file": "layers/layer_boundary/stage.py",
+      "class": "StageBoundary",
+      "method": "prepare",
+      "line": 165,
+      "parameters": [
+        "self",
+        "hidden_states",
+        "forward_batch",
+        "cache"
+      ]
+    },
+    {
+      "file": "layers/logits_processor.py",
+      "class": "LogitsProcessor",
+      "method": "forward",
+      "line": 594,
+      "parameters": [
+        "self",
+        "input_ids",
+        "hidden_states",
+        "lm_head",
+        "logits_metadata",
+        "aux_hidden_states",
+        "hidden_states_before_norm"
+      ]
+    },
+    {
+      "file": "layers/sampler.py",
+      "class": "Sampler",
+      "method": "forward",
+      "line": 151,
+      "parameters": [
+        "self",
+        "logits_output",
+        "sampling_info",
+        "return_logprob",
+        "top_logprobs_nums",
+        "token_ids_logprobs",
+        "positions",
+        "logprob_logits"
+      ]
+    }
+  ],
+  "direct_model_forward_confirmed": true,
+  "cuda_deferred_boundary_call_sites_confirmed": true,
+  "builtin_indexer_capture_rejects_tp8": true,
+  "greedy_torch_argmax_confirmed": true,
+  "plugin_and_patch_exceptions_are_caught": true,
+  "scope": "Static pinned-source contracts only; adapter installation and actual worker/GPU coverage remain unverified.",
+  "gpu_attempt_submitted": false,
+  "held_out_requests": 0
+}

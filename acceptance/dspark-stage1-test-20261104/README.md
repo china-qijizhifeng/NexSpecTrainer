@@ -1,5 +1,12 @@
 # dSpark stage1 and held-out test run fixes
 
+Latest status: formal r7 stopped at a pre-EOS target-only A/A mismatch, with
+zero held-out requests. The independent [r2 numerical probe](numeric-probe-r2/RESULT.zh.md)
+completed 24 validation requests and was cleaned up; disabling FlashInfer
+allreduce fusion did not restore repeatability. The operator responsible is
+unresolved. See the [bounded boundary-localization plan](numeric-localization/PLAN.zh.md)
+for preparation of a separate diagnostic. No new GPU attempt has been submitted.
+
 The later node040 attempt stopped at its target-only A/A validation gate,
 before any test output. See [the A/A failure audit](aa-audit/README.md) for
 the EOS boundary, raw-event evidence and unresolved numerical limitations.

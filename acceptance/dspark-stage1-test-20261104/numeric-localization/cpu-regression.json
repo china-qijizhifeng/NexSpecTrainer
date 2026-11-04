@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "time_utc": "2026-11-04T13:23:11.118264+00:00",
+  "command": "python3 check_bounded_trace.py",
+  "checks": 9,
+  "environment": {
+    "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+    "python": "3.14.6",
+    "torch": "2.12.1",
+    "device": "cpu"
+  },
+  "actual_torch_tensors": true,
+  "source_contract_audit": {
+    "passed": true,
+    "files": 13,
+    "methods": 9
+  },
+  "adapter_installed": false,
+  "gpu_attempt_submitted": false,
+  "scope": "Bounded digest/writer foundation and static pinned-source contracts only; no numerical repair or GPU acceptance."
+}

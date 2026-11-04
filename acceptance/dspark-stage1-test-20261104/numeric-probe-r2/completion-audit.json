@@ -1,0 +1,403 @@
+{
+  "passed": true,
+  "time": 1793798034.5896266,
+  "terminal": {
+    "name": "job-5c838f4eb38e-20261104200236",
+    "user_def_name": "denovo-dspark-aa-numerics-20261104-r2",
+    "status": "Completed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "delete": {
+    "name": "job-5c838f4eb38e-20261104200236",
+    "alias": "denovo-dspark-aa-numerics-20261104-r2",
+    "response": {
+      "success": true
+    }
+  },
+  "jobs": {
+    "eval": []
+  },
+  "all_aliases_absent": true,
+  "controller_verified": false,
+  "exit_code": 0,
+  "request_audit": {
+    "passed": true,
+    "requests": 24
+  },
+  "manifest_audits": {
+    "dspark-aa-numerics-20261104-r2": {
+      "entries": 33,
+      "sha256": "e0c85a2eed5adf12002067a88a2dad47e95d4ad86e396aee55c8e94d40569d79",
+      "all_files_verified": true
+    },
+    "dspark-test-20261104-r7": {
+      "entries": 860,
+      "sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2",
+      "all_files_verified": true
+    }
+  },
+  "effective_config_intervention_verified": true,
+  "public_receipts_mode": {
+    "result.json": "0o644",
+    "phase.json": "0o644",
+    "pipeline-status.json": "0o644",
+    "eval-terminal.json": "0o644",
+    "eval-delete.json": "0o644",
+    "controller-process.json": "0o644",
+    "worker-started.json": "0o644",
+    "environment.json": "0o644",
+    "baseline/resolved.json": "0o644",
+    "baseline/summary.json": "0o644",
+    "baseline/launch.json": "0o644",
+    "baseline/server-process.json": "0o644",
+    "no-fused-allreduce/resolved.json": "0o644",
+    "no-fused-allreduce/summary.json": "0o644",
+    "no-fused-allreduce/launch.json": "0o644",
+    "no-fused-allreduce/server-process.json": "0o644"
+  },
+  "private_capture_stat": [
+    {
+      "path": "baseline/request-00.events.jsonl",
+      "bytes": 2266231,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-00.json",
+      "bytes": 5362,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-01.events.jsonl",
+      "bytes": 2266236,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-01.json",
+      "bytes": 5363,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-02.events.jsonl",
+      "bytes": 3300163,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-02.json",
+      "bytes": 6398,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-03.events.jsonl",
+      "bytes": 3300149,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-03.json",
+      "bytes": 6398,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-04.events.jsonl",
+      "bytes": 30628,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-04.json",
+      "bytes": 949,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-05.events.jsonl",
+      "bytes": 31374,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-05.json",
+      "bytes": 956,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-06.events.jsonl",
+      "bytes": 248695,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-06.json",
+      "bytes": 14663,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-07.events.jsonl",
+      "bytes": 250467,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-07.json",
+      "bytes": 14922,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-08.events.jsonl",
+      "bytes": 250370,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-08.json",
+      "bytes": 14879,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-09.events.jsonl",
+      "bytes": 248762,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-09.json",
+      "bytes": 14665,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-10.events.jsonl",
+      "bytes": 1178,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-10.json",
+      "bytes": 1303,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-11.events.jsonl",
+      "bytes": 1179,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "baseline/request-11.json",
+      "bytes": 1304,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-00.events.jsonl",
+      "bytes": 2266236,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-00.json",
+      "bytes": 5363,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-01.events.jsonl",
+      "bytes": 2266238,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-01.json",
+      "bytes": 5363,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-02.events.jsonl",
+      "bytes": 3300195,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-02.json",
+      "bytes": 6398,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-03.events.jsonl",
+      "bytes": 3300153,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-03.json",
+      "bytes": 6397,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-04.events.jsonl",
+      "bytes": 28654,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-04.json",
+      "bytes": 931,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-05.events.jsonl",
+      "bytes": 32049,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-05.json",
+      "bytes": 961,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-06.events.jsonl",
+      "bytes": 248552,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-06.json",
+      "bytes": 14657,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-07.events.jsonl",
+      "bytes": 251532,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-07.json",
+      "bytes": 14972,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-08.events.jsonl",
+      "bytes": 249323,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-08.json",
+      "bytes": 14697,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-09.events.jsonl",
+      "bytes": 249740,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-09.json",
+      "bytes": 14705,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-10.events.jsonl",
+      "bytes": 1179,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-10.json",
+      "bytes": 1303,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-11.events.jsonl",
+      "bytes": 1179,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    },
+    {
+      "path": "no-fused-allreduce/request-11.json",
+      "bytes": 1304,
+      "mode": "0o600",
+      "uid": 0,
+      "readable_by_ssh_uid": false
+    }
+  ],
+  "posthoc_private_replay_performed": false,
+  "held_out_requests": 0,
+  "numerical_root_cause_confirmed": false,
+  "numerical_fix_validated": false
+}

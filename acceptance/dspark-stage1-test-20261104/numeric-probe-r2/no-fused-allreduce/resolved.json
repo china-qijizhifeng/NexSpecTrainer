@@ -1,0 +1,18 @@
+{
+  "attention_backend": "dsv4",
+  "moe_runner_backend": "flashinfer_mxfp4",
+  "tp_size": 8,
+  "ep_size": 8,
+  "disable_radix_cache": true,
+  "max_running_requests": 1,
+  "chunked_prefill_size": -1,
+  "cuda_graph_backend_prefill": "disabled",
+  "cuda_graph_backend_decode": "disabled",
+  "flashinfer_allreduce_fusion_backend": null,
+  "enforce_disable_flashinfer_allreduce_fusion": true,
+  "disable_custom_all_reduce": false,
+  "enable_torch_symm_mem": false,
+  "enable_deterministic_inference": false,
+  "disable_overlap_schedule": false,
+  "dsa_topk_backend": "sgl-kernel"
+}

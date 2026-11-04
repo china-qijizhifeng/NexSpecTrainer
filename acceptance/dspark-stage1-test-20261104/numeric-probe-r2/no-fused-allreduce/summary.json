@@ -1,0 +1,732 @@
+{
+  "requests": [
+    {
+      "index": 0,
+      "kind": "history",
+      "input_sha256": "bf407269fd79117c6cb103598ea4a8b9865c73d7f07be45b0f7101bbd84d65da",
+      "input_tokens": 15,
+      "output_tokens": 831,
+      "output_sha256": "4a4e64d032a182e194849fe76e60af304eaa772828005dfbac06441b03c8282a",
+      "finish_reason": {
+        "type": "stop",
+        "matched": 1
+      },
+      "same_as_r7_recording": true
+    },
+    {
+      "index": 1,
+      "kind": "history",
+      "input_sha256": "bf407269fd79117c6cb103598ea4a8b9865c73d7f07be45b0f7101bbd84d65da",
+      "input_tokens": 15,
+      "output_tokens": 831,
+      "output_sha256": "4a4e64d032a182e194849fe76e60af304eaa772828005dfbac06441b03c8282a",
+      "finish_reason": {
+        "type": "stop",
+        "matched": 1
+      },
+      "same_as_r7_recording": true
+    },
+    {
+      "index": 2,
+      "kind": "history",
+      "input_sha256": "a8596fe933d8cb51379912577ba97a38ffeaa6e431bfbbcfda9c4d4dea64ab49",
+      "input_tokens": 15,
+      "output_tokens": 1024,
+      "output_sha256": "8acc8fb041c42ab467f16483b463fb22408c8d1dec0d1da478f70e84fdf7666a",
+      "finish_reason": {
+        "type": "length",
+        "length": 1024
+      },
+      "same_as_r7_recording": true
+    },
+    {
+      "index": 3,
+      "kind": "history",
+      "input_sha256": "a8596fe933d8cb51379912577ba97a38ffeaa6e431bfbbcfda9c4d4dea64ab49",
+      "input_tokens": 15,
+      "output_tokens": 1024,
+      "output_sha256": "8acc8fb041c42ab467f16483b463fb22408c8d1dec0d1da478f70e84fdf7666a",
+      "finish_reason": {
+        "type": "length",
+        "length": 1024
+      },
+      "same_as_r7_recording": true
+    },
+    {
+      "index": 4,
+      "kind": "history",
+      "input_sha256": "73f766609cad0e399937fd63fe5ee0837fd5f54c3445eabeef07c6f2ea28c34d",
+      "input_tokens": 54235,
+      "output_tokens": 56,
+      "output_sha256": "2bc915c73965dec2c8d9a936159f5c867d7e60da22b3c40f9ebc89e62d58af04",
+      "finish_reason": {
+        "type": "stop",
+        "matched": 1
+      },
+      "same_as_r7_recording": false
+    },
+    {
+      "index": 5,
+      "kind": "history",
+      "input_sha256": "73f766609cad0e399937fd63fe5ee0837fd5f54c3445eabeef07c6f2ea28c34d",
+      "input_tokens": 54235,
+      "output_tokens": 61,
+      "output_sha256": "2e1996dfd706b10b42f10a4456f7ea27c3424f86bade7ed979a66e18b6e2eaae",
+      "finish_reason": {
+        "type": "stop",
+        "matched": 1
+      },
+      "same_as_r7_recording": true
+    },
+    {
+      "index": 6,
+      "kind": "original-decode",
+      "input_sha256": "38db48ae0a9e0cd58315b31edae50f04631466b0557d3d21d26ee7d6ba009296",
+      "input_tokens": 50527,
+      "output_tokens": 32,
+      "output_sha256": "7debf00ca2b87570767c5471c858045fc35509536d8dc8d892e118ddc6bc526c",
+      "finish_reason": {
+        "type": "length",
+        "length": 32
+      },
+      "numeric_steps": [
+        {
+          "top1_top2_margin": 1.0000000596046448,
+          "historical_candidate_margin": -0.625
+        },
+        {
+          "top1_top2_margin": 6.499999823048711,
+          "historical_candidate_margin": 0.890625
+        },
+        {
+          "top1_top2_margin": 17.999999880790718,
+          "historical_candidate_margin": 3.38671875
+        },
+        {
+          "top1_top2_margin": 19.25,
+          "historical_candidate_margin": 6.298828125
+        },
+        {
+          "top1_top2_margin": 1.2499999701976776,
+          "historical_candidate_margin": 2.5859375
+        },
+        {
+          "top1_top2_margin": 5.749999838182703,
+          "historical_candidate_margin": 1.890625
+        },
+        {
+          "top1_top2_margin": 9.624999883424607,
+          "historical_candidate_margin": 1.671875
+        },
+        {
+          "top1_top2_margin": 3.250000022351742,
+          "historical_candidate_margin": 6.9375
+        },
+        {
+          "top1_top2_margin": 2.8750000298023224,
+          "historical_candidate_margin": 3.21875
+        },
+        {
+          "top1_top2_margin": 7.999999936437234,
+          "historical_candidate_margin": 1.75
+        },
+        {
+          "top1_top2_margin": 0.125,
+          "historical_candidate_margin": 11.625000476837158
+        },
+        {
+          "top1_top2_margin": 6.875000223284587,
+          "historical_candidate_margin": 4.8125
+        },
+        {
+          "top1_top2_margin": 7.750000212050509,
+          "historical_candidate_margin": 3.0
+        },
+        {
+          "top1_top2_margin": 1.25,
+          "historical_candidate_margin": 7.9375
+        },
+        {
+          "top1_top2_margin": 4.750000169500709,
+          "historical_candidate_margin": 8.8125
+        },
+        {
+          "top1_top2_margin": 0.6250000596046448,
+          "historical_candidate_margin": 3.6875
+        },
+        {
+          "top1_top2_margin": 8.499999663079507,
+          "historical_candidate_margin": 4.687498092651367
+        },
+        {
+          "top1_top2_margin": 0.125,
+          "historical_candidate_margin": 8.1875
+        },
+        {
+          "top1_top2_margin": 2.9999999701976776,
+          "historical_candidate_margin": 5.5625
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 0.0
+        },
+        {
+          "top1_top2_margin": 6.125000074505806,
+          "historical_candidate_margin": 4.75
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 6.5
+        },
+        {
+          "top1_top2_margin": 1.5000000298023224,
+          "historical_candidate_margin": 6.0625
+        },
+        {
+          "top1_top2_margin": 14.874999642372188,
+          "historical_candidate_margin": 0.109375
+        },
+        {
+          "top1_top2_margin": 18.375,
+          "historical_candidate_margin": 0.07421875
+        },
+        {
+          "top1_top2_margin": 22.375,
+          "historical_candidate_margin": 2.2890625
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 3.84375
+        },
+        {
+          "top1_top2_margin": 0.5,
+          "historical_candidate_margin": 7.4375
+        },
+        {
+          "top1_top2_margin": 0.2500000596046448,
+          "historical_candidate_margin": 1.890625
+        },
+        {
+          "top1_top2_margin": 10.749999523672159,
+          "historical_candidate_margin": 5.376953125
+        },
+        {
+          "top1_top2_margin": 17.375,
+          "historical_candidate_margin": 6.5625
+        },
+        {
+          "top1_top2_margin": 4.249999793246388,
+          "historical_candidate_margin": 2.984375
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "kind": "original-decode",
+      "input_sha256": "38db48ae0a9e0cd58315b31edae50f04631466b0557d3d21d26ee7d6ba009296",
+      "input_tokens": 50527,
+      "output_tokens": 32,
+      "output_sha256": "a7ced94081e5669c8a2bc22202dfe62de308ade58c106c92a2df7479d7ea8588",
+      "finish_reason": {
+        "type": "length",
+        "length": 32
+      },
+      "numeric_steps": [
+        {
+          "top1_top2_margin": 1.0000000596046448,
+          "historical_candidate_margin": -0.625
+        },
+        {
+          "top1_top2_margin": 6.624999925028533,
+          "historical_candidate_margin": 0.921875
+        },
+        {
+          "top1_top2_margin": 17.812499880790718,
+          "historical_candidate_margin": 3.0703125
+        },
+        {
+          "top1_top2_margin": 20.25,
+          "historical_candidate_margin": 6.4453125
+        },
+        {
+          "top1_top2_margin": 1.2500000298023224,
+          "historical_candidate_margin": 2.59375
+        },
+        {
+          "top1_top2_margin": 5.499999905470759,
+          "historical_candidate_margin": 1.859375
+        },
+        {
+          "top1_top2_margin": 9.750000240564987,
+          "historical_candidate_margin": 1.46875
+        },
+        {
+          "top1_top2_margin": 3.249999910593033,
+          "historical_candidate_margin": 7.125
+        },
+        {
+          "top1_top2_margin": 2.7500001043081284,
+          "historical_candidate_margin": 3.0
+        },
+        {
+          "top1_top2_margin": 7.874999980966095,
+          "historical_candidate_margin": 1.5
+        },
+        {
+          "top1_top2_margin": 0.125,
+          "historical_candidate_margin": 11.562499046325684
+        },
+        {
+          "top1_top2_margin": 6.750000135740265,
+          "historical_candidate_margin": 4.875
+        },
+        {
+          "top1_top2_margin": 8.12499956699321,
+          "historical_candidate_margin": 3.078125
+        },
+        {
+          "top1_top2_margin": 1.2499999701976776,
+          "historical_candidate_margin": 7.812499046325684
+        },
+        {
+          "top1_top2_margin": 4.9999997820705175,
+          "historical_candidate_margin": 9.0
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 3.3125
+        },
+        {
+          "top1_top2_margin": 8.124999686173396,
+          "historical_candidate_margin": 4.804689407348633
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 8.34375
+        },
+        {
+          "top1_top2_margin": 2.999999985098839,
+          "historical_candidate_margin": 5.375
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 0.0
+        },
+        {
+          "top1_top2_margin": 6.124999773455784,
+          "historical_candidate_margin": 4.625
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 6.4375
+        },
+        {
+          "top1_top2_margin": 2.0000000447034836,
+          "historical_candidate_margin": 6.25
+        },
+        {
+          "top1_top2_margin": 2.2500000074505806,
+          "historical_candidate_margin": 2.6484375
+        },
+        {
+          "top1_top2_margin": 15.25000011920963,
+          "historical_candidate_margin": 6.765625
+        },
+        {
+          "top1_top2_margin": 18.5,
+          "historical_candidate_margin": 5.7578125
+        },
+        {
+          "top1_top2_margin": 6.750000237720087,
+          "historical_candidate_margin": 4.045408248901367
+        },
+        {
+          "top1_top2_margin": 14.62500011920963,
+          "historical_candidate_margin": 4.24609375
+        },
+        {
+          "top1_top2_margin": 0.7500000596046448,
+          "historical_candidate_margin": 3.03125
+        },
+        {
+          "top1_top2_margin": 5.87499983375892,
+          "historical_candidate_margin": 4.34375
+        },
+        {
+          "top1_top2_margin": 2.2499999403953552,
+          "historical_candidate_margin": 9.25
+        },
+        {
+          "top1_top2_margin": 1.7499999403953552,
+          "historical_candidate_margin": 9.25
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "kind": "original-decode",
+      "input_sha256": "38db48ae0a9e0cd58315b31edae50f04631466b0557d3d21d26ee7d6ba009296",
+      "input_tokens": 50527,
+      "output_tokens": 32,
+      "output_sha256": "7debf00ca2b87570767c5471c858045fc35509536d8dc8d892e118ddc6bc526c",
+      "finish_reason": {
+        "type": "length",
+        "length": 32
+      },
+      "numeric_steps": [
+        {
+          "top1_top2_margin": 1.0000000596046448,
+          "historical_candidate_margin": -0.625
+        },
+        {
+          "top1_top2_margin": 6.62500018812716,
+          "historical_candidate_margin": 0.875
+        },
+        {
+          "top1_top2_margin": 17.937499880790718,
+          "historical_candidate_margin": 3.2421875
+        },
+        {
+          "top1_top2_margin": 20.25,
+          "historical_candidate_margin": 6.25
+        },
+        {
+          "top1_top2_margin": 1.2500000298023224,
+          "historical_candidate_margin": 2.5390625
+        },
+        {
+          "top1_top2_margin": 6.125000023050234,
+          "historical_candidate_margin": 1.953125
+        },
+        {
+          "top1_top2_margin": 9.875000120784534,
+          "historical_candidate_margin": 2.078125
+        },
+        {
+          "top1_top2_margin": 3.2500001080334187,
+          "historical_candidate_margin": 7.0625
+        },
+        {
+          "top1_top2_margin": 2.8749998956918716,
+          "historical_candidate_margin": 3.0
+        },
+        {
+          "top1_top2_margin": 7.999999697029125,
+          "historical_candidate_margin": 1.75
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 11.499999523162842
+        },
+        {
+          "top1_top2_margin": 6.875000168569386,
+          "historical_candidate_margin": 4.75
+        },
+        {
+          "top1_top2_margin": 7.874999833875336,
+          "historical_candidate_margin": 3.203125
+        },
+        {
+          "top1_top2_margin": 1.3750000298023224,
+          "historical_candidate_margin": 8.062500953674316
+        },
+        {
+          "top1_top2_margin": 4.750000163912773,
+          "historical_candidate_margin": 8.8125
+        },
+        {
+          "top1_top2_margin": 0.5,
+          "historical_candidate_margin": 3.75
+        },
+        {
+          "top1_top2_margin": 8.624999777690391,
+          "historical_candidate_margin": 4.8828125
+        },
+        {
+          "top1_top2_margin": 0.12499994039535522,
+          "historical_candidate_margin": 8.40625
+        },
+        {
+          "top1_top2_margin": 2.999999947845936,
+          "historical_candidate_margin": 5.5
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 0.0
+        },
+        {
+          "top1_top2_margin": 6.249999778112397,
+          "historical_candidate_margin": 4.6875
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 6.5625
+        },
+        {
+          "top1_top2_margin": 1.4999999403953552,
+          "historical_candidate_margin": 6.0625
+        },
+        {
+          "top1_top2_margin": 14.000000000000455,
+          "historical_candidate_margin": -0.46875
+        },
+        {
+          "top1_top2_margin": 18.125,
+          "historical_candidate_margin": 0.22265625
+        },
+        {
+          "top1_top2_margin": 22.3125,
+          "historical_candidate_margin": 2.2958984375
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 3.6953125
+        },
+        {
+          "top1_top2_margin": 0.5,
+          "historical_candidate_margin": 7.21875
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 1.7890625
+        },
+        {
+          "top1_top2_margin": 11.000000000356522,
+          "historical_candidate_margin": 4.9921875
+        },
+        {
+          "top1_top2_margin": 17.5,
+          "historical_candidate_margin": 6.78515625
+        },
+        {
+          "top1_top2_margin": 4.249999795109034,
+          "historical_candidate_margin": 3.054685592651367
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "kind": "original-decode",
+      "input_sha256": "38db48ae0a9e0cd58315b31edae50f04631466b0557d3d21d26ee7d6ba009296",
+      "input_tokens": 50527,
+      "output_tokens": 32,
+      "output_sha256": "7debf00ca2b87570767c5471c858045fc35509536d8dc8d892e118ddc6bc526c",
+      "finish_reason": {
+        "type": "length",
+        "length": 32
+      },
+      "numeric_steps": [
+        {
+          "top1_top2_margin": 1.0000000596046448,
+          "historical_candidate_margin": -0.625
+        },
+        {
+          "top1_top2_margin": 6.875000228639692,
+          "historical_candidate_margin": 1.296875
+        },
+        {
+          "top1_top2_margin": 17.437499880790718,
+          "historical_candidate_margin": 3.33984375
+        },
+        {
+          "top1_top2_margin": 18.875,
+          "historical_candidate_margin": 5.921875
+        },
+        {
+          "top1_top2_margin": 1.2500000298023224,
+          "historical_candidate_margin": 2.46875
+        },
+        {
+          "top1_top2_margin": 5.874999913619831,
+          "historical_candidate_margin": 1.9375
+        },
+        {
+          "top1_top2_margin": 9.87500000158252,
+          "historical_candidate_margin": 1.734375
+        },
+        {
+          "top1_top2_margin": 3.249999899417162,
+          "historical_candidate_margin": 6.9375
+        },
+        {
+          "top1_top2_margin": 2.7499999552965164,
+          "historical_candidate_margin": 3.21875
+        },
+        {
+          "top1_top2_margin": 8.124999682768248,
+          "historical_candidate_margin": 1.625
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 11.5625
+        },
+        {
+          "top1_top2_margin": 6.7500001717126,
+          "historical_candidate_margin": 4.5
+        },
+        {
+          "top1_top2_margin": 7.750000212050509,
+          "historical_candidate_margin": 3.109375
+        },
+        {
+          "top1_top2_margin": 1.25,
+          "historical_candidate_margin": 7.999999046325684
+        },
+        {
+          "top1_top2_margin": 4.750000039115548,
+          "historical_candidate_margin": 9.125
+        },
+        {
+          "top1_top2_margin": 0.3750000596046448,
+          "historical_candidate_margin": 3.0625
+        },
+        {
+          "top1_top2_margin": 8.000000294676283,
+          "historical_candidate_margin": 4.4609375
+        },
+        {
+          "top1_top2_margin": 0.5,
+          "historical_candidate_margin": 8.25
+        },
+        {
+          "top1_top2_margin": 3.0000000596046448,
+          "historical_candidate_margin": 5.625
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 0.0
+        },
+        {
+          "top1_top2_margin": 6.249999947845936,
+          "historical_candidate_margin": 4.6875
+        },
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 6.5
+        },
+        {
+          "top1_top2_margin": 1.7500000298023224,
+          "historical_candidate_margin": 6.1875
+        },
+        {
+          "top1_top2_margin": 14.874999642372188,
+          "historical_candidate_margin": 0.03125
+        },
+        {
+          "top1_top2_margin": 18.5,
+          "historical_candidate_margin": 0.0625
+        },
+        {
+          "top1_top2_margin": 21.6875,
+          "historical_candidate_margin": 1.857421875
+        },
+        {
+          "top1_top2_margin": 0.25,
+          "historical_candidate_margin": 3.5625
+        },
+        {
+          "top1_top2_margin": 0.5,
+          "historical_candidate_margin": 6.9375
+        },
+        {
+          "top1_top2_margin": 0.24999994039535522,
+          "historical_candidate_margin": 1.8749980926513672
+        },
+        {
+          "top1_top2_margin": 10.874999642819603,
+          "historical_candidate_margin": 4.962890625
+        },
+        {
+          "top1_top2_margin": 17.0,
+          "historical_candidate_margin": 6.5703125
+        },
+        {
+          "top1_top2_margin": 4.2499998565763235,
+          "historical_candidate_margin": 3.062498092651367
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "kind": "common-prefix-prefill",
+      "input_sha256": "f89e17b553a1962fca553f4c5d785f7372732d63bb3e454f023b47621394da5f",
+      "input_tokens": 50546,
+      "output_tokens": 1,
+      "output_sha256": "51e7b060ad328044f590b50080fe856400b0f784711e10320c07db5e6bb628ea",
+      "finish_reason": {
+        "type": "length",
+        "length": 1
+      },
+      "numeric_steps": [
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 0.0
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "kind": "common-prefix-prefill",
+      "input_sha256": "f89e17b553a1962fca553f4c5d785f7372732d63bb3e454f023b47621394da5f",
+      "input_tokens": 50546,
+      "output_tokens": 1,
+      "output_sha256": "51e7b060ad328044f590b50080fe856400b0f784711e10320c07db5e6bb628ea",
+      "finish_reason": {
+        "type": "length",
+        "length": 1
+      },
+      "numeric_steps": [
+        {
+          "top1_top2_margin": 0.0,
+          "historical_candidate_margin": 0.0
+        }
+      ]
+    }
+  ],
+  "original_decode_comparisons": [
+    {
+      "outputs_equal": false,
+      "output_tokens": [
+        32,
+        32
+      ],
+      "first_difference_zero_based": 21,
+      "same_input_prefix_logprob_steps": 22,
+      "max_abs_candidate_logprob_difference": 0.90625,
+      "scope": "Compare logprobs only through first output divergence; later prefixes differ."
+    },
+    {
+      "outputs_equal": true,
+      "output_tokens": [
+        32,
+        32
+      ],
+      "first_difference_zero_based": null,
+      "same_input_prefix_logprob_steps": 32,
+      "max_abs_candidate_logprob_difference": 1.125,
+      "scope": "Compare logprobs only through first output divergence; later prefixes differ."
+    },
+    {
+      "outputs_equal": true,
+      "output_tokens": [
+        32,
+        32
+      ],
+      "first_difference_zero_based": null,
+      "same_input_prefix_logprob_steps": 32,
+      "max_abs_candidate_logprob_difference": 2.001953125,
+      "scope": "Compare logprobs only through first output divergence; later prefixes differ."
+    }
+  ],
+  "common_prefix_prefill_comparison": {
+    "outputs_equal": true,
+    "output_tokens": [
+      1,
+      1
+    ],
+    "first_difference_zero_based": null,
+    "same_input_prefix_logprob_steps": 1,
+    "max_abs_candidate_logprob_difference": 0.0,
+    "scope": "Compare logprobs only through first output divergence; later prefixes differ."
+  }
+}
