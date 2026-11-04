@@ -1,0 +1,17 @@
+{
+  "scope": "New read-only A/A audit; original r3 execution files and manifest unchanged",
+  "files": {
+    "audit_failure.py": {
+      "executed_path": "/Users/shom/Downloads/dspark-test-20261104-r3/diagnosis/audit_failure.py",
+      "executed_sha256": "e586371706291ce26bbe1af22b38b8284f697698cef2d7ec4174b3199f1477dd",
+      "archived_sha256": "c5018b09b75ccc765b39081a8631b04b1f671d571816d1097e0973818557029e",
+      "non_import_ast_equal": true
+    },
+    "check_audit.py": {
+      "executed_path": "/Users/shom/Downloads/dspark-test-20261104-r3/diagnosis/check_audit.py",
+      "executed_sha256": "d777dbfd94c52431c8b0cd9df1f110ae914641cdfefec67aa6b3a7cb713703f1",
+      "archived_sha256": "267f93c95f90ace4066c41104981429d64be2ce17782cadc59e898766b83f963",
+      "non_import_ast_equal": true
+    }
+  }
+}

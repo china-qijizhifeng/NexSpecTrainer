@@ -1,0 +1,85 @@
+{
+  "audit_passed": true,
+  "original_fixed_length_aa_passed": false,
+  "eos_token_ids": [
+    1
+  ],
+  "target_config_sha256": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879",
+  "raw_sse_matches_saved_outputs": true,
+  "all_observed_mismatches_strictly_after_eos": true,
+  "diagnostics": [
+    {
+      "diagnostic": "diagnostic-0",
+      "input_sha256": "bf407269fd79117c6cb103598ea4a8b9865c73d7f07be45b0f7101bbd84d65da",
+      "input_tokens": 15,
+      "output_tokens": [
+        32,
+        32
+      ],
+      "full_equal": true,
+      "first_difference_zero_based": null,
+      "first_eos_zero_based": [
+        null,
+        null
+      ],
+      "equal_through_first_eos": true,
+      "difference_strictly_after_eos": false
+    },
+    {
+      "diagnostic": "diagnostic-1",
+      "input_sha256": "a8596fe933d8cb51379912577ba97a38ffeaa6e431bfbbcfda9c4d4dea64ab49",
+      "input_tokens": 15,
+      "output_tokens": [
+        32,
+        32
+      ],
+      "full_equal": true,
+      "first_difference_zero_based": null,
+      "first_eos_zero_based": [
+        null,
+        null
+      ],
+      "equal_through_first_eos": true,
+      "difference_strictly_after_eos": false
+    },
+    {
+      "diagnostic": "diagnostic-2",
+      "input_sha256": "73f766609cad0e399937fd63fe5ee0837fd5f54c3445eabeef07c6f2ea28c34d",
+      "input_tokens": 54235,
+      "output_tokens": [
+        256,
+        256
+      ],
+      "full_equal": false,
+      "first_difference_zero_based": 77,
+      "first_eos_zero_based": [
+        60,
+        60
+      ],
+      "equal_through_first_eos": true,
+      "difference_strictly_after_eos": true
+    }
+  ],
+  "test_requests": {
+    "target-only": 0,
+    "official-mtp": 0,
+    "step25": 0,
+    "step118": 0
+  },
+  "evidence_sha256": {
+    "target-only/diagnostic-0.json": "6f3a8e7d71a61038181525e37c426bff08c2533b12f4ee10a45ed73b9fa52316",
+    "target-only/diagnostic-0.events.jsonl": "b19b6016f6ff6922787a35ba09f2bb9572b2258fe3e2a208f2a5e293109e03de",
+    "target-only/diagnostic-0-repeat.json": "11369b15cd7c55d9021323df45417c1b116d0da418a0121681e8275fca6695bb",
+    "target-only/diagnostic-0-repeat.events.jsonl": "836d40754e0ce791404c12fe10e1382d30ef60bf49f2bff342e63f6b10297b75",
+    "target-only/diagnostic-1.json": "ccfea075d4560ac7974fb84cf41ca08fb271fe78745c8eecc7a5c14818838135",
+    "target-only/diagnostic-1.events.jsonl": "d6c4cd9ebb54ac1952112e887c22a1856c3f851d7ba226817c492db892720629",
+    "target-only/diagnostic-1-repeat.json": "dc1b502647d49bbc80168536f73cab8511038e3da036ab4b5c62b46507c79602",
+    "target-only/diagnostic-1-repeat.events.jsonl": "1c46be2d688ad3c85b00845128b217f732bb27405b78fb34d77c7512f1511a0c",
+    "target-only/diagnostic-2.json": "03d7c4314c9b432a0b17f0ef7088906a4bfff5d108be66da2e05d8d09de3d952",
+    "target-only/diagnostic-2.events.jsonl": "facd389c2d65d1ec9dbd6e987e944ea5be2542da5e2d4c3b768fbf012839198e",
+    "target-only/diagnostic-2-repeat.json": "a157b518fda3134156b8570c3560561d42d675ccaf2e480e630ffefdd4a78909",
+    "target-only/diagnostic-2-repeat.events.jsonl": "92c1f6bb2af05e803e5335f32bc4b4c59907b22625d5735ebe9752802b400a9e"
+  },
+  "numerical_root_cause_confirmed": false,
+  "scope": "Recorded failure only. Equality before EOS is not a passing rerun, deterministic-kernel proof, or test score."
+}

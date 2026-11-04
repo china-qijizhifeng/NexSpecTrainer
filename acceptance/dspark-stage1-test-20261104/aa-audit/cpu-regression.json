@@ -1,0 +1,1 @@
+{"passed": true, "scope": "EOS boundary, pre-EOS mismatch, no-EOS and multiple-EOS handling, raw delta/cumulative replay and corruption rejection; no GPU numerical claim"}

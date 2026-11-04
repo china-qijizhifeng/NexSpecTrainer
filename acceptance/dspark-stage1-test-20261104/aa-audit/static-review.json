@@ -1,0 +1,75 @@
+{
+  "completed_static_scope": [
+    "request generation parameters and fixed input SHA",
+    "cumulative/delta SSE reconstruction against all captured events",
+    "greedy sampler and stop-token handling",
+    "dsv4 model argument resolution and deterministic attention validation",
+    "actual SM90 W4A16 MoE dispatch and finalize flag",
+    "dsv4 low-ratio indexer selection and top-k consumers",
+    "auto-enabled FlashInfer AllReduce fusion and supported override"
+  ],
+  "sglang_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "source_archive": {
+    "commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+    "archive_sha256": "4cf0160771c38e2c598b0fbf2c159ef62dadb474115f9f14bff6203d4efe9498",
+    "source_url": "https://codeload.github.com/sgl-project/sglang/tar.gz/38d9e4a3fe4a493b0ae468477a274e83defda81a",
+    "files": 9958
+  },
+  "source_sha256": {
+    "srt/arg_groups/attention_hook.py": "18092b1a4a287133cc9b074df9deb09556980788ba298b21f5e7eb74c992b317",
+    "srt/arg_groups/overrides.py": "ec3e99814a67dd82e9432c60e1427bfb99d95dd0c8afcdb526d3dee8ab93175a",
+    "srt/arg_groups/choices.py": "f87b6cf32819840378241842fa89b795242cb64e6ed31fae37bcf05a2f0c55a9",
+    "srt/layers/sampler.py": "76c6de8bae5055af1b1c1690029c06e531fc58296ee42e24ab137331ce9c6b56",
+    "srt/managers/schedule_batch.py": "78264125d59279410d7d6dc0a79c9e84e8a48e783ea9bcfe402fdc49517cc588",
+    "srt/managers/scheduler.py": "0ee6f062c64ed0db2c25504af46fbcf01998b9bbd04f1a4a8eaf4d5dd283b00e",
+    "srt/layers/quantization/mxfp4.py": "c8d1c9bcd71144c2fb8729338400b8fb56bdae23e197e086cc383314b2bc6cb0",
+    "srt/layers/moe/moe_runner/flashinfer_cutlass.py": "23b5228a357e4aedbff32ad364bdd5c3b1aed7828a7d9f8bcdc491ac45a4bce0",
+    "srt/layers/attention/deepseek_v4_backend.py": "edb6d691ad8d4adb0c32884145e765500f3097f4bca1adc7361dfca57627ed1d",
+    "srt/layers/attention/dsv4/v41_indexer/full_topk.py": "19eada46ae2df4472ea155a7354aabdb1760a22e1f6aa3fdbeccd406e8bb4236",
+    "srt/layers/attention/dsv4/v41_indexer/scoring.py": "d3e648d6ad1436a20adfce5fdd05f0e9f66849080220dc8d95260f88023ffc98",
+    "srt/layers/attention/dsv4/indexer.py": "4d0da92df2d73c9100ff9a235bb8312a02b412f457ea976a14fbd01825b0b9f6"
+  },
+  "confirmed": {
+    "client_artifact_reproduces_raw_sse_failure": true,
+    "recorded_eos_id": 1,
+    "first_eos_zero_based": 60,
+    "first_full_output_disagreement_zero_based": 77,
+    "equal_through_eos": true,
+    "ignore_eos_skips_server_token_finish": true,
+    "skip_tokenizer_init_preserves_model_config_eos_ids": true,
+    "global_deterministic_flag_rejects_dsv4": true,
+    "actual_moe_path": "FlashInfer SM90 CUTLASS MXFP4 weights x BF16 activations (W4A16); not MegaMoE",
+    "flashinfer_allreduce_auto_enabled": true,
+    "no_test_requests": true
+  },
+  "unresolved": [
+    "Which numerical operation causes the post-EOS difference; no per-step logits were requested in r3",
+    "Whether EOS-aware reruns of all ten validation diagnostics pass",
+    "AR-vs-DSPARK equality on diagnostics and test inputs"
+  ],
+  "ranked_falsifiable_hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "MoE/reduction numerical variability changes near-tie logits",
+      "prediction": "Identical-prefix logits differ before selection; a backend-specific reduction isolation changes the variability; not yet tested"
+    },
+    {
+      "rank": 2,
+      "hypothesis": "Sparse attention top-k or score variability",
+      "prediction": "Identical hidden states yield differing selected logical indices or attention outputs; not yet tested"
+    },
+    {
+      "rank": 3,
+      "hypothesis": "Request history affects cache/allocation or overlap state",
+      "prediction": "Output changes with fresh-server or request-order isolation; radix hits and retractions being zero alone do not exclude it"
+    },
+    {
+      "rank": 4,
+      "hypothesis": "Client request/output reconstruction caused the discrepancy",
+      "prediction": "Saved final output differs from raw event replay; contradicted by the complete raw-event audit"
+    }
+  ],
+  "protocol_decision": "User has been asked whether to retain forced fixed length or stop at EOS with max1024. Do not silently weaken the original A/A gate. No new GPU job while this choice is pending.",
+  "resource_state": "r3 failed and exact job deleted; no running evaluation; preserve accepted exports and imported image",
+  "no_fix_claim": true
+}

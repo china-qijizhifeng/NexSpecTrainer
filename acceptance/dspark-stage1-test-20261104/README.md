@@ -1,5 +1,10 @@
 # dSpark stage1 and held-out test run fixes
 
+The later node040 attempt stopped at its target-only A/A validation gate,
+before any test output. See [the A/A failure audit](aa-audit/README.md) for
+the EOS boundary, raw-event evidence and unresolved numerical limitations.
+The older execution and regression receipts below remain historical records.
+
 The executed source fixes are now on GitHub `main`:
 
 - `952e70c3e8109e5295436141b6c6336897448bc2` pads masked anchor slots so every
