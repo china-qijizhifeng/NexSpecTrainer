@@ -1,0 +1,16 @@
+{
+  "RUN.md": "e6de2ebc1ae552d7ffae56c4c88beb0092493f2a1ebba6efe3f941094a1aad6f",
+  "candidate-profile.json": "c92c36a7dcbd5802678908c6e2f08f0588531d54d89a5bdee29757556e448dd1",
+  "RECIPE-REVIEW.md": "ec23774745b58612cd2982b16e7c15c21277581a7e3d155ff94d05b421d27ccf",
+  "launch_private.py": "419fae7f55b3ebca5ec01ac83f0c80696ae590639ec629c09771ee0c5ebabd67",
+  "worker.py": "c1c8e53caaf8b6ca0e616e192f7e01dbc8ad9efa6c5043f47da004d1467d0ed5",
+  "execution_contract.py": "6488c8e8059f7bafd9d320dbb5edadfe2ce190e032e8b45747f2d732e3e80518",
+  "import_worker_image.py": "a324a1e7c6c4966fb3fce6927708c0e0a523974e8961e61329de63075c1c7537",
+  "ctr_contract.py": "15c161ccf2db5a48c897b27cf4a65dbde3c66a99eea1fd04036f2f51efb31f6c",
+  "with_kernel_cache.py": "03ae7611135114fb823d5f28d8bfed1ba8a1334301b05e34b5decdcd733679b9",
+  "serving-source-pins.json": "01d3467dcbc5531a164aa117b2887f745f4c3746737608d179e458a986d0517b",
+  "model-provenance.json": "a579e5079cacfe108bdd195c540f1683e4c7899a19b82879cc434f6a76cf4cc4",
+  "replica-a-job.yaml": "115c181111320e39b43593d237ae6cc3695e4a6aee1702fcb7a4ba5fb627958d",
+  "replica-b-job.yaml": "057cac50a046ff71d8c1b02a488154c8322552f58cfa6da50098cfa7e5dbdb05",
+  "check_preflight.py": "2d0f6367d52ed4f44ac42ed58256852e2265b023308f1ed086518bea2d1374e9"
+}

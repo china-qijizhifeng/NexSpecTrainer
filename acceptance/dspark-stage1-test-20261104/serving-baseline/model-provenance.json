@@ -1,0 +1,14 @@
+{
+  "model": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "revision": "1bae0e1088993b9b82de08f59de5be5a34e42170",
+  "sha256": {
+    ".download/identity.json": "af39e9992f1ed9d3917f380e5653c3577d0ec4e84dbb0587eebb8c92739fd5dc",
+    ".download/complete.json": "ac1e5a9c4e5fd7deddb426fb976adf6a091c53ff052aff30ca4fddd1aa519dd3",
+    ".download/verified-files.json": "3293fde518ba10d839534dccf2bfc30fa9d405c4efcfa803c154f4072a4eec03",
+    "config.json": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879",
+    "tokenizer_config.json": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547",
+    "tokenizer.json": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+    "model.safetensors.index.json": "74b0686a3d2891980d5e303251b075a3bccae2c2ff650747db2620a649b98fa8"
+  },
+  "scope": "metadata/encoder current SHA pins; weight download full-SHA receipt plus present size checked at worker startup"
+}

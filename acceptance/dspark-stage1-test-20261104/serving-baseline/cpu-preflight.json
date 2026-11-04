@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "CPU execution guards/redaction/YAML/profile only; no GPU/model/API acceptance",
+  "checks": [
+    "valid execution",
+    "mutation rejected",
+    "escape rejected",
+    "symlink rejected",
+    "nested secret redaction",
+    "two worker permission/topology profiles",
+    "real DSPARK/cache/tokenizer flags"
+  ]
+}

@@ -1,0 +1,179 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: dspark-v41-baseline-a-20261104-r1
+  namespace: qiji
+  annotations:
+    JobAlias: dspark-v41-baseline-a-20261104-r1
+    project: WeaverRSI
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  queue: proj-32
+  tasks:
+  - replicas: 1
+    name: worker
+    template:
+      spec:
+        restartPolicy: Never
+        activeDeadlineSeconds: 604800
+        tolerations:
+        - key: task-type
+          operator: Equal
+          value: rsi-weaver
+          effect: NoSchedule
+        - key: task-type
+          operator: Equal
+          value: weaver
+          effect: NoSchedule
+        volumes:
+        - name: task
+          hostPath:
+            path: /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1
+            type: Directory
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 64Gi
+        - name: runtime
+          hostPath:
+            path: /run/containerd/containerd.sock
+            type: Socket
+        - name: host-ctr
+          hostPath:
+            path: /usr/bin/ctr
+            type: File
+        - name: host-crictl
+          hostPath:
+            path: /usr/bin/crictl
+            type: File
+        - name: host-snapshotter
+          hostPath:
+            path: /data/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs
+            type: Directory
+        - name: model
+          hostPath:
+            path: /gpfs/users/linlizhi/models/huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+            type: Directory
+        - name: archive
+          hostPath:
+            path: /gpfs/users/linlizhi/nexspec-v41-capture-20261103/offline-image
+            type: Directory
+        containers:
+        - name: worker
+          image: lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa
+          imagePullPolicy: Never
+          resources:
+            requests:
+              cpu: '64'
+              memory: 768Gi
+              nvidia.com/gpu: '8'
+            limits:
+              cpu: '64'
+              memory: 768Gi
+              nvidia.com/gpu: '8'
+          command:
+          - /bin/bash
+          - -c
+          - umask 077; exec python3 -u /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/worker.py
+            > /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/replica-a/worker.log
+            2>&1
+          volumeMounts:
+          - name: task
+            mountPath: /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1
+          - name: model
+            mountPath: /gpfs/users/linlizhi/models/huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+            readOnly: true
+          - name: shm
+            mountPath: /dev/shm
+          securityContext:
+            runAsUser: 1006
+            runAsGroup: 1006
+            runAsNonRoot: true
+            capabilities:
+              add:
+              - IPC_LOCK
+          env:
+          - &id001
+            name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - &id002
+            name: EXPECTED_NODE
+            value: node205
+          - &id003
+            name: WORKER_ID
+            value: replica-a
+          - name: PYTHONUNBUFFERED
+            value: '1'
+          - name: PYTHONDONTWRITEBYTECODE
+            value: '1'
+          - name: OMP_NUM_THREADS
+            value: '8'
+          - name: HF_HUB_OFFLINE
+            value: '1'
+          - name: TRANSFORMERS_OFFLINE
+            value: '1'
+          - name: HOME
+            value: /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/replica-a/home
+          - name: PYTORCH_ALLOC_CONF
+            value: expandable_segments:True
+          ports:
+          - name: http
+            containerPort: 8000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 20
+            periodSeconds: 15
+            timeoutSeconds: 5
+        nodeSelector:
+          kubernetes.io/hostname: node205
+          node_shcheduleable: 'true'
+        initContainers:
+        - name: import-verified-serving-image
+          image: harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: '2'
+              memory: 8Gi
+              nvidia.com/gpu: '8'
+            limits:
+              cpu: '2'
+              memory: 8Gi
+              nvidia.com/gpu: '8'
+          command:
+          - /bin/bash
+          - -c
+          - set -euo pipefail; mkdir -p /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/replica-a/image-import;
+            exec python3 -u /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/import_worker_image.py
+            > /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/replica-a/image-import/worker.log
+            2>&1
+          env:
+          - *id001
+          - *id002
+          - *id003
+          volumeMounts:
+          - name: runtime
+            mountPath: /run/nexspec-runtime/containerd.sock
+          - name: host-ctr
+            mountPath: /host-ctr
+            readOnly: true
+          - name: host-crictl
+            mountPath: /host-crictl
+            readOnly: true
+          - name: host-snapshotter
+            mountPath: /host-snapshotter
+            readOnly: true
+          - name: task
+            mountPath: /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1
+          - name: archive
+            mountPath: /gpfs/users/linlizhi/nexspec-v41-capture-20261103/offline-image
+            readOnly: true
+      metadata:
+        labels:
+          app: dspark-v41-baseline-20261104-r1
+          replica: replica-a

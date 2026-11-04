@@ -1,0 +1,64 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: dspark-v41-serving-image-probe-20261104-r1
+  namespace: qiji
+  annotations:
+    JobAlias: dspark-v41-serving-image-probe-20261104-r1
+    project: WeaverRSI
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  queue: proj-32
+  tasks:
+  - replicas: 1
+    name: probe
+    template:
+      spec:
+        restartPolicy: Never
+        activeDeadlineSeconds: 600
+        securityContext:
+          runAsUser: 1006
+          runAsGroup: 1006
+          runAsNonRoot: true
+        nodeSelector:
+          kubernetes.io/hostname: node040
+        tolerations:
+        - key: task-type
+          operator: Equal
+          value: rsi-weaver
+          effect: NoSchedule
+        - key: task-type
+          operator: Equal
+          value: weaver
+          effect: NoSchedule
+        volumes:
+        - name: task
+          hostPath:
+            path: /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1
+            type: Directory
+        containers:
+        - name: probe
+          image: lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa
+          imagePullPolicy: Never
+          resources:
+            requests:
+              cpu: '2'
+              memory: 8Gi
+            limits:
+              cpu: '2'
+              memory: 8Gi
+          command:
+          - /bin/bash
+          - -c
+          - 'umask 077; exec python3 -u /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/probe_image.py > /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1/image-probe/worker.log 2>&1'
+          env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          - name: PYTHONDONTWRITEBYTECODE
+            value: '1'
+          volumeMounts:
+          - name: task
+            mountPath: /gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1
