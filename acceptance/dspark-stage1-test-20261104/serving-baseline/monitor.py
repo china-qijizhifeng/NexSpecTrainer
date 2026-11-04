@@ -14,7 +14,7 @@ root = Path('/gpfs/users/linlizhi/dspark-v41-northgate-20261104-r1')
 out = {'time': time.time(), 'free_bytes': shutil.disk_usage(root).free, 'workers': {}}
 for worker, alias in [('replica-a', 'dspark-v41-baseline-a-20261104-r1'), ('replica-b', 'dspark-v41-baseline-b-20261104-r1')]:
     row = {'alias': alias, 'jobs': api('jobs', alias=alias)}
-    for name in ['job.json', 'phase.json', 'environment.json', 'smoke.json', 'failure.json', 'server-exit.json', 'image-import/gpu-preflight.json', 'image-import/result.json', 'terminal.json', 'delete.json']:
+    for name in ['job.json', 'phase.json', 'environment.json', 'smoke.json', 'failure.json', 'server-exit.json', 'image-import/gpu-preflight.json', 'image-import/result.json', 'terminal.json', 'delete.json', 'api-acceptance.json', 'api-acceptance-failure.json', 'resolved-config-acceptance.json', 'service-identity.json', 'service-detail.json', 'submission-preflight.json']:
         path = root / worker / name
         if path.exists():
             row[name] = json.loads(path.read_text())

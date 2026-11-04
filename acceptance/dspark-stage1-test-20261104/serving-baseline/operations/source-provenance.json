@@ -1,0 +1,29 @@
+{
+  "scope": "Supplemental operations only; original 14-file worker manifest unchanged",
+  "scripts": {
+    "accept_worker.py": {
+      "execution_sha256": "277e9224afa8f190fba970ae81b89ddaeeec3e92d16eae5944cba4f960344b6f",
+      "archive_sha256": "277e9224afa8f190fba970ae81b89ddaeeec3e92d16eae5944cba4f960344b6f",
+      "non_import_ast_equal": true,
+      "byte_identical": true
+    },
+    "check_operations.py": {
+      "execution_sha256": "2bb4d3851feceef50a57629b1d69ba36b553dff48431da6b9901cb085d260ad2",
+      "archive_sha256": "2bb4d3851feceef50a57629b1d69ba36b553dff48431da6b9901cb085d260ad2",
+      "non_import_ast_equal": true,
+      "byte_identical": true
+    },
+    "platform_ops.py": {
+      "execution_sha256": "2abeb43745b9108422edda5e4c317df01bd150f3aa019ae8b80756356fad1505",
+      "archive_sha256": "83949948ecb25a7b39f5413a379c2cb5ee1c94eaf76a335a168dd63cfe84fd5d",
+      "non_import_ast_equal": true,
+      "byte_identical": false
+    },
+    "submit_replica_b.py": {
+      "execution_sha256": "c7d9eaaf21970c425ad2d2b6e1fbe3bb743f9a291202148156fc00bea0c30094",
+      "archive_sha256": "13830aca35ecdb0e885d2f7b51e4e5e28f45a848599ec52ee1e0c5ec61b83c80",
+      "non_import_ast_equal": true,
+      "byte_identical": false
+    }
+  }
+}

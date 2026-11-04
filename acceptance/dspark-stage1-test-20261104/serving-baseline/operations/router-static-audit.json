@@ -1,0 +1,22 @@
+{
+  "scope": "Static audit of pinned router sources and installed Python; actual Rust router auth/routing runtime remains pending",
+  "sglang_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "installed_router_version": "0.3.2",
+  "installed_python_matches_pinned_source": true,
+  "findings": [
+    "global api_key protects inference routes via auth_middleware",
+    "initial worker registration inherits global api_key",
+    "distinct control_plane_api_keys can isolate worker-management routes",
+    "public models/server_info proxy forwards caller Authorization, not an injected metadata key",
+    "keep health checks, cache_aware and history_backend none; validate native runtime before exposure"
+  ],
+  "actual_rust_build_commit_verified": false,
+  "runtime_acceptance_passed": false,
+  "references": [
+    "sgl-model-gateway/src/server.rs",
+    "sgl-model-gateway/src/middleware.rs",
+    "sgl-model-gateway/src/core/job_queue.rs",
+    "sgl-model-gateway/src/routers/http/router.rs"
+  ],
+  "installed_python_sha256": "7fa075565bfbd3bb1530e6cd5e8a12cd4fcbb67a2ce803ffd6cfe1aa57a27e08"
+}
