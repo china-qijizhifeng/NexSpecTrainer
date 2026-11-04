@@ -1,5 +1,48 @@
 # Baseline serving continuation
 
+Latest verified state, 2026-11-04 06:45 UTC: both workers are Running1/1.
+Replica-b reached worker_ready at06:38:01 UTC and passed the same full API
+acceptance at06:40:41 UTC (14 positive requests and6 missing/invalid-key checks).
+Actual node207 has8H100; full archive/import/CRI and environment passed. Its
+resolved configuration and environment match the accepted replica-a; see
+replica-b/resolved-config-acceptance.json. Native greeting again returned10
+tokens/EOS1, verify3/proposed15/correct7, and long-prefix cache reused12288 tokens.
+This is functional acceptance, not a performance optimum or lossless result.
+
+Replica-b now has its own NodePort Service:
+svc-53d971bd3abc4057-20261104143955, alias dspark-v41-replica-b-20261104-r1,
+NodePort30392, ClusterIP10.233.39.37, selector exactly task app+replica-b.
+Detail resolves only job-ac6e7833c28c-20261104130228-worker-0 on node207.
+http://10.51.6.31:30392 passed actual API acceptance. Both existing replica
+submission intents and original14-file manifest remain unchanged; never resubmit.
+
+No router job/Service or NorthGate model exists yet. Next prepare a separate
+CPU-only router job on an eligible node with the verified cached image; read the
+actual node/project constraints again before submission. Use installed router0.3.2,
+cache_aware/history_backend none, separate control-plane admin key, health checks
+enabled and automatic retries disabled. Freeze a separate router execution
+manifest without changing the running workers. Keep keys out of argv and logs.
+
+Read-only metadata inspection found both authenticated worker server-info
+responses echo the caller's already-known worker key. Raw responses were not
+saved; saved server-info receipts are redacted. The pinned Rust public metadata
+proxy forwards caller Authorization rather than injecting the worker key; keep
+that boundary and verify missing/invalid-key rejection in the actual router.
+Never print or archive raw metadata with credentials. A separate router admin
+key must not appear in any inference or metadata response.
+
+For actual routing evidence, both workers expose sglang:num_requests_total by
+is_streaming on authenticated /metrics. Snapshot both counters around isolated
+router requests to identify the selected worker, then verify repeated fresh long
+prefixes stay on that worker and reuse cache. Pinned cache_aware implementation
+uses cached-prefix affinity when match_rate exceeds threshold; a cold miss uses
+minimum live load with random tie-breaking, so do not require alternate cold
+prefixes to deterministically select the other worker. Source pins are under
+router-audit/; the Rust wheel commit still is not proved by Python equality.
+
+The independent test-r4 remained Pending0/1 with its exact controller verified.
+GPFS free was about1.25TB at06:45 UTC, above850GB; use the latest snapshot.
+
 Read RUN.md, RECIPE-REVIEW.md and candidate-profile.json first. This serving deployment is independent of the frozen held-out test-r4; preserve both.
 
 Replica-a was submitted once: alias dspark-v41-baseline-a-20261104-r1,

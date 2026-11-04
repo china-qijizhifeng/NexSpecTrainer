@@ -1,0 +1,42 @@
+{
+  "code": 0,
+  "data": {
+    "service_name": "svc-53d971bd3abc4057-20261104143955",
+    "service_alias": "dspark-v41-replica-b-20261104-r1",
+    "namespace": "qiji",
+    "service_type": "NodePort",
+    "cluster_ip": "10.233.39.37",
+    "selector": {
+      "app": "dspark-v41-baseline-20261104-r1",
+      "replica": "replica-b"
+    },
+    "status": "inuse",
+    "ports": [
+      {
+        "name": "http",
+        "protocol": "TCP",
+        "port": 8000,
+        "target_port": 8000,
+        "node_port": 30392
+      }
+    ],
+    "display_ports": "8000:30392/TCP",
+    "remark": "Owned official Flash-1017 DSPARK baseline; seven-day worker lease",
+    "creator": "linlizhi",
+    "created_at": "2026-11-04T14:39:55+08:00",
+    "pods": [
+      {
+        "name": "job-ac6e7833c28c-20261104130228-worker-0",
+        "status": "Running",
+        "node_name": "node207",
+        "ip": "10.233.92.22",
+        "ready_count": 1,
+        "total_count": 1,
+        "age": "2026-11-04T13:02:33+08:00"
+      }
+    ]
+  },
+  "err_detail": "",
+  "err_msg": "",
+  "request_id": "ReqID-20261104-143955-4552-9618"
+}

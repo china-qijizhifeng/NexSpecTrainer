@@ -24,6 +24,18 @@
       "archive_sha256": "13830aca35ecdb0e885d2f7b51e4e5e28f45a848599ec52ee1e0c5ec61b83c80",
       "non_import_ast_equal": true,
       "byte_identical": false
+    },
+    "accept_replica_config.py": {
+      "execution_sha256": "9bb5309b760c171d1fe68f62df504a8797d236a4d82e1ea2d5309f3833c7e20d",
+      "archive_sha256": "9bb5309b760c171d1fe68f62df504a8797d236a4d82e1ea2d5309f3833c7e20d",
+      "non_import_ast_equal": true,
+      "byte_identical": true
+    },
+    "inspect_metadata_boundary.py": {
+      "execution_sha256": "663982d37b93583e5d3bcd03cbd6c1933de9a8f62c2ddc9efabab6290aa40523",
+      "archive_sha256": "663982d37b93583e5d3bcd03cbd6c1933de9a8f62c2ddc9efabab6290aa40523",
+      "non_import_ast_equal": true,
+      "byte_identical": true
     }
   }
 }

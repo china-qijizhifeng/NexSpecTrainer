@@ -1,0 +1,24 @@
+{
+  "time": 1793774987.8325117,
+  "scope": "Read-only authenticated metadata inspection; no inference or router runtime validation",
+  "workers": {
+    "replica-a": {
+      "endpoint": "http://10.51.6.31:30813",
+      "authenticated_server_info_echoes_known_caller_key": true,
+      "request_counters": [
+        "sglang:num_requests_total{engine_type=\"unified\",is_streaming=\"false\",model_name=\"deepseek-v4.1-flash-dspark-baseline\"} 11.0",
+        "sglang:num_requests_total{engine_type=\"unified\",is_streaming=\"true\",model_name=\"deepseek-v4.1-flash-dspark-baseline\"} 5.0"
+      ]
+    },
+    "replica-b": {
+      "endpoint": "http://10.51.6.31:30392",
+      "authenticated_server_info_echoes_known_caller_key": true,
+      "request_counters": [
+        "sglang:num_requests_total{engine_type=\"unified\",is_streaming=\"false\",model_name=\"deepseek-v4.1-flash-dspark-baseline\"} 11.0",
+        "sglang:num_requests_total{engine_type=\"unified\",is_streaming=\"true\",model_name=\"deepseek-v4.1-flash-dspark-baseline\"} 5.0"
+      ]
+    }
+  },
+  "raw_metadata_saved": false,
+  "boundary": "Saved server-info receipts require redaction. Router metadata forwards caller Authorization; missing/invalid-key rejection and control-plane isolation still need runtime acceptance. Do not inject worker credentials into public metadata requests."
+}
