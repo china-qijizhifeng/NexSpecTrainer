@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "scope": "r5 scheduling migration and temporary space reserve; GPU numerical acceptance pending",
+  "amendment_authorized_by_user": true,
+  "prior_test_requests": 0,
+  "unmodified_inputs": true,
+  "source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "serving_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "inspected": [
+    "Req._check_token_based_finish/update_finish_state/output_ids_through_stop; EOS beats length and terminal speculative suffix trimmed",
+    "Scheduler passes model EOS IDs even when tokenizer init is skipped",
+    "Output streamer uses clipped output IDs for completion_tokens and raw native verify/draft counts",
+    "spec_decoding_metrics uses completion/verify and proposed=verify*(num_draft_tokens-1)",
+    "generate/SSE/finish/actual-token timing, one-token TPOT and no-verify prefill EOS",
+    "variable length comparisons and safe common-prefix probe indexing",
+    "all10 A/A before first test; original r3 EOS-prefix exact reference",
+    "one-time launch/submit, prior terminal deletion, exact cleanup, cached image-only YAML"
+  ],
+  "no_numerical_root_cause_claim": true,
+  "regressions": [
+    {
+      "script": "check_runner.py",
+      "passed": true,
+      "scope": "multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters"
+    },
+    {
+      "script": "check_eos.py",
+      "passed": true,
+      "scope": "Actual pinned native EOS/cap methods and spec metric function, real HTTP/SSE client, short/one-token/budget completions, post-EOS and premature-finish rejection, terminal block counters, variable length timing; no GPU numerical parity claim",
+      "old_client_short_eos_failure_reproduced": true
+    }
+  ],
+  "migration_user_authorized": true,
+  "no_sampling_or_variant_changes": true,
+  "expected_node": "node090",
+  "resource_review": [
+    "one8GPU worker on currently free allowed node090",
+    "init-only runtime tools; full image SHA/import/CRI and actual8H100 check; regular GPFS/shm only",
+    "cancel exact Pending/no-worker r4 and stop verified controller before r5 launch",
+    "user relaxed850GB reserve; submit/cache60GB and per-request50GB",
+    "existing serving replicas and all source/export/checkpoint dependencies preserved"
+  ]
+}

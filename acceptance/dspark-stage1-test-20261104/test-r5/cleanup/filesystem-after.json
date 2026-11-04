@@ -1,0 +1,41 @@
+{
+  "free_bytes": 1187659120640,
+  "checkpoints": [
+    {
+      "id": "7c4b0267685852a11f0124841c7efea6",
+      "remaining_files": []
+    },
+    {
+      "id": "b5d1c8cd47b70546b429b16f6c989649",
+      "remaining_files": []
+    },
+    {
+      "id": "65f08c7b40c725900cceab7525f4cee3",
+      "remaining_files": []
+    },
+    {
+      "id": "1d61ac1ecefa9ba77f17b4f4cfc53808",
+      "remaining_files": []
+    },
+    {
+      "id": "331af2520d932c1d5447465299ccf6cd",
+      "remaining_files": []
+    },
+    {
+      "id": "151d66b257626a5b8af0b5c6260aa4b8",
+      "remaining_files": []
+    },
+    {
+      "id": "4fb3806a3c7d207eb46de8002cea063a",
+      "remaining_files": []
+    },
+    {
+      "id": "e6e04851644a4dcde3a0dbebe18cc8a4",
+      "remaining_files": []
+    },
+    {
+      "id": "3c96489ab6fa98cf61609318f5895a19",
+      "remaining_files": []
+    }
+  ]
+}

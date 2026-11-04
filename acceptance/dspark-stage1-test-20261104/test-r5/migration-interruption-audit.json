@@ -1,0 +1,16 @@
+{
+  "scope": "SIGTERM exit observation; original migration stopped after signal, before cancellation/submission",
+  "cause": "Linux process may have cmdline empty during exit after live stat read; next /proc observation proves PID absent",
+  "source_process_absent": true,
+  "source_job_still_pending_no_worker": true,
+  "r5_submit_absent": true,
+  "original_execution_manifest_unchanged": true,
+  "same_class_inspected": [
+    "migrate_pending.process stat/cmdline exit transition",
+    "launch_controller stat/cmdline assertions fail closed; no automatic relaunch",
+    "controller historical PID check only stat; no signal",
+    "monitor read-only sampling may fail during exit, no mutation",
+    "evaluate subprocess-owned server poll/cleanup"
+  ],
+  "recovery": "new single-use resume_migration_after_exit.py; requires exact original intent and absent old PID, identical Pending job, no worker/output, no r5 launch/submit, current node availability; original migration must never run again"
+}

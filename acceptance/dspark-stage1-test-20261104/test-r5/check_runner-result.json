@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "stdout": "{\"passed\": true, \"scope\": \"multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters\"}\n",
+  "stderr": ""
+}

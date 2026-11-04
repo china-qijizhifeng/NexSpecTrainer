@@ -1,0 +1,58 @@
+[
+  {
+    "id": "b5d1c8cd47b70546b429b16f6c989649",
+    "name": "open-data-control-20261102-training-normal2752-retry-20261103-v2-step-000150",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  },
+  {
+    "id": "65f08c7b40c725900cceab7525f4cee3",
+    "name": "normal2752-cp170-20261104-step-000180",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  },
+  {
+    "id": "1d61ac1ecefa9ba77f17b4f4cfc53808",
+    "name": "resume-f93-cp20-20261104-v1-periodic-step-00025",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  },
+  {
+    "id": "331af2520d932c1d5447465299ccf6cd",
+    "name": "normal2752-cp170-20261104-step-000190",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  },
+  {
+    "id": "151d66b257626a5b8af0b5c6260aa4b8",
+    "name": "resumed-logical-step-000030",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  },
+  {
+    "id": "4fb3806a3c7d207eb46de8002cea063a",
+    "name": "normal2752-cp170-20261104-step-000200",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  },
+  {
+    "id": "e6e04851644a4dcde3a0dbebe18cc8a4",
+    "name": "resumed-logical-step-000040",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  },
+  {
+    "id": "3c96489ab6fa98cf61609318f5895a19",
+    "name": "resume-f93-cp20-20261104-v1-periodic-step-00050",
+    "http_status": 202,
+    "deletion_state": "deleted",
+    "cleanup_pending": false
+  }
+]

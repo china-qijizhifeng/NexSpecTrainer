@@ -1,0 +1,5 @@
+{
+  "passed": true,
+  "stdout": "{\"passed\": true, \"eligibility_positive\": 1, \"rejections\": 9}\n",
+  "stderr": ""
+}

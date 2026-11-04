@@ -1,0 +1,9 @@
+{
+  "http_status": 202,
+  "id": "7c4b0267685852a11f0124841c7efea6",
+  "name": "output-epoch-01",
+  "model_id": "9c81d3f9a6d8564c389ec6e9734de25c",
+  "deletion_state": "deleted",
+  "cleanup_pending": false,
+  "size_bytes": 131960065860
+}

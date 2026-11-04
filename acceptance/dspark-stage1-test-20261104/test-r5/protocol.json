@@ -1,0 +1,51 @@
+{
+  "frozen_before_test_outputs": true,
+  "stage1_source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "sglang_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "train_export_image": "harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df",
+  "serve_image": "lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa",
+  "variants": [
+    "target-only",
+    "official-mtp",
+    "step25",
+    "step118"
+  ],
+  "primary_candidate": "step25, selected using validation before test",
+  "test_selection": "one last eligible supervised assistant boundary per each of 247 test trajectories; complete original history, input<=64512",
+  "test_instances": 36,
+  "generation": {
+    "temperature": 0,
+    "ignore_eos": false,
+    "max_new_tokens": 1024,
+    "concurrency": 1,
+    "gamma": 5,
+    "eos_token_ids": [
+      1
+    ]
+  },
+  "cache_policy": "Radix disabled; independent r5 kernel caches copied once from readable r3 cache entries; workers compile private unreadable entries. No changes to old cache permissions.",
+  "correctness": "All10 predeclared diagnostics at max1024 and EOS-aware stopping; target A/A must match fully, including lengths and finish reasons. Old r3 failure input must return the captured61-token EOS completion. Spec mismatch records one common-prefix logprob probe; no lossless claim if any difference.",
+  "known_parity_issue": "Prior AR vs DSPARK FP4 output mismatch remains unresolved. No lossless claim unless diagnostics AND 247 test outputs all match. Finite, pre-declared matrix measures discrepancy; no tuning or automatic reruns on test.",
+  "scope": "EOS-terminated greedy complete-prefix replay, max1024 output tokens; not full trajectories or closed-loop SWE task solve rate",
+  "failure_policy": "worker/API errors stop with evidence and no resubmission; inspect full static call chain before changing and re-validating",
+  "resource_policy": "One8H100 node090 worker; verified init-only offline image import, regular container GPFS/shm only. Scheduling migration before any test; no numerical configuration changes.",
+  "cached_nodes": [],
+  "headroom_bytes": 50000000000,
+  "migration_from": "dspark-test-20261104-r4",
+  "diagnostic_max_new_tokens": 1024,
+  "protocol_amendment": {
+    "authorized_by": "user reply to EOS protocol question",
+    "answer": "按 EOS 停止、最多 1024 tokens（推荐，更贴近实际生成）",
+    "pre_test_only": true,
+    "prior_test_requests": 0,
+    "old_fixed_length_protocol_remains_failed": true,
+    "numerical_kernel_root_cause_fixed": false
+  },
+  "metrics": "Actual returned EOS-inclusive tokens / request seconds; tau=sum(completion)/sum(verify); native raw correct/proposed include final verify block, not claimed to equal emitted useful drafts; one-token/single-chunk TPOT undefined and reported null. No verify requests retain zero counts.",
+  "resource_amendment": {
+    "authorization": "先弄1组8卡跑起来; 允许本次放宽，优先跑起来",
+    "prior_test_requests": 0,
+    "temporary_gpfs_reserve_bytes": 50000000000,
+    "minimum_submit_free_bytes": 60000000000
+  }
+}

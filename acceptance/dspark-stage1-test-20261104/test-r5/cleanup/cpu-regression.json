@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "eligibility_positive": 1,
+  "eligibility_rejections": 9,
+  "postgres_numeric_normalized": true,
+  "snapshot_rows": 31
+}

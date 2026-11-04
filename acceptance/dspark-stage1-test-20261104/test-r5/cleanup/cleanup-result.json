@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "deleted_count": 8,
+  "logical_bytes_removed": 1055680526876,
+  "free_before": 131969581056,
+  "free_after": 131969581056,
+  "latest_preserved": true,
+  "api_managed_deletion": true,
+  "total_deleted_count": 9,
+  "total_logical_bytes_removed": 1187640592736,
+  "free_bytes_latest": 1187659120640,
+  "no_deleted_payload_files_remain": true
+}
