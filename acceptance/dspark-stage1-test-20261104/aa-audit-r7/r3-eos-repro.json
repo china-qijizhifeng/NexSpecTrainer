@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "input_sha256": "73f766609cad0e399937fd63fe5ee0837fd5f54c3445eabeef07c6f2ea28c34d",
+  "tokens": 61,
+  "finish_reason": {
+    "type": "stop",
+    "matched": 1
+  }
+}

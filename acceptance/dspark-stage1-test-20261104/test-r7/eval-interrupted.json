@@ -1,0 +1,21 @@
+{
+  "job": {
+    "name": "job-6b4dd801c01d-20261104173837",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r7",
+    "status": "Failed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "reason": "worker reported interruption or failure",
+  "time": 1793790756.6886601,
+  "execution_complete": false,
+  "automatic_retry": false,
+  "worker_phase": {
+    "stage": "evaluation_failed",
+    "time_utc": "2026-11-04T11:12:13Z",
+    "error_type": "RuntimeError",
+    "reason": "target-only A/A mismatch; stop before test"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "captured_sse_replay_contract": true,
+  "pre_eos_failure_detected": true,
+  "corrupt_input_or_stream_rejected": true,
+  "post_eos_rejected": true,
+  "scope": "CPU evidence audit; no GPU determinism claim"
+}

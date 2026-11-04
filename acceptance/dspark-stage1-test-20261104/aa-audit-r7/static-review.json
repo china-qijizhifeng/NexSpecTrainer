@@ -1,0 +1,87 @@
+{
+  "scope": "Static review of request/greedy/EOS/SSE, model/source identity, SM90MoE dispatch, reduction overrides, dsv4 indexer consumers and existing instrumentation; no numerical root-cause or fix claim",
+  "serving_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "seven_actual_serving_pins_match_local_source": true,
+  "source_sha256": {
+    "srt/sampling/sampling_params.py": "e633de54fa79d5c0f2e83b85e79d9a5c37cacf659d54026f712632c6c1b49a84",
+    "srt/sampling/sampling_batch_info.py": "2c9c9a99a77169804a3dae7aeea82674693f9e624250912cdab231e5a6f0b672",
+    "srt/layers/sampler.py": "76c6de8bae5055af1b1c1690029c06e531fc58296ee42e24ab137331ce9c6b56",
+    "srt/managers/schedule_batch.py": "78264125d59279410d7d6dc0a79c9e84e8a48e783ea9bcfe402fdc49517cc588",
+    "srt/managers/scheduler_components/output_streamer.py": "862f6bf3ea32c48557b75f3e1a41d03bc6d275f2e5164108ba5b67e703b09ce1",
+    "srt/arg_groups/overrides.py": "ec3e99814a67dd82e9432c60e1427bfb99d95dd0c8afcdb526d3dee8ab93175a",
+    "srt/arg_groups/attention_hook.py": "18092b1a4a287133cc9b074df9deb09556980788ba298b21f5e7eb74c992b317",
+    "srt/arg_groups/choices.py": "f87b6cf32819840378241842fa89b795242cb64e6ed31fae37bcf05a2f0c55a9",
+    "srt/layers/quantization/mxfp4.py": "c8d1c9bcd71144c2fb8729338400b8fb56bdae23e197e086cc383314b2bc6cb0",
+    "srt/layers/moe/moe_runner/flashinfer_cutlass.py": "23b5228a357e4aedbff32ad364bdd5c3b1aed7828a7d9f8bcdc491ac45a4bce0",
+    "srt/layers/attention/deepseek_v4_backend.py": "edb6d691ad8d4adb0c32884145e765500f3097f4bca1adc7361dfca57627ed1d",
+    "srt/layers/attention/dsv4/v41_indexer/__init__.py": "51a68ac8b1147dc8f87b8ee47f983893df808cd7a0f6d08be2f2db0a3cd69b1d",
+    "srt/layers/attention/dsv4/v41_indexer/full_topk.py": "19eada46ae2df4472ea155a7354aabdb1760a22e1f6aa3fdbeccd406e8bb4236",
+    "srt/layers/attention/dsv4/v41_indexer/scoring.py": "d3e648d6ad1436a20adfce5fdd05f0e9f66849080220dc8d95260f88023ffc98",
+    "srt/layers/attention/dsv4/v41_indexer/dense_blocks.py": "69c77ddaee7e6650a20fcfd1056e43beba57961bee0f4d3fa3ec2a44ad2aab9f",
+    "srt/layers/attention/dsv4/indexer.py": "4d0da92df2d73c9100ff9a235bb8312a02b412f457ea976a14fbd01825b0b9f6",
+    "srt/environ.py": "bd6c192334c661e3fd7e45d63bf91e304b8c6b1b51e4d95cf5527a519d17526a",
+    "srt/debug_utils/tensor_dump_forward_hook.py": "03482f2993fede849aa312502d8acf58ad6f507fb5a230a279e00c1e7ef4e26d"
+  },
+  "confirmed": {
+    "actual_ar_uses_no_speculation": true,
+    "temperature_zero_becomes_top_k_one": true,
+    "cuda_greedy_sampler_uses_torch_argmax": true,
+    "raw_sse_replay_equals_recorded_output": true,
+    "first_difference_zero_based": 19,
+    "before_either_eos": true,
+    "radix_cache_hits": 0,
+    "num_retractions": 0,
+    "same_observed_weight_version_labels": true,
+    "resolved_flashinfer_allreduce_fusion_backend": "auto",
+    "global_deterministic_flag_rejects_dsv4": true,
+    "actual_sm90_moe_path": "CUTLASSMXFP4 W4A16, not MegaMoE",
+    "moe_fused_finalize_env_default": false,
+    "full_low_ratio_topk_hopper_path": "torch indexer; SM100DeepGEMM path not selected",
+    "flashinfer_dsa_deterministic_env_is_not_universal_topk_switch": true
+  },
+  "scope_limits": [
+    "cached0/retractions0 do not exclude allocator, request-history, overlap or persistent KV/compression state",
+    "same visible weight-version labels do not independently prove no in-memory weight mutation",
+    "no per-step logits, selected sparse indices or layer snapshots were captured; operation causing variability is unknown",
+    "r3 all-observed-differences-after-EOS conclusion remains valid for r3 only; r7 new validation differs beforeEOS",
+    "captured4 of10 diagnostics only; alltest0; audit/regression is not GPU A/A pass"
+  ],
+  "ranked_falsifiable_hypotheses": [
+    {
+      "rank": 1,
+      "hypothesis": "reduction/MoE numeric variability affects near-tie logits",
+      "prediction": "identical prefix logits or MoE outputs differ; isolate supported reduction implementation before attributing cause",
+      "status": "unresolved; no paired logits in recording"
+    },
+    {
+      "rank": 2,
+      "hypothesis": "sparse indexer score/topk or attention computation varies",
+      "prediction": "same hidden input produces different selected logical indices or attention output",
+      "status": "unresolved; indices not recorded"
+    },
+    {
+      "rank": 3,
+      "hypothesis": "request-history/allocation/overlap state changes forward computation",
+      "prediction": "first differing layer/state follows request order or memory mapping in a bounded validation-only instrumented run",
+      "status": "unresolved; cached0 and no retractions insufficient to exclude"
+    },
+    {
+      "rank": 4,
+      "hypothesis": "client stream reconstruction or EOS-after-output artifact",
+      "prediction": "raw SSE replay differs or first discrepancy followsEOS",
+      "status": "contradicted by captured replay and preEOS index19"
+    }
+  ],
+  "next_validation_requirements": [
+    "Do not relaunch any old controller or resubmit r7",
+    "Prepare a separate validation-only numerical investigation before any new held-out matrix",
+    "Preserve this50527-token input and common19-token prefix privately; do not tune held-outtest",
+    "Capture per-step top-logprob margins and bounded layer/selected-index digests on matching prefixes; no unbounded all-layer full-prefix tensor dump",
+    "Use actual supported switches; enforce-disable FlashInfer allreduce overrides auto-enable, while deterministic dsv4 global flag is rejected and fused-finalize alreadydefaultsfalse",
+    "Batch-regress request/count/cleanup/instrumentation contracts before one single-use diagnosticGPU invocation",
+    "Do not claim that EOS change, reseeding or generic deterministic settings fixed numeric kernels; rerun all10A/A only after a supported correction and separate validation"
+  ],
+  "new_gpu_attempt_submitted": false,
+  "numerical_root_cause_confirmed": false,
+  "numerical_fix_validated": false
+}

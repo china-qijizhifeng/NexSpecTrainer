@@ -1,0 +1,189 @@
+{
+  "audit_passed": true,
+  "gpu_aa_passed": false,
+  "execution_complete": false,
+  "raw_sse_matches_saved_outputs": true,
+  "real_server_eos_contract_passed_for_all_captured_requests": true,
+  "mismatch_before_eos_confirmed": true,
+  "diagnostics_completed": 4,
+  "diagnostics_planned": 10,
+  "diagnostics": [
+    {
+      "diagnostic": "diagnostic-0",
+      "id": "old-prompt-0",
+      "input_sha256": "bf407269fd79117c6cb103598ea4a8b9865c73d7f07be45b0f7101bbd84d65da",
+      "input_tokens": 15,
+      "output_tokens": [
+        831,
+        831
+      ],
+      "output_equal": true,
+      "finish_equal": true,
+      "finish_reasons": [
+        {
+          "type": "stop",
+          "matched": 1
+        },
+        {
+          "type": "stop",
+          "matched": 1
+        }
+      ],
+      "first_difference_zero_based": null,
+      "first_eos_zero_based": [
+        830,
+        830
+      ],
+      "difference_before_either_eos": false,
+      "cached_tokens": [
+        0,
+        0
+      ],
+      "num_retractions": [
+        0,
+        0
+      ],
+      "observed_weight_version_labels_equal": true
+    },
+    {
+      "diagnostic": "diagnostic-1",
+      "id": "old-prompt-1",
+      "input_sha256": "a8596fe933d8cb51379912577ba97a38ffeaa6e431bfbbcfda9c4d4dea64ab49",
+      "input_tokens": 15,
+      "output_tokens": [
+        1024,
+        1024
+      ],
+      "output_equal": true,
+      "finish_equal": true,
+      "finish_reasons": [
+        {
+          "type": "length",
+          "length": 1024
+        },
+        {
+          "type": "length",
+          "length": 1024
+        }
+      ],
+      "first_difference_zero_based": null,
+      "first_eos_zero_based": [
+        null,
+        null
+      ],
+      "difference_before_either_eos": false,
+      "cached_tokens": [
+        0,
+        0
+      ],
+      "num_retractions": [
+        0,
+        0
+      ],
+      "observed_weight_version_labels_equal": true
+    },
+    {
+      "diagnostic": "diagnostic-2",
+      "id": "dask__cachey__789e03dbc64e__rollout_0003",
+      "input_sha256": "73f766609cad0e399937fd63fe5ee0837fd5f54c3445eabeef07c6f2ea28c34d",
+      "input_tokens": 54235,
+      "output_tokens": [
+        61,
+        61
+      ],
+      "output_equal": true,
+      "finish_equal": true,
+      "finish_reasons": [
+        {
+          "type": "stop",
+          "matched": 1
+        },
+        {
+          "type": "stop",
+          "matched": 1
+        }
+      ],
+      "first_difference_zero_based": null,
+      "first_eos_zero_based": [
+        60,
+        60
+      ],
+      "difference_before_either_eos": false,
+      "cached_tokens": [
+        0,
+        0
+      ],
+      "num_retractions": [
+        0,
+        0
+      ],
+      "observed_weight_version_labels_equal": true
+    },
+    {
+      "diagnostic": "diagnostic-3",
+      "id": "podhmo__alchemyjsonschema__239822ad0685__rollout_0005",
+      "input_sha256": "38db48ae0a9e0cd58315b31edae50f04631466b0557d3d21d26ee7d6ba009296",
+      "input_tokens": 50527,
+      "output_tokens": [
+        669,
+        403
+      ],
+      "output_equal": false,
+      "finish_equal": true,
+      "finish_reasons": [
+        {
+          "type": "stop",
+          "matched": 1
+        },
+        {
+          "type": "stop",
+          "matched": 1
+        }
+      ],
+      "first_difference_zero_based": 19,
+      "first_eos_zero_based": [
+        668,
+        402
+      ],
+      "difference_before_either_eos": true,
+      "cached_tokens": [
+        0,
+        0
+      ],
+      "num_retractions": [
+        0,
+        0
+      ],
+      "observed_weight_version_labels_equal": true
+    }
+  ],
+  "r3_frozen_61_token_reproduction_passed": true,
+  "test_requests": {
+    "target-only": 0,
+    "official-mtp": 0,
+    "step25": 0,
+    "step118": 0
+  },
+  "job_alias_absent": true,
+  "evidence_sha256": {
+    "target-only/diagnostic-0.json": "f787e22fb1cf5501a5480372ae13a395dc95b43ffc441b6fefed8ef0cd968437",
+    "target-only/diagnostic-0.events.jsonl": "123cc2fb564c7aeac44865e7b9678eeed606354427089be3287d5bb93ee89037",
+    "target-only/diagnostic-0-repeat.json": "1f53a126e8db3f450df4eb72afb56498a3ad2f2eaf6e585d58a6670ee9616f21",
+    "target-only/diagnostic-0-repeat.events.jsonl": "73c9d356b4e6031b5849dbb5ed711f85a6119ebaadb8f22e2a2dce9a1ac9d428",
+    "target-only/diagnostic-1.json": "f71982a48f1f383606898571f88d56b4669cc23537698ca32f7eee87740e24d7",
+    "target-only/diagnostic-1.events.jsonl": "43df7ba57e76220d7a569465087e526f962c44f0077e86322030bb595453b240",
+    "target-only/diagnostic-1-repeat.json": "bb2e97fbdb2ca05e9790c62eec827a60279ecdf9c4b4193ac60de96ad41a0f0b",
+    "target-only/diagnostic-1-repeat.events.jsonl": "51d2b8bdac81b86d8a1b695ce8bede30c9fce76aaa0719bad0d1dcdbceea13f3",
+    "target-only/diagnostic-2.json": "186169b4a988f60f53b4c30a8288112a0fba1479af664676a1c8c4fc526ba0b0",
+    "target-only/diagnostic-2.events.jsonl": "f984ebf16e61e67bea7c60dcdc1251fcf2caf9d4532dd217028d5bbad2cc82e0",
+    "target-only/diagnostic-2-repeat.json": "db883ee883f2e873779f82256842f5a7bf582a8ef899c70ec55b8f1d2201a660",
+    "target-only/diagnostic-2-repeat.events.jsonl": "2acdd7f2d9735b6225da3832d041d2c72a09f89e0a16f70f2f62f5104ae517b5",
+    "target-only/diagnostic-3.json": "6343ef94b8aa36f49a4f1823130b22216043d1795dc34387195ebad96c9fbe85",
+    "target-only/diagnostic-3.events.jsonl": "fff629ca8d5bed5b37c62933191ca0273c6d87f70e741b32f36daf700f8f1848",
+    "target-only/diagnostic-3-repeat.json": "58597b648d29cdcd4f10e291fbc6887039956bbab5fcdf82d8d335c88a49e4d8",
+    "target-only/diagnostic-3-repeat.events.jsonl": "7bf62e87e788c7cc9bceb2a667b3571d75419562bda765a4f936fb26fb3ac5d8"
+  },
+  "execution_manifest_sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2",
+  "numerical_root_cause_confirmed": false,
+  "scope": "Audit reproduces recorded A/A failure on CPU. No new inference, no kernel fix, no passing A/A or test score."
+}
