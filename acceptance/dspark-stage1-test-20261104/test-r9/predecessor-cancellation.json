@@ -1,0 +1,9 @@
+{
+  "r7_job": "job-6b4dd801c01d-20261104173837",
+  "r7_delete_success": true,
+  "r7_aa_remains_failed": true,
+  "prior_held_out_requests": 0,
+  "probe_r2_complete_and_cleaned": true,
+  "no_old_controller_or_job_restarted": true,
+  "source_manifest_sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2"
+}

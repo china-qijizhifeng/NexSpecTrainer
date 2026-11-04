@@ -1,0 +1,40 @@
+{
+  "passed": true,
+  "scope": "User-authorized observational held-out replay; numerical differences recorded, no lossless claim",
+  "amendment_authorized_by": "算了先容忍这种差距，看看分数和接受绿坝; 先看当前测评指标",
+  "prior_held_out_requests": 0,
+  "inputs_generation_resources_unchanged": true,
+  "inspected": [
+    "All10 target A/A comparisons retained; no acceptance written on mismatch",
+    "Historical61 reference observed without claiming reproduction on mismatch",
+    "Any HTTP/SSE/EOS/count/finite/SHA/version/runtime error still stops without retry",
+    "Native verify-weighted tau and raw draft acceptance scope retained; EOS terminal blocks not forced to equal emitted useful drafts",
+    "At most one first-common-prefix probe per speculative variant, no post-EOS prefix extension",
+    "Full988 local HTTP/SSE runner regression completed including actual mismatches",
+    "Public0644/private0600 and other UID bits under077/022; raw private exclusive creation",
+    "Server-info strict whitelist avoids credential propagation",
+    "Signals, directory replay, Running-to-Pending interruption and exact API cleanup",
+    "One8H10064CPU512Gi, scheduler-selected, fixed image/source/exports and frozen input SHA",
+    "Heartbeat stays PAUSED; no old job/controller restart"
+  ],
+  "numerical_root_cause_fixed": false,
+  "lossless_claim_allowed": false,
+  "new_gpu_result": false,
+  "identity_error_static_audit": {
+    "root_cause": "Directory-only r7->r8 substitution omitted the distinct denovo-dspark-test-eval alias format",
+    "instances_checked": [
+      "YAML metadata.name",
+      "YAML JobAlias annotation",
+      "controller ALIASES",
+      "regular command path",
+      "task volume hostPath",
+      "init command paths",
+      "init mountPath",
+      "API row alias/namespace/creator/GPU count"
+    ],
+    "prior_r8_cancelled_before_worker": true,
+    "prior_held_out_requests": 0,
+    "all_instances_fixed_and_regressed": true,
+    "frozen_r8_manifest_unchanged": true
+  }
+}

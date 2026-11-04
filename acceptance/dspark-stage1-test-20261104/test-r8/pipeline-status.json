@@ -1,0 +1,14 @@
+{
+  "stage": "eval",
+  "time_utc": "2026-11-04T13:49:02Z",
+  "job": {
+    "name": "job-d5836fe55d5f-20261104214902",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r7",
+    "status": "Pending",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "worker_phase": {}
+}

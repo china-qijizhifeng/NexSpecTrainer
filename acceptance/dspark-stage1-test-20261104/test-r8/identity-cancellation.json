@@ -1,0 +1,18 @@
+{
+  "passed": true,
+  "job": "job-d5836fe55d5f-20261104214902",
+  "alias": "denovo-dspark-test-eval-20261104-r7",
+  "controller_stopped": true,
+  "alias_absent": true,
+  "worker_started": false,
+  "test_request_counts": {
+    "target-only": 0,
+    "official-mtp": 0,
+    "step25": 0,
+    "step118": 0
+  },
+  "held_out_requests": 0,
+  "frozen_r8_files_unchanged": true,
+  "automatic_retry": false,
+  "reason": "New r8 job used r7 alias because directory-only replacement omitted eval alias naming."
+}

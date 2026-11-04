@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "source_manifest_all860_files_verified": true,
+  "private_input_and_reference_bytes_unchanged": true,
+  "source_symlink": "/gpfs/users/linlizhi/dspark-test-20261104-r2/source",
+  "export_symlinks": {
+    "25": "/gpfs/users/linlizhi/dspark-test-20261104-r2/export-step25",
+    "118": "/gpfs/users/linlizhi/dspark-test-20261104-r2/export-step118"
+  },
+  "old_permissions_or_contents_modified": false
+}

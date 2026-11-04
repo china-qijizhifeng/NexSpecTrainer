@@ -1,0 +1,71 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "script": "check_dependencies.py",
+      "sha256": "e70db1527a78cb640bf5559f12ac8175e10494a437cf2d9c7fabe2f97b533d44",
+      "passed": true,
+      "identical_existing_receipt_preserves_bytes_mode_mtime": true,
+      "different_receipt_and_symlink_rejected": true,
+      "new_private_copy0600": true
+    },
+    {
+      "script": "check_identity.py",
+      "sha256": "d822066e3e08620f84da24b7fb2583cb8168886286126f5c61033726e1d2b1e4",
+      "passed": true,
+      "original_r8_wrong_alias_reproduced": true,
+      "yaml_alias_controller_command_mount_api_identity_checked": true,
+      "negative_mutations_rejected": 11,
+      "gpu_attempt_submitted": false
+    },
+    {
+      "script": "check_observation.py",
+      "sha256": "06868636c6ed78e5c68932755a3c7fd1f0b045edd224e540a1d1e7b3dc263ba0",
+      "passed": true,
+      "real_http_sse_four_variant_requests": 988,
+      "aa_and_historical_difference_continues": true,
+      "no_false_acceptance_or_lossless_claim": true,
+      "one_prefix_probe_per_spec_variant": true,
+      "public0644_private0600": true,
+      "strict_identity_and_counters_retained": true,
+      "private_server_info_filtered": true,
+      "scope": "CPU real HTTP/SSE runner matrix only; no GPU or model-quality result"
+    },
+    {
+      "script": "check_scheduling.py",
+      "sha256": "1700aa65301ee82fdfd28533c4fe66f2aefb16641df22d0869076f8987a370d4",
+      "passed": true,
+      "scheduler_selected": true,
+      "forbidden_placement_and_tolerations_rejected": true,
+      "memory_512Gi": true
+    },
+    {
+      "script": "check_lifecycle.py",
+      "sha256": "cdd4273ec8940d9e996eb8af1ac16928106c17710ae0174fcad9774926c57842",
+      "passed": true,
+      "actual_term_and_int_zero_exit_children": true,
+      "legacy_exit_zero_on_term_reproduced": true,
+      "directory_replay_preserves_evidence": true,
+      "incomplete_zero_exit_rejected": true,
+      "running_to_pending_detected": true,
+      "evaluator_signal_unwinds_cleanup": true,
+      "hup_preserved": true
+    },
+    {
+      "script": "check_runner.py",
+      "sha256": "c1d113f29e7bc37275231d183255e70035b67b3c1f4028712a2c58cd8bdede90",
+      "passed": true,
+      "scope": "multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters"
+    },
+    {
+      "script": "check_eos.py",
+      "sha256": "286e57062e0d351219f2f61cf435b7820fd3f79e80406a876c491b90b1597718",
+      "passed": true,
+      "actual_pinned_eos_and_metrics": true,
+      "real_http_sse_client": true,
+      "disk_patch_fixture_only": true
+    }
+  ],
+  "python": "3.10.12 (main, Jan 26 2026, 14:55:28) [GCC 11.4.0]",
+  "scope": "CPU source and real HTTP/SSE/lifecycle checks; no GPU benchmark result"
+}

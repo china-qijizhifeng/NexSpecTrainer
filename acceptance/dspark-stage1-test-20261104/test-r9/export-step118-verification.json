@@ -1,0 +1,74 @@
+{
+  "passed": true,
+  "step": 118,
+  "checkpoint": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6/training/denovo-v41-specforge-stage1-step118",
+  "checkpoint_metadata_sha256": {
+    "training_state.json": "e22b0a1a1747b64c52568c5cc6c61a2a2273aaf9878076b88f11de8330fdb247",
+    "nfc/common.pt": "ed26865057312d66503d9127b0dc1d3de4eb5a1a3964a88a4511a8da4459d903"
+  },
+  "mtp_tensors": 2401,
+  "target_non_mtp_shared_unchanged": true,
+  "overlays": {
+    "nexspec-mtp-00000.safetensors": {
+      "bytes": 540382472,
+      "sha256": "ea653d8a8b39d76bd7c251e99b78ee05fc0f23e4a6cc8ef1100893bb9d86c66d"
+    },
+    "nexspec-mtp-00001.safetensors": {
+      "bytes": 540281744,
+      "sha256": "2176f4ba62174d98ab5cc6a45d67d4d9afe27104ba8b0a6500866cafb297a8e0"
+    },
+    "nexspec-mtp-00002.safetensors": {
+      "bytes": 538969784,
+      "sha256": "c811f7bacffdf6b0bce0de7b95966fda68aad8c96aae976daec67223186cde7a"
+    },
+    "nexspec-mtp-00003.safetensors": {
+      "bytes": 538969784,
+      "sha256": "adafbb288f9a792364578cca920440f834677d6dd68dd08e0ad3076daea8460d"
+    },
+    "nexspec-mtp-00004.safetensors": {
+      "bytes": 572323864,
+      "sha256": "68664e7d2d09b261c4d003499c23675b564504d83fc1c85217c28614866eb0e3"
+    },
+    "nexspec-mtp-00005.safetensors": {
+      "bytes": 537387680,
+      "sha256": "5a73b3f5f025663d5c105ed75548f1c418714175f06427cce261da825d34b335"
+    },
+    "nexspec-mtp-00006.safetensors": {
+      "bytes": 540281752,
+      "sha256": "c682a131132ff95a741ba958c5db903539ac1004e4b04133bd043d99bd1613dd"
+    },
+    "nexspec-mtp-00007.safetensors": {
+      "bytes": 538969784,
+      "sha256": "e9c613d2586bcb1fd1d93a5d794e6b9579b959f3dff9dfed7c4e9c254190f839"
+    },
+    "nexspec-mtp-00008.safetensors": {
+      "bytes": 538969800,
+      "sha256": "7556fcd94183d7e635360217078e2102d4ba883caef349b632e37a03c2bbecd2"
+    },
+    "nexspec-mtp-00009.safetensors": {
+      "bytes": 542158864,
+      "sha256": "8ce7748ffa7cfcdf51764ea986ce2df1eaf4e4deba4888f1e8d75cd7e299c994"
+    },
+    "nexspec-mtp-00010.safetensors": {
+      "bytes": 538969696,
+      "sha256": "0395a6fd116885635d2f8274846ea4ae973f318a2628f8a7acae7ff02591202a"
+    },
+    "nexspec-mtp-00011.safetensors": {
+      "bytes": 540281776,
+      "sha256": "aed063ecbb1d69eb9f8d80f62060a21929f5cf813f020574f1a21b27a9f05491"
+    },
+    "nexspec-mtp-00012.safetensors": {
+      "bytes": 538969784,
+      "sha256": "e799ea3769d5277582e00c4210d4700227f250a2a29a166d2d1e351821a902c1"
+    },
+    "nexspec-mtp-00013.safetensors": {
+      "bytes": 538969840,
+      "sha256": "7255a9e9a8947c31c2467b838cf406c8843d9a180651f3a422ccb6a83d6f719b"
+    },
+    "nexspec-mtp-00014.safetensors": {
+      "bytes": 347239824,
+      "sha256": "5508f5d614335ee7d8cfbd4cfa5ae1ce2d628c1819ec70dbf6707529d62c0967"
+    }
+  },
+  "max_rss_kib": 43748836
+}

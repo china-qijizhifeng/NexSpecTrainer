@@ -1,0 +1,12 @@
+{
+  "node": null,
+  "scheduling": "scheduler-selected",
+  "gpus": 8,
+  "project": "WeaverRSI",
+  "queue": "proj-32",
+  "init_verifies_actual_eight_H100": true,
+  "source_attempt": "r7; reuse frozen inputs/source/r2 exports",
+  "sampling_and_inputs_unchanged": true,
+  "memory": "512Gi",
+  "cpu": 64
+}

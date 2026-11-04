@@ -1,0 +1,23 @@
+{
+  "execution_manifest_entries": 872,
+  "execution_manifest_sha256": "330b7037d9b0f17b56754c5a72e9f0cacfbc66026089be1dc42327a6cd7d839d",
+  "source_attempt": "r7; source/r2 exports reused unchanged",
+  "prior_r7_manifest_sha256": "38a080efa6a37603725d8e0f0cbce67dc884ee8cd97b03ecf0950922880ed4e2",
+  "source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "sglang_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "observational_amendment_user_authorized": true,
+  "prior_held_out_requests": 0,
+  "old_manifests_and_failed_gate_unchanged": true,
+  "automation_remains_paused": true,
+  "private_runtime_omitted_from_git": [
+    "test-inputs.jsonl",
+    "validation-inputs.jsonl",
+    "r3-eos-reference.json"
+  ],
+  "upstream_fixtures_sha256": {
+    "contract-source/python/sglang/srt/managers/schedule_batch.py": "78264125d59279410d7d6dc0a79c9e84e8a48e783ea9bcfe402fdc49517cc588",
+    "contract-source/python/sglang/srt/speculative/spec_decoding_metrics.py": "693489e43f995486ca92b00426bdfcb10753b95f0a296ca0dd5e2ac578073fab"
+  },
+  "public_execution_bytes_match_archive": true,
+  "pre_commit_passed": true
+}

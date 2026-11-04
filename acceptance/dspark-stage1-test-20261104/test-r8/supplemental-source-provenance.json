@@ -1,0 +1,6 @@
+{
+  "cancellation_script_runtime_sha256": "1fd665898d5674d39e757195ea1be332d56d5b863d889051f4c9f278b714c316",
+  "cancellation_script_archive_sha256": "1fd665898d5674d39e757195ea1be332d56d5b863d889051f4c9f278b714c316",
+  "non_import_ast_equal": true,
+  "scope": "Formatting of supplemental cancellation script; frozen869 execution entries untouched"
+}

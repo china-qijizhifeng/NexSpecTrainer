@@ -1,0 +1,134 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: denovo-dspark-test-eval-20261104-r7
+  namespace: qiji
+  annotations:
+    JobAlias: denovo-dspark-test-eval-20261104-r7
+    project: WeaverRSI
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  queue: proj-32
+  tasks:
+  - replicas: 1
+    name: worker
+    template:
+      spec:
+        restartPolicy: Never
+        activeDeadlineSeconds: 86400
+        tolerations:
+        - key: task-type
+          operator: Equal
+          value: rsi-weaver
+          effect: NoSchedule
+        - key: task-type
+          operator: Equal
+          value: weaver
+          effect: NoSchedule
+        volumes:
+        - name: gpfs
+          hostPath:
+            path: /gpfs
+            type: Directory
+        - name: shm
+          emptyDir:
+            medium: Memory
+            sizeLimit: 64Gi
+        - name: task
+          hostPath:
+            path: /gpfs/users/linlizhi/dspark-test-20261104-r8
+            type: Directory
+        - name: runtime
+          hostPath:
+            path: /run/containerd/containerd.sock
+            type: Socket
+        - name: host-ctr
+          hostPath:
+            path: /usr/bin/ctr
+            type: File
+        - name: host-crictl
+          hostPath:
+            path: /usr/bin/crictl
+            type: File
+        - name: host-snapshotter
+          hostPath:
+            path: /data/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs
+            type: Directory
+        - name: archive
+          hostPath:
+            path: /gpfs/users/linlizhi/nexspec-v41-capture-20261103/offline-image
+            type: Directory
+        containers:
+        - name: worker
+          image: lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa
+          imagePullPolicy: Never
+          resources:
+            requests:
+              cpu: '64'
+              memory: 512Gi
+              nvidia.com/gpu: '8'
+            limits:
+              cpu: '64'
+              memory: 512Gi
+              nvidia.com/gpu: '8'
+          command:
+          - /bin/bash
+          - /gpfs/users/linlizhi/dspark-test-20261104-r8/run_eval.sh
+          volumeMounts:
+          - name: gpfs
+            mountPath: /gpfs
+          - name: shm
+            mountPath: /dev/shm
+          securityContext:
+            capabilities:
+              add:
+              - IPC_LOCK
+          env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+        nodeSelector:
+          node_shcheduleable: 'true'
+        initContainers:
+        - name: import-verified-serving-image
+          image: harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df
+          imagePullPolicy: IfNotPresent
+          resources:
+            requests:
+              cpu: '2'
+              memory: 8Gi
+              nvidia.com/gpu: '8'
+            limits:
+              cpu: '2'
+              memory: 8Gi
+              nvidia.com/gpu: '8'
+          command:
+          - /bin/bash
+          - -c
+          - set -euo pipefail; umask 077; mkdir /gpfs/users/linlizhi/dspark-test-20261104-r8/image-import/invocation-started; exec python3 -u /gpfs/users/linlizhi/dspark-test-20261104-r8/import_worker_image.py
+            > /gpfs/users/linlizhi/dspark-test-20261104-r8/image-import/worker.log
+            2>&1
+          env:
+          - name: NODE_NAME
+            valueFrom:
+              fieldRef:
+                fieldPath: spec.nodeName
+          volumeMounts:
+          - name: runtime
+            mountPath: /run/nexspec-runtime/containerd.sock
+          - name: host-ctr
+            mountPath: /host-ctr
+            readOnly: true
+          - name: host-crictl
+            mountPath: /host-crictl
+            readOnly: true
+          - name: host-snapshotter
+            mountPath: /host-snapshotter
+            readOnly: true
+          - name: task
+            mountPath: /gpfs/users/linlizhi/dspark-test-20261104-r8
+          - name: archive
+            mountPath: /gpfs/users/linlizhi/nexspec-v41-capture-20261103/offline-image
+            readOnly: true

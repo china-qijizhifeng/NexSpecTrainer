@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "time": 1793801011.288573,
+  "job": {
+    "name": "job-d1f6f211048d-20261104220148",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r9",
+    "status": "Pending",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "controller": {
+    "pid": 4064,
+    "start_ticks": "2352755370",
+    "command": "/usr/bin/python3 -u /gpfs/users/linlizhi/dspark-test-20261104-r9/controller.py ",
+    "root": "/gpfs/users/linlizhi/dspark-test-20261104-r9"
+  },
+  "controller_verified": true,
+  "manifest_sha256": "330b7037d9b0f17b56754c5a72e9f0cacfbc66026089be1dc42327a6cd7d839d",
+  "manifest_entries": 872,
+  "observational_amendment_user_authorized": true,
+  "cpu_regressions_passed": true,
+  "r8_cancelled_before_worker": true,
+  "prior_held_out_requests": 0,
+  "current_held_out_requests": 0,
+  "no_fixed_node": true,
+  "resources": "8GPU/64CPU/512Gi",
+  "automation_remains_paused": true,
+  "lossless_claim_allowed": false
+}

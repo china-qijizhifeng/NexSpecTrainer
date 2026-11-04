@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "node": "node040",
+  "gpus": [
+    "NVIDIA H100 80GB HBM3, 81559 MiB",
+    "NVIDIA H100 80GB HBM3, 81559 MiB",
+    "NVIDIA H100 80GB HBM3, 81559 MiB",
+    "NVIDIA H100 80GB HBM3, 81559 MiB",
+    "NVIDIA H100 80GB HBM3, 81559 MiB",
+    "NVIDIA H100 80GB HBM3, 81559 MiB",
+    "NVIDIA H100 80GB HBM3, 81559 MiB",
+    "NVIDIA H100 80GB HBM3, 81559 MiB"
+  ],
+  "scope": "verified OCI archive imported into the assigned training worker containerd/CRI cache; no serving or model forward",
+  "source": "docker.io/lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa",
+  "manifest_digest": "sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa",
+  "image_config_digest": "sha256:31d58781877bdcd322d5fcc7a858d427db54f5cbf5a9e6342c5fafc01bc67c6e",
+  "archive_sha256": "1c5de44f6bcec849bc241c0ba3b1a2702e6be7e392acb81275c8e4a0dfc8240a",
+  "cache_tag": "docker.io/lmsysorg/sglang:offline-38d9e4a3f",
+  "storage_free_bytes_before": {
+    "/data/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs": 5888143011840
+  },
+  "import_seconds": 308.3416296946816,
+  "cri_image_id": "sha256:31d58781877bdcd322d5fcc7a858d427db54f5cbf5a9e6342c5fafc01bc67c6e",
+  "repo_digests": [
+    "docker.io/lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa"
+  ]
+}

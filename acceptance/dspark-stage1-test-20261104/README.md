@@ -5,7 +5,11 @@ zero held-out requests. The independent [r2 numerical probe](numeric-probe-r2/RE
 completed 24 validation requests and was cleaned up; disabling FlashInfer
 allreduce fusion did not restore repeatability. The operator responsible is
 unresolved. See the [bounded boundary-localization plan](numeric-localization/PLAN.zh.md)
-for preparation of a separate diagnostic. No new GPU attempt has been submitted.
+for the deferred numerical diagnostic. The user subsequently authorized tolerating
+numerical differences and measuring current throughput/acceptance metrics; see
+[the independent r9 observational protocol](test-r9/RUN.md). The r8 naming mistake
+was cancelled before worker startup with zero held-out requests; its evidence is
+preserved in [the cancellation record](test-r8/RESULT.zh.md).
 
 The later node040 attempt stopped at its target-only A/A validation gate,
 before any test output. See [the A/A failure audit](aa-audit/README.md) for
