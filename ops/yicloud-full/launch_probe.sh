@@ -12,6 +12,14 @@ fi
 cp -a "$REPO_ROOT/plugins/sglang-spec-capture" "$RUN_DIR/plugin-source"
 python3 -m pip install --no-index --no-deps --no-build-isolation --target "$RUN_DIR/python-deps" "$RUN_DIR/plugin-source"
 python3 ops/yicloud-full/prepare_probe.py
+python3 - <<'CACHE'
+import json,os,shutil
+from pathlib import Path
+source=Path(os.environ['WARMUP_CACHE_RUN']);root=Path(os.environ['RUN_DIR'])
+record=json.loads((source/'run.json').read_text());assert record['yicloud']['terminal_phase'] in ['Stopped','Succeeded','Failed']
+shutil.copytree(source/'cache',root/'cache',dirs_exist_ok=True)
+(root/'cache-reuse.json').write_text(json.dumps({'source':str(source),'uuid':record['uuid'],'terminal_phase':record['yicloud']['terminal_phase'],'scope':'kernel cache only, not capture acceptance'}))
+CACHE
 if [[ ${CAPTURE_CPU_ONLY:-0} == 1 ]]; then
   python3 ops/yicloud-capture/probe_server_image.py --cpu > "$RUN_DIR/environment.json"
   exit 0
@@ -52,7 +60,7 @@ setsid sglang serve \
   --tp-size 8 --ep-size 8 --attention-backend dsv4 --moe-runner-backend flashinfer_mxfp4 \
   --engram-config '{"placement":"cpu"}' \
   --mem-fraction-static 0.8 --context-length 262144 --max-total-tokens 262144 \
-  --swa-full-tokens-ratio 0.8 --max-prefill-tokens 262144 --max-running-requests 1 \
+  --swa-full-tokens-ratio 1.0 --max-prefill-tokens 262144 --max-running-requests 1 \
   --skip-tokenizer-init --chunked-prefill-size -1 --disable-radix-cache \
   --speculative-algorithm DSPARK --enable-return-aux-hidden-states \
   --return-aux-hidden-state-layer-ids 37 38 39 --return-hidden-states-mode full \
@@ -61,6 +69,7 @@ setsid sglang serve \
   --host 127.0.0.1 --port 30000 > "$RUN_DIR/capture/serve.log" 2>&1 &
 SERVER_PID=$!
 python3 ops/yicloud-capture/wait_server.py --pid "$SERVER_PID" --output "$RUN_DIR/capture" --timeout 5400 --capture
+python3 ops/yicloud-full/validate_server_pool.py
 python3 scripts/prepare_server_hidden_states.py --config "$RUN_DIR/config.yaml" \
   --server http://127.0.0.1:30000 --samples "$RUN_DIR/samples.jsonl" --output "$RUN_DIR/features" \
   --target-model-version 1bae0e1088993b9b82de08f59de5be5a34e42170 \

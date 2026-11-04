@@ -63,7 +63,7 @@ setsid sglang serve \
   --tp-size 8 --ep-size 8 --attention-backend dsv4 --moe-runner-backend flashinfer_mxfp4 \
   --engram-config '{"placement":"cpu"}' \
   --mem-fraction-static 0.8 --context-length 262144 --max-total-tokens 262144 \
-  --swa-full-tokens-ratio 0.8 --max-prefill-tokens 262144 --max-running-requests 1 \
+  --swa-full-tokens-ratio 1.0 --max-prefill-tokens 262144 --max-running-requests 1 \
   --skip-tokenizer-init --chunked-prefill-size -1 --disable-radix-cache \
   --speculative-algorithm DSPARK --enable-return-aux-hidden-states \
   --return-aux-hidden-state-layer-ids 37 38 39 --return-hidden-states-mode full \
@@ -72,6 +72,7 @@ setsid sglang serve \
   --host 127.0.0.1 --port 30000 > "$RUN_DIR/capture/serve.log" 2>&1 &
 SERVER_PID=$!
 python3 ops/yicloud-capture/wait_server.py --pid "$SERVER_PID" --output "$RUN_DIR/capture" --timeout 5400 --capture
+python3 ops/yicloud-full/validate_server_pool.py
 python3 ops/yicloud-full/capture_and_slice.py --config "$RUN_DIR/config.yaml" \
   --server http://127.0.0.1:30000 --samples "$RUN_DIR/samples.jsonl" --output "$RUN_DIR/features" \
   --target-model-version 1bae0e1088993b9b82de08f59de5be5a34e42170 \
