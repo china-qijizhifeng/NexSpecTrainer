@@ -30,7 +30,7 @@ for split in ('train','validation'):
   report.append({'path':str(p),'sha256':item['sha256'],'target_context':item['target_context'],'training_slice':[start,end]})
 config=yaml.safe_load((migration/'baseline/train.yaml').read_text())
 config['model'].update(target_model_path=str(model),draft_model_config=str(repo/'configs/deepseek-v41-flash-native.json'))
-config['data'].update(hidden_states_path=str(migration/'pilot-features/train'),eval_hidden_states_path=None,cache_dir=str(root/'cache/data'),dataloader_num_workers=0)
+config['data'].update(hidden_states_path=str(migration/'pilot-features/train'),eval_hidden_states_path='',cache_dir=str(root/'cache/data'),dataloader_num_workers=0)
 config['training'].update(accumulation_steps=1,num_epochs=4,max_steps=3,total_steps=3,save_interval=0,eval_interval=0,max_checkpoints=1)
 config.update(run_id='yicloud-denovo-pilot',output_dir=str(root/'training'))
 initial=json.loads(json.dumps(config));initial['training']['max_steps']=1

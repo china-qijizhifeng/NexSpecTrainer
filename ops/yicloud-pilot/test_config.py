@@ -19,7 +19,7 @@ class PilotConfigTests(unittest.TestCase):
             config.validate_world_size(8)
             self.assertEqual(config.training.total_steps, 3)
             self.assertEqual(config.training.eval_interval, 0)
-            self.assertIsNone(config.data.eval_hidden_states_path)
+            self.assertEqual(config.data.eval_hidden_states_path, '')
             self.assertIsNone(config.model.draft_checkpoint_path)
         self.assertIsNone(self.initial.training.resume_from)
         self.assertEqual(self.initial.training.max_steps, 1)
@@ -28,7 +28,7 @@ class PilotConfigTests(unittest.TestCase):
                          str(self.root / 'training/yicloud-denovo-pilot-step1'))
 
     def test_eval_source_and_interval_must_be_paired(self):
-        for source, interval in [('unused-validation', 0), (None, 1)]:
+        for source, interval in [('unused-validation', 0), ('', 1)]:
             with self.subTest(source=source, interval=interval):
                 raw = copy.deepcopy(self.initial.model_dump())
                 raw['data']['eval_hidden_states_path'] = source
