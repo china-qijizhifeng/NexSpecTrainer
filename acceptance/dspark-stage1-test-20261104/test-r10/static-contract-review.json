@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "scope": "Static protocol/config/call-chain audit; no review agent",
+  "user_authorized_performance_restart": true,
+  "r9_partial_results_preserved": 36,
+  "checks": [
+    "Pinned dsv4 separates prefill and decode graph settings",
+    "Decode full graph bs1 covers AR and target verify request buckets",
+    "DSPARK draft graph follows target graph enablement and memory headroom",
+    "Prefix cached_tokens range checked; input IDs/SHA/prompt counts remain full original",
+    "Real EOS semantics and native proposed=verify*5 retained",
+    "Profiler HTTP responses are plain text; auto stop not stopped twice",
+    "Bounded validation-only profiling excluded from benchmark",
+    "Raw trace private; no trace args or input/output in public summary",
+    "CPU overlap checked from resolved whitelist",
+    "No source/kernel/weight changes or model selection on test",
+    "Same four groups and original request order; r9 partial rows excluded",
+    "Precise alias/controller cancellation before successor launch"
+  ],
+  "deepinfer_commit": "a679bb86ce36e883a98a97733492b686e5b9a08e",
+  "sglang_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "lossless_claim_allowed": false
+}

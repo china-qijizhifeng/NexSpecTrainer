@@ -1,0 +1,6 @@
+{
+  "script": "cancel_for_performance.py",
+  "runtime_sha256": "08db0955854c24eb724ca8fa8b54bd60c2327454d617ec99e4e9449033d5dac9",
+  "supplemental_not_in_frozen_execution": true,
+  "frozen_manifest_unchanged": true
+}

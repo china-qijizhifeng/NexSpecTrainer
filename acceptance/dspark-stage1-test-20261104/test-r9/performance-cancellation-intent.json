@@ -1,0 +1,20 @@
+{
+  "user_authorization": "\u91cd\u542f\uff0c\u7136\u540e\u53c2\u8003deepinfer\u5206\u6790\u4e00\u4e0bdecode \u8def\u5f84\u4f4e\u6548\u7684\u5730\u65b9",
+  "job": {
+    "name": "job-d1f6f211048d-20261104220148",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r9",
+    "status": "Running",
+    "ready_status": "1/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "controller": {
+    "pid": 4064,
+    "start_ticks": "2352755370",
+    "command": "/usr/bin/python3 -u /gpfs/users/linlizhi/dspark-test-20261104-r9/controller.py ",
+    "root": "/gpfs/users/linlizhi/dspark-test-20261104-r9"
+  },
+  "time": 1793807708.7670445,
+  "automatic_retry": false
+}

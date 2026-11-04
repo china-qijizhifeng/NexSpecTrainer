@@ -7,7 +7,15 @@ allreduce fusion did not restore repeatability. The operator responsible is
 unresolved. See the [bounded boundary-localization plan](numeric-localization/PLAN.zh.md)
 for the deferred numerical diagnostic. The user subsequently authorized tolerating
 numerical differences and measuring current throughput/acceptance metrics; see
-[the independent r9 observational protocol](test-r9/RUN.md). The r8 naming mistake
+[the r9 partial run](test-r9/RESULT.zh.md). At the user's request r9 was
+precisely cancelled after 36 target-only requests; the independent
+[r10 performance restart](test-r10/RUN.md) enables Radix prefix caching and
+full bs1 decode CUDA graphs, preserving the four-variant matrix and all
+EOS/input/count audits. r9 partial rows are excluded from r10. See the
+[DeepInfer comparison](decode-performance/ANALYSIS.zh.md) for the measured
+r9 slowdown, source-path analysis and bounded validation-only profiling.
+Numerical differences remain permitted and no lossless claim is allowed.
+The r8 naming mistake
 was cancelled before worker startup with zero held-out requests; its evidence is
 preserved in [the cancellation record](test-r8/RESULT.zh.md).
 
@@ -96,7 +104,7 @@ The test worker uses the same pinned source archive, independent of later
 repository commits. Its source and execution checksums remain unchanged.
 
 - Training: `/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6`.
-- Current test attempt: `/gpfs/users/linlizhi/dspark-test-20261104-r2`.
+- Current test attempt: `/gpfs/users/linlizhi/dspark-test-20261104-r10`.
 - Failed test preflight: `/gpfs/users/linlizhi/dspark-test-20261104-r1`.
 
 The native final checkpoint was freshly restored on eight ranks, exercised

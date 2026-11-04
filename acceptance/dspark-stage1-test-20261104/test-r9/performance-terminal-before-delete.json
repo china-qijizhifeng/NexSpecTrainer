@@ -1,0 +1,29 @@
+{
+  "job": {
+    "name": "job-d1f6f211048d-20261104220148",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r9",
+    "status": "Running",
+    "ready_status": "1/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "controller_stopped": true,
+  "phase": {
+    "stage": "test_running",
+    "time_utc": "2026-11-04T15:53:12Z",
+    "group": "target-only",
+    "completed": 36,
+    "total": 247,
+    "last_id": "matthiasdiener__constantdict__518d0b219822__rollout_0000"
+  },
+  "test_request_counts": {
+    "target-only": 36,
+    "official-mtp": 0,
+    "step25": 0,
+    "step118": 0
+  },
+  "execution_complete": false,
+  "reason": "User requested independent restart with performance settings",
+  "time": 1793807708.9451444
+}

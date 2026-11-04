@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "job": "job-d1f6f211048d-20261104220148",
+  "alias": "denovo-dspark-test-eval-20261104-r9",
+  "controller_stopped": true,
+  "alias_absent": true,
+  "test_request_counts": {
+    "target-only": 36,
+    "official-mtp": 0,
+    "step25": 0,
+    "step118": 0
+  },
+  "execution_complete": false,
+  "partial_results_preserved": true,
+  "old_execution_manifest_unchanged": true,
+  "automatic_retry": false,
+  "user_requested_performance_restart": true,
+  "time": 1793807709.2442575
+}
