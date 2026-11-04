@@ -1,0 +1,10 @@
+{
+  "node": null,
+  "scheduling": "scheduler-selected",
+  "gpus": 8,
+  "project": "WeaverRSI",
+  "queue": "proj-32",
+  "init_verifies_actual_eight_H100": true,
+  "source_attempt": "r5",
+  "sampling_and_inputs_unchanged": true
+}

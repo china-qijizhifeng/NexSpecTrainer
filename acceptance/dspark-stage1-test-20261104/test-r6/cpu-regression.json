@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "script": "check_runner.py",
+      "passed": true,
+      "scope": "multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters"
+    },
+    {
+      "script": "check_eos.py",
+      "passed": true,
+      "scope": "Actual pinned native EOS/cap methods and spec metric function, real HTTP/SSE client, short/one-token/budget completions, post-EOS and premature-finish rejection, terminal block counters, variable length timing; no GPU numerical parity claim",
+      "old_client_short_eos_failure_reproduced": true
+    },
+    {
+      "script": "check_scheduling.py",
+      "passed": true,
+      "scheduler_selected": true,
+      "forbidden_placement_and_tolerations_rejected": true,
+      "linux_pidfd_owned_child": true
+    }
+  ],
+  "shell_syntax_passed": true,
+  "prepare_check_passed": true,
+  "native_source_sha_verified": true,
+  "local_cpu_client_not_run_reason": "local free disk below unchanged50GB gate; real remote GPFS CPU regression used",
+  "pidfd_fixture_ready_handshake": true
+}

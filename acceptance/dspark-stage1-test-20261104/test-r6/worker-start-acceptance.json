@@ -1,0 +1,20 @@
+{
+  "scope": "root0600 init receipts; no permissions changed",
+  "unreadable_private_init_expected": true,
+  "actual_worker_environment_passed": true,
+  "actual_node": "node091",
+  "actual_gpus": [
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3",
+    "NVIDIA H100 80GB HBM3"
+  ],
+  "worker_cpu_regression_passed": true,
+  "init_result_file_exists": true,
+  "original_supplemental_monitor_unsupported_private_receipts": true,
+  "supplemental_read_only_monitor_added": "monitor_receipts.py"
+}

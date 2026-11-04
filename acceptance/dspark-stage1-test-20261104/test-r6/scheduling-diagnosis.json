@@ -1,0 +1,84 @@
+{
+  "time": 1793781136.280987,
+  "job": "job-a5ce2a224dff-20261104153236",
+  "scheduler": {
+    "code": 200,
+    "data": "Start allocating resource at 2026-11-04 16:32:14\nJob <qiji/job-a5ce2a224dff-20261104153236> has <1> tasks to allocate resource, totalRequest is <cpu 64000.00, memory 824633720832.00, pods 1.00, attachable-volumes-csi-spectrumscale.csi.ibm.com 3.00, nvidia.com/gpu 8000.00>, there have <325> nodes in scheduler, job priority <0> queue <proj-32> inPreemptableQueue <true> isReclaimable <true>\nTask <job-a5ce2a224dff-20261104153236-worker-0> scheduled failed, reason: no nodes fit it, message:\n0/325 nodes are unavailable: 1 plugin NodeUnschedulable predicates failed node(s) were unschedulable node(s) <node118>, 219 Insufficient memory node(s) <node172,node030,node045,node112,node091,node178,node050,node056,cpu043,cpu087,node079,node108,node234,node184,cpu035,node021,node-b300-002,node135,node216,node215,cpu084,node078,node062,node230,node033,node204,cpu044,cpu068,cpu012,node222,node124,node140,node226,cpu045,cpu061,node144,node227,node-b300-008,node037,node208,node155,node190,node198,node028,node069,node098,node237,node241,cpu013,node066,node206,cpu062,node095,node096,node146,node224,node094,node110,node142,cpu049,node116,node100,node189,node229,node232,cpu055,master001,node194,node113,node165,node217,cpu039,node036,node059,cpu078,node-b300-004,node123,node058,node117,node049,node072,node121,node243,node053,node077,node168,node203,node221,node054,node084,node087,node057,node083,node242,node134,node212,node097,node195,node202,node249,node188,node211,cpu071,node080,node240,cpu051,node139,node171,node-b300-005,node119,cpu074,node065,node023,cpu066,node032,node103,node156,node213,node228,node035,node114,cpu083,cpu047,node-b300-001,node126,cpu037,node031,node063,node193,node233,node048,node071,node099,node151,node170,node047,cpu048,node148,node092,cpu025,cpu065,cpu069,node044,node088,node247,node060,node191,node231,node111,node141,node150,node175,node090,node122,node201,node093,node133,cpu031,node-b300-003,cpu072,node082,node245,node038,node192,node052,node074,node106,node182,cpu034,cpu070,cpu088,node196,node024,node218,node219,node248,cpu064,node039,node169,node159,cpu032,cpu042,node089,node132,node180,node187,node-b300-006,cpu056,cpu057,cpu063,master003,node026,master002,node073,node019,node214,node173,node101,node109,node179,node220,node235,node034,node167,node183,node027,cpu038,node104,node244,node143,node152,node200,cpu027,node020,cpu067,node051,node125,cpu060,cpu073>, 37 Insufficient cpu node(s) <cpu019,cpu030,cpu011,cpu054,cpu077,cpu052,cpu015,boss04,cpu033,cpu010,cpu018,cpu046,cpu024,boss06,cpu026,cpu058,cpu053,boss03,cpu079,cpu028,boss01,cpu016,cpu041,cpu085,cpu029,cpu076,node107,cpu059,cpu020,boss05,cpu017,cpu040,cpu086,cpu075,cpu014,cpu036,boss02>, 59 Insufficient nvidia.com/gpu node(s) <node149,node-b300-007,node067,node207,node081,node075,node040,node158,node061,node068,node185,node250,node166,node239,node246,node029,node223,node161,node129,node197,node105,node131,node127,node160,node251,node164,node163,node022,node025,node086,node138,node043,node046,node085,node137,node157,node017,node145,node154,node018,node225,node070,node153,node181,node238,node076,node136,node209,node128,node130,node186,node236,node055,node162,node042,node210,node147,node205,node064>, 9 plugin NodeAffinity predicates failed node(s) didn't match Pod's node affinity/selector node(s) <node115,node102,node199,node252,node176,node174,node041,node120,node177>.\nJob <qiji/job-a5ce2a224dff-20261104153236> scheduled failed\nEnd allocating resource at 2026-11-04 16:32:14",
+    "message": "success",
+    "request_id": "ReqID-20261104-163216-2495-c861"
+  },
+  "submitted_yaml": {
+    "code": 200,
+    "data": "kind: Job\nmetadata:\n  annotations:\n    JobAlias: denovo-dspark-test-eval-20261104-r5\n    jobCreator: linlizhi\n    project: WeaverRSI\n    scheduling.volcano.sh/queue-name: proj-32\n  creationTimestamp: null\n  generation: 1\n  labels:\n    reclaimableByVolcano: \"true\"\n  name: job-a5ce2a224dff-20261104153236\n  namespace: qiji\nspec:\n  minAvailable: 1\n  queue: proj-32\n  schedulerName: volcano\n  tasks:\n  - minAvailable: 1\n    name: worker\n    replicas: 1\n    template:\n      metadata:\n        creationTimestamp: null\n      spec:\n        activeDeadlineSeconds: 86400\n        containers:\n        - command:\n          - /bin/bash\n          - /gpfs/users/linlizhi/dspark-test-20261104-r5/run_eval.sh\n          env:\n          - name: NODE_NAME\n            valueFrom:\n              fieldRef:\n                fieldPath: spec.nodeName\n          - name: JOB_NAME\n            value: job-a5ce2a224dff-20261104153236\n          image: lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa\n          imagePullPolicy: Never\n          name: worker\n          resources:\n            limits:\n              cpu: \"64\"\n              memory: 768Gi\n              nvidia.com/gpu: \"8\"\n            requests:\n              cpu: \"64\"\n              memory: 768Gi\n              nvidia.com/gpu: \"8\"\n          securityContext:\n            capabilities:\n              add:\n              - IPC_LOCK\n          volumeMounts:\n          - mountPath: /dev/shm\n            name: shm\n          - mountPath: /gpfs/users/linlizhi\n            name: auto-pvc-0\n          - mountPath: /gpfs/shared_data\n            name: auto-pvc-1\n          - mountPath: /gpfs/envs\n            name: auto-pvc-2\n            readOnly: true\n            subPath: envs\n          - mountPath: /gpfs/datasets\n            name: auto-pvc-2\n            readOnly: true\n            subPath: datasets\n          - mountPath: /gpfs/models\n            name: auto-pvc-2\n            readOnly: true\n            subPath: models\n        initContainers:\n        - command:\n          - /bin/bash\n          - -c\n          - set -euo pipefail; umask 077; python3 -u /gpfs/users/linlizhi/dspark-test-20261104-r5/import_worker_image.py\n            > /gpfs/users/linlizhi/dspark-test-20261104-r5/image-import/worker.log\n            2>&1\n          env:\n          - name: NODE_NAME\n            valueFrom:\n              fieldRef:\n                fieldPath: spec.nodeName\n          - name: EXPECTED_NODE\n            value: node090\n          image: harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df\n          imagePullPolicy: IfNotPresent\n          name: import-verified-serving-image\n          resources:\n            limits:\n              cpu: \"2\"\n              memory: 8Gi\n              nvidia.com/gpu: \"8\"\n            requests:\n              cpu: \"2\"\n              memory: 8Gi\n              nvidia.com/gpu: \"8\"\n          volumeMounts:\n          - mountPath: /run/nexspec-runtime/containerd.sock\n            name: runtime\n          - mountPath: /host-ctr\n            name: host-ctr\n            readOnly: true\n          - mountPath: /host-crictl\n            name: host-crictl\n            readOnly: true\n          - mountPath: /host-snapshotter\n            name: host-snapshotter\n            readOnly: true\n          - mountPath: /gpfs/users/linlizhi\n            name: auto-pvc-0\n          - mountPath: /gpfs/shared_data\n            name: auto-pvc-1\n          - mountPath: /gpfs/envs\n            name: auto-pvc-2\n            readOnly: true\n            subPath: envs\n          - mountPath: /gpfs/datasets\n            name: auto-pvc-2\n            readOnly: true\n            subPath: datasets\n          - mountPath: /gpfs/models\n            name: auto-pvc-2\n            readOnly: true\n            subPath: models\n        nodeSelector:\n          kubernetes.io/hostname: node090\n          node_shcheduleable: \"true\"\n        restartPolicy: Never\n        tolerations:\n        - effect: NoSchedule\n          key: task-type\n          operator: Equal\n          value: rsi-weaver\n        - effect: NoSchedule\n          key: task-type\n          operator: Equal\n          value: weaver\n        volumes:\n        - emptyDir:\n            medium: Memory\n            sizeLimit: 64Gi\n          name: shm\n        - hostPath:\n            path: /run/containerd/containerd.sock\n            type: Socket\n          name: runtime\n        - hostPath:\n            path: /usr/bin/ctr\n            type: File\n          name: host-ctr\n        - hostPath:\n            path: /usr/bin/crictl\n            type: File\n          name: host-crictl\n        - hostPath:\n            path: /data/var/lib/containerd/io.containerd.snapshotter.v1.overlayfs\n            type: Directory\n          name: host-snapshotter\n        - name: auto-pvc-0\n          persistentVolumeClaim:\n            claimName: linlizhi\n        - name: auto-pvc-1\n          persistentVolumeClaim:\n            claimName: share\n        - name: auto-pvc-2\n          persistentVolumeClaim:\n            claimName: share-readonly\n            readOnly: true\nstatus:\n  conditions:\n  - lastTransitionTime: \"2026-11-04T07:32:36Z\"\n    status: Pending\n  minAvailable: 1\n  pending: 1\n  state:\n    lastTransitionTime: \"2026-11-04T07:32:36Z\"\n    phase: Pending\n  taskStatusCount:\n    worker:\n      phase:\n        Pending: 1\n",
+    "message": "Success",
+    "request_id": "ReqID-20261104-163216-2575-34b5"
+  },
+  "overview": {
+    "code": 200,
+    "data": {
+      "uuid": "job-a5ce2a224dff-20261104153236",
+      "name": "denovo-dspark-test-eval-20261104-r5",
+      "creator": "linlizhi",
+      "namespace": "qiji",
+      "create_time": "2026-11-04 15:32:36",
+      "end_time": "",
+      "running_time": "0h 0m 0s",
+      "phase": "Pending",
+      "ready_status": "0/1",
+      "base_info": {
+        "image": "lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa",
+        "working_dir": "",
+        "file_system": "EmptyDir: shm -> /dev/shm, PVC: linlizhi -> /gpfs/users/linlizhi, PVC: share -> /gpfs/shared_data, PVC: share-readonly -> /gpfs/envs, PVC: share-readonly -> /gpfs/datasets, PVC: share-readonly -> /gpfs/models",
+        "command": "/bin/bash /gpfs/users/linlizhi/dspark-test-20261104-r5/run_eval.sh",
+        "environment": {
+          "JOB_NAME": "job-a5ce2a224dff-20261104153236",
+          "NODE_NAME": ""
+        },
+        "tolerations": [
+          "Key: task-type, Operator: Equal, Effect: NoSchedule",
+          "Key: task-type, Operator: Equal, Effect: NoSchedule"
+        ],
+        "remark": "",
+        "auto_retry": 0,
+        "current_retry_count": 0,
+        "left_retry_count": -1,
+        "task_type": "",
+        "priority": "",
+        "project": "WeaverRSI",
+        "node_selector": {
+          "kubernetes.io/hostname": "node090",
+          "node_shcheduleable": "true"
+        },
+        "instance_count": 1,
+        "reclaim_policy": "true",
+        "policies": null,
+        "task_resource_info": {
+          "cpu_limit": "64.00",
+          "cpu_request": "64.00",
+          "memory_limit": "768.00",
+          "memory_request": "768.00"
+        },
+        "schedule_zone_list": null
+      },
+      "instance_info": {
+        "instances": [
+          {
+            "name": "job-a5ce2a224dff-20261104153236-worker-0",
+            "status": "Pending",
+            "node_ip": "",
+            "node_name": "",
+            "running_time": "0s",
+            "actions": "\u63a7\u5236\u53f0, \u65e5\u5fd7"
+          }
+        ]
+      },
+      "quota_state": "",
+      "reclaim_state": "",
+      "reclaim_deadline": "",
+      "reclaim_for": ""
+    },
+    "message": "Success",
+    "request_id": "ReqID-20261104-163216-2698-27d3"
+  },
+  "finding": "node090 explicitly rejected for Insufficient memory; hard hostname excludes alternatives; no exact count of fully eligible nodes inferred from GPU fragments"
+}

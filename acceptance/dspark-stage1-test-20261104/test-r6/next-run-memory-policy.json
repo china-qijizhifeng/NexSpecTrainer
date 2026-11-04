@@ -1,0 +1,11 @@
+{
+  "authorization": "那你弄少一点内存",
+  "next_worker_memory_request": "512Gi",
+  "next_worker_memory_limit": "512Gi",
+  "current_attempt": "r6",
+  "current_memory": "768Gi",
+  "current_attempt_already_assigned_and_init_started": true,
+  "do_not_cancel_started_worker_just_to_change_memory": true,
+  "basis": "training-run reference records complete8H100 target TP8EP8 CPU Engram at512Gi; current initialized run retained to prioritize starting",
+  "same8GPU64CPU_and_generation": true
+}

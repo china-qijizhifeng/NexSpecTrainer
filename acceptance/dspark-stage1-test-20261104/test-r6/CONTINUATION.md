@@ -1,0 +1,17 @@
+# Continuation: r6 scheduler-selected evaluation
+
+Latest manual user asked to remove fixed nodes, then lower host RAM, then upload NexSpecTrainer related images using the two-line private file /Users/shom/Documents/base-remote-mac/harbor-env.md. Never print or commit credentials.
+
+r5 cancelled while Pending0/1 and unassigned with no init/worker output; pidfd pinned controller5892/start2350421198 stopped. Its alias is absent. Original execution manifest remains unchanged. r6 migration/launch/submit intents already exist: never rerun any entrypoint.
+
+r6 submitted08:44:29UTC: denovo-dspark-test-eval-20261104-r6 / job-b086ea04cfd9-20261104164429. Controller8848/start2350852544, command /usr/bin/python3 -u /gpfs/users/linlizhi/dspark-test-20261104-r6/controller.py followed by one space. Scheduler selected node091; init files began appearing. No hostname/nodeName/affinity/EXPECTED_NODE binding. Single8GPU/64CPU/768Gi; actual8H100 must be verified in init and regular worker. Init receipts are root0600 because existing importer uses umask077; preserve permissions. Use monitor.py and monitor_receipts.py (supplemental original may fail on private init files). Do not treat inaccessible init evidence as numerical pass or job failure.
+
+User lower-memory request arrived after r6 submission. By inspection it is now assigned with init started, so preserve the started worker to prioritize getting one group running. next-run-memory-policy.json sets512Gi for future workers, with same8GPU64CPU and frozen numerical protocol. Do not create another attempt merely to shrink a running worker.
+
+Frozen EOS/input/four groups/A-A/counting contract remains protocol.json; worker24h/controller26h. No automatic retry after error. Preserve raw evidence; terminal receipt then exact job identity deletion, confirm alias absent. Running/CPU passes are not test completion. Pending may include init. Old r1-r5 and stage1 training/final-restore must never restart. Keep training step25/118 and dependencies.
+
+Harbor upload is active, separate from current worker. Exact old training image exists on cpu100, IDsha256:da11e080cc11b041ecb97342c80da74ff66d48b612faa7d4e5a8ca7c0b093336 and tag harbor.local.clusters/bp/nexspec-trainer:v41-weaver-torch210-20261103-r1. It is historical and not proven to contain current NFC fixes. Serving raw OCI is fixedc6da252c6837... at /gpfs/users/linlizhi/nexspec-v41-capture-20261103/offline-image. cpu100 resolves Harbor to10.51.6.8 and has docker/skopeo. BP dev resolves no Harbor hostname. Upload exact images without changing current frozen worker/image manifests, pin registry digest and read back all manifests/configs. No weights or credentials in images/public evidence. Do not claim old runtime current-source compatible.
+
+Baseline replicas A/B remain healthy independent services, do not delete/restart/use for held-out test. Router/NorthGate deferred until test startup stabilized. No further checkpoint cleanup;9 old huangyuqi ckpts already deleted with1187640592736bytes in their manifest.
+
+Commit/push all new scripts and necessary redacted evidence to GitHub main after checks; verify remote API SHA and ancestry, no force push. Latest published f3cbdce3 before this turn; current r6 archive still needs publication. Normal health/queue progress quiet; notify only meaningful new phase/failure/completion/resources/user decision. Automation must track r6 and the upload task, not stale r5.

@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "time": 1793781868.087701,
+  "source_job": {
+    "name": "job-a5ce2a224dff-20261104153236",
+    "user_def_name": "denovo-dspark-test-eval-20261104-r5",
+    "status": "Pending",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "no_worker_output": true,
+  "controller_stopped": true,
+  "source_alias_absent": true,
+  "destination": "/gpfs/users/linlizhi/dspark-test-20261104-r6",
+  "delete": {
+    "name": "job-a5ce2a224dff-20261104153236",
+    "alias": "denovo-dspark-test-eval-20261104-r5",
+    "response": {
+      "success": true
+    }
+  },
+  "pidfd_pinned": true
+}

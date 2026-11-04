@@ -1,0 +1,6 @@
+{
+  "pid": 8848,
+  "start_ticks": "2350852544",
+  "command": "/usr/bin/python3 -u /gpfs/users/linlizhi/dspark-test-20261104-r6/controller.py ",
+  "root": "/gpfs/users/linlizhi/dspark-test-20261104-r6"
+}
