@@ -79,6 +79,16 @@ def _install(result, scheduler, *args, **kwargs):
         scheduler._northgate_cp_numerics_restore = cp_numerics.install(
             scheduler.tp_worker.model_runner.model
         )
+    limit = int(os.environ.get("SPECFORGE_MOE_CHUNK_TOKENS", "0"))
+    if limit:
+        from specforge_sglang_capture import bounded_moe
+
+        bounded_moe.configure(limit)
+        print(f"SpecForge bounded MoE enabled: tokens={limit}", flush=True)
+    if os.environ.get("SPECFORGE_MEMORY_AUDIT") == "1":
+        from specforge_sglang_capture.memory_audit import install as audit
+
+        audit()
     return result
 
 
