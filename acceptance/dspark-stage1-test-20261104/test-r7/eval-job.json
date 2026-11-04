@@ -1,0 +1,9 @@
+{
+  "name": "job-6b4dd801c01d-20261104173837",
+  "user_def_name": "denovo-dspark-test-eval-20261104-r7",
+  "status": "Pending",
+  "ready_status": "0/1",
+  "namespace": "qiji",
+  "job_creator": "linlizhi",
+  "user_gpu": 8
+}

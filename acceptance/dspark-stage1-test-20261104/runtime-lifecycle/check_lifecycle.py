@@ -74,7 +74,7 @@ def main():
         untouched.mkdir()
         assert interrupted_state(untouched, "Pending", False) is None
         assert interrupted_state(untouched, "Pending", True)
-        for signum in (signal.SIGTERM, signal.SIGINT):
+        for signum in (signal.SIGTERM, signal.SIGINT, signal.SIGHUP):
             interrupted = root / f"signal-{signum}"
             interrupted.mkdir()
             ready = interrupted / "child-ready"
@@ -83,6 +83,7 @@ def main():
                 "import signal,time,sys;from pathlib import Path;"
                 "signal.signal(signal.SIGTERM,lambda *args:sys.exit(0));"
                 "signal.signal(signal.SIGINT,lambda *args:sys.exit(0));"
+                "signal.signal(signal.SIGHUP,lambda *args:sys.exit(0));"
                 f"Path({str(ready)!r}).write_text('ready');time.sleep(60)"
             )
             process = invoke(interrupted, payload)
@@ -101,6 +102,31 @@ def main():
                 if process.poll() is None:
                     process.kill()
                     process.wait(timeout=5)
+        unwind = root / "evaluator-unwind"
+        unwind.mkdir()
+        ready = unwind / "ready"
+        cleanup = unwind / "cleanup"
+        payload = (
+            "import signal,time\nfrom pathlib import Path\n"
+            "from worker_lifecycle import evaluation_signal_handler\n"
+            "signal.signal(signal.SIGTERM,evaluation_signal_handler)\n"
+            f"Path({str(ready)!r}).write_text('ready')\n"
+            "try:\n time.sleep(60)\nfinally:\n"
+            f" Path({str(cleanup)!r}).write_text('owned server cleanup reached')\n"
+        )
+        process = invoke(unwind, payload)
+        try:
+            deadline = time.monotonic() + 5
+            while not ready.exists() and time.monotonic() < deadline:
+                time.sleep(0.01)
+            assert ready.exists()
+            os.kill(process.pid, signal.SIGTERM)
+            assert process.wait(timeout=5) == 143
+            assert cleanup.read_text() == "owned server cleanup reached"
+        finally:
+            if process.poll() is None:
+                process.kill()
+                process.wait(timeout=5)
     print(
         json.dumps(
             {
@@ -110,6 +136,8 @@ def main():
                 "directory_replay_preserves_evidence": True,
                 "incomplete_zero_exit_rejected": True,
                 "running_to_pending_detected": True,
+                "evaluator_signal_unwinds_cleanup": True,
+                "hup_preserved": True,
             }
         )
     )

@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "check_runner.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"passed\": true, \"scope\": \"multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "check_eos.py",
+        "--serving-source",
+        "/gpfs/users/linlizhi/dspark-test-20261104-r7/contract-source"
+      ],
+      "returncode": 0,
+      "stdout": "{\"passed\": true, \"scope\": \"Actual pinned native EOS/cap methods and spec metric function, real HTTP/SSE client, short/one-token/budget completions, post-EOS and premature-finish rejection, terminal block counters, variable length timing; no GPU numerical parity claim\", \"old_client_short_eos_failure_reproduced\": false}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "check_scheduling.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"passed\": true, \"scheduler_selected\": true, \"forbidden_placement_and_tolerations_rejected\": true, \"memory_512Gi\": true}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "check_lifecycle.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"passed\": true, \"actual_term_and_int_zero_exit_children\": true, \"legacy_exit_zero_on_term_reproduced\": true, \"directory_replay_preserves_evidence\": true, \"incomplete_zero_exit_rejected\": true, \"running_to_pending_detected\": true, \"evaluator_signal_unwinds_cleanup\": true, \"hup_preserved\": true}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "controller.py",
+        "--prepare-check"
+      ],
+      "returncode": 0,
+      "stdout": "{\"passed\": true, \"read_only\": true}\n",
+      "stderr": ""
+    }
+  ],
+  "time": 1793784958.5750022,
+  "free_bytes": 7552750321664,
+  "serving_fixture_sha256": {
+    "srt/speculative/spec_decoding_metrics.py": "693489e43f995486ca92b00426bdfcb10753b95f0a296ca0dd5e2ac578073fab",
+    "srt/managers/schedule_batch.py": "78264125d59279410d7d6dc0a79c9e84e8a48e783ea9bcfe402fdc49517cc588"
+  },
+  "scope": "actual CPU EOS/SSE/lifecycle and API preflight; no GPU result",
+  "harness_correction": "source overlay is NexSpecTrainer, not SGLang; use exact two pinned serving files. Prior invalid-path receipt retained. Production50GB reserve unchanged."
+}

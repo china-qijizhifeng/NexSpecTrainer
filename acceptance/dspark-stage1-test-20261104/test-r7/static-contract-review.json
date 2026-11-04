@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "scope": "scheduler-selected512Gi r7; same frozen EOS and988 requests; signal/replay fixes batch-regressed before GPU",
+  "amendment_authorized_by_user": true,
+  "prior_test_requests": 0,
+  "unmodified_inputs": true,
+  "source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "serving_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "inspected": [
+    "Req._check_token_based_finish/update_finish_state/output_ids_through_stop; EOS beats length and terminal speculative suffix trimmed",
+    "Scheduler passes model EOS IDs even when tokenizer init is skipped",
+    "Output streamer uses clipped output IDs for completion_tokens and raw native verify/draft counts",
+    "spec_decoding_metrics uses completion/verify and proposed=verify*(num_draft_tokens-1)",
+    "generate/SSE/finish/actual-token timing, one-token TPOT and no-verify prefill EOS",
+    "variable length comparisons and safe common-prefix probe indexing",
+    "all10 A/A before first test; original r3 EOS-prefix exact reference",
+    "one-time launch/submit, prior terminal deletion, exact cleanup, cached image-only YAML"
+  ],
+  "no_numerical_root_cause_claim": true,
+  "regressions": [
+    {
+      "script": "check_runner.py",
+      "passed": true,
+      "scope": "multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters"
+    },
+    {
+      "script": "check_eos.py",
+      "passed": true,
+      "scope": "Actual pinned native EOS/cap methods and spec metric function, real HTTP/SSE client, short/one-token/budget completions, post-EOS and premature-finish rejection, terminal block counters, variable length timing; no GPU numerical parity claim",
+      "old_client_short_eos_failure_reproduced": true
+    }
+  ],
+  "migration_user_authorized": true,
+  "no_sampling_or_variant_changes": true,
+  "expected_node": null,
+  "resource_review": [
+    "Single8GPU64CPU512Gi, scheduler-selected allowed node; no new tolerations",
+    "Actual8H100 checked in init and regular worker; same fixed original OCI image",
+    "r6 interrupted and exact alias absent; controller identity stopped",
+    "Supervisor owns child group and preserves TERM/INT/HUP even if child exits0",
+    "Evaluator unwinds existing server-group finally cleanup; supervisor grace150s exceeds90+30s server cleanup",
+    "worker-started open-x before log creation; Running-to-Pending and incomplete exit cause receipt then exact cancellation",
+    "No automatic resubmission; prior execution manifests and receipts unchanged",
+    "Init exclusive invocation directory precedes log redirection, preserving original import evidence across replacement pods"
+  ],
+  "scheduling_diagnosis": "r5 scheduler explicitly lists node090 under Insufficient memory",
+  "external_interruption_root_cause": "not established"
+}

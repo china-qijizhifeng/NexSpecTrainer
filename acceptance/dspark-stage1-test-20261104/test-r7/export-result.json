@@ -1,0 +1,153 @@
+{
+  "passed": true,
+  "exports": [
+    {
+      "passed": true,
+      "step": 25,
+      "checkpoint": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6/training/denovo-v41-specforge-stage1-step25",
+      "checkpoint_metadata_sha256": {
+        "training_state.json": "e48e3492ba13841054050582e0b629ee9f0c1bc49cd751e9a0f7bb28c6378332",
+        "nfc/common.pt": "4c0d0ba796f5d5bf16277d17ff067fbe55bbbdc7bfb2048683a44f29598f40e5"
+      },
+      "mtp_tensors": 2401,
+      "target_non_mtp_shared_unchanged": true,
+      "overlays": {
+        "nexspec-mtp-00000.safetensors": {
+          "bytes": 540382472,
+          "sha256": "dd88893fde5f464fd584081d4b86e76f622c5c7ab8ba3c38258a07f3f075adee"
+        },
+        "nexspec-mtp-00001.safetensors": {
+          "bytes": 540281744,
+          "sha256": "6e48a6feefbc73f18476b26d7217ccd30efe27ed55cb7517eef3bf0f95048a9e"
+        },
+        "nexspec-mtp-00002.safetensors": {
+          "bytes": 538969784,
+          "sha256": "f19b2d501cc882fef9f53a1fec479e560257002d49abb495fbd1840c52770de0"
+        },
+        "nexspec-mtp-00003.safetensors": {
+          "bytes": 538969784,
+          "sha256": "c92bfb161d454d0b6b42ea791742b228b5b00c566dc6f8b413338d3667acd309"
+        },
+        "nexspec-mtp-00004.safetensors": {
+          "bytes": 572323864,
+          "sha256": "ed89116a06289b678ff981c8c3435e40e94d9852ba59a6603d63c31a28f7d02a"
+        },
+        "nexspec-mtp-00005.safetensors": {
+          "bytes": 537387680,
+          "sha256": "8a5af47dcf91ec5b8b738810b8de4c03d2d93d3e635cf7e54669427fcb950e33"
+        },
+        "nexspec-mtp-00006.safetensors": {
+          "bytes": 540281752,
+          "sha256": "89450a7a216ad4c9aa2430bb31080e20dbec7da805c90e6d2bb65cecdff31add"
+        },
+        "nexspec-mtp-00007.safetensors": {
+          "bytes": 538969784,
+          "sha256": "75c3618dc4c910d80e376d20ce0f001a8c4e8946015098ac27e8220111666680"
+        },
+        "nexspec-mtp-00008.safetensors": {
+          "bytes": 538969800,
+          "sha256": "59ad844ae85dd7af5efb520ac00a8fd06319fc612cf5bd68d1a89629c69b2299"
+        },
+        "nexspec-mtp-00009.safetensors": {
+          "bytes": 542158864,
+          "sha256": "3432e4ffdefe189e7f224794c88be230d87d1e9fccb5e7dbbcccddcd25d27ce9"
+        },
+        "nexspec-mtp-00010.safetensors": {
+          "bytes": 538969696,
+          "sha256": "2af0ce393c6a8784e3613810fd29f261e16ec9361a6e894222f40d0e3b9b5208"
+        },
+        "nexspec-mtp-00011.safetensors": {
+          "bytes": 540281776,
+          "sha256": "6e7dbc648acf6555d330c4ae16168fce193d957a20efcc8cdde3e29cb85a74f0"
+        },
+        "nexspec-mtp-00012.safetensors": {
+          "bytes": 538969784,
+          "sha256": "ed5f16814eeee10463cfc84a1fe3b01d1d088a06145beae0de02fac9a474287a"
+        },
+        "nexspec-mtp-00013.safetensors": {
+          "bytes": 538969840,
+          "sha256": "2d85bf10abdd7cfb18faa5208236c0d11fe6654ea426b330abf847d513716968"
+        },
+        "nexspec-mtp-00014.safetensors": {
+          "bytes": 347239824,
+          "sha256": "613b20412e6b991451f897a0116ef238504aed3b538c70beb30b1bf20bf96fbc"
+        }
+      },
+      "max_rss_kib": 43495276
+    },
+    {
+      "passed": true,
+      "step": 118,
+      "checkpoint": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6/training/denovo-v41-specforge-stage1-step118",
+      "checkpoint_metadata_sha256": {
+        "training_state.json": "e22b0a1a1747b64c52568c5cc6c61a2a2273aaf9878076b88f11de8330fdb247",
+        "nfc/common.pt": "ed26865057312d66503d9127b0dc1d3de4eb5a1a3964a88a4511a8da4459d903"
+      },
+      "mtp_tensors": 2401,
+      "target_non_mtp_shared_unchanged": true,
+      "overlays": {
+        "nexspec-mtp-00000.safetensors": {
+          "bytes": 540382472,
+          "sha256": "ea653d8a8b39d76bd7c251e99b78ee05fc0f23e4a6cc8ef1100893bb9d86c66d"
+        },
+        "nexspec-mtp-00001.safetensors": {
+          "bytes": 540281744,
+          "sha256": "2176f4ba62174d98ab5cc6a45d67d4d9afe27104ba8b0a6500866cafb297a8e0"
+        },
+        "nexspec-mtp-00002.safetensors": {
+          "bytes": 538969784,
+          "sha256": "c811f7bacffdf6b0bce0de7b95966fda68aad8c96aae976daec67223186cde7a"
+        },
+        "nexspec-mtp-00003.safetensors": {
+          "bytes": 538969784,
+          "sha256": "adafbb288f9a792364578cca920440f834677d6dd68dd08e0ad3076daea8460d"
+        },
+        "nexspec-mtp-00004.safetensors": {
+          "bytes": 572323864,
+          "sha256": "68664e7d2d09b261c4d003499c23675b564504d83fc1c85217c28614866eb0e3"
+        },
+        "nexspec-mtp-00005.safetensors": {
+          "bytes": 537387680,
+          "sha256": "5a73b3f5f025663d5c105ed75548f1c418714175f06427cce261da825d34b335"
+        },
+        "nexspec-mtp-00006.safetensors": {
+          "bytes": 540281752,
+          "sha256": "c682a131132ff95a741ba958c5db903539ac1004e4b04133bd043d99bd1613dd"
+        },
+        "nexspec-mtp-00007.safetensors": {
+          "bytes": 538969784,
+          "sha256": "e9c613d2586bcb1fd1d93a5d794e6b9579b959f3dff9dfed7c4e9c254190f839"
+        },
+        "nexspec-mtp-00008.safetensors": {
+          "bytes": 538969800,
+          "sha256": "7556fcd94183d7e635360217078e2102d4ba883caef349b632e37a03c2bbecd2"
+        },
+        "nexspec-mtp-00009.safetensors": {
+          "bytes": 542158864,
+          "sha256": "8ce7748ffa7cfcdf51764ea986ce2df1eaf4e4deba4888f1e8d75cd7e299c994"
+        },
+        "nexspec-mtp-00010.safetensors": {
+          "bytes": 538969696,
+          "sha256": "0395a6fd116885635d2f8274846ea4ae973f318a2628f8a7acae7ff02591202a"
+        },
+        "nexspec-mtp-00011.safetensors": {
+          "bytes": 540281776,
+          "sha256": "aed063ecbb1d69eb9f8d80f62060a21929f5cf813f020574f1a21b27a9f05491"
+        },
+        "nexspec-mtp-00012.safetensors": {
+          "bytes": 538969784,
+          "sha256": "e799ea3769d5277582e00c4210d4700227f250a2a29a166d2d1e351821a902c1"
+        },
+        "nexspec-mtp-00013.safetensors": {
+          "bytes": 538969840,
+          "sha256": "7255a9e9a8947c31c2467b838cf406c8843d9a180651f3a422ccb6a83d6f719b"
+        },
+        "nexspec-mtp-00014.safetensors": {
+          "bytes": 347239824,
+          "sha256": "5508f5d614335ee7d8cfbd4cfa5ae1ce2d628c1819ec70dbf6707529d62c0967"
+        }
+      },
+      "max_rss_kib": 43748836
+    }
+  ]
+}

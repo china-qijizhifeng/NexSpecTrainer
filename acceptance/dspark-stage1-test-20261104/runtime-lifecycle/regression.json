@@ -8,5 +8,15 @@
     "incomplete_zero_exit_rejected": true,
     "running_to_pending_detected": true
   },
-  "scope": "actual owned subprocess TERM/INT and misleading zero-exit reproduction; no GPU numerical claim"
+  "scope": "actual owned subprocess TERM/INT and misleading zero-exit reproduction; no GPU numerical claim",
+  "latest_r7_linux": {
+    "passed": true,
+    "actual_term_and_int_zero_exit_children": true,
+    "legacy_exit_zero_on_term_reproduced": true,
+    "directory_replay_preserves_evidence": true,
+    "incomplete_zero_exit_rejected": true,
+    "running_to_pending_detected": true,
+    "evaluator_signal_unwinds_cleanup": true,
+    "hup_preserved": true
+  }
 }

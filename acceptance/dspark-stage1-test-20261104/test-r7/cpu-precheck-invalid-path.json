@@ -1,0 +1,29 @@
+{
+  "passed": false,
+  "checks": [
+    {
+      "command": [
+        "/usr/bin/python3",
+        "check_runner.py"
+      ],
+      "returncode": 0,
+      "stdout": "{\"passed\": true, \"scope\": \"multi-line SSE, comments, CRLF, DONE, cumulative/delta/final streams, corrupt-prefix rejection, verify-weighted counters\"}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/usr/bin/python3",
+        "check_eos.py",
+        "--serving-source",
+        "/gpfs/users/linlizhi/dspark-test-20261104-r2/source/sglang"
+      ],
+      "returncode": 1,
+      "stdout": "",
+      "stderr": "Traceback (most recent call last):\n  File \"/gpfs/users/linlizhi/dspark-test-20261104-r7/check_eos.py\", line 237, in <module>\n    native_contracts(args.serving_source)\n  File \"/gpfs/users/linlizhi/dspark-test-20261104-r7/check_eos.py\", line 21, in native_contracts\n    tree = ast.parse(path.read_text())\n  File \"/usr/lib/python3.10/pathlib.py\", line 1134, in read_text\n    with self.open(mode='r', encoding=encoding, errors=errors) as f:\n  File \"/usr/lib/python3.10/pathlib.py\", line 1119, in open\n    return self._accessor.open(self, mode, buffering, encoding, errors,\nFileNotFoundError: [Errno 2] No such file or directory: '/gpfs/users/linlizhi/dspark-test-20261104-r2/source/sglang/srt/managers/schedule_batch.py'\n"
+    }
+  ],
+  "time": 1793784891.176773,
+  "free_bytes": 7552750321664,
+  "scope": "real CPU EOS/SSE/lifecycle and API preflight; no GPU numerical or test completion claim",
+  "local_cpu_precheck": "macOS HTTP fixture stopped at50GB write reserve; remote GPFS check retains production reserve unchanged"
+}

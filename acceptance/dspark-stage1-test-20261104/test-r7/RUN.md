@@ -1,0 +1,5 @@
+# Test r7: scheduler-selected eight H100s,512Gi
+
+User requested one8GPU group without fixed nodes and lower RAM. Retain64CPU, use512Gi requests/limits. Only node_shcheduleable=true and existing Weaver tolerations; verify actual8H100 in init and worker. Keep exact original serving image, source/model hashes, input selection, real EOS/max1024, ten A/A diagnostics and988 requests.
+
+r6 started but was externally interrupted during A/A, with no completed A/A or test. Its cause remains unconfirmed; exact job/controller are stopped and alias absent. The next supervisor preserves termination codes, requires a complete audited result for success and rejects directory replay before opening logs. Evaluator signals unwind owned-server cleanup. Controller records interruption/exit-without-result or Running-to-Pending, then cancels only its exact job. Lifecycle/EOS/SSE/scheduling CPU regressions precede this single-use launch; GPU acceptance remains separate. Do not restart old jobs/controllers or modify predecessor files.

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "main_sha": "d886a17a90b0305617843b52f70f447f892492b6",
+  "remote_api_sha": "d886a17a90b0305617843b52f70f447f892492b6",
+  "ancestor": "47c687fae0cdd0906c73ea600659994fb555100e",
+  "ancestor_verified": true,
+  "pre_commit_passed": true,
+  "images_readback_passed": true,
+  "time": 1793784727.2846458
+}

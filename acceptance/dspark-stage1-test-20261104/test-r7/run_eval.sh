@@ -1,0 +1,9 @@
+#!/bin/bash
+set -euo pipefail
+TASK_ROOT=/gpfs/users/linlizhi/dspark-test-20261104-r7
+export PYTHONUNBUFFERED=1 PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=8 HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1
+export PYTORCH_ALLOC_CONF=expandable_segments:True
+export SGLANG_JIT_DEEPGEMM_FAST_WARMUP=1 SGLANG_RAGGED_VERIFY_MODE=static
+unset SGLANG_PLUGINS SPECFORGE_SPEC_CAPTURE SGLANG_SIMULATE_ACC_LEN
+ulimit -l unlimited
+exec python3 -u "$TASK_ROOT/worker_lifecycle.py"

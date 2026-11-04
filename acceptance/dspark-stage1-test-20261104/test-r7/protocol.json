@@ -1,0 +1,71 @@
+{
+  "frozen_before_test_outputs": true,
+  "stage1_source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "sglang_commit": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "train_export_image": "harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df",
+  "serve_image": "lmsysorg/sglang@sha256:c6da252c6837bb062184b01c7aa2df7a2aadb1ed4944f236d7027174c73c45fa",
+  "variants": [
+    "target-only",
+    "official-mtp",
+    "step25",
+    "step118"
+  ],
+  "primary_candidate": "step25, selected using validation before test",
+  "test_selection": "one last eligible supervised assistant boundary per each of 247 test trajectories; complete original history, input<=64512",
+  "test_instances": 36,
+  "generation": {
+    "temperature": 0,
+    "ignore_eos": false,
+    "max_new_tokens": 1024,
+    "concurrency": 1,
+    "gamma": 5,
+    "eos_token_ids": [
+      1
+    ]
+  },
+  "cache_policy": "Radix disabled; independent r7 kernel caches copied once from readable r3 cache entries; workers compile private unreadable entries. No changes to old cache permissions.",
+  "correctness": "All10 predeclared diagnostics at max1024 and EOS-aware stopping; target A/A must match fully, including lengths and finish reasons. Old r3 failure input must return the captured61-token EOS completion. Spec mismatch records one common-prefix logprob probe; no lossless claim if any difference.",
+  "known_parity_issue": "Prior AR vs DSPARK FP4 output mismatch remains unresolved. No lossless claim unless diagnostics AND 247 test outputs all match. Finite, pre-declared matrix measures discrepancy; no tuning or automatic reruns on test.",
+  "scope": "EOS-terminated greedy complete-prefix replay, max1024 output tokens; not full trajectories or closed-loop SWE task solve rate",
+  "failure_policy": "worker/API errors stop with evidence and no resubmission; inspect full static call chain before changing and re-validating",
+  "resource_policy": "One scheduler-selected worker; no hostname binding or hostname affinity. Same 8GPU/64CPU/512Gi. Init verifies actual8H100 and fixed image; regular container GPFS/shm only.",
+  "cached_nodes": [],
+  "headroom_bytes": 50000000000,
+  "migration_from": "dspark-test-20261104-r6",
+  "diagnostic_max_new_tokens": 1024,
+  "protocol_amendment": {
+    "authorized_by": "user reply to EOS protocol question",
+    "answer": "\u6309 EOS \u505c\u6b62\u3001\u6700\u591a 1024 tokens\uff08\u63a8\u8350\uff0c\u66f4\u8d34\u8fd1\u5b9e\u9645\u751f\u6210\uff09",
+    "pre_test_only": true,
+    "prior_test_requests": 0,
+    "old_fixed_length_protocol_remains_failed": true,
+    "numerical_kernel_root_cause_fixed": false
+  },
+  "metrics": "Actual returned EOS-inclusive tokens / request seconds; tau=sum(completion)/sum(verify); native raw correct/proposed include final verify block, not claimed to equal emitted useful drafts; one-token/single-chunk TPOT undefined and reported null. No verify requests retain zero counts.",
+  "resource_amendment": {
+    "authorization": "\u5148\u5f041\u7ec48\u5361\u8dd1\u8d77\u6765; \u5141\u8bb8\u672c\u6b21\u653e\u5bbd\uff0c\u4f18\u5148\u8dd1\u8d77\u6765",
+    "prior_test_requests": 0,
+    "temporary_gpfs_reserve_bytes": 50000000000,
+    "minimum_submit_free_bytes": 60000000000
+  },
+  "scheduling_amendment": {
+    "authorization": "\u4e3a\u4ec0\u4e48\u6392\u961f\u8fd9\u4e48\u4e45\uff1f\u7814\u7a76\u4e00\u4e0b\u4e0d\u8981\u56fa\u5b9a\u8282\u70b9",
+    "prior_test_requests": 0,
+    "hostname_binding": false,
+    "gpu_model_verified_in_init_and_worker": true
+  },
+  "memory_amendment": {
+    "authorization": "\u90a3\u4f60\u5f04\u5c11\u4e00\u70b9\u5185\u5b58",
+    "prior_test_requests": 0,
+    "requests_and_limits": "512Gi",
+    "gpu_cpu_and_generation_unchanged": true
+  },
+  "lifecycle_amendment": {
+    "prior_attempt_interrupted": true,
+    "external_cause_confirmed": false,
+    "signals_preserved": true,
+    "worker_directory_replay_forbidden": true,
+    "running_to_pending_stops_with_evidence": true,
+    "automatic_retry": false
+  }
+}
