@@ -119,3 +119,54 @@ excluding gradients, model weights, temporary workspace and NFC staging. This is
 a shape-derived estimate, not a measured peak. Full-matrix all-reduce payload is
 about 52.75 GiB per rank per optimizer step before accounting for collective
 transport overhead; optimizing that communication is separate work.
+
+### 2026-11-05 validation result
+
+[Machine-readable receipts](validation/v41-flash-muon-20261105.json) pin source
+hashes, runtime image and per-rank numerical results. CPU regression passed
+186 tests (6 skipped; 441 subtests). Actual 8×H100 tests passed:
+
+- Pinned TorchTitan numerical helpers: bitwise NS outputs.
+- FULL_SHARD accumulated/clipped updates: max error `2.24e-7` with FP32 NS,
+  `1.49e-8` with BF16 NS and CPU offload.
+- Native Q-head/MoE/router/mHC layouts: max error `7.45e-9`, including zero
+  expert gradients and empty shards, over four updates.
+- Lazy/initialized NFC → fresh processes → next update: bitwise in the small
+  FSDP model. Single-rank NaN rejects the step on every rank.
+- Existing AdamW NFC regression: all 40 per-rank case receipts passed, covering
+  FULL_SHARD, SHARD_GRAD_OP, DDP, placement changes, public Trainer resume,
+  asynchronous publication and injected writer failure.
+
+The native layout differential exposed a mixed BF16/FP32 CUDA foreach-copy
+failure in the supported runtime: updating an independent reference overwrote
+another optimizer's masters. Grouping both master-gradient and model-copy lists
+by source/destination device and dtype eliminated that failure. The shared
+AdamW path uses the same fix.
+
+The full 14.23B native DSpark pilot used real cached 4K features, 8×H100,
+CPU offload, accumulation **2**, and three optimizer updates. All ranks had
+finite losses/norms and unchanged frozen target tables. Maximum optimizer times
+across ranks were **65.28 / 61.05 / 64.73 seconds**. Optimizer allocated memory
+peaked at 10.22 GiB/rank, with a 1.063 GiB incremental workspace peak; recorded
+forward/backward-only peak was 52.67 GiB/rank and reserved memory 73.15 GiB/rank.
+Host RSS at optimizer boundaries reached 33.96 GiB/rank with checkpoint staging.
+These are pilot measurements, not a full accumulation-16 budget or throughput
+comparison.
+
+**Full-model strict resume equivalence is not passed.** NFC saved steps 2/3, a
+new process restored step 2 and completed step 3 with identical microbatch loss
+values, but norm changed from `0.7582377195` to `0.7582808733`. Streaming comparison
+of the complete final checkpoints found:
+
+| Tensor family | Max absolute difference | Relative L2 difference |
+| --- | ---: | ---: |
+| Model | 6.10e-5 | 7.76e-7 |
+| FP32 master | 2.22e-5 | 2.13e-6 |
+| Muon momentum | 7.63e-6 | 9.01e-4 |
+| Adam first moment | 1.93e-5 | 2.60e-4 |
+| Adam second moment | 2.65e-6 | 6.39e-5 |
+
+All compared tensors are finite. These are observed errors, **not retrospectively
+chosen acceptance tolerances**; their cause has not been established. The PR
+remains draft for this gate. Controlled LR-calibrated acceptance/serving studies
+and all-anchor integration remain follow-ups under issue #14.

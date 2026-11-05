@@ -85,6 +85,27 @@ def run(dtype, offload):
         offload_master=offload,
     )
     optimizer.configure_grad_norm_reduction(enabled=False)
+    # Explicitly establish the same initial full weights on every rank. Seeded
+    # initialization alone is not a distributed parameter-identity contract.
+    with torch.no_grad():
+        for item, master, reference_item, full_master in zip(
+            backend.optimizer.plan,
+            backend.optimizer.fp32_params,
+            reference_plan,
+            optimizer.fp32_params,
+            strict=True,
+        ):
+            full = full_master.cuda() if offload else full_master
+            dist.broadcast(full, src=0)
+            if offload:
+                full_master.copy_(full)
+            expected = full_master.reshape(-1)[
+                item.offset : item.offset + master.numel()
+            ].view_as(master)
+            master.copy_(expected)
+            item.parameter.copy_(master)
+            reference_item.parameter.copy_(full_master)
+            assert torch.equal(master, expected)
     maximum = 0.0
     tolerance = 2e-6 if dtype == "float32" else 2e-4
     for step in range(4):
@@ -108,19 +129,71 @@ def run(dtype, offload):
                 .view_as(item.parameter)
                 .clone()
             )
+        initials = [p.detach().cpu().clone() for p in backend.optimizer.fp32_params]
+        for index, (master, group) in enumerate(
+            zip(backend.optimizer.fp32_params, backend.optimizer.optimizer.param_groups)
+        ):
+            assert master is group["params"][0], index
+
+        def before_inner(inner, args, kwargs):
+            for index, master in enumerate(backend.optimizer.fp32_params):
+                assert torch.equal(master.cpu(), initials[index]), (
+                    "changed before inner",
+                    backend.optimizer.plan[index].name,
+                )
+
+        hook = backend.optimizer.optimizer.register_step_pre_hook(before_inner)
         norm = backend.step()
+        hook.remove()
+        after_backend = [
+            p.detach().cpu().clone() for p in backend.optimizer.fp32_params
+        ]
         reference_norm = optimizer.step()
         assert norm > 0.1 and reference_norm > 0.1
-        for item, master, full_master in zip(
-            backend.optimizer.plan,
-            backend.optimizer.fp32_params,
-            optimizer.fp32_params,
-            strict=True,
+        for index, master in enumerate(backend.optimizer.fp32_params):
+            assert torch.equal(master.cpu(), after_backend[index]), (
+                "reference mutated actual",
+                backend.optimizer.plan[index].name,
+            )
+        for index, (item, master, full_master) in enumerate(
+            zip(
+                backend.optimizer.plan,
+                backend.optimizer.fp32_params,
+                optimizer.fp32_params,
+                strict=True,
+            )
         ):
             expected = full_master.reshape(-1)[
                 item.offset : item.offset + master.numel()
             ].view_as(master)
-            torch.testing.assert_close(master, expected, atol=tolerance, rtol=tolerance)
+            if not torch.allclose(master, expected, atol=tolerance, rtol=tolerance):
+                evidence = dict(
+                    name=item.name,
+                    step=step,
+                    identity=item.identity(),
+                    initial=initials[index],
+                    actual=master.detach().cpu(),
+                    expected=expected.detach().cpu(),
+                    full_master=full_master.detach().cpu(),
+                    norm=norm.cpu(),
+                    reference_norm=reference_norm.cpu(),
+                    actual_state={
+                        k: v.cpu()
+                        for k, v in backend.optimizer.optimizer.state[master].items()
+                    },
+                    reference_state={
+                        k: v.cpu()
+                        for k, v in optimizer.optimizer.state[full_master].items()
+                    },
+                )
+                torch.save(
+                    evidence,
+                    Path(os.environ["RUN_ROOT"])
+                    / f"layout-failure-rank{dist.get_rank()}.pt",
+                )
+            torch.testing.assert_close(
+                master, expected, atol=tolerance, rtol=tolerance, msg=item.name
+            )
             if master.numel():
                 maximum = max(maximum, float((master - expected).abs().max()))
     return dict(

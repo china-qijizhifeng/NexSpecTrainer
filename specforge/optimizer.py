@@ -31,6 +31,23 @@ def _sum_of_squares(tensors):
     return torch.stack([tensor.float().square().sum() for tensor in tensors]).sum()
 
 
+def _copy_tensor_lists(destinations, sources):
+    """Keep each CUDA foreach copy homogeneous on both sides.
+
+    Native V4.1 mixes BF16 projections with FP32 mHC/router/norm parameters.
+    Older supported CUDA foreach implementations dispatch using the first
+    tensor's dtype, so a mixed destination list can overwrite adjacent storage.
+    """
+    groups = {}
+    for destination, source in zip(destinations, sources, strict=True):
+        key = (destination.device, destination.dtype, source.device, source.dtype)
+        dst, src = groups.setdefault(key, ([], []))
+        dst.append(destination)
+        src.append(source)
+    for destinations, sources in groups.values():
+        torch._foreach_copy_(destinations, sources)
+
+
 class BF16Optimizer:
     """AdamW over fp32 master copies of the bf16 trainable params, with grad
     clipping and configurable warmup scheduling."""
@@ -249,7 +266,7 @@ class BF16Optimizer:
                     master_grads.append(master_grad)
                 mp.grad = master_grad
             if master_grads:
-                torch._foreach_copy_(master_grads, model_grads)
+                _copy_tensor_lists(master_grads, model_grads)
                 torch._foreach_mul_(master_grads, clip_coefficient)
         self.last_grad_norm = grad_norm.detach()
         self.optimizer.step()
@@ -260,7 +277,7 @@ class BF16Optimizer:
                 for p, mp in zip(self.model_params, self.fp32_params):
                     p.data.copy_(mp.data.to(device=p.device, dtype=p.dtype))
             elif self.model_params:
-                torch._foreach_copy_(
+                _copy_tensor_lists(
                     [p.data for p in self.model_params],
                     [mp.data for mp in self.fp32_params],
                 )

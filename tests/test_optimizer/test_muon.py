@@ -271,3 +271,28 @@ def test_empty_adam_shard_does_not_allocate_uncheckpointable_empty_state():
     opt.step()
     assert opt.fp32_params[1] not in opt.optimizer.state
     assert set(opt.optimizer.state_dict()["state"]) == {0}
+
+
+@pytest.mark.skipif(
+    not torch.cuda.is_available(), reason="CUDA mixed foreach copy regression"
+)
+def test_mixed_dtype_master_copy_does_not_touch_an_independent_model():
+    """Old CUDA foreach copy dispatches using the first tensor's dtype."""
+    from specforge.optimizer import _copy_tensor_lists
+
+    tensors = [
+        torch.ones(13, device="cuda", dtype=dtype)
+        for dtype in [torch.float32, torch.bfloat16, torch.float32, torch.bfloat16]
+    ]
+    sources = [torch.full_like(t, 2.0, dtype=torch.float32) for t in tensors]
+    canaries = [torch.randn(13, device="cuda") for _ in range(4)]
+    before = [t.clone() for t in canaries]
+    _copy_tensor_lists(tensors, sources)
+    for t in tensors:
+        assert torch.equal(t, torch.full_like(t, 2.0))
+    for t, expected in zip(canaries, before):
+        assert torch.equal(t, expected)
+    fp32 = [torch.empty_like(t, dtype=torch.float32) for t in tensors]
+    _copy_tensor_lists(fp32, tensors)
+    for t in fp32:
+        assert torch.equal(t, torch.full_like(t, 2.0))
