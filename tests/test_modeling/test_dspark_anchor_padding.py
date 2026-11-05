@@ -19,7 +19,9 @@ class TinyDraft(nn.Module):
         super().__init__()
         self.projection = nn.Linear(16, 16, bias=False)
         self.markov = nn.Embedding(32, 8)
-        self.confidence_head = ConfidenceHead(SimpleNamespace(hidden_size=16, markov_rank=8))
+        self.confidence_head = ConfidenceHead(
+            SimpleNamespace(hidden_size=16, markov_rank=8)
+        )
 
     def forward(self, *, noise_embedding, **kwargs):
         return self.projection(noise_embedding)
@@ -39,8 +41,11 @@ def build_model():
         TinyDraft(),
         nn.Linear(16, 32, bias=False).requires_grad_(False),
         nn.Embedding(32, 16).requires_grad_(False),
-        mask_token_id=31, block_size=5, num_anchors=32,
-        objective_chunk_blocks=8, attention_backend="megatron_csa",
+        mask_token_id=31,
+        block_size=5,
+        num_anchors=32,
+        objective_chunk_blocks=8,
+        attention_backend="megatron_csa",
         fused_logits_loss=False,
     )
 
@@ -76,10 +81,13 @@ class DSparkAnchorPaddingTest(unittest.TestCase):
             for checkpointing in (False, True):
                 # Rows with unequal supervision also exercise existing batch padding.
                 mask = torch.ones(2, valid + 1)
-                mask[1, min(3, valid + 1):] = 0
-                batch = dict(input_ids=torch.randint(0, 30, mask.shape), loss_mask=mask,
-                             hidden_states=torch.randn(2, valid + 1, 16),
-                             target_last_hidden_states=torch.randn(2, valid + 1, 16))
+                mask[1, min(3, valid + 1) :] = 0
+                batch = dict(
+                    input_ids=torch.randint(0, 30, mask.shape),
+                    loss_mask=mask,
+                    hidden_states=torch.randn(2, valid + 1, 16),
+                    target_last_hidden_states=torch.randn(2, valid + 1, 16),
+                )
                 outputs = []
                 for current in (reference, model):
                     current.zero_grad(set_to_none=True)
@@ -87,9 +95,14 @@ class DSparkAnchorPaddingTest(unittest.TestCase):
                     torch.manual_seed(91)
                     loss, accuracy, metrics = current(**batch)
                     loss.backward()
-                    gradients = {name: p.grad.clone() for name, p in current.named_parameters()
-                                 if p.requires_grad}
-                    self.assertTrue(all(torch.isfinite(g).all() for g in gradients.values()))
+                    gradients = {
+                        name: p.grad.clone()
+                        for name, p in current.named_parameters()
+                        if p.requires_grad
+                    }
+                    self.assertTrue(
+                        all(torch.isfinite(g).all() for g in gradients.values())
+                    )
                     outputs.append((loss.detach(), accuracy, metrics, gradients))
                 torch.testing.assert_close(outputs[0], outputs[1], rtol=2e-5, atol=2e-6)
 

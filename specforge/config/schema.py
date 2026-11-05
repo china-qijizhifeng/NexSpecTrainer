@@ -1044,6 +1044,10 @@ class TrainingConfig(StrictConfigModel):
     mtp_objective_chunk_size: int = Field(default=4096, ge=0)
     #: DFlash-family objective/model knobs.
     num_anchors: int = Field(default=512, gt=0)
+    #: Native V4.1 can train every legal anchor; num_anchors is then ignored.
+    anchor_sampling: Literal["uniform", "all"] = "uniform"
+    #: Forward blocks per recomputed chunk, not a sampling limit.
+    anchor_forward_chunk_blocks: int = Field(default=32, gt=0)
     loss_decay_gamma: Optional[float] = None
     #: Anchor blocks per objective slice; 0 treats the whole objective as one chunk.
     objective_chunk_blocks: int = Field(default=128, ge=0)
@@ -1108,6 +1112,8 @@ class TrainingConfig(StrictConfigModel):
 
     @model_validator(mode="after")
     def _validate_training_shape(self):
+        if self.anchor_sampling == "all" and self.strategy != "deepseek_v41":
+            raise ValueError("anchor_sampling=all currently requires deepseek_v41")
         if not 0.0 <= self.dpace_alpha <= 1.0:
             raise ValueError("training.dpace_alpha must be in [0, 1]")
         if not 0.0 < self.down_sample_ratio <= 1.0:

@@ -603,16 +603,16 @@ class OnlineDFlashModel(nn.Module):
         hidden_states: torch.Tensor,
         loss_mask: torch.Tensor,
         max_valid_anchors: Optional[int] = None,
+        anchor_selection: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
         bsz, seq_len = input_ids.shape
         device = input_ids.device
 
-        anchor_positions, block_keep_mask = self._sample_anchor_positions(
-            seq_len,
-            loss_mask,
-            device,
-            max_valid_anchors=max_valid_anchors,
-        )
+        if anchor_selection is None:
+            anchor_selection = self._sample_anchor_positions(
+                seq_len, loss_mask, device, max_valid_anchors=max_valid_anchors
+            )
+        anchor_positions, block_keep_mask = anchor_selection
 
         noise_embedding = self._create_noise_embed(
             input_ids, anchor_positions, block_keep_mask
@@ -2128,15 +2128,18 @@ class OnlineDSparkModel(OnlineDFlashModel):
         target_last_hidden_states: Optional[torch.Tensor],
         anchor_positions: torch.Tensor,
         collect_detailed_metrics: bool,
+        hidden_builder=None,
+        forward_chunk_blocks: int = 32,
+        global_loss_den: Optional[float] = None,
+        return_walk_accepted: bool = False,
     ) -> Tuple[torch.Tensor, Dict[str, object]]:
         """Token-pooled DSpark objective under the configured chunk/checkpoint policy."""
 
         batch_size, num_blocks, block_size = target_ids.shape
-        hidden_4d = output_hidden.reshape(
-            batch_size,
-            num_blocks,
-            block_size,
-            -1,
+        hidden_4d = (
+            output_hidden.reshape(batch_size, num_blocks, block_size, -1)
+            if output_hidden is not None
+            else None
         )
         loss_weights = self._dspark_loss_weight_mask(eval_mask)
         local_loss_den = loss_weights.sum()
@@ -2155,9 +2158,42 @@ class OnlineDSparkModel(OnlineDFlashModel):
                 safe_label_indices,
             )
 
+        objective = partial(self._dspark_objective_chunk_terms, total_blocks=num_blocks)
+        if hidden_builder is not None:
+            # Checkpoint the complete draft+objective chunk. Its integer inputs
+            # need no gradients; captured trainable parameters do. Non-reentrant
+            # checkpointing supports this and avoids retaining every context copy.
+            from torch.utils.checkpoint import checkpoint
+
+            def full_chunk(positions, *args):
+                hidden = hidden_builder(positions).reshape(
+                    batch_size, positions.shape[1], block_size, -1
+                )
+                return checkpointed_chunk_reduce(
+                    objective,
+                    hidden,
+                    *args,
+                    chunk_size=self.objective_chunk_blocks,
+                    dim=1,
+                    checkpoint=False,
+                )
+
+            def recomputed_chunk(*args):
+                if torch.is_grad_enabled():
+                    return checkpoint(full_chunk, *args, use_reentrant=False)
+                return full_chunk(*args)
+
+            reduce_function = recomputed_chunk
+            reduce_input = anchor_positions
+            reduce_width = forward_chunk_blocks
+        else:
+            reduce_function = objective
+            reduce_input = hidden_4d
+            reduce_width = self.objective_chunk_blocks
+
         totals = checkpointed_chunk_reduce(
-            partial(self._dspark_objective_chunk_terms, total_blocks=num_blocks),
-            hidden_4d,
+            reduce_function,
+            reduce_input,
             prev_token_ids,
             target_ids,
             loss_weights,
@@ -2168,9 +2204,9 @@ class OnlineDSparkModel(OnlineDFlashModel):
                 if collect_detailed_metrics
                 else None
             ),
-            chunk_size=self.objective_chunk_blocks,
+            chunk_size=reduce_width,
             dim=1,
-            checkpoint=self.objective_checkpointing,
+            checkpoint=self.objective_checkpointing and hidden_builder is None,
         )
 
         (
@@ -2191,14 +2227,17 @@ class OnlineDSparkModel(OnlineDFlashModel):
             walk_accepted,
         ) = totals
 
-        global_loss_den = local_loss_den.detach().clone()
         world_size = 1
         import torch.distributed as dist
 
         if dist.is_available() and dist.is_initialized():
             world_size = dist.get_world_size()
+        if global_loss_den is None:
+            global_loss_den = local_loss_den.detach().clone()
             if world_size > 1:
                 dist.all_reduce(global_loss_den, op=dist.ReduceOp.SUM)
+        else:
+            global_loss_den = local_loss_den.new_tensor(global_loss_den)
         # Device-side assert: a host-side float() here drains the stream per
         # microbatch right after a collective, serializing all ranks.
         torch._assert_async(
@@ -2239,7 +2278,7 @@ class OnlineDSparkModel(OnlineDFlashModel):
                     "tau_probabilistic": (tau_num, tau_den),
                 }
             )
-        if collect_detailed_metrics:
+        if collect_detailed_metrics and not return_walk_accepted:
             ratio_metrics["dspark/hard_label/walk_accepted_length"] = (
                 compute_walk_accepted_length_terms(
                     walk_accepted, anchor_positions, eval_mask.any(dim=-1)
@@ -2252,6 +2291,10 @@ class OnlineDSparkModel(OnlineDFlashModel):
             },
             "accuracy_denom": eval_den.detach(),
         }
+        if return_walk_accepted and collect_detailed_metrics:
+            # The walk may cross forward chunks. Merge these small detached
+            # vectors before computing this non-additive metric.
+            metrics["walk_accepted"] = walk_accepted.detach()
         accuracy = correct_num / eval_den.clamp_min(1.0)
         return loss, {"accuracy": accuracy.detach(), **metrics}
 
