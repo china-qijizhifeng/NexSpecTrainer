@@ -1,0 +1,7 @@
+{
+  "selected_chunk": 64,
+  "selected_gradient_checkpointing": false,
+  "fsdp_reduce_dtype": "float32",
+  "source": "r9 AdamW launch policy; Muon combination requires new acceptance",
+  "baseline_alias": "dspark-all-anchors-20261105-r9"
+}
