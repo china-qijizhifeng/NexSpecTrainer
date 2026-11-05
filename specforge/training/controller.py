@@ -22,7 +22,7 @@ import os
 import sys
 import threading
 import time
-from contextlib import ExitStack
+from contextlib import ExitStack, nullcontext
 from dataclasses import dataclass, field, replace
 from typing import Any, Callable, Dict, Iterable, List, Optional
 
@@ -430,6 +430,33 @@ class TrainerCore:
     ) -> StepResult:
         ctx = replace(ctx or StepContext(), accumulation_steps=self.accumulation_steps)
         is_boundary = (self._micro + 1) % self.accumulation_steps == 0
+        stream_backward = getattr(self.strategy, "stream_backward", None)
+        if stream_backward is not None:
+            # Each chunk must complete its FSDP reduction before the next
+            # forward, even when this microbatch is not an optimizer boundary.
+            chunk_context = getattr(
+                self.backend,
+                "chunked_backward_context",
+                lambda: nullcontext(self.backend.backward),
+            )
+            with (
+                self.backend.accumulation_context(is_boundary=True),
+                chunk_context() as backward,
+            ):
+                out = stream_backward(
+                    batch,
+                    lambda loss: backward(
+                        loss / self.accumulation_steps, is_boundary=True
+                    ),
+                    ctx,
+                )
+            if out is not None:
+                self._validate_window_mode(out)
+                if out.loss_terms is not None or out.replay_loss is not None:
+                    raise ValueError(
+                        "Streamed backward must return normalized telemetry"
+                    )
+                return self._backward_step(out, backward_done=True)
         with ExitStack() as accumulation:
             accumulation.enter_context(
                 self.backend.accumulation_context(is_boundary=is_boundary)
@@ -466,7 +493,9 @@ class TrainerCore:
                 result = self._backward_step(prepared.replay_loss(window_ratios))
         return result
 
-    def _backward_step(self, out: StepOutput) -> StepResult:
+    def _backward_step(
+        self, out: StepOutput, *, backward_done: bool = False
+    ) -> StepResult:
         loss = out.loss
         ratio_metrics = dict(out.ratio_metrics)
         if out.loss_terms is not None:
@@ -489,7 +518,8 @@ class TrainerCore:
         # The boundary is known before backward so the backend can defer the FSDP
         # gradient reduction (no_sync) on non-boundary micro-steps.
         stepped = self._micro % self.accumulation_steps == 0
-        self.backend.backward(loss, is_boundary=stepped)
+        if not backward_done:
+            self.backend.backward(loss, is_boundary=stepped)
         grad_norm = None
         if stepped:
             loss_denominator = None

@@ -117,6 +117,20 @@ class DraftTrainStrategy(abc.ABC):
         self, batch: TrainBatch, ctx: Optional["StepContext"] = None
     ) -> StepOutput: ...
 
+    def stream_backward(
+        self,
+        batch: TrainBatch,
+        backward: Callable[[torch.Tensor], None],
+        ctx: Optional["StepContext"] = None,
+    ) -> Optional[StepOutput]:
+        """Optionally run independent forward/backward chunks for one microbatch.
+
+        Each loss passed to ``backward`` contributes to the same normalized
+        microbatch objective. The trainer applies accumulation scaling. Return
+        detached telemetry, or None to use the ordinary forward_loss path.
+        """
+        return None
+
     def checkpoint_state_filter(self, state_dict: Dict[str, Any]) -> Dict[str, Any]:
         """Select the keys this strategy persists as draft weights."""
         return state_dict
@@ -625,6 +639,7 @@ class DSparkTrainStrategy(DraftTrainStrategy):
             loss=loss,
             metrics=metrics,
             ratio_metrics=ratio_metrics,
+            sum_metrics=model_metrics.get("sum_metrics", {}),
         )
 
     def checkpoint_state_filter(self, state_dict: Dict[str, Any]) -> Dict[str, Any]:

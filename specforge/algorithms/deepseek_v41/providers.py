@@ -11,10 +11,7 @@ ARCHITECTURE = "DeepSeekV41DraftModel"
 
 
 def build_step(wrapped_model, **options):
-    from specforge.training.strategies.base import DSparkTrainStrategy
-
-    class NativeStrategy(DSparkTrainStrategy):
-        name = NAME
+    from .strategy import NativeStrategy
 
     return NativeStrategy(wrapped_model)
 
@@ -92,6 +89,8 @@ def build_training_model(config, draft_model, draft_config, target_config, token
         block_size=c.block_size,
         attention_backend=training.attention_backend,
         num_anchors=training.num_anchors,
+        anchor_sampling=training.anchor_sampling,
+        anchor_forward_chunk_blocks=training.anchor_forward_chunk_blocks,
         loss_decay_gamma=training.loss_decay_gamma,
         objective_chunk_blocks=training.objective_chunk_blocks,
         objective_checkpointing=training.objective_checkpointing,
@@ -111,7 +110,7 @@ def resolve_capture_layers(config, draft_config, target_config):
 
 
 def resume_contract(config, draft_model, training_model):
-    return {
+    contract = {
         "native_v41_config": draft_model.config.to_dict(),
         "native_v41_capture": "layer_input_mhc_mean",
         "num_anchors": training_model.num_anchors,
@@ -120,6 +119,16 @@ def resume_contract(config, draft_model, training_model):
         "l1": training_model.dspark_l1_loss_alpha,
         "confidence": training_model.dspark_confidence_head_alpha,
     }
+    if training_model.anchor_sampling != "uniform":
+        contract.update(
+            anchor_sampling=training_model.anchor_sampling,
+            anchor_forward_chunk_blocks=training_model.anchor_forward_chunk_blocks,
+            fsdp_sync_each_microstep=training_model.fsdp_sync_each_microstep,
+            fsdp_prefetch=training_model.fsdp_prefetch,
+            backward_schedule="per_anchor_chunk",
+            chunk_gradient_accumulation="fp32",
+        )
+    return contract
 
 
 def create_registration():
