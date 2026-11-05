@@ -19,15 +19,23 @@ assert (root/'tokenized/COMPLETE').read_text().strip()=='verified'
 manifest=json.loads((root/'tokenized/manifest.json').read_text())
 expected={x['id']:x for x in manifest['samples'] if x['worker']==rank}
 assert manifest['records']==4951
-seen=set()
-with gzip.open(root/f'tokenized/worker-{rank}.jsonl.gz','rt') as source,(run/'samples.jsonl').open('w') as output:
+seen=set();offsets=[]
+with gzip.open(root/f'tokenized/worker-{rank}.jsonl.gz','rt') as source,(run/'samples-spool.jsonl').open('wb') as output:
     for line in source:
         row=json.loads(line);entry=expected[row['id']];assert row['id'] not in seen;seen.add(row['id'])
         assert len(row['input_ids'])==len(row['loss_mask'])==entry['tokens']
         assert hashlib.sha256(np.array(row['input_ids'],dtype=np.int64).tobytes()).hexdigest()==entry['metadata']['token_sha256']
         assert hashlib.sha256(np.array(row['loss_mask'],dtype=np.int64).tobytes()).hexdigest()==entry['metadata']['loss_mask_sha256']
-        output.write(line)
+        offsets.append((entry['tokens'],row['id'],output.tell()))
+        output.write(line.encode())
 assert seen==set(expected)
+# One short real sample, then longest-first: exercise capacity before bulk work.
+shortest=min(offsets)
+ordered=[shortest]+sorted([x for x in offsets if x!=shortest],key=lambda x:(-x[0],x[1]))
+with (run/'samples-spool.jsonl').open('rb') as stream,(run/'samples.jsonl').open('wb') as output:
+    for _,_,offset in ordered:
+        stream.seek(offset);output.write(stream.readline())
+(run/'samples-spool.jsonl').unlink()
 max_tokens=max(x['tokens'] for x in expected.values())
 context=((max_tokens+4095)//4096)*4096+4096
 cfg=yaml.safe_load(Path('examples/configs/offline/colocated/deepseek-v41-flash-native.yaml').read_text())
