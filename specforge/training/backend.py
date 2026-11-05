@@ -236,6 +236,11 @@ class FSDPTrainingBackend(TrainingBackend):
 
         Replicated ``NO_SHARD`` recipes use DDP; sharded recipes use FSDP.
         """
+        prepare_optimizer = getattr(self._optimizer_factory, "prepare_model", None)
+        if prepare_optimizer is not None:
+            prepare_optimizer(
+                optimizer_target if optimizer_target is not None else model
+            )
         if not wrap:
             self.module = model
             self._wrapped = False
@@ -342,7 +347,12 @@ class FSDPTrainingBackend(TrainingBackend):
             self.ignored_frozen_modules = ignored_frozen_modules
         if self._optimizer_factory is not None:
             target = optimizer_target if optimizer_target is not None else self.module
-            self.optimizer = self._optimizer_factory(target)
+            if prepare_optimizer is not None:
+                self.optimizer = self._optimizer_factory(
+                    target, wrapped_model=self.module
+                )
+            else:
+                self.optimizer = self._optimizer_factory(target)
             self._configure_optimizer_grad_norm()
         return self.module
 

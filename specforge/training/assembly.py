@@ -256,14 +256,32 @@ class _ConfiguredOptimizerFactory:
                 f"{self.total_steps} != {total_steps}"
             )
 
-    def __call__(self, draft_module):
+    def prepare_model(self, draft_module):
+        if self.cfg.training.optimizer != "adamw":
+            from specforge.muon_layout import capture_layout
+
+            self.muon_plan = capture_layout(draft_module, self.cfg.training.muon)
+
+    def __call__(self, draft_module, *, wrapped_model=None):
         from specforge.optimizer import BF16Optimizer
 
         if self.total_steps is None:
             raise RuntimeError("optimizer total_steps was not resolved before assembly")
         t = self.cfg.training
-        return BF16Optimizer(
+        optimizer_class, options = BF16Optimizer, {}
+        if t.optimizer != "adamw":
+            from specforge.muon import MuonAdamWOptimizer
+            from specforge.muon_layout import bind_fsdp_layout
+
+            if wrapped_model is None:
+                raise ValueError("Muon requires the pre-wrap layout capture lifecycle")
+            optimizer_class = MuonAdamWOptimizer
+            options = dict(
+                plan=bind_fsdp_layout(self.muon_plan, wrapped_model), config=t.muon
+            )
+        return optimizer_class(
             draft_module,
+            **options,
             lr=t.learning_rate,
             max_grad_norm=t.max_grad_norm,
             warmup_ratio=t.warmup_ratio,

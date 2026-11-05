@@ -25,6 +25,7 @@ from urllib.parse import urlparse
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
+from specforge.muon_config import MuonConfig
 from specforge.runtime.contracts import consumer_dispatch_quantum
 
 # SGLang reserves one generated-token slot plus five internal slots, and its
@@ -1019,6 +1020,31 @@ class TrainingConfig(StrictConfigModel):
     #: Keep FP32 Adam masters and moments on CPU while the trainable draft
     #: remains on the accelerator.
     optimizer_cpu_offload: bool = False
+    optimizer: Literal["adamw", "muon_adamw", "v41_flash_muon"] = "adamw"
+    muon: Optional[MuonConfig] = None
+
+    @model_validator(mode="after")
+    def _validate_optimizer(self):
+        if self.optimizer == "adamw" and self.muon is not None:
+            raise ValueError("training.muon requires optimizer=muon_adamw")
+        if self.optimizer != "adamw":
+            if self.muon is None:
+                self.muon = (
+                    MuonConfig(profile="v41_flash_muon")
+                    if self.optimizer == "v41_flash_muon"
+                    else MuonConfig()
+                )
+            if (
+                self.optimizer == "v41_flash_muon"
+                and self.muon.profile != "v41_flash_muon"
+            ):
+                raise ValueError(
+                    "optimizer=v41_flash_muon requires matching Muon profile"
+                )
+            if self.fsdp_sharding == "SHARD_GRAD_OP":
+                raise ValueError("Muon requires FULL_SHARD or NO_SHARD")
+        return self
+
     ttt_length: int = Field(default=7, gt=0)
     attention_backend: Literal[
         "eager", "sdpa", "flex_attention", "fa", "usp", "megatron_csa"

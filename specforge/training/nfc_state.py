@@ -152,23 +152,34 @@ class NativeState:
 
     def layout(self):
         slots = []
-        for master in self.opt.fp32_params:
+        for index, master in enumerate(self.opt.fp32_params):
             state = self.opt.optimizer.state.get(master, {})
             fields = sorted(set(state) - {"step"})
-            if set(fields) - {"exp_avg", "exp_avg_sq", "max_exp_avg_sq"}:
-                raise ValueError(f"unsupported Adam tensor fields: {fields}")
+            self._validate_fields(index, fields)
             slots.append(fields)
-        return {
+        result = {
             "model": {name: view.layout() for name, view in sorted(self.model.items())},
             "optimizer_names": self.names,
             "optimizer_slots": slots,
         }
+        if self.opt.checkpoint_identity() is not None:
+            result["optimizer_identity"] = self.opt.checkpoint_identity()
+        return result
+
+    def _validate_fields(self, index, fields):
+        allowed = self.opt.allowed_state_fields(index)
+        required = allowed - {"max_exp_avg_sq"}
+        if fields and (set(fields) - allowed or not required <= set(fields)):
+            raise ValueError(f"unsupported optimizer tensor fields: {fields}")
 
     def build(self, training, layouts, *, restoring=False):
         from nexflashcheckpoint import object_shard
 
         rank, world = dist.get_rank(), dist.get_world_size()
         layout = layouts[rank]
+        self.opt.validate_checkpoint_identity(layout.get("optimizer_identity"))
+        for index, fields in enumerate(layout["optimizer_slots"]):
+            self._validate_fields(index, fields)
         current = self.layout()
         if restoring:
             # Adam is lazy in a newly built optimizer; saved field presence
@@ -208,6 +219,7 @@ class NativeState:
             "lr_scheduler_type": self.opt.lr_scheduler_type,
             "max_grad_norm": self.opt.max_grad_norm,
             "rng": self.backend._rng_state(),
+            "optimizer_identity": self.opt.checkpoint_identity(),
         }
         for index, (name, master, fields) in enumerate(
             zip(
@@ -228,7 +240,9 @@ class NativeState:
             for field in fields:
                 value = torch.empty_like(master) if restoring else state[field]
                 if value.dtype != torch.float32 or value.shape != master.shape:
-                    raise ValueError(f"Adam state shape/dtype mismatch: {name}/{field}")
+                    raise ValueError(
+                        f"optimizer state shape/dtype mismatch: {name}/{field}"
+                    )
                 key = f"optimizer/{field}/{name}"
                 tensors[key] = view.descriptor(key, value)
         return {
@@ -245,6 +259,7 @@ class NativeState:
 
     def apply(self, loaded, layout):
         tensors, sidecar = loaded["tensors"], loaded["rank_state"]
+        self.opt.validate_checkpoint_identity(sidecar.get("optimizer_identity"))
         with torch.no_grad():
             for name, view in self.model.items():
                 if view.tensor.numel():

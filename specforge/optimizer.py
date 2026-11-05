@@ -72,12 +72,7 @@ class BF16Optimizer:
             if self.fp32_params and all(mp.is_cuda for mp in self.fp32_params)
             else None
         )
-        self.optimizer = torch.optim.AdamW(
-            self.fp32_params,
-            lr=lr,
-            weight_decay=weight_decay,
-            fused=self._adamw_fused,
-        )
+        self.optimizer = self._build_optimizer(lr, weight_decay)
         self.last_grad_norm = None
         self._grad_norm_process_group = None
         self._reduce_grad_norm_across_ranks = True
@@ -96,6 +91,24 @@ class BF16Optimizer:
             total_steps=total_steps,
             warmup_steps=int(warmup_ratio * total_steps),
         )
+
+    def _build_optimizer(self, lr, weight_decay):
+        return torch.optim.AdamW(
+            self.fp32_params, lr=lr, weight_decay=weight_decay, fused=self._adamw_fused
+        )
+
+    def allowed_state_fields(self, index):
+        return {"exp_avg", "exp_avg_sq", "max_exp_avg_sq"}
+
+    def checkpoint_identity(self):
+        return getattr(self, "optimizer_identity", None)
+
+    def validate_checkpoint_identity(self, saved):
+        if saved != self.checkpoint_identity():
+            raise ValueError(
+                "optimizer algorithm/config/group/layout mismatch; "
+                "use an explicit weights-only warm start to change optimizers"
+            )
 
     def configure_grad_norm_reduction(
         self, *, process_group=None, enabled: bool = True
@@ -280,6 +293,7 @@ class BF16Optimizer:
         """Restore optimizer/scheduler state and, when present, the rank-local
         fp32 master params; without them the masters are re-cloned from the
         bf16 weights and the resume is not numerically faithful."""
+        self.validate_checkpoint_identity(state_dict.get("optimizer_identity"))
         saved_scheduler_type = state_dict.get("lr_scheduler_type", "cosine")
         if saved_scheduler_type != self.lr_scheduler_type:
             raise ValueError(
@@ -330,6 +344,7 @@ class BF16Optimizer:
 
     def state_dict(self):
         return {
+            "optimizer_identity": self.checkpoint_identity(),
             "optimizer_state_dict": self.optimizer.state_dict(),
             "scheduler_state_dict": self.scheduler.state_dict(),
             "lr_scheduler_type": self.lr_scheduler_type,
