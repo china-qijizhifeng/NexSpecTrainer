@@ -43,6 +43,10 @@ export DG_JIT_CACHE_DIR="$RUN_DIR/cache/deepgemm" TILELANG_CACHE_DIR="$RUN_DIR/c
 export FLASHINFER_WORKSPACE_BASE="$RUN_DIR/cache/flashinfer"
 export PYTORCH_ALLOC_CONF=expandable_segments:True SGLANG_JIT_DEEPGEMM_FAST_WARMUP=1
 mkdir -p "$TRITON_CACHE_DIR" "$CUDA_CACHE_PATH" "$XDG_CACHE_HOME" "$SGLANG_CACHE_DIR" "$DG_JIT_CACHE_DIR" "$TILELANG_CACHE_DIR" "$FLASHINFER_WORKSPACE_BASE"
+if [[ -n "${NORTHGATE_CP_REFERENCE_RUN:-}" ]]; then
+  # Same pinned image/model/GPU architecture; clone rather than modify evidence.
+  cp -a "$NORTHGATE_CP_REFERENCE_RUN/worker-${KUBEBRAIN_REPLICA}/cache/." "$RUN_DIR/cache/"
+fi
 ulimit -l unlimited
 MASTER_PID= SERVER_PID=
 cleanup() {
@@ -61,6 +65,7 @@ setsid mooncake_master --enable_http_metadata_server=true --http_metadata_server
 MASTER_PID=$!
 setsid sglang serve \
  --model-path /gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017 --trust-remote-code \
+ --language-model-only --enable-prefill-cp --cp-strategy interleave \
  --tp-size 8 --ep-size 8 --attention-backend dsv4 --moe-runner-backend flashinfer_mxfp4 \
  --engram-config '{"placement":"cpu"}' \
  --mem-fraction-static 0.8 --context-length "$CONTEXT" --max-total-tokens "$CONTEXT" \
@@ -72,7 +77,10 @@ setsid sglang serve \
  --cuda-graph-backend-prefill disabled --cuda-graph-backend-decode disabled \
  --host 127.0.0.1 --port 30000 > "$RUN_DIR/serve.log" 2>&1 &
 SERVER_PID=$!
-python3 ops/northgate_capture/wait_server.py --pid "$SERVER_PID" --output "$RUN_DIR" --timeout 5400 --capture
+python3 ops/northgate_capture/wait_server.py --pid "$SERVER_PID" --output "$RUN_DIR" --timeout 5400 --capture --cp-size 8
+if [[ "$KUBEBRAIN_REPLICA" != 0 ]]; then
+  python3 ops/northgate_capture/cp_acceptance.py --wait "$RUN_ROOT"
+fi
 python3 ops/northgate_capture/collect.py --config "$RUN_DIR/config.yaml" \
  --server http://127.0.0.1:30000 --samples "$RUN_DIR/samples.jsonl" --output "$RUN_DIR/features" \
  --target-model-version 1bae0e1088993b9b82de08f59de5be5a34e42170 \

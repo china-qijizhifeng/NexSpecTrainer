@@ -6,7 +6,18 @@ import urllib.request
 from pathlib import Path
 
 
-def wait(pid, output, timeout, *, capture=False, speculative=False):
+def validate_cp(info, size):
+    args = info.get('server_args', info)
+    required = {'enable_prefill_cp': True, 'attn_cp_size': size,
+                'cp_strategy': 'interleave', 'language_model_only': True,
+                'chunked_prefill_size': -1, 'return_hidden_states_mode': 'full',
+                'enable_decoder_swa_bounded_replay': False}
+    for name, expected in required.items():
+        if args.get(name) != expected:
+            raise RuntimeError(f'CP capture contract {name}: {args.get(name)!r} != {expected!r}')
+
+
+def wait(pid, output, timeout, *, capture=False, speculative=False, cp_size=None):
     output.mkdir(exist_ok=True, parents=True)
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     deadline = time.monotonic() + timeout
@@ -30,6 +41,8 @@ def wait(pid, output, timeout, *, capture=False, speculative=False):
         if capture and not any(s.get('spec_capture_backend') == 'plugin'
                                for s in info.get('internal_states', [])):
             raise RuntimeError('ready server does not advertise capture plugin')
+        if cp_size is not None:
+            validate_cp(info, cp_size)
         if speculative and info.get('speculative_algorithm') != 'DSPARK':
             # SGLang versions nest the algorithm under server_args.
             def algorithms(value):
@@ -58,6 +71,7 @@ if __name__ == '__main__':
     parser.add_argument('--timeout', type=int, default=5400)
     parser.add_argument('--capture', action='store_true')
     parser.add_argument('--speculative', action='store_true')
+    parser.add_argument('--cp-size', type=int)
     args = parser.parse_args()
     wait(args.pid, args.output, args.timeout, capture=args.capture,
-         speculative=args.speculative)
+         speculative=args.speculative, cp_size=args.cp_size)

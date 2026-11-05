@@ -8,7 +8,21 @@ Local MoE calls are bounded to 8192 tokens; int64 MHC/Engram addressing and the
 previously validated BF16 fused indexer are scoped to NORTHGATE_LONG_CAPTURE.
 These are the same long-input helpers used by the prior 234048-token YiCloud
 capture; extrapolation to this dataset's largest trajectory requires live
-acceptance. No CP8 runtime optimization is enabled.
+acceptance. The CP attempt enables the image's existing interleave CP8 and
+language-model-only mode. No optional H100 inference patch flags are enabled.
+The effective CP size, full-hidden mode and disabled bounded replay are checked
+in server_info before capture. CP is within each node; total allocation remains
+four nodes and 32 GPUs.
+
+The previous non-CP attempt produced two verified hybrid files, then exhausted
+HBM allocating padded queries and sparse-attention outputs on long inputs.
+NORTHGATE_CP_REFERENCE_RUN selects that immutable attempt. Only worker 0 begins
+capture initially. Its shortest complete real trace is compared with the prior
+TP result: exact tokens/masks, hidden relative L2 <=0.01 and cosine >=0.99995.
+A failed check writes CP_REJECTED.json and stops every collector; success writes
+CP_ACCEPTED.json and releases the other workers. This short-trace gate does not
+establish long-input equivalence; prior long-input numerical issues remain in
+the upstream acceptance archive and must not be represented as solved.
 
 prepare.py uses the checkpoint's official V4.1 encoder/tokenizer. Developer
 messages become System messages at the same position because V4.1 has no

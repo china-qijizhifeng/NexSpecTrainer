@@ -40,6 +40,27 @@ def persist(self,task,ref,prepared,store):
     for key in ['hidden_states','target_last_hidden_states']:
         tensor=restored[key];assert tensor.dtype==torch.bfloat16
         for block in tensor.reshape(-1).split(1<<24):assert torch.isfinite(block).all()
+    if completed == 0 and os.environ['KUBEBRAIN_REPLICA'] == '0':
+        from ops.northgate_capture.cp_acceptance import compare_features
+
+        reference_root = Path(os.environ['NORTHGATE_CP_REFERENCE_RUN'])
+        baseline = reference_root/'worker-0/features'/path.name
+        receipt_path = reference_root/'worker-0/receipts'/(task.task_id+'.json')
+        try:
+            old_receipt = json.loads(receipt_path.read_text())
+            assert old_receipt['native_readback_checksums_passed']
+            reference = load_hybrid_features(baseline, workers=12)
+            comparison = compare_features(restored, reference)
+            comparison.update(reference=str(baseline), candidate=str(path),
+                              tokens=n, scope='one complete short real trace; not long-input equivalence')
+            del reference
+            marker = 'CP_ACCEPTED.json' if comparison['passed'] else 'CP_REJECTED.json'
+            atomic(Path(os.environ['RUN_ROOT'])/marker, comparison)
+            assert comparison['passed'], 'CP short-input numerical gate failed'
+        except Exception as error:
+            rejected = Path(os.environ['RUN_ROOT'])/'CP_REJECTED.json'
+            if not rejected.exists():atomic(rejected, {'passed':False, 'error':str(error)})
+            raise
     del restored
     completed+=1
     receipt={'id':task.task_id,'tokens':n,'file':str(path),'bytes':path.stat().st_size,
