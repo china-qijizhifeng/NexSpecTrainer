@@ -14,13 +14,15 @@ import re
 
 import torch
 
+from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
 from specforge.data.feature_file import load_zstd_features, save_zstd_features
 
 WIRE_ENCODING = "bf16_fields_zstd_v1"
 NO_HASH_WIRE_ENCODING = "bf16_fields_zstd_v2"
 WIRE_ENCODINGS = (WIRE_ENCODING, NO_HASH_WIRE_ENCODING)
 WIRE_METADATA_KEY = "wire_features"
-DEFAULT_MAX_DECODED_BYTES = 8 << 30
+DEFAULT_MAX_DECODED_BYTES = MAX_CAPTURE_RECORD_BYTES
 
 
 class _BufferReader:

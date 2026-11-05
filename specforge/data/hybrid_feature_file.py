@@ -63,6 +63,8 @@ def _unpackbits(data, count):
 
 
 def _validate_header(header, max_record_bytes):
+    if not isinstance(header, dict) or header.get("version") != 1:
+        raise ValueError("Unsupported hybrid activation version")
     entries = feature_file._validate_entries(header, max_record_bytes)
     chunk_size = header.get("chunk_size")
     if type(chunk_size) is not int:

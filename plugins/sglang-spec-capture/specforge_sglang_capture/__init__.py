@@ -58,6 +58,13 @@ def _install(result, scheduler, *args, **kwargs):
     # Raising here fails scheduler startup, unlike errors in register(), which
     # load_plugins() only logs.
     install(scheduler)
+    if os.environ.get("NORTHGATE_LONG_CAPTURE") == "1":
+        from ops.northgate_capture import bounded_moe, mhc_index64
+        from benchmarks.v41_prefill import fused_indexer
+
+        bounded_moe.configure(8192)
+        mhc_index64.install()
+        fused_indexer.configure(True)
     return result
 
 

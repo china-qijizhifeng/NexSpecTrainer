@@ -89,6 +89,18 @@ def encode_supervision(
             if rc and not reasoning.startswith(rc):
                 raise ValueError("reasoning cannot be aligned to the official template")
             forbidden.append((start, start + len(rc)))
+        rc = message.get("reasoning_content") or ""
+        exclusions = message.get("reasoning_loss_mask_exclusions", [])
+        previous_end = 0
+        if exclusions and not reasoning.startswith(rc):
+            raise ValueError("reasoning exclusions cannot align to official rendering")
+        for span in exclusions:
+            a, b = span.get("start"), span.get("end")
+            if (type(a) is not int or type(b) is not int
+                    or not 0 <= previous_end <= a < b <= len(rc)):
+                raise ValueError("reasoning exclusions require ordered nonoverlapping character spans")
+            forbidden.append((start + a, start + b))
+            previous_end = b
         content_start = start + len(reasoning)
         blocks = message.get("content_blocks")
         if blocks:
