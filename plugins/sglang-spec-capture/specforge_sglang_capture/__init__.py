@@ -94,6 +94,10 @@ def _install(result, scheduler, *args, **kwargs):
         from specforge_sglang_capture.memory_audit import install as audit
 
         audit()
+    if os.environ.get("SPECFORGE_FUSED_INDEXER") == "1":
+        import fused_indexer
+        fused_indexer.configure(True)
+        print("SpecForge validated fused indexer enabled", flush=True)
     return result
 
 
