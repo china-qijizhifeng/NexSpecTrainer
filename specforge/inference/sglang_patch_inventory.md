@@ -143,6 +143,17 @@ only the versioned capture patch restores scaled states. SpecForge applies
 Its scheduler refuses to start without the required flags. The capture server
 does not need a patched SGLang.
 
+## Optional V4.1 Hopper runtime patch
+
+[`patches/sglang/v41-h100-38d9e4a3fe`](../../patches/sglang/v41-h100-38d9e4a3fe)
+pins the opt-in H100 runtime kernels, launch configurations and file hashes to
+SGLang `38d9e4a3fe`. It is separate from the versioned spec-capture patches
+and does not change the default dependency. Full hidden capture disables
+Compact and uses unchunked prefill. The plugin publishes gathered rows only
+on attention TP0/CP0. Consult its acceptance report before enabling experimental
+inference options for training capture; inference TTFT does not measure
+all-token hidden publication.
+
 ## Offline: dedicated local capture
 
 [`../offline_capture`](../offline_capture) is used exclusively by

@@ -1,0 +1,34 @@
+{
+  "model": "DeepSeek-V4.1-Flash-1017",
+  "tp": 8,
+  "ep": 8,
+  "gpu": "8xH10080GB",
+  "input_tokens": 64326,
+  "baseline_cold_ttft_s": 3.977455787360668,
+  "best_completed_cold_ttft_s": 1.5040588155388832,
+  "target_s": 2.0,
+  "target_met": true,
+  "status": "closed_inference_accepted_capture_not_accepted",
+  "full_prefill": true,
+  "decoder_swa_bounded_replay": false,
+  "cold_cached_tokens": 0,
+  "required_checks": {
+    "selection_and_namespace_dispatch": "154 tests + 2 subtests passed in run003",
+    "runtime_mhc_boundary_graph_cp_fallback": "2 passed in run005",
+    "cp_decode_bucket_contract": "2 passed in run007",
+    "initial_sm90_workspace": "5 passed, run010",
+    "full_capture_config_plugin": "7 config + 34 plugin tests + 26 subtests passed run012",
+    "configured_capacity_sm90_workspace": "16 GPU cases + 6 full geometry GPU cases passed run014",
+    "same_input_real_model_moe": "1920 exact matches across8 ranks in run016"
+  },
+  "nextron_reference": "https://github.com/china-qijizhifeng/Nextron/pull/2",
+  "nextron_port_status": "analysis only; no table cache added",
+  "known_failed_configs": [
+    "CP8 with decode bucket1 (run005)",
+    "native allocator with unchunked64K (run006)",
+    "internal MoE chunking hidden equivalence failed at16385 tokens run012; removed"
+  ],
+  "full_hidden_capture_status": "not_accepted_for_long_input_numerical_equivalence",
+  "compact_cold_ttft_s": 1.0349139124155045,
+  "capture_64k_completed": false
+}

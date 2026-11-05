@@ -1,0 +1,167 @@
+"""Same-node EOS-aware validation, performance and fixed-prefix logprobs."""
+import hashlib
+import json
+import os
+import signal
+import statistics
+import subprocess
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+PREVIOUS = Path('/gpfs/users/linlizhi/dspark-test-20261104-r10')
+sys.path.insert(0, str(PREVIOUS))
+import evaluate as replay
+from common import public_stream, write
+from profile_decode import profile_validation, summarize_trace
+from memory_sampler import MemorySampler
+
+
+def state(stage, **details):
+    write(ROOT/'progress.json', {'stage':stage,'time':time.time(),**details})
+
+
+def option(command,name,value):
+    if name in command:
+        command[command.index(name)+1]=str(value)
+    else:
+        command.extend([name,str(value)])
+
+
+def flush():
+    assert replay.request('/flush_cache?timeout=10',raw=True,timeout=30).startswith('Cache flushed.')
+
+
+def launch(config,folder):
+    command=json.loads((PREVIOUS/config['group']/'launch.json').read_text())['command']
+    option(command,'--random-seed',20261105)
+    option(command,'--decode-log-interval',1)
+    option(command,'--chunked-prefill-size',config['chunk'])
+    option(command,'--cuda-graph-backend-prefill',config['graph'])
+    if config['graph']=='breakable':
+        option(command,'--cuda-graph-bs-prefill',config['chunk'])
+    env=os.environ.copy()
+    env['SGLANG_OPT_DSV41_SM90_INDEXER']=str(int(config['fused']))
+    env['SGLANG_OPT_DSV41_SM90_ATTN_MHC_ALL_REDUCE']=str(int(config.get('collective',False)))
+    env['SGLANG_OPT_DSV41_SM90_DEEPSELECT_PREFILL']=str(int(config.get('deepselect',False)))
+    command=[arg for arg in command if arg not in config.get('remove_args', [])]
+    command.extend(config.get('extra_args', []))
+    for name, value in config.get('options', {}).items():
+        option(command,name,value)
+    env.update(config.get('env', {}))
+    # Per-lab caches persist across model reloads, isolated from previous runs.
+    cache=Path('/gpfs/users/linlizhi/v41-h100-opt-20261105/cache')
+    for name,sub in [('SGLANG_CACHE_DIR','sglang'),('TRITON_CACHE_DIR','triton'),
+                     ('TILELANG_CACHE_DIR','tilelang'),('DG_JIT_CACHE_DIR','deepgemm'),
+                     ('SGLANG_DG_CACHE_DIR','deepgemm')]:
+        env[name]=str(cache/sub)
+    write(folder/'launch.json',{'command':command,'experiment':config,'kernel_env':{k:v for k,v in env.items() if k.startswith('SGLANG_OPT_DSV41_SM90_') or k in ('PYTORCH_ALLOC_CONF','PYTORCH_CUDA_ALLOC_CONF')}})
+    log=public_stream(folder/'server.log','x')
+    p=subprocess.Popen(command,env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
+    write(folder/'process.json',{'pid':p.pid,'time':time.time()})
+    started=time.monotonic()
+    try:
+        while time.monotonic()-started<1800:
+            if p.poll() is not None:raise RuntimeError(f'server exited {p.returncode}')
+            try:replay.request('/health',raw=True,timeout=2)
+            except OSError:
+                time.sleep(2);continue
+            info=replay.request('/get_server_info');write(folder/'server-info.json',info)
+            assert info['tp_size']==info['ep_size']==8
+            assert info['chunked_prefill_size']==config['chunk']
+            assert info['cuda_graph_config']['prefill']['backend']==config['graph']
+            for key, expected in config.get('resolved', {}).items():
+                assert info[key] == expected, (key, info.get(key), expected)
+            write(folder/'ready.json',{'seconds':time.monotonic()-started})
+            return p,log
+        raise TimeoutError('server readiness')
+    except BaseException:
+        replay.stop(p,log);raise
+
+
+def compact(result,**extra):
+    return {k:result[k] for k in ['id','input_sha256','input_tokens','duration_seconds',
+             'ttft_seconds','output_tokens_per_second','tpot_seconds']} | {
+             'output_tokens':len(result['output_ids']),
+             'output_hash':hashlib.sha256(json.dumps(result['output_ids']).encode()).hexdigest(),
+             'cached_tokens':result['meta_info'].get('cached_tokens',0),
+             **{k:v for k,v in result['meta_info'].items() if k.startswith('spec_')},**extra}
+
+
+def main():
+    configs=json.loads((ROOT/'variants.json').read_text())
+    rows=[json.loads(s) for s in (PREVIOUS/'validation-inputs.jsonl').read_text().splitlines()]
+    rows=sorted(rows,key=lambda r:len(r['input_ids']))
+    longest=rows[-1]
+    selected=[rows[i] for i in sorted(set(round(i*(len(rows)-1)/7) for i in range(8)))]
+    write(ROOT/'scope.json',{'validation_only':True,'selected_ids':[r['id'] for r in selected],
+        'prefix_lengths':[4096,16384,len(longest['input_ids'])],
+        'eos_respected':True,'generation_budget':128,'not_task_quality_eval':True})
+    for config in configs:
+        folder=ROOT/config['name'];folder.mkdir()
+        state('starting',variant=config['name'])
+        p,log=launch(config,folder)
+        memory=MemorySampler(folder,ROOT/'progress.json')
+        points=[]
+        try:
+            for length in [4096,16384,len(longest['input_ids'])]:
+                row=dict(longest,input_ids=longest['input_ids'][:length])
+                state('warmup',variant=config['name'],length=length)
+                flush();replay.generate(row,1,folder/f'warmup-{length}.json')
+                for repeat in range(3):
+                    state('ttft',variant=config['name'],length=length,repeat=repeat)
+                    flush()
+                    for cold in [True,False]:
+                        result=replay.generate(row,1,folder/f'ttft-{length}-{repeat}-{cold}.json')
+                        assert not cold or result['meta_info'].get('cached_tokens',0)==0
+                        points.append(compact(result,kind='ttft',cold=cold,repeat=repeat))
+                    write(folder/'measurements.json',points)
+            for i,row in enumerate(selected):
+                for repeat in range(2):
+                    state('generation',variant=config['name'],case=i,repeat=repeat)
+                    flush();result=replay.generate(row,128,folder/f'generate-{i}-{repeat}.json',logprob=config.get('generation_logprob', True))
+                    replay.validate_stats(result, config['group']!='target-only')
+                    assert result['meta_info'].get('cached_tokens',0)==0
+                    points.append(compact(result,kind='generation',cold=True,repeat=repeat))
+                    write(folder/'measurements.json',points)
+            summary=[]
+            for length in [4096,16384,len(longest['input_ids'])]:
+                for cold in [True,False]:
+                    group=[r for r in points if r['kind']=='ttft' and r['input_tokens']==length and r['cold']==cold]
+                    summary.append({'tokens':length,'cold':cold,'median_ttft':statistics.median(r['ttft_seconds'] for r in group)})
+            generation=[r for r in points if r['kind']=='generation']
+            write(folder/'summary.json',{'ttft':summary,'generation_logprob':config.get('generation_logprob', True),
+                'aggregate_tps':sum(r['output_tokens'] for r in generation)/sum(r['duration_seconds'] for r in generation),
+                'generation':generation,
+                'verify_weighted_accept_length': (sum(r['output_tokens'] for r in generation)/sum(r.get('spec_verify_ct',0) for r in generation)) if any(r.get('spec_verify_ct',0) for r in generation) else None})
+            if not config.get('profile', True):
+                continue
+            state('profile',variant=config['name'])
+            flush()
+            profile_validation(folder,dict(longest,input_ids=longest['input_ids'][:16384]),replay.generate,replay.request)
+            traces=folder/'private-prefill';traces.mkdir(mode=0o700)
+            flush()
+            replay.request('/start_profile',{'output_dir':str(traces),'num_steps':(len(longest['input_ids'])+config['chunk']-1)//config['chunk']+1 if config['chunk']>0 else 1,
+                'activities':['CPU','GPU'],'with_stack':False,'record_shapes':False,
+                'merge_profiles':False,'profile_id':'h100-opt-prefill'},raw=True,timeout=120)
+            replay.generate(longest,1,folder/'profile-prefill-request.json')
+            paths=sorted(traces.glob('*.trace.json.gz'))
+            if len(paths)<8:
+                stopped=replay.request('/stop_profile',{},raw=True,timeout=180)
+                assert stopped.startswith('Stop profiling.')
+                paths=sorted(traces.glob('*.trace.json.gz'))
+            assert len(paths)==8, len(paths)
+            for path in paths:os.chmod(path,0o600)
+            summaries=[summarize_trace(path) for path in paths]
+            write(folder/'prefill-profile.json',{'traces':summaries,'first_forward_only':config['chunk']<0,'all_prefill_chunks_requested':config['chunk']>0})
+        finally:
+            memory.close()
+            replay.stop(p,log)
+    state('complete')
+
+
+if __name__=='__main__':
+    def interrupt(signum,frame):raise SystemExit(128+signum)
+    for sig in [signal.SIGTERM,signal.SIGINT]:signal.signal(sig,interrupt)
+    main()

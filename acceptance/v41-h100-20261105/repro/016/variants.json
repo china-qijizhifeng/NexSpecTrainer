@@ -1,0 +1,69 @@
+[
+  {
+    "group": "target-only",
+    "fused": true,
+    "collective": true,
+    "deepselect": true,
+    "chunk": -1,
+    "graph": "disabled",
+    "profile": false,
+    "env": {
+      "SGLANG_OPT_DSV41_SM90_PREFILL_IO": "1",
+      "SGLANG_OPT_DSV41_SM90_PREFILL_MHC": "1",
+      "PYTORCH_ALLOC_CONF": "expandable_segments:True",
+      "SGLANG_OPT_DSV41_SM90_MOE_WORKSPACE": "0",
+      "SPECFORGE_SPEC_CAPTURE": "1",
+      "SGLANG_PLUGINS": "specforge_spec_capture",
+      "MOONCAKE_PROTOCOL": "tcp",
+      "MOONCAKE_MASTER_SERVER_ADDR": "127.0.0.1:36551",
+      "MOONCAKE_METADATA_SERVER": "http://127.0.0.1:36880/metadata",
+      "MOONCAKE_LOCAL_HOSTNAME": "127.0.0.1",
+      "MOONCAKE_GLOBAL_SEGMENT_SIZE": "8589934592",
+      "MOONCAKE_LOCAL_BUFFER_SIZE": "8589934592",
+      "SGLANG_SPEC_CAPTURE_GPU_PUT": "0",
+      "SGLANG_SPEC_CAPTURE_WIRE_ENCODING": "raw",
+      "SGLANG_OPT_DSV41_SM90_DEEPSELECT_PREFILL": "0"
+    },
+    "name": "full-hidden-cp8-repeat-control",
+    "extra_args": [
+      "--language-model-only",
+      "--enable-prefill-cp",
+      "--cp-strategy",
+      "interleave",
+      "--enable-return-aux-hidden-states",
+      "--speculative-algorithm",
+      "DSPARK",
+      "--return-aux-hidden-state-layer-ids",
+      "37",
+      "38",
+      "39",
+      "--return-hidden-states-mode",
+      "full",
+      "--no-enable-decoder-swa-bounded-replay"
+    ],
+    "resolved": {
+      "language_model_only": true,
+      "enable_prefill_cp": true,
+      "attn_cp_size": 8,
+      "enable_decoder_swa_bounded_replay": false,
+      "max_running_requests": 1,
+      "return_hidden_states_mode": "full",
+      "aux_hidden_state_capture": "dspark"
+    },
+    "options": {
+      "--cuda-graph-bs-decode": 8,
+      "--max-running-requests": 1,
+      "--cuda-graph-backend-decode": "disabled",
+      "--max-prefill-tokens": 32768
+    },
+    "generation_logprob": false,
+    "remove_args": [
+      "--no-enable-decoder-swa-bounded-replay"
+    ],
+    "lengths": [
+      4096,
+      16384,
+      16385
+    ]
+  }
+]

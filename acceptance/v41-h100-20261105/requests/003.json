@@ -1,0 +1,9 @@
+{
+  "entry": "run.py",
+  "timeout": 1800,
+  "sha256": {
+    "mhc_prefill_bench.py": "21a67b9efae842f1314d769e199ca8e84d4236dbda362d781e96a691d4b7ef3c",
+    "run.py": "3b522ea36c78d77a516164817d25c757a73452ffe76d8c52ebb5560a36e26756",
+    "source.tar.gz": "c33f4bfe5e0fef3db1fe4d335f6ad4543524423815842df404fd271e4f74ede9"
+  }
+}

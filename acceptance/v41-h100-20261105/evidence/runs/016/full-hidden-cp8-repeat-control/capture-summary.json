@@ -1,0 +1,386 @@
+{
+  "requests": [
+    {
+      "tokens": 4096,
+      "repeat": 0,
+      "input_sha256": "019e45dc6b9322e049337182605a4222265702e3cd3c3b8be60bc7f1c890317e",
+      "capture_publish_seconds": 2.03254471719265,
+      "fetch_validate_seconds": 0.7014880105853081,
+      "cached_tokens": 0,
+      "all_prompt_rows": true,
+      "aux_layers": [
+        37,
+        38,
+        39
+      ],
+      "features": {
+        "hidden_states": {
+          "shape": [
+            1,
+            4096,
+            15360
+          ],
+          "dtype": "bfloat16",
+          "bytes": 125829120,
+          "sha256": "1ec8c39d14fb2b2f477be1623c65b4374c7c5723eb1f17d05675865dedfb2340",
+          "finite": true
+        },
+        "target_last_hidden_states": {
+          "shape": [
+            1,
+            4096,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "bytes": 41943040,
+          "sha256": "7cdd0ff90e72b71edfe77627e973218befc726c29c1b6c7939adda2cdde6845c",
+          "finite": true
+        },
+        "input_ids": {
+          "shape": [
+            4096
+          ],
+          "dtype": "int64",
+          "bytes": 32768,
+          "sha256": "650fe80385d450b1d3a7441e27c73db69787d12c0378ea2105623dca519290d7",
+          "finite": true
+        },
+        "loss_mask": {
+          "shape": [
+            4096
+          ],
+          "dtype": "int64",
+          "bytes": 32768,
+          "sha256": "60904b73a68516f9cea169b202ea2335ca98f3655081b912701d256cf4d457a2",
+          "finite": true
+        }
+      }
+    },
+    {
+      "tokens": 4096,
+      "repeat": 1,
+      "input_sha256": "019e45dc6b9322e049337182605a4222265702e3cd3c3b8be60bc7f1c890317e",
+      "capture_publish_seconds": 0.43090344965457916,
+      "fetch_validate_seconds": 0.3725696802139282,
+      "cached_tokens": 0,
+      "all_prompt_rows": true,
+      "aux_layers": [
+        37,
+        38,
+        39
+      ],
+      "features": {
+        "hidden_states": {
+          "shape": [
+            1,
+            4096,
+            15360
+          ],
+          "dtype": "bfloat16",
+          "bytes": 125829120,
+          "sha256": "1ec8c39d14fb2b2f477be1623c65b4374c7c5723eb1f17d05675865dedfb2340",
+          "finite": true
+        },
+        "target_last_hidden_states": {
+          "shape": [
+            1,
+            4096,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "bytes": 41943040,
+          "sha256": "7cdd0ff90e72b71edfe77627e973218befc726c29c1b6c7939adda2cdde6845c",
+          "finite": true
+        },
+        "input_ids": {
+          "shape": [
+            4096
+          ],
+          "dtype": "int64",
+          "bytes": 32768,
+          "sha256": "650fe80385d450b1d3a7441e27c73db69787d12c0378ea2105623dca519290d7",
+          "finite": true
+        },
+        "loss_mask": {
+          "shape": [
+            4096
+          ],
+          "dtype": "int64",
+          "bytes": 32768,
+          "sha256": "60904b73a68516f9cea169b202ea2335ca98f3655081b912701d256cf4d457a2",
+          "finite": true
+        }
+      }
+    },
+    {
+      "tokens": 16384,
+      "repeat": 0,
+      "input_sha256": "4fe1c716b7e75e9bd51d1d79fefe2c5f022004a54022648c912382152677dfb7",
+      "capture_publish_seconds": 1.9199234172701836,
+      "fetch_validate_seconds": 1.545429602265358,
+      "cached_tokens": 0,
+      "all_prompt_rows": true,
+      "aux_layers": [
+        37,
+        38,
+        39
+      ],
+      "features": {
+        "hidden_states": {
+          "shape": [
+            1,
+            16384,
+            15360
+          ],
+          "dtype": "bfloat16",
+          "bytes": 503316480,
+          "sha256": "341489cdb4f402ffe07956e2ba2b427dd3b1fcbf649e65fe9e113290d4fd807a",
+          "finite": true
+        },
+        "target_last_hidden_states": {
+          "shape": [
+            1,
+            16384,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "bytes": 167772160,
+          "sha256": "9dd78aea920e1e1a5f7ebcc8470cfd4a400b4873046011c5409e49d8de2122b7",
+          "finite": true
+        },
+        "input_ids": {
+          "shape": [
+            16384
+          ],
+          "dtype": "int64",
+          "bytes": 131072,
+          "sha256": "255ba0557d1d4e486a1c64c4eabb0e683317a2a27a4d58615d76c275dfdf75a8",
+          "finite": true
+        },
+        "loss_mask": {
+          "shape": [
+            16384
+          ],
+          "dtype": "int64",
+          "bytes": 131072,
+          "sha256": "bbe98154d2b36773be3c3ac82533045df83c03ec55629f78d77a45e1cf74ed15",
+          "finite": true
+        }
+      }
+    },
+    {
+      "tokens": 16384,
+      "repeat": 1,
+      "input_sha256": "4fe1c716b7e75e9bd51d1d79fefe2c5f022004a54022648c912382152677dfb7",
+      "capture_publish_seconds": 0.8810709193348885,
+      "fetch_validate_seconds": 1.595416396856308,
+      "cached_tokens": 0,
+      "all_prompt_rows": true,
+      "aux_layers": [
+        37,
+        38,
+        39
+      ],
+      "features": {
+        "hidden_states": {
+          "shape": [
+            1,
+            16384,
+            15360
+          ],
+          "dtype": "bfloat16",
+          "bytes": 503316480,
+          "sha256": "45233d18b3775d413bdb171ffce68fcf93e5c2d9ec6eaf814eca2614f103867a",
+          "finite": true
+        },
+        "target_last_hidden_states": {
+          "shape": [
+            1,
+            16384,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "bytes": 167772160,
+          "sha256": "ae8e7cc9ba1969760ff43937d28107ae8952a4ee434efcb2760f8dfa0d206e19",
+          "finite": true
+        },
+        "input_ids": {
+          "shape": [
+            16384
+          ],
+          "dtype": "int64",
+          "bytes": 131072,
+          "sha256": "255ba0557d1d4e486a1c64c4eabb0e683317a2a27a4d58615d76c275dfdf75a8",
+          "finite": true
+        },
+        "loss_mask": {
+          "shape": [
+            16384
+          ],
+          "dtype": "int64",
+          "bytes": 131072,
+          "sha256": "bbe98154d2b36773be3c3ac82533045df83c03ec55629f78d77a45e1cf74ed15",
+          "finite": true
+        }
+      }
+    },
+    {
+      "tokens": 16385,
+      "repeat": 0,
+      "input_sha256": "44957d1e21ff50747e0bebd62aa13209b3b4eae644e9ab02366c066f1e55888e",
+      "capture_publish_seconds": 1.1965272352099419,
+      "fetch_validate_seconds": 1.1709960922598839,
+      "cached_tokens": 0,
+      "all_prompt_rows": true,
+      "aux_layers": [
+        37,
+        38,
+        39
+      ],
+      "features": {
+        "hidden_states": {
+          "shape": [
+            1,
+            16385,
+            15360
+          ],
+          "dtype": "bfloat16",
+          "bytes": 503347200,
+          "sha256": "95203bb3bbf1f83bfa33703a3c905fb42d91f786cf9a2324c39baedb51c7dff5",
+          "finite": true
+        },
+        "target_last_hidden_states": {
+          "shape": [
+            1,
+            16385,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "bytes": 167782400,
+          "sha256": "3955ff6aba4eed3f4d41f64e1deaed7637a7ea0e23c177598697ba6d0787e7cc",
+          "finite": true
+        },
+        "input_ids": {
+          "shape": [
+            16385
+          ],
+          "dtype": "int64",
+          "bytes": 131080,
+          "sha256": "bf1ea39b70907e0e42092eac162a5753a53aee7765fa78a14d199389424416c1",
+          "finite": true
+        },
+        "loss_mask": {
+          "shape": [
+            16385
+          ],
+          "dtype": "int64",
+          "bytes": 131080,
+          "sha256": "aad592e7a5398307eeb36f30c076a345e926d13eb3cd0d2daed729d4619ac22e",
+          "finite": true
+        }
+      }
+    },
+    {
+      "tokens": 16385,
+      "repeat": 1,
+      "input_sha256": "44957d1e21ff50747e0bebd62aa13209b3b4eae644e9ab02366c066f1e55888e",
+      "capture_publish_seconds": 0.901216022670269,
+      "fetch_validate_seconds": 1.2336563244462013,
+      "cached_tokens": 0,
+      "all_prompt_rows": true,
+      "aux_layers": [
+        37,
+        38,
+        39
+      ],
+      "features": {
+        "hidden_states": {
+          "shape": [
+            1,
+            16385,
+            15360
+          ],
+          "dtype": "bfloat16",
+          "bytes": 503347200,
+          "sha256": "f4884462db4d17ce70cfdbb8654093632c915be3d88d5f6e4e3359e2962ae0b9",
+          "finite": true
+        },
+        "target_last_hidden_states": {
+          "shape": [
+            1,
+            16385,
+            5120
+          ],
+          "dtype": "bfloat16",
+          "bytes": 167782400,
+          "sha256": "0713588d6e591d40ecefe705255c935b82ce651b6671721d5cbad89f50313694",
+          "finite": true
+        },
+        "input_ids": {
+          "shape": [
+            16385
+          ],
+          "dtype": "int64",
+          "bytes": 131080,
+          "sha256": "bf1ea39b70907e0e42092eac162a5753a53aee7765fa78a14d199389424416c1",
+          "finite": true
+        },
+        "loss_mask": {
+          "shape": [
+            16385
+          ],
+          "dtype": "int64",
+          "bytes": 131080,
+          "sha256": "aad592e7a5398307eeb36f30c076a345e926d13eb3cd0d2daed729d4619ac22e",
+          "finite": true
+        }
+      }
+    }
+  ],
+  "differential": {
+    "4096": {
+      "hidden_states": {
+        "cosine": 1.0,
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true
+      },
+      "target_last_hidden_states": {
+        "cosine": 1.0,
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true
+      }
+    },
+    "16384": {
+      "hidden_states": {
+        "cosine": 0.977125587725663,
+        "relative_l2": 0.2174066092348577,
+        "max_abs": 61176.5625,
+        "exact": false
+      },
+      "target_last_hidden_states": {
+        "cosine": 0.9626565934223543,
+        "relative_l2": 0.2732663823678486,
+        "max_abs": 1.8828125,
+        "exact": false
+      }
+    },
+    "16385": {
+      "hidden_states": {
+        "cosine": 0.9798720895643965,
+        "relative_l2": 0.2014753883558151,
+        "max_abs": 51436.625,
+        "exact": false
+      },
+      "target_last_hidden_states": {
+        "cosine": 0.9629434716904105,
+        "relative_l2": 0.2722243043871609,
+        "max_abs": 2.04296875,
+        "exact": false
+      }
+    }
+  },
+  "all_prompt_rows": true,
+  "median_64k_publish_seconds": null
+}

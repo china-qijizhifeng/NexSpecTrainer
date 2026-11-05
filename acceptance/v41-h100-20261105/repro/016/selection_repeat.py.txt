@@ -1,0 +1,20 @@
+import json
+from pathlib import Path
+import torch
+from sglang.kernels.ops.attention.deep_select import topk
+
+torch.manual_seed(42)
+results=[]
+for rows in [64,2049]:
+    width,k=16512,2048
+    for kind in ['equal','quantized']:
+        scores=(torch.ones((rows,width),device='cuda',dtype=torch.bfloat16) if kind=='equal' else torch.randn((rows,width),device='cuda',dtype=torch.bfloat16))
+        lengths=torch.full((rows,),16385,device='cuda',dtype=torch.int32)
+        _,reference=topk(scores,k,end=lengths,sorted_index=True,return_value=False)
+        changed=[]
+        for repeat in range(10):
+            _,actual=topk(scores,k,end=lengths,sorted_index=True,return_value=False)
+            changed.append(int((actual!=reference).any(1).sum().item()))
+        results.append({'rows':rows,'width':width,'k':k,'kind':kind,'changed_rows_by_repeat':changed})
+Path('selection-repeat.json').write_text(json.dumps(results,indent=2)+'\n')
+print(json.dumps(results))

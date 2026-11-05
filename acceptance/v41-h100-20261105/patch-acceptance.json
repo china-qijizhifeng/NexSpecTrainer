@@ -1,0 +1,9 @@
+{
+  "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "source_revision": "ed529db58e00e44132f3f4698688319c09a67cd8",
+  "patch_sha256": "3bcddacd7c078b55ebfd3a21a7df122055587bae77173528675bfa835fdecb3c",
+  "files_verified": 42,
+  "apply_check": true,
+  "all_output_hashes_match": true,
+  "reverse_restores_original": true
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "rows": 64,
+    "width": 16512,
+    "k": 2048,
+    "kind": "equal",
+    "changed_rows_by_repeat": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "rows": 64,
+    "width": 16512,
+    "k": 2048,
+    "kind": "quantized",
+    "changed_rows_by_repeat": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "rows": 2049,
+    "width": 16512,
+    "k": 2048,
+    "kind": "equal",
+    "changed_rows_by_repeat": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  {
+    "rows": 2049,
+    "width": 16512,
+    "k": 2048,
+    "kind": "quantized",
+    "changed_rows_by_repeat": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+]

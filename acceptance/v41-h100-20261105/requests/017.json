@@ -1,0 +1,7 @@
+{
+  "entry": "selection_repeat.py",
+  "timeout": 600,
+  "sha256": {
+    "selection_repeat.py": "dc8912cf7b39a34d5018359a2605180547dc775e3d908920614789c40a086e2c"
+  }
+}

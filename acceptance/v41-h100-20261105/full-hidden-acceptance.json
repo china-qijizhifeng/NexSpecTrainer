@@ -1,0 +1,64 @@
+{
+  "status": "not_accepted_for_long_input_numerical_equivalence",
+  "all_prompt_rows_validated_tokens": [
+    4096,
+    16384,
+    16385
+  ],
+  "aux_layers": [
+    37,
+    38,
+    39
+  ],
+  "dtype": "bfloat16",
+  "capture_64k_completed": false,
+  "same_input_moe_comparisons": 1920,
+  "same_input_moe_exact": true,
+  "same_input_moe_ranks": 8,
+  "repeat_control_deepselect_disabled": {
+    "4096": {
+      "hidden_states": {
+        "cosine": 1.0,
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true
+      },
+      "target_last_hidden_states": {
+        "cosine": 1.0,
+        "relative_l2": 0.0,
+        "max_abs": 0.0,
+        "exact": true
+      }
+    },
+    "16384": {
+      "hidden_states": {
+        "cosine": 0.977125587725663,
+        "relative_l2": 0.2174066092348577,
+        "max_abs": 61176.5625,
+        "exact": false
+      },
+      "target_last_hidden_states": {
+        "cosine": 0.9626565934223543,
+        "relative_l2": 0.2732663823678486,
+        "max_abs": 1.8828125,
+        "exact": false
+      }
+    },
+    "16385": {
+      "hidden_states": {
+        "cosine": 0.9798720895643965,
+        "relative_l2": 0.2014753883558151,
+        "max_abs": 51436.625,
+        "exact": false
+      },
+      "target_last_hidden_states": {
+        "cosine": 0.9629434716904105,
+        "relative_l2": 0.2722243043871609,
+        "max_abs": 2.04296875,
+        "exact": false
+      }
+    }
+  },
+  "root_cause": "unresolved; disabling DeepSelect alone did not restore repeatability",
+  "note": "run016 returned0 as a diagnostic collection; hidden equivalence failed and is not accepted"
+}

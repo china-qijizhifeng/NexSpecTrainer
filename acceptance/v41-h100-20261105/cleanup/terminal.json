@@ -1,0 +1,14 @@
+{
+  "worker_exit": {
+    "code": 0,
+    "time": 1793870229.794466
+  },
+  "job": {
+    "name": "job-58a7093f827c-20261105131049",
+    "alias": "v41-h100-2s-20261105",
+    "status": "Completed",
+    "namespace": "qiji",
+    "creator": "linlizhi",
+    "gpus": 8
+  }
+}

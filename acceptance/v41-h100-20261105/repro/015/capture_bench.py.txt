@@ -1,0 +1,125 @@
+"""Real HTTP -> all-token forward -> SpecForge -> Mooncake -> tensor validation."""
+import hashlib,json,os,signal,statistics,subprocess,time
+from pathlib import Path
+import torch
+from server_bench import ROOT,PREVIOUS,launch,flush,replay,state,write,public_stream,MemorySampler
+from mooncake.store import MooncakeDistributedStore
+
+
+def get_tensor(store,key,shape,dtype):
+    value=torch.empty(shape,dtype=dtype)
+    size=value.numel()*value.element_size()
+    rc=store.register_buffer(value.data_ptr(),size)
+    assert rc in (None,0),rc
+    try:
+        received=store.get_into(key,value.data_ptr(),size)
+        assert received==size,(key,received,size)
+    finally:store.unregister_buffer(value.data_ptr())
+    return value
+
+
+def capture(store,folder,row,repeat):
+    n=len(row['input_ids']);sample=f'n{n}-r{repeat}'
+    mask=[int(i>=128) for i in range(n)]
+    spec={'store_id':folder.name,'sample_id':sample,'gen':1,'replace':False,
+          'features':{'aux':'hidden_states','last_hidden':'target_last_hidden_states'},
+          'passthrough':[{'name':'input_ids','data':row['input_ids'],'shape':[n],'dtype':'int64'},
+                         {'name':'loss_mask','data':mask,'shape':[n],'dtype':'int64'}]}
+    flush();start=time.perf_counter()
+    result=replay.request('/generate',{'input_ids':row['input_ids'],
+        'sampling_params':{'temperature':0,'max_new_tokens':0,'custom_params':{'spec_capture':json.dumps(spec)}},
+        'stream':False},timeout=600)
+    published=time.perf_counter()-start
+    meta=result['meta_info'];assert meta.get('cached_tokens',0)==0
+    captured=meta['spec_capture']
+    while isinstance(captured,list):
+        assert len(captured)==1,captured
+        captured=captured[0]
+    assert 'error' not in captured,captured
+    assert captured['aux_layer_ids']==[37,38,39]
+    values={};features={};beg=time.perf_counter()
+    for name,expected in {'hidden_states':([1,n,15360],torch.bfloat16),
+                          'target_last_hidden_states':([1,n,5120],torch.bfloat16),
+                          'input_ids':([n],torch.int64),'loss_mask':([n],torch.int64)}.items():
+        shape,dtype=expected;entry=captured['features'][name]
+        assert entry['shape']==shape and entry['dtype']==str(dtype).split('.')[-1],entry
+        key=f'{folder.name}/{sample}/g1/{name}'
+        value=get_tensor(store,key,shape,dtype)
+        if dtype==torch.bfloat16:
+            for part in value.reshape(-1).split(1<<20):assert torch.isfinite(part).all()
+        else:assert value.tolist()==(row['input_ids'] if name=='input_ids' else mask)
+        raw=value.view(torch.uint8).numpy()
+        features[name]={'shape':shape,'dtype':entry['dtype'],'bytes':value.numel()*value.element_size(),'sha256':hashlib.sha256(memoryview(raw)).hexdigest(),'finite':True}
+        rc=store.remove(key,force=True);assert rc in (None,0),rc
+        values[name]=value
+    fetched=time.perf_counter()-beg
+    receipt={'tokens':n,'repeat':repeat,'input_sha256':hashlib.sha256(json.dumps(row['input_ids']).encode()).hexdigest(),
+             'capture_publish_seconds':published,'fetch_validate_seconds':fetched,'cached_tokens':meta.get('cached_tokens',0),
+             'all_prompt_rows':True,'aux_layers':[37,38,39],'features':features}
+    write(folder/f'capture-{n}-{repeat}.json',receipt)
+    return receipt,values
+
+
+def compare(actual,expected):
+    metrics={}
+    for key in ('hidden_states','target_last_hidden_states'):
+        a=actual[key].reshape(-1);b=expected[key].reshape(-1)
+        aa=bb=ab=dd=0.;max_abs=0.
+        for av,bv in zip(a.split(1<<20),b.split(1<<20)):
+            av=av.float();bv=bv.float();dv=av-bv
+            aa+=av.square().sum().item();bb+=bv.square().sum().item();ab+=(av*bv).sum().item();dd+=dv.square().sum().item();max_abs=max(max_abs,dv.abs().max().item())
+        cosine=ab/(aa*bb)**.5;rel=(dd/bb)**.5
+        metrics[key]={'cosine':cosine,'relative_l2':rel,'max_abs':max_abs}
+        assert cosine>.999 and rel<.03,metrics
+    return metrics
+
+
+def main():
+    torch.set_num_threads(8)
+    configs=json.loads((ROOT/'variants.json').read_text())
+    rows=[json.loads(s) for s in (PREVIOUS/'validation-inputs.jsonl').read_text().splitlines()]
+    longest=max(rows,key=lambda r:len(r['input_ids']))
+    master_log=public_stream(ROOT/'mooncake.log','x')
+    master=subprocess.Popen(['mooncake_master','--enable_http_metadata_server=true','--http_metadata_server_host=127.0.0.1','--rpc_port=36551','--http_metadata_server_port=36880','--metrics_port=36900','--default_kv_lease_ttl=30m'],stdout=master_log,stderr=subprocess.STDOUT,start_new_session=True)
+    store=None;control={}
+    try:
+        for _ in range(30):
+            import socket
+            assert master.poll() is None
+            try:
+                with socket.create_connection(('127.0.0.1',36551),timeout=1):break
+            except OSError:time.sleep(1)
+        else:raise TimeoutError('Mooncake readiness')
+        store=MooncakeDistributedStore()
+        rc=store.setup(local_hostname='127.0.0.1',metadata_server='http://127.0.0.1:36880/metadata',global_segment_size=0,local_buffer_size=8<<30,protocol='tcp',rdma_devices='',master_server_addr='127.0.0.1:36551')
+        assert rc in (None,0),rc
+        for config in configs:
+            folder=ROOT/config['name'];folder.mkdir();state('starting',variant=config['name'])
+            p,log=launch(config,folder);memory=MemorySampler(folder,ROOT/'progress.json');points=[];comparisons={}
+            try:
+                for n in config['lengths']:
+                    row=dict(longest,input_ids=longest['input_ids'][:n])
+                    for repeat in range(3 if n==64326 else 1):
+                        state('capture',variant=config['name'],length=n,repeat=repeat)
+                        receipt,values=capture(store,folder,row,repeat);points.append(receipt)
+                        if config['name'].endswith('control'):control[n]=values
+                        elif n in control:comparisons[n]=compare(values,control.pop(n))
+                        del values
+                        write(folder/'capture-summary.json',{'requests':points,'differential':comparisons,'all_prompt_rows':True,
+                            'median_64k_publish_seconds':statistics.median(r['capture_publish_seconds'] for r in points if r['tokens']==64326) if any(r['tokens']==64326 for r in points) else None})
+            finally:
+                memory.close();replay.stop(p,log)
+    finally:
+        if store is not None and hasattr(store,'close'):store.close()
+        if master.poll() is None:
+            os.killpg(master.pid,signal.SIGTERM)
+            try:master.wait(timeout=20)
+            except subprocess.TimeoutExpired:os.killpg(master.pid,signal.SIGKILL);master.wait()
+        master_log.close()
+    state('complete')
+
+
+if __name__=='__main__':
+    def interrupt(signum,frame):raise SystemExit(128+signum)
+    for sig in (signal.SIGTERM,signal.SIGINT):signal.signal(sig,interrupt)
+    main()

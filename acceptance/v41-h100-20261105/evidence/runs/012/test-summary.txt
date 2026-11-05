@@ -1,0 +1,4 @@
+2 passed, 19 warnings in 27.90s
+7 passed, 19 warnings in 25.90s
+34 passed, 26 subtests passed in 53.80s
+AssertionError: {'hidden_states': {'cosine': 0.9820109411455763, 'relative_l2': 0.1888424660078506, 'max_abs': 52215.0625}}
