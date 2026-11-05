@@ -22,6 +22,8 @@ export TORCH_FR_BUFFER_SIZE=20000 TORCH_NCCL_DUMP_ON_TIMEOUT=1
 export TRAIN_MASTER_ADDR="${KUBEBRAIN_HOSTNAME_PREFIX}-0.${YICLOUD_RENDEZVOUS_NAMESPACE}.svc.lg.shzhisuan.local"
 echo '[stage] environment and native input checks'
 python3 ops/yicloud-muon32/preflight.py --gpu
+python3 ops/yicloud-muon32/network.py
+source "$NODE_ROOT/network.env"
 python3 ops/yicloud-muon32/prepare_node.py
 echo '[stage] 32-rank Muon/AdamW same-gradient oracle and streamed FSDP gate'
 launch=(python3 -m torch.distributed.run --nnodes=4 --nproc_per_node=8 --node_rank="$KUBEBRAIN_REPLICA" --master_addr="$TRAIN_MASTER_ADDR" --max_restarts=0)

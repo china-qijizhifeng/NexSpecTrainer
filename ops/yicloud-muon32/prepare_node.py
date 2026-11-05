@@ -1,5 +1,5 @@
 """Validate the selected inputs and materialize this node's resolved recipe."""
-import hashlib,json,os,socket,fcntl,struct,time,shutil
+import hashlib,json,os,shutil
 from pathlib import Path
 import torch,yaml
 from specforge.config import load_config
@@ -14,17 +14,7 @@ receipt=json.loads((inputs/'input-compatibility.json').read_text());assert recei
 assert receipt['train_traces']==1326 and receipt['validation_traces']==17
 assert len(list((inputs/'train-features').glob('*.ckpt.zst')))==15104
 assert len(list((inputs/'validation-features').glob('*.ckpt.zst')))==136
-with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as s:
- ip=socket.inet_ntoa(fcntl.ioctl(s.fileno(),0x8915,struct.pack('256s',b'bond0'))[20:24])
-members=[x.strip() for x in os.environ['WORKER_ALL_SOCKET_ADDRS'].split(',')]
-assert len(members)==4 and len(set(members))==4 and ip in members,(ip,members)
-master=os.environ['TRAIN_MASTER_ADDR'];master_ip=None
-for attempt in range(60):
- try:master_ip=socket.gethostbyname(master);break
- except socket.gaierror:time.sleep(2)
-assert master_ip is not None,master
-if rank==0:assert master_ip==ip,(master_ip,ip)
-(node/'rendezvous.json').write_text(json.dumps({'node_rank':rank,'nodes':4,'hostname':socket.gethostname(),'local_ip':ip,'master_addr':master,'master_ip':master_ip,'members':members,'membership_not_order':True,'nccl_hca':os.environ.get('NCCL_IB_HCA')},indent=2)+'\n')
+master=os.environ['TRAIN_MASTER_ADDR']
 expected={v['input_sha256']:v for v in json.loads((inputs/'data-audit.json').read_text())['windows'].values()};checked=[]
 for split in ['train','validation']:
  path=sorted((inputs/f'{split}-features').glob('denovo*.ckpt.zst'))[rank]
@@ -43,4 +33,4 @@ raw['output_dir']=str(root/'training');raw['deployment']['trainer'].update(maste
 assert cfg.training.optimizer=='v41_flash_muon' and cfg.training.accumulation_steps==4 and cfg.training.total_steps==118
 if rank==0:(root/'config.yaml').write_text(yaml.safe_dump(cfg.model_dump(mode='json'),sort_keys=False))
 (node/'input-check.json').write_text(json.dumps({'passed':True,'checked_samples':checked,'compatibility':receipt},indent=2)+'\n')
-print(json.dumps({'node':rank,'inputs_passed':True,'master':master,'master_ip':master_ip}),flush=True)
+print(json.dumps({'node':rank,'inputs_passed':True,'master':master,'master_ip':json.loads((node/'rendezvous.json').read_text())['master_ip']}),flush=True)
