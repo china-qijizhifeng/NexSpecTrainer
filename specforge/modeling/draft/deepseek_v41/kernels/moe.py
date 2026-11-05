@@ -9,6 +9,39 @@ import torch
 from .elementwise import require_cuda
 
 
+def grouped_weight_gradient(dy, x, weight, counts_cpu, *, expert_chunk=8):
+    """Accumulate each expert in FP32, with bounded temporary storage.
+
+    Experts are independent reductions. Splitting only the expert dimension
+    preserves each expert's complete token reduction and final BF16 rounding.
+    The native up matrix otherwise needs 11.25 GiB FP32 plus 5.625 GiB BF16
+    simultaneously, on top of FSDP's accumulated full gradients.
+    """
+    import deep_gemm
+
+    counts = torch.tensor(counts_cpu, device=x.device, dtype=torch.int32)
+    gradient = torch.empty_like(weight)
+    workspace = torch.empty(
+        (min(expert_chunk, weight.shape[0]), *weight.shape[1:]),
+        device=weight.device,
+        dtype=torch.float32,
+    )
+    row = 0
+    for start in range(0, weight.shape[0], expert_chunk):
+        stop = min(start + expert_chunk, weight.shape[0])
+        lengths = counts_cpu[start:stop]
+        end = row + sum(lengths)
+        partial = workspace[: stop - start]
+        partial.zero_()
+        if end > row:
+            deep_gemm.k_grouped_bf16_gemm_tn_contiguous(
+                dy[row:end], x[row:end], partial, lengths, counts[start:stop], partial
+            )
+        gradient[start:stop].copy_(partial)
+        row = end
+    return gradient
+
+
 class GroupedLinear(torch.autograd.Function):
     @staticmethod
     def forward(ctx, x, weight, ends, counts_cpu):
@@ -39,12 +72,8 @@ class GroupedLinear(torch.autograd.Function):
         )
         # Hopper wgrad requires aligned host K lengths and FP32 accumulation.
         # M-grouped forward/dgrad accept prefix sums; K-grouped uses lengths.
-        counts = torch.tensor(ctx.counts_cpu, device=x.device, dtype=torch.int32)
-        dw = torch.zeros(weight.shape, device=weight.device, dtype=torch.float32)
-        deep_gemm.k_grouped_bf16_gemm_tn_contiguous(
-            dy, x, dw, ctx.counts_cpu, counts, dw
-        )
-        return dx, dw.to(weight.dtype), None, None
+        dw = grouped_weight_gradient(dy, x, weight, ctx.counts_cpu)
+        return dx, dw, None, None
 
 
 class Route(torch.autograd.Function):

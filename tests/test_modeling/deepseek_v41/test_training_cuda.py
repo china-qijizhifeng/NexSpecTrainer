@@ -15,7 +15,8 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-def test_native_dspark_optimizer_step_with_recomputation():
+@pytest.mark.parametrize("anchor_sampling", ["uniform", "all"])
+def test_native_dspark_optimizer_step_with_recomputation(anchor_sampling):
     from specforge.modeling.draft.deepseek_v41.validation import preflight
 
     preflight()
@@ -45,6 +46,8 @@ def test_native_dspark_optimizer_step_with_recomputation():
         num_anchors=2,
         objective_chunk_blocks=1,
         objective_checkpointing=True,
+        anchor_sampling=anchor_sampling,
+        anchor_forward_chunk_blocks=3,
     ).train()
     optimizer = torch.optim.AdamW(draft.parameters(), lr=1e-3)
     inputs = torch.randint(0, config.vocab_size - 1, (1, 12), device="cuda")

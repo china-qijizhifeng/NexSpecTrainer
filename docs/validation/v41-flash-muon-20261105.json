@@ -769,6 +769,7 @@
     "resumed_grad_norm": 0.758280873298645,
     "bitwise_next_update": false,
     "status": "strict equivalence gate failed; cause not established",
+    "merge_acceptance": "User accepted the measured differences and authorized merging on 2026-11-05; bitwise equivalence remains unproven",
     "tensor_comparison": {
       "model": {
         "elements": 14225362530,
@@ -815,9 +816,19 @@
   "limitations": [
     "Full native next-update bitwise gate failed; do not mark this acceptance item complete.",
     "Full pilot accumulation=2, not the 16-microbatch baseline.",
-    "All-anchor branch is not included.",
+    "GPU evidence predates PR #16 all-anchor integration; merged combination has not been GPU-validated.",
     "Controlled acceptance/serving/LR-calibration study is not run.",
     "Trainable DSpark Markov tables use explicit AdamW fallback, not Sinkhorn."
   ],
-  "evidence_root": "/gpfs/users/linlizhi/muon-adamw-20261105-r6"
+  "evidence_root": "/gpfs/users/linlizhi/muon-adamw-20261105-r6",
+  "main_integration": {
+    "base_commit": "aa5bad0b",
+    "pull_request": 16,
+    "cpu_regression": {
+      "passed": 202,
+      "skipped": 11,
+      "subtests_passed": 441
+    },
+    "combined_gpu_validated": false
+  }
 }

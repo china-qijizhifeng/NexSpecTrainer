@@ -38,10 +38,14 @@ def main():
 
             hook = head.register_forward_pre_hook(count)
             backend = FSDPTrainingBackend(
-                ParallelConfig(world_size=8, sharding_strategy="FULL_SHARD",
-                               fsdp_process_group=dist.group.WORLD),
+                ParallelConfig(
+                    world_size=8,
+                    sharding_strategy="FULL_SHARD",
+                    fsdp_process_group=dist.group.WORLD,
+                ),
                 optimizer_factory=lambda draft: BF16Optimizer(
-                    draft, lr=1e-4, total_steps=2, warmup_ratio=0, offload_master=True),
+                    draft, lr=1e-4, total_steps=2, warmup_ratio=0, offload_master=True
+                ),
             )
             backend.prepare_model(model, optimizer_target=model.draft_model)
             for micro in range(32):
@@ -53,8 +57,12 @@ def main():
                     loss, _, _ = backend.module(
                         input_ids=torch.randint(0, 30, (1, valid + 1), device="cuda"),
                         loss_mask=torch.ones(1, valid + 1, device="cuda"),
-                        hidden_states=torch.randn(1, valid + 1, 16, device="cuda", dtype=torch.bfloat16),
-                        target_last_hidden_states=torch.randn(1, valid + 1, 16, device="cuda", dtype=torch.bfloat16),
+                        hidden_states=torch.randn(
+                            1, valid + 1, 16, device="cuda", dtype=torch.bfloat16
+                        ),
+                        target_last_hidden_states=torch.randn(
+                            1, valid + 1, 16, device="cuda", dtype=torch.bfloat16
+                        ),
                         max_valid_anchors=valid,
                     )
                     assert calls[0] - before == 4
@@ -67,13 +75,26 @@ def main():
                 dist.all_gather_object(counts, calls[0] - before)
                 assert len(set(counts)) == 1, counts
             hook.remove()
-            records.append({"checkpointing": checkpointing, "optimizer_steps": 2,
-                            "micro_steps": 32, "head_calls": calls[0],
-                            "all_ranks_same_forward_and_replay_calls": True})
-        receipt = {"passed": True, "rank": rank, "world_size": 8,
-                   "torch": torch.__version__, "cases": records,
-                   "scope": "real FULL_SHARD, native FP32 ConfidenceHead, DSpark objective and CPU-offloaded optimizer"}
-        (args.output / f"rank{rank}.json").write_text(json.dumps(receipt, indent=2) + "\n")
+            records.append(
+                {
+                    "checkpointing": checkpointing,
+                    "optimizer_steps": 2,
+                    "micro_steps": 32,
+                    "head_calls": calls[0],
+                    "all_ranks_same_forward_and_replay_calls": True,
+                }
+            )
+        receipt = {
+            "passed": True,
+            "rank": rank,
+            "world_size": 8,
+            "torch": torch.__version__,
+            "cases": records,
+            "scope": "real FULL_SHARD, native FP32 ConfidenceHead, DSpark objective and CPU-offloaded optimizer",
+        }
+        (args.output / f"rank{rank}.json").write_text(
+            json.dumps(receipt, indent=2) + "\n"
+        )
         print(json.dumps(receipt), flush=True)
     finally:
         dist.destroy_process_group()

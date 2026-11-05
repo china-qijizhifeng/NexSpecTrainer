@@ -17,6 +17,12 @@ from .config import DeepSeekV41DraftConfig
 from .ops import HCMappings, MoE, RMSNorm, hc_post, hc_pre, rotary
 
 
+def gather_context_windows(context, rows, indices):
+    # Overlapping anchors revisit the same context tokens. Accumulate the
+    # gather backward in FP32 before casting once to the context's dtype.
+    return context.float()[rows, indices].to(context.dtype)
+
+
 class AttentionSink(nn.Module):
     _specforge_keep_fp32 = True
 
@@ -177,6 +183,23 @@ class DeepSeekV41DraftModel(PreTrainedModel):
         self.layer_types = ["sliding_attention"] * config.num_hidden_layers
         self.register_buffer("rope_cache", None, persistent=False)
 
+    def _rotary_cache(self, length, device):
+        c = self.config
+        if self.rope_cache is None or self.rope_cache.shape[0] < length:
+            freq = c.rope_theta ** (
+                -torch.arange(
+                    0, c.qk_rope_head_dim, 2, device=device, dtype=torch.float32
+                )
+                / c.qk_rope_head_dim
+            )
+            angles = (
+                torch.arange(length, device=device, dtype=torch.float32)[:, None] * freq
+            )
+            self.rope_cache = torch.cat((angles.cos(), angles.sin()), -1).contiguous()
+        # Other chunks or microbatches may grow the shared buffer before this
+        # call is recomputed. Save an exact-length view, never its mutable extent.
+        return self.rope_cache[:length]
+
     def forward(
         self,
         *,
@@ -194,22 +217,7 @@ class DeepSeekV41DraftModel(PreTrainedModel):
         c = self.config
         # Metadata only; numerical RoPE is always the TileKernels kernel.
         length = int(position_ids.max().item()) + 1
-        if self.rope_cache is None or self.rope_cache.shape[0] < length:
-            freq = c.rope_theta ** (
-                -torch.arange(
-                    0,
-                    c.qk_rope_head_dim,
-                    2,
-                    device=noise_embedding.device,
-                    dtype=torch.float32,
-                )
-                / c.qk_rope_head_dim
-            )
-            angles = (
-                torch.arange(length, device=freq.device, dtype=torch.float32)[:, None]
-                * freq
-            )
-            self.rope_cache = torch.cat((angles.cos(), angles.sin()), -1).contiguous()
+        rope_cache = self._rotary_cache(length, noise_embedding.device)
         b, s, width = target_hidden.shape
         if width != c.hidden_size * len(c.target_layer_ids):
             raise ValueError(
@@ -227,7 +235,7 @@ class DeepSeekV41DraftModel(PreTrainedModel):
         safe = indices.clamp(0, s - 1)
         context = self.mtp[0].main_norm(self.mtp[0].main_proj(target_hidden))
         rows = torch.arange(b, device=anchors.device)[:, None, None]
-        context = context[rows, safe].reshape(
+        context = gather_context_windows(context, rows, safe).reshape(
             b * blocks, c.sliding_window, c.hidden_size
         )
         context_positions = position_ids[:, :s][rows, safe].reshape(
@@ -245,7 +253,7 @@ class DeepSeekV41DraftModel(PreTrainedModel):
             draft_positions.reshape(b * blocks, k),
             context_positions,
             valid.reshape(b * blocks, -1),
-            self.rope_cache,
+            rope_cache,
         )
         for stage in self.mtp:
             if self.training and c.gradient_checkpointing and torch.is_grad_enabled():

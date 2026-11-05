@@ -167,6 +167,9 @@ of the complete final checkpoints found:
 | Adam second moment | 2.65e-6 | 6.39e-5 |
 
 All compared tensors are finite. These are observed errors, **not retrospectively
-chosen acceptance tolerances**; their cause has not been established. The PR
-remains draft for this gate. Controlled LR-calibrated acceptance/serving studies
-and all-anchor integration remain follow-ups under issue #14.
+chosen acceptance tolerances**; their cause has not been established. The user accepted these measured differences for merging on 2026-11-05; this
+does not establish bitwise equivalence. Controlled LR-calibrated acceptance/serving
+studies remain follow-ups under issue #14. These GPU measurements predate the
+all-anchor changes in PR #16; the merged combination has not been GPU-validated.
+After integrating PR #16, the optimizer/NFC/config/trainer and anchor regression
+selection passed 202 tests (11 skipped; 441 subtests).

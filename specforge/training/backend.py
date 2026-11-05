@@ -155,6 +155,9 @@ class TrainingBackend(abc.ABC):
     def accumulation_context(self, *, is_boundary: bool = True):
         return contextlib.nullcontext()
 
+    def chunked_backward_context(self):
+        return contextlib.nullcontext(self.backward)
+
     @abc.abstractmethod
     def prepare_model(self, model: nn.Module) -> nn.Module: ...
 
@@ -189,9 +192,12 @@ class FSDPTrainingBackend(TrainingBackend):
         parallel_config: ParallelConfig,
         *,
         optimizer_factory=None,
+        sync_each_microstep: Optional[bool] = None,
     ) -> None:
         self.parallel_config = parallel_config
         self._optimizer_factory = optimizer_factory
+        self._sync_each_microstep_override = sync_each_microstep
+        self._sync_each_microstep = False
         self.module: Optional[nn.Module] = None
         self.optimizer = None
         self._wrapped = False
@@ -241,6 +247,12 @@ class FSDPTrainingBackend(TrainingBackend):
             prepare_optimizer(
                 optimizer_target if optimizer_target is not None else model
             )
+        self._sync_each_microstep = (
+            bool(getattr(model, "fsdp_sync_each_microstep", False))
+            if self._sync_each_microstep_override is None
+            else self._sync_each_microstep_override
+        )
+        prefetch = bool(getattr(model, "fsdp_prefetch", True))
         if not wrap:
             self.module = model
             self._wrapped = False
@@ -307,6 +319,9 @@ class FSDPTrainingBackend(TrainingBackend):
                     ),
                     sharding_strategy=sharding,
                     process_group=pc.fsdp_process_group,
+                    backward_prefetch=(
+                        BackwardPrefetch.BACKWARD_PRE if prefetch else None
+                    ),
                 )
                 if ignored_frozen_modules:
                     fsdp_kwargs["ignored_modules"] = ignored_frozen_modules
@@ -316,8 +331,7 @@ class FSDPTrainingBackend(TrainingBackend):
                             transformer_auto_wrap_policy,
                             transformer_layer_cls=block_classes,
                         ),
-                        forward_prefetch=True,
-                        backward_prefetch=BackwardPrefetch.BACKWARD_PRE,
+                        forward_prefetch=prefetch,
                         limit_all_gathers=True,
                     )
                 if any(
@@ -372,12 +386,20 @@ class FSDPTrainingBackend(TrainingBackend):
             )
 
     def backward(self, loss: torch.Tensor, *, is_boundary: bool = True) -> None:
-        """Backward one micro-step with one gradient collective per window.
+        """Backward one micro-step, optionally reducing into shards immediately.
 
-        FSDP defers reduction here; DDP requires ``accumulation_context``
+        FSDP normally defers reduction until the optimizer boundary. Models
+        declaring ``fsdp_sync_each_microstep`` retain reduced shards between
+        microsteps instead; optimizer update timing is unchanged.
+        DDP requires ``accumulation_context``
         around both forward and backward to defer its reducer.
         """
-        if is_boundary or not self._wrapped or self._wrapper_kind == "ddp":
+        if (
+            is_boundary
+            or not self._wrapped
+            or self._wrapper_kind == "ddp"
+            or self._sync_each_microstep
+        ):
             loss.backward()
         else:
             with self.module.no_sync():
@@ -387,6 +409,59 @@ class FSDPTrainingBackend(TrainingBackend):
         if self._wrapper_kind == "ddp" and not is_boundary:
             return self.module.no_sync()
         return contextlib.nullcontext()
+
+    @contextlib.contextmanager
+    def chunked_backward_context(self):
+        """Accumulate reduced chunk gradients in FP32, rounding once per micro.
+
+        FSDP casts reduced gradients to the original parameter dtype before
+        accumulating. For BF16 parameters, hundreds of chunk additions can
+        discard small contributions. Keep only local gradient shards here;
+        full parameters are still released after each independent backward.
+        """
+        parameters = [p for p in self.module.parameters() if p.requires_grad]
+        totals = None
+
+        def backward(loss, *, is_boundary=True):
+            nonlocal totals
+            if totals is None:
+                totals = [
+                    (
+                        None
+                        if p.grad is None
+                        else p.grad.detach().to(
+                            dtype=torch.promote_types(p.dtype, torch.float32),
+                            copy=True,
+                        )
+                    )
+                    for p in parameters
+                ]
+                for p in parameters:
+                    p.grad = None
+            self.backward(loss, is_boundary=is_boundary)
+            with torch.no_grad():
+                for i, p in enumerate(parameters):
+                    if p.grad is not None:
+                        if totals[i] is None:
+                            totals[i] = p.grad.detach().to(
+                                dtype=torch.promote_types(p.dtype, torch.float32),
+                                copy=True,
+                            )
+                        else:
+                            totals[i].add_(p.grad)
+                        p.grad = None
+
+        try:
+            yield backward
+        except BaseException:
+            if totals is not None:
+                for p in parameters:
+                    p.grad = None
+            raise
+        else:
+            if totals is not None:
+                for p, total in zip(parameters, totals):
+                    p.grad = None if total is None else total.to(p.dtype)
 
     def scale_gradients(self, factor: torch.Tensor) -> None:
         if self.module is None:
