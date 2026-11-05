@@ -31,6 +31,23 @@ def _sum_of_squares(tensors):
     return torch.stack([tensor.float().square().sum() for tensor in tensors]).sum()
 
 
+def _copy_tensor_lists(destinations, sources):
+    """Keep each CUDA foreach copy homogeneous on both sides.
+
+    Native V4.1 mixes BF16 projections with FP32 mHC/router/norm parameters.
+    Older supported CUDA foreach implementations dispatch using the first
+    tensor's dtype, so a mixed destination list can overwrite adjacent storage.
+    """
+    groups = {}
+    for destination, source in zip(destinations, sources, strict=True):
+        key = (destination.device, destination.dtype, source.device, source.dtype)
+        dst, src = groups.setdefault(key, ([], []))
+        dst.append(destination)
+        src.append(source)
+    for destinations, sources in groups.values():
+        torch._foreach_copy_(destinations, sources)
+
+
 class BF16Optimizer:
     """AdamW over fp32 master copies of the bf16 trainable params, with grad
     clipping and configurable warmup scheduling."""
@@ -72,12 +89,7 @@ class BF16Optimizer:
             if self.fp32_params and all(mp.is_cuda for mp in self.fp32_params)
             else None
         )
-        self.optimizer = torch.optim.AdamW(
-            self.fp32_params,
-            lr=lr,
-            weight_decay=weight_decay,
-            fused=self._adamw_fused,
-        )
+        self.optimizer = self._build_optimizer(lr, weight_decay)
         self.last_grad_norm = None
         self._grad_norm_process_group = None
         self._reduce_grad_norm_across_ranks = True
@@ -96,6 +108,24 @@ class BF16Optimizer:
             total_steps=total_steps,
             warmup_steps=int(warmup_ratio * total_steps),
         )
+
+    def _build_optimizer(self, lr, weight_decay):
+        return torch.optim.AdamW(
+            self.fp32_params, lr=lr, weight_decay=weight_decay, fused=self._adamw_fused
+        )
+
+    def allowed_state_fields(self, index):
+        return {"exp_avg", "exp_avg_sq", "max_exp_avg_sq"}
+
+    def checkpoint_identity(self):
+        return getattr(self, "optimizer_identity", None)
+
+    def validate_checkpoint_identity(self, saved):
+        if saved != self.checkpoint_identity():
+            raise ValueError(
+                "optimizer algorithm/config/group/layout mismatch; "
+                "use an explicit weights-only warm start to change optimizers"
+            )
 
     def configure_grad_norm_reduction(
         self, *, process_group=None, enabled: bool = True
@@ -236,7 +266,7 @@ class BF16Optimizer:
                     master_grads.append(master_grad)
                 mp.grad = master_grad
             if master_grads:
-                torch._foreach_copy_(master_grads, model_grads)
+                _copy_tensor_lists(master_grads, model_grads)
                 torch._foreach_mul_(master_grads, clip_coefficient)
         self.last_grad_norm = grad_norm.detach()
         self.optimizer.step()
@@ -247,7 +277,7 @@ class BF16Optimizer:
                 for p, mp in zip(self.model_params, self.fp32_params):
                     p.data.copy_(mp.data.to(device=p.device, dtype=p.dtype))
             elif self.model_params:
-                torch._foreach_copy_(
+                _copy_tensor_lists(
                     [p.data for p in self.model_params],
                     [mp.data for mp in self.fp32_params],
                 )
@@ -280,6 +310,7 @@ class BF16Optimizer:
         """Restore optimizer/scheduler state and, when present, the rank-local
         fp32 master params; without them the masters are re-cloned from the
         bf16 weights and the resume is not numerically faithful."""
+        self.validate_checkpoint_identity(state_dict.get("optimizer_identity"))
         saved_scheduler_type = state_dict.get("lr_scheduler_type", "cosine")
         if saved_scheduler_type != self.lr_scheduler_type:
             raise ValueError(
@@ -330,6 +361,7 @@ class BF16Optimizer:
 
     def state_dict(self):
         return {
+            "optimizer_identity": self.checkpoint_identity(),
             "optimizer_state_dict": self.optimizer.state_dict(),
             "scheduler_state_dict": self.scheduler.state_dict(),
             "lr_scheduler_type": self.lr_scheduler_type,

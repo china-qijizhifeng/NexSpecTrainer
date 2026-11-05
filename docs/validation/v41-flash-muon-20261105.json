@@ -1,0 +1,834 @@
+{
+  "date": "2026-11-05",
+  "base_commit": "aa15f69740e2d6fef486b47f5f5a5663b4d53cd7",
+  "algorithm": "v41_flash_muon",
+  "torchtitan_revision": "a97b83bbbfebb9bf121641890f48e9986f7f3c78",
+  "runtime_sha256": {
+    "specforge/muon.py": "24646584185cb90423b8e7ec76184632fe267e16f47b6f9f14037d079758c7a4",
+    "specforge/muon_config.py": "d32a53de0a41a262f98b9d5bd8bd7f9f9980c9468a50a848f804ec06d2669822",
+    "specforge/muon_layout.py": "4517e80a5cff85f932f988644fdc414a91bccba31adff83508b862f490bd822a",
+    "specforge/optimizer.py": "3203181efb59e4257ec481b7905133a74bc59f4245cdbf42dce956f5bdbf4fba",
+    "specforge/training/nfc_state.py": "1c79b8b0654c266d91675ef36639d2309979bf53c53e334d64f10cbe5693ecf7"
+  },
+  "image": "harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df",
+  "torch": "2.10.0a0+b558c986e8.nv25.11",
+  "cpu_tests": {
+    "passed": 186,
+    "skipped": 6,
+    "subtests": 441
+  },
+  "numerical_and_nfc_job": "muon-adamw-20261105-r3",
+  "generic_fsdp": [
+    {
+      "rank": 0,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 1.0244548320770264e-07,
+          "empty_shards": 5,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 0.0,
+          "empty_shards": 5,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "rank": 1,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 1.6391277313232422e-07,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 0.0,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "rank": 2,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 1.1175870895385742e-07,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 0.0,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "rank": 3,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 6.05359673500061e-08,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 0.0,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "rank": 4,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 2.2351741790771484e-07,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 0.0,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "rank": 5,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 1.1920928955078125e-07,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 0.0,
+          "empty_shards": 6,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "rank": 6,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 1.1920928955078125e-07,
+          "empty_shards": 5,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 4.656612873077393e-10,
+          "empty_shards": 5,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    },
+    {
+      "rank": 7,
+      "phase": "write",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "reference_max_abs_error": 2.086162567138672e-07,
+          "empty_shards": 2,
+          "lazy_and_initialized_saved": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "reference_max_abs_error": 1.4901161193847656e-08,
+          "empty_shards": 2,
+          "lazy_and_initialized_saved": true
+        }
+      ],
+      "torchtitan_ns_max_error": 0.0,
+      "passed": true
+    }
+  ],
+  "fresh_process_resume": [
+    {
+      "rank": 0,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 1,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 2,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 3,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 4,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 5,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 6,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 7,
+      "phase": "resume",
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "gpu": "NVIDIA H100 80GB HBM3",
+      "cases": [
+        {
+          "case": "float32-offload0",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        },
+        {
+          "case": "bfloat16-offload1",
+          "fresh_process_next_step_bitwise": true,
+          "lazy_and_initialized_restored": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "native_layout_and_adam_job": "muon-adamw-20261105-r9",
+  "native_layout": [
+    {
+      "rank": 0,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 7.450580596923828e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 17
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 1.862645149230957e-09,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 17
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 1,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 3.725290298461914e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 20
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 2.3283064365386963e-10,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 20
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 2,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 3.725290298461914e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 19
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 1.862645149230957e-09,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 19
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 3,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 7.450580596923828e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 19
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 9.313225746154785e-10,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 19
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 4,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 7.450580596923828e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 18
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 3.725290298461914e-09,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 18
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 5,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 7.450580596923828e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 21
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 3.725290298461914e-09,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 21
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 6,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 7.450580596923828e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 18
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 3.725290298461914e-09,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 18
+        }
+      ],
+      "passed": true
+    },
+    {
+      "rank": 7,
+      "cases": [
+        {
+          "ns_dtype": "float32",
+          "offload": false,
+          "max_abs_error": 7.450580596923828e-09,
+          "tolerance": 2e-06,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 18
+        },
+        {
+          "ns_dtype": "bfloat16",
+          "offload": true,
+          "max_abs_error": 3.725290298461914e-09,
+          "tolerance": 0.0002,
+          "roles": [
+            "bias_or_scale",
+            "expert_down",
+            "expert_gate_up_split",
+            "linear",
+            "markov",
+            "mhc_linear",
+            "normalization",
+            "output_group",
+            "query_head",
+            "router_linear",
+            "shared_kv_head"
+          ],
+          "empty_shards": 18
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "adam_nfc_regression_receipts": 40,
+  "full_native_job": "muon-adamw-20261105-r6",
+  "full_native": {
+    "native_ranks": 8,
+    "profile": "v41_flash_muon",
+    "world_size": 8,
+    "gpu": "H100 80GB",
+    "accumulation_steps": 2,
+    "updates": [
+      {
+        "step": 1,
+        "lr": 3.3333333333333333e-06,
+        "grad_norm": 1.4874627590179443,
+        "max_optimizer_seconds": 65.28294760454446,
+        "max_optimizer_allocated_gib": 10.218755722045898,
+        "max_optimizer_workspace_increment_gib": 1.0629281997680664,
+        "max_host_rss_gib": 17.348827362060547
+      },
+      {
+        "step": 2,
+        "lr": 6.666666666666667e-06,
+        "grad_norm": 1.1527063846588135,
+        "max_optimizer_seconds": 61.05198735464364,
+        "max_optimizer_allocated_gib": 10.218762397766113,
+        "max_optimizer_workspace_increment_gib": 1.0629277229309082,
+        "max_host_rss_gib": 17.34372329711914
+      },
+      {
+        "step": 3,
+        "lr": 1e-05,
+        "grad_norm": 0.7582377195358276,
+        "max_optimizer_seconds": 64.73085559997708,
+        "max_optimizer_allocated_gib": 10.219250679016113,
+        "max_optimizer_workspace_increment_gib": 1.0629277229309082,
+        "max_host_rss_gib": 33.963130950927734
+      }
+    ],
+    "frozen_unchanged": true,
+    "max_recorded_reserved_gib": 73.154296875,
+    "max_forward_backward_only_peak_gib": 52.6674861907959
+  },
+  "full_native_resume": {
+    "new_process_loaded_and_updated": true,
+    "losses_match": true,
+    "reference_grad_norm": 0.7582377195358276,
+    "resumed_grad_norm": 0.758280873298645,
+    "bitwise_next_update": false,
+    "status": "strict equivalence gate failed; cause not established",
+    "merge_acceptance": "User accepted the measured differences and authorized merging on 2026-11-05; bitwise equivalence remains unproven",
+    "tensor_comparison": {
+      "model": {
+        "elements": 14225362530,
+        "changed": 221165149,
+        "max_abs": 6.103515625e-05,
+        "diff_sumsq": 4.5514405084992024e-05,
+        "reference_sumsq": 75534826.56055002,
+        "relative_l2": 7.762485770374058e-07
+      },
+      "exp_avg": {
+        "elements": 66238050,
+        "changed": 4055,
+        "max_abs": 1.928955316543579e-05,
+        "diff_sumsq": 2.3734583426990025e-09,
+        "reference_sumsq": 0.03515375539545503,
+        "relative_l2": 0.000259839363417597
+      },
+      "exp_avg_sq": {
+        "elements": 66238050,
+        "changed": 4047,
+        "max_abs": 2.650078386068344e-06,
+        "diff_sumsq": 7.33034423318533e-12,
+        "reference_sumsq": 0.0017976333869248566,
+        "relative_l2": 6.385745735832764e-05
+      },
+      "master": {
+        "elements": 14225361762,
+        "changed": 2395976693,
+        "max_abs": 2.2200867533683777e-05,
+        "diff_sumsq": 0.00034425725489000786,
+        "reference_sumsq": 75534615.32653442,
+        "relative_l2": 2.1348557708642806e-06
+      },
+      "momentum_buffer": {
+        "elements": 14159123712,
+        "changed": 96866608,
+        "max_abs": 7.62939453125e-06,
+        "diff_sumsq": 6.074764610902776e-07,
+        "reference_sumsq": 0.7487181685363045,
+        "relative_l2": 0.0009007526348217676
+      }
+    }
+  },
+  "limitations": [
+    "Full native next-update bitwise gate failed; do not mark this acceptance item complete.",
+    "Full pilot accumulation=2, not the 16-microbatch baseline.",
+    "GPU evidence predates PR #16 all-anchor integration; merged combination has not been GPU-validated.",
+    "Controlled acceptance/serving/LR-calibration study is not run.",
+    "Trainable DSpark Markov tables use explicit AdamW fallback, not Sinkhorn."
+  ],
+  "evidence_root": "/gpfs/users/linlizhi/muon-adamw-20261105-r6",
+  "main_integration": {
+    "base_commit": "aa5bad0b",
+    "pull_request": 16,
+    "cpu_regression": {
+      "passed": 202,
+      "skipped": 11,
+      "subtests_passed": 441
+    },
+    "combined_gpu_validated": false
+  }
+}

@@ -160,6 +160,13 @@ specforge train --config examples/configs/offline/colocated/deepseek-v41-flash-n
 specforge train --config examples/configs/online/disaggregated/external/deepseek-v41-flash-native.yaml
 ```
 
+For the published V4.1 backbone Muon algorithm plus AdamW fallback, select
+`training.optimizer: v41_flash_muon` or use
+`examples/configs/offline/colocated/deepseek-v41-flash-muon.yaml`.
+The [Muon contract](muon.md) describes head/expert boundaries, CPU offload,
+checkpoint compatibility, and the explicit DSpark Markov fallback. AdamW remains
+the default; this option is an experimental DSpark training recipe.
+
 Export a runtime checkpoint from a trusted training run:
 
 ```bash
