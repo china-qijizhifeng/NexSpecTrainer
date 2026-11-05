@@ -7,6 +7,7 @@ import hashlib
 import importlib.util
 import json
 import os
+import time
 from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 
@@ -94,8 +95,14 @@ def encode_row(row, *, verify=False):
 
 
 def prepare_shard(arguments):
-    source, target, expected_sha = arguments
+    source, target, expected_sha, expected_bytes = arguments
     source, target = Path(source), Path(target)
+    deadline=time.monotonic()+3600
+    while not source.exists() or source.stat().st_size!=expected_bytes:
+        if (source.parent.parent/'TRANSFER_COMPLETE').exists():
+            raise ValueError(f'transferred shard has wrong size: {source}')
+        if time.monotonic()>deadline:raise TimeoutError(f'waiting for source shard: {source}')
+        time.sleep(2)
     digest = hashlib.sha256()
     with source.open('rb') as stream:
         for block in iter(lambda: stream.read(8 << 20), b''):digest.update(block)
@@ -133,7 +140,7 @@ def main():
                           'supervision':result['metadata']['supervision']}))
         return
     args.output.mkdir(exist_ok=False)
-    tasks=[(str(args.dataset/s['file']),str(args.output/(Path(s['file']).name+'.gz')),s['sha256']) for s in manifest['shards']]
+    tasks=[(str(args.dataset/s['file']),str(args.output/(Path(s['file']).name+'.gz')),s['sha256'],s['bytes']) for s in manifest['shards']]
     with ProcessPoolExecutor(max_workers=args.workers,initializer=initialize,initargs=(str(args.model),)) as pool:
         entries=[entry for shard in pool.map(prepare_shard,tasks) for entry in shard]
     assert len(entries)==manifest['counts']['records'] and len({e['id'] for e in entries})==len(entries)
@@ -149,7 +156,7 @@ def main():
     # Materialize sorted partitions using seekable temporary per-record offsets in stage JSONL.
     spool=args.output/'spool.jsonl';offsets={}
     with spool.open('wb') as out:
-        for source,stage,_ in tasks:
+        for source,stage,_,_ in tasks:
             with gzip.open(stage,'rb') as stream:
                 for raw in stream:
                     row=json.loads(raw);offsets[row['id']]=out.tell();out.write(raw)
