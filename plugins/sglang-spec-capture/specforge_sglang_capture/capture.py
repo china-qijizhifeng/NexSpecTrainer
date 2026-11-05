@@ -15,7 +15,7 @@ A capture request carries its spec as a JSON string in
      "features": {"aux": <name>, "last_hidden": <name>},
      "passthrough": [{"name", "data", "shape", "dtype"}]}
 
-Per scheduler process, on the attention-TP writer rank:
+Per scheduler process, on attention TP rank 0 and CP rank 0:
 
 1. ``CaptureObserver`` (an SGLang ``ForwardObserver``) picks the prefill rows of
    capture requests out of the forward's hidden states: the aux-layer
@@ -466,7 +466,11 @@ def install(scheduler) -> CaptureRuntime:
 
     runtime = CaptureRuntime(
         sink=SpecCaptureSink(features.return_aux_hidden_state_layer_ids),
-        is_writer=get_parallel().attn_tp_rank == 0,
+        # CP gathers every prompt row before this observer. Publish once per
+        # attention DP group, matching the scheduler's response writer rank.
+        is_writer=(
+            get_parallel().attn_tp_rank == 0 and get_parallel().attn_cp_rank == 0
+        ),
         gpu_put=gpu_put_enabled(),
         max_pending_batches=int(os.environ.get(MAX_PENDING_BATCHES_ENV, "2")),
         defer_response=scheduler.defer_response,

@@ -390,12 +390,16 @@ class TestStreamer(unittest.TestCase):
         )
 
 
-def _fake_sglang_modules(features, *, chunked_prefill_size=-1, attn_tp_rank=0):
+def _fake_sglang_modules(
+    features, *, chunked_prefill_size=-1, attn_tp_rank=0, attn_cp_rank=0
+):
     disaggregation = types.ModuleType("sglang.srt.disaggregation.utils")
     disaggregation.DisaggregationMode = SimpleNamespace(NULL="null")
     runtime_context = types.ModuleType("sglang.srt.runtime_context")
     runtime_context.get_exec = lambda: SimpleNamespace(features=features)
-    runtime_context.get_parallel = lambda: SimpleNamespace(attn_tp_rank=attn_tp_rank)
+    runtime_context.get_parallel = lambda: SimpleNamespace(
+        attn_tp_rank=attn_tp_rank, attn_cp_rank=attn_cp_rank
+    )
     runtime_context.get_schedule = lambda: SimpleNamespace(
         chunked_prefill_size=chunked_prefill_size
     )
@@ -426,6 +430,22 @@ class TestInstall(unittest.TestCase):
         return_aux_hidden_state_layer_ids=[1, 3],
         return_hidden_states_mode="full",
     )
+
+    def test_cp_capture_has_one_writer(self):
+        for tp_rank in range(2):
+            for cp_rank in range(4):
+                with self.subTest(tp_rank=tp_rank, cp_rank=cp_rank):
+                    modules = _fake_sglang_modules(
+                        SimpleNamespace(**self.FEATURES),
+                        attn_tp_rank=tp_rank,
+                        attn_cp_rank=cp_rank,
+                    )
+                    with (
+                        mock.patch.dict(sys.modules, modules),
+                        mock.patch.dict(os.environ, {"MOONCAKE_PROTOCOL": "tcp"}),
+                    ):
+                        runtime = capture.install(_scheduler())
+                    self.assertEqual(runtime.is_writer, tp_rank == cp_rank == 0)
 
     def _install(self, scheduler=None, env=None, **overrides):
         fields = {**self.FEATURES, **overrides}
