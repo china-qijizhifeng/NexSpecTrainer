@@ -128,9 +128,14 @@ def _context_streams(values, contexts, context_count, binary=False):
     streams = [[] for _ in range(context_count)]
     for layer in range(1, values.shape[0]):
         flat_contexts = contexts[layer - 1].reshape(-1)
-        order = np.argsort(flat_contexts, kind="stable")
-        sorted_values = values[layer].reshape(-1)[order]
-        counts = np.bincount(flat_contexts, minlength=context_count)
+        if os.environ.get("SPECFORGE_HYBRID_NATIVE_BUCKET") == "1":
+            from specforge.data.hybrid_bucket import partition
+
+            sorted_values, counts = partition(values[layer], flat_contexts, context_count)
+        else:
+            order = np.argsort(flat_contexts, kind="stable")
+            sorted_values = values[layer].reshape(-1)[order]
+            counts = np.bincount(flat_contexts, minlength=context_count)
         offsets = np.concatenate([[0], np.cumsum(counts)])
         for context in range(context_count):
             current = sorted_values[offsets[context] : offsets[context + 1]]

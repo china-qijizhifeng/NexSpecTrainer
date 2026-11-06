@@ -1,6 +1,7 @@
 import hashlib
 import importlib.util
 import json
+import os
 import struct
 import tempfile
 import unittest
@@ -125,6 +126,28 @@ class TestHybridFeatureFile(unittest.TestCase):
         result = load_hybrid_features(other, workers=4)
         for key in record:
             assert_bits_equal(record[key], result[key])
+
+    def test_native_bucket_preserves_every_bf16_pattern_and_file_bytes(self):
+        record = self.record(4)
+        with mock.patch.dict(os.environ, {"SPECFORGE_HYBRID_NATIVE_BUCKET": "0"}):
+            self.save(record)
+            reference = self.path.read_bytes()
+        with mock.patch.dict(os.environ, {"SPECFORGE_HYBRID_NATIVE_BUCKET": "1"}):
+            self.save(record)
+        self.assertEqual(reference, self.path.read_bytes())
+        from specforge.data.hybrid_bucket import partition
+        import numpy as np
+
+        rng = np.random.default_rng(42)
+        for buckets in [1, 256, 512]:
+            for length in [0, 1, 127, 65539]:
+                contexts = rng.integers(0, buckets, length, dtype=np.uint16)
+                values = rng.integers(0, 256, length, dtype=np.uint8)
+                ordered, counts = partition(values, contexts, buckets)
+                np.testing.assert_array_equal(ordered, values[np.argsort(contexts, kind='stable')])
+                np.testing.assert_array_equal(counts, np.bincount(contexts, minlength=buckets))
+        with self.assertRaises(ValueError):
+            partition(np.zeros(1, dtype=np.uint8), np.array([512], dtype=np.uint16), 512)
 
     def test_invalid_layout_does_not_publish(self):
         source = torch.zeros(2, 8, dtype=torch.bfloat16)
