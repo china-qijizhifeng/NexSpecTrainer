@@ -100,7 +100,7 @@ def launch(cp, folder, context_length=16384):
     return process, log
 
 
-def capture(store, folder, payload, n, repeat):
+def fetch_capture(store, folder, payload, n, repeat, *, check_finite=True):
     sample = f'n{n}-r{repeat}'
     tokens = payload['input_ids'][:n]
     mask = payload['loss_mask'][:n]
@@ -113,6 +113,7 @@ def capture(store, folder, payload, n, repeat):
     result = request('/generate', {'input_ids': tokens, 'sampling_params': {
         'temperature': 0, 'max_new_tokens': 0,
         'custom_params': {'spec_capture': json.dumps(spec)}}, 'stream': False})
+    generated = time.monotonic()
     meta = result['meta_info']
     assert meta.get('cached_tokens', 0) == 0
     captured = meta['spec_capture']
@@ -136,19 +137,29 @@ def capture(store, folder, payload, n, repeat):
         finally:
             store.unregister_buffer(value.data_ptr())
         assert store.remove(key, force=True) in (0, None)
-        assert torch.isfinite(value).all()
+        if check_finite:
+            assert torch.isfinite(value).all()
         values[name] = value
     assert values['input_ids'].tolist() == tokens
     assert values['loss_mask'].tolist() == mask
+    return values, {'request_seconds': generated - started,
+                    'transfer_seconds': time.monotonic() - generated,
+                    'started': started, 'cached_tokens': meta.get('cached_tokens', 0)}
+
+
+def capture(store, folder, payload, n, repeat):
+    values, timing = fetch_capture(store, folder, payload, n, repeat)
+    sample = f'n{n}-r{repeat}'
+    tokens = payload['input_ids'][:n]
     path = folder / f'{sample}.ckpt.hybrid'
     save_hybrid_features(values, path, quality=10, workers=16,
                          interleave_layers={'hidden_states': [37, 38, 39]})
     restored = load_hybrid_features(path, workers=8)
     assert all(torch.equal(values[k], restored[k]) for k in values)
     receipt = {'tokens': n, 'repeat': repeat, 'file': str(path), 'brotli_quality': 10,
-               'native_roundtrip_exact': True, 'cached_tokens': meta.get('cached_tokens', 0),
+               'native_roundtrip_exact': True, 'cached_tokens': timing['cached_tokens'],
                'input_sha256': hashlib.sha256(json.dumps(tokens).encode()).hexdigest(),
-               'seconds': time.monotonic() - started,
+               'seconds': time.monotonic() - timing['started'],
                'tensors': {k: {'shape': list(v.shape), 'sha256': hashlib.sha256(
                    v.contiguous().view(torch.uint8).numpy()).hexdigest()} for k, v in values.items()}}
     write(folder / f'{sample}.json', receipt)

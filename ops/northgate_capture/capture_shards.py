@@ -35,7 +35,7 @@ def wait_for(root, workers, name, timeout):
         time.sleep(5)
 
 
-def combine(root, samples, workers, manifest_sha):
+def combine(root, samples, workers, manifest_sha, *, require_roundtrip=True):
     shards = partition(samples, workers)
     receipts = []
     for rank, expected in enumerate(shards):
@@ -49,14 +49,18 @@ def combine(root, samples, workers, manifest_sha):
         for row, entry in zip(rows, expected):
             assert row['manifest_sha256'] == manifest_sha
             assert row['input_tokens'] == entry['tokens'] and row['truncated'] is False
-            assert row['attn_cp_size'] == 1 and row['native_roundtrip_exact']
+            assert row['attn_cp_size'] == 1
+            if require_roundtrip:
+                assert row['native_roundtrip_exact']
             assert row['brotli_quality'] == 10
             for key in ['token_sha256', 'loss_mask_sha256', 'source_record_sha256']:
                 assert row[key] == entry['metadata'][key]
             path = Path(row['file'])
             assert path.parent == folder / 'features' / entry['id']
             assert path.is_file() and path.stat().st_size > 0
-            assert json.loads((path.parent / 'VERIFIED.json').read_text()) == row
+            receipt_name = row.get('receipt_name', 'VERIFIED.json')
+            assert receipt_name in ('VERIFIED.json', 'CAPTURED.json')
+            assert json.loads((path.parent / receipt_name).read_text()) == row
         assert result['bytes'] == sum(Path(row['file']).stat().st_size for row in rows)
         receipts.extend(rows)
     assert len({row['id'] for row in receipts}) == len(samples) == len(receipts)

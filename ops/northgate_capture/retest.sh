@@ -22,7 +22,11 @@ export DG_JIT_CACHE_DIR="$RUN_DIR/cache/deepgemm" TILELANG_CACHE_DIR="$RUN_DIR/c
 export FLASHINFER_WORKSPACE_BASE="$RUN_DIR/cache/flashinfer"
 export PYTORCH_ALLOC_CONF=expandable_segments:True SGLANG_JIT_DEEPGEMM_FAST_WARMUP=1
 # Clone the existing same-image cache; never modify old evidence.
-cp -a "$NORTHGATE_ROOT/runs/northgate-v41-cp8-hybrid-32h200-20261106-r3/worker-0/cache/." "$RUN_DIR/cache/"
+capture_cache_source="${NORTHGATE_CACHE_RUN:-$NORTHGATE_ROOT/runs/northgate-v41-cp8-hybrid-32h200-20261106-r3}/worker-${KUBEBRAIN_REPLICA:-0}/cache"
+if [ -z "${NORTHGATE_CACHE_RUN:-}" ]; then
+    capture_cache_source="$NORTHGATE_ROOT/runs/northgate-v41-cp8-hybrid-32h200-20261106-r3/worker-0/cache"
+fi
+cp -a "$capture_cache_source/." "$RUN_DIR/cache/"
 ulimit -l unlimited
 python3 - <<'PY'
 import json,os,torch,brotli,zstandard

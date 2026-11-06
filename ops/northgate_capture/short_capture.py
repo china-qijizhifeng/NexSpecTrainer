@@ -145,6 +145,7 @@ def main():
     assert 0 <= rank < workers <= 8
     retest.state('preparing-inputs', rank=rank, workers=workers)
     samples = prepare_inputs()
+    pipelined = os.environ.get('NORTHGATE_PIPELINED_CAPTURE') == '1'
     shard = capture_shards.partition(samples, workers)[rank]
     config = {
         'model': retest.MODEL, 'model_revision': MODEL_REVISION,
@@ -159,6 +160,10 @@ def main():
         'acceptance': 'every worker: shortest/median/longest complete records; longest exact repeat',
         'workers': workers, 'rank': rank, 'shard_records': len(shard),
         'shard_tokens': sum(x['tokens'] for x in shard)}
+    if pipelined:
+        from ops.northgate_capture import pipeline_io
+        config.update(pipeline_depth=2, readback_performed=False,
+                      finite_scan=False, compression=pipeline_io.options())
     retest.write(ROOT / 'config.yaml', config)
     retest.write(ROOT / 'shard.json', {'rank': rank, 'workers': workers, 'samples': shard})
     if rank == 0:
@@ -190,23 +195,36 @@ def main():
         folder.mkdir()
         retest.state('starting-server', context_length=SERVER_CAPACITY)
         server, log = retest.launch(False, folder, context_length=SERVER_CAPACITY)
-        acceptance = ROOT / 'acceptance'
-        acceptance.mkdir(exist_ok=True)
-        longest = samples[-1]
-        # Test capacity before collecting the complete set; never truncate it.
-        retest.state('acceptance-longest', id=longest['id'], tokens=longest['tokens'])
-        first = capture(store, acceptance / f"max-r0-{longest['id']}", longest)
-        second = capture(store, acceptance / f"max-r1-{longest['id']}", longest, repeat=1)
-        assert first['tensors'] == second['tensors'], '64K self-repeat is not bitwise exact'
-        for index in [0, len(samples) // 2]:
-            entry = samples[index]
-            retest.state('acceptance-representative', id=entry['id'], tokens=entry['tokens'])
-            capture(store, acceptance / f"representative-{entry['id']}", entry)
-        retest.write(ROOT / 'ACCEPTED.json', {
-            'passed': True, 'max_real_tokens': longest['tokens'],
-            'max_repeat_bitwise_exact': True, 'codec_roundtrip_exact': True,
-            'brotli_quality': 10, 'attn_cp_size': 1, 'records': len(samples),
-            'input_manifest_sha256': MANIFEST_SHA})
+        if pipelined:
+            # The completed model/codec gate belongs to the previous immutable run.
+            # Do not claim a fresh gate or repeat it when switching only the writer.
+            previous = Path(os.environ['NORTHGATE_RESUME_RUN'])
+            prior_config = json.loads((previous / f'worker-{rank}' / 'config.yaml').read_text())
+            for key in ['model_revision', 'context_length', 'manifest_sha256', 'seed', 'tp', 'ep', 'cp', 'helpers']:
+                assert prior_config[key] == config[key], key
+            accepted = json.loads((previous / f'worker-{rank}' / 'ACCEPTED.json').read_text())
+            assert accepted['passed'] and accepted['max_repeat_bitwise_exact']
+            assert accepted['input_manifest_sha256'] == MANIFEST_SHA
+            retest.write(ROOT / 'ACCEPTED.json', {**accepted, 'reused_from': str(previous),
+                         'current_run_gate_repeated': False, 'current_run_readback': False})
+        else:
+            acceptance = ROOT / 'acceptance'
+            acceptance.mkdir(exist_ok=True)
+            longest = samples[-1]
+            # Test capacity before collecting the complete set; never truncate it.
+            retest.state('acceptance-longest', id=longest['id'], tokens=longest['tokens'])
+            first = capture(store, acceptance / f"max-r0-{longest['id']}", longest)
+            second = capture(store, acceptance / f"max-r1-{longest['id']}", longest, repeat=1)
+            assert first['tensors'] == second['tensors'], '64K self-repeat is not bitwise exact'
+            for index in [0, len(samples) // 2]:
+                entry = samples[index]
+                retest.state('acceptance-representative', id=entry['id'], tokens=entry['tokens'])
+                capture(store, acceptance / f"representative-{entry['id']}", entry)
+            retest.write(ROOT / 'ACCEPTED.json', {
+                'passed': True, 'max_real_tokens': longest['tokens'],
+                'max_repeat_bitwise_exact': True, 'codec_roundtrip_exact': True,
+                'brotli_quality': 10, 'attn_cp_size': 1, 'records': len(samples),
+                'input_manifest_sha256': MANIFEST_SHA})
         retest.state('waiting-all-workers-acceptance', rank=rank, workers=workers)
         accepted = capture_shards.wait_for(run_root, workers, 'ACCEPTED.json', 7200)
         assert all(x['passed'] and x['max_repeat_bitwise_exact'] and
@@ -217,31 +235,44 @@ def main():
         output.mkdir(exist_ok=True)
         receipts = []
         tokens = 0
-        for index, entry in enumerate(shard):
+        def before_request():
             assert server.poll() is None
             capture_shards.check_failures(run_root, workers)
-            retest.state('capture', completed=index, total=len(shard), rank=rank,
-                         completed_tokens=tokens, id=entry['id'], tokens=entry['tokens'])
-            receipt = capture(store, output / entry['id'], entry)
-            receipts.append(receipt)
-            tokens += entry['tokens']
-            with (ROOT / f'capture-manifest-{attempt}.jsonl').open('a') as file:
-                file.write(json.dumps(receipt, ensure_ascii=False) + '\n')
-                file.flush()
-                os.fsync(file.fileno())
+
+        if pipelined:
+            results = pipeline_io.captures(store, output, shard, before_request)
+        else:
+            def serial():
+                for entry in shard:
+                    before_request()
+                    yield capture(store, output / entry['id'], entry)
+            results = serial()
+        from contextlib import closing
+        with closing(results):
+            for index, receipt in enumerate(results):
+                receipts.append(receipt)
+                tokens += receipt['input_tokens']
+                with (ROOT / f'capture-manifest-{attempt}.jsonl').open('a') as file:
+                    file.write(json.dumps(receipt, ensure_ascii=False) + '\n')
+                    file.flush()
+                    os.fsync(file.fileno())
+                retest.state('capture', completed=index + 1, total=len(shard), rank=rank,
+                             completed_tokens=tokens, id=receipt['id'], tokens=receipt['input_tokens'])
         assert len(receipts) == len(shard) and tokens == sum(x['tokens'] for x in shard)
         retest.write(ROOT / 'capture-manifest.json', {'records': receipts})
         retest.write(ROOT / 'RESULT.json', {
             'passed': True, 'records': len(receipts), 'tokens': tokens,
             'bytes': sum(Path(x['file']).stat().st_size for x in receipts),
             'manifest_sha256': MANIFEST_SHA, 'attn_cp_size': 1,
-            'native_roundtrip_exact': True, 'brotli_quality': 10})
+            'native_roundtrip_exact': None if pipelined else True,
+            'readback_performed': not pipelined, 'brotli_quality': 10})
         retest.state('complete', passed=True, records=len(receipts), tokens=tokens)
         retest.stop(server)
         server = None
         if rank == 0:
             capture_shards.wait_for(run_root, workers, 'RESULT.json', 72 * 3600)
-            combined = capture_shards.combine(run_root, samples, workers, MANIFEST_SHA)
+            combined = capture_shards.combine(run_root, samples, workers, MANIFEST_SHA,
+                                               require_roundtrip=not pipelined)
             assert len(combined) == 1718 and sum(x['input_tokens'] for x in combined) == 73820977
             retest.write(run_root / 'capture-manifest.json', {'records': combined})
             retest.write(run_root / 'RESULT.json', {
@@ -249,7 +280,8 @@ def main():
                 'workers': workers, 'gpus': workers * 8, 'attn_cp_size': 1,
                 'bytes': sum(Path(x['file']).stat().st_size for x in combined),
                 'manifest_sha256': MANIFEST_SHA,
-                'native_roundtrip_exact': True, 'brotli_quality': 10})
+                'native_roundtrip_exact': None if pipelined else True,
+                'readback_performed': not pipelined, 'brotli_quality': 10})
     except BaseException as error:
         retest.write(ROOT / 'REJECTED.json', {
             'passed': False, 'error': repr(error),
