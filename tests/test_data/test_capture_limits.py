@@ -29,20 +29,20 @@ else:
     try: check_capacity(n,capture=capture,layout=layout,client_bytes=8<<30,server_bytes=8<<30)
     except ValueError as exc: assert 'uncompressed capture needs' in str(exc)
     else: raise AssertionError('undersized transport accepted')
-header['tensors'][0]['shape']=[1,1000000,15360]
+header['tensors'][0]['shape']=[1,2000000,15360]
 try: _validate_entries(header,_MAX_RECORD_BYTES)
 except ValueError: pass
 else: raise AssertionError('unbounded record accepted')
 '''
 class CaptureLimitsTest(unittest.TestCase):
  def test_default_and_explicit_large_record_policy(self):
-  for value in (None,str(16<<30)):
+  for value in (None,str(16<<30),str(32<<30)):
    env=dict(os.environ);env.pop('SPECFORGE_MAX_CAPTURE_RECORD_BYTES',None)
    if value is not None:env['SPECFORGE_MAX_CAPTURE_RECORD_BYTES']=value
    r=subprocess.run([sys.executable,'-c',PROBE],env=env,capture_output=True,text=True)
    self.assertEqual(r.returncode,0,r.stderr)
  def test_invalid_policy_fails_before_capture(self):
-  for value in ('0','-1',str((16<<30)+1),'unlimited'):
+  for value in ('0','-1',str((32<<30)+1),'unlimited'):
    r=subprocess.run([sys.executable,'-c','import specforge.data.capture_limits'],env=dict(os.environ,SPECFORGE_MAX_CAPTURE_RECORD_BYTES=value),capture_output=True)
    self.assertNotEqual(r.returncode,0)
 if __name__=='__main__':unittest.main()
