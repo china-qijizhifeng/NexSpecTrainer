@@ -291,9 +291,13 @@ Common fields:
 | `training.ddp_bucket_cap_mb` | unset | Optional DDP bucket target in MiB for `NO_SHARD`; unset keeps PyTorch's default. Benchmark changes because larger buckets trade launch overhead for later overlap. |
 | `training.fused_logits_loss` | `true` | Optimized FP32 logits loss, including Domino's specialized CE. Enabled by default for all supported models. `false` uses eager losses. Independent of projection and checkpointing. |
 | `training.objective_checkpointing` | `true` | Recompute DFlash-family objective chunks during backward, including projection. With `objective_chunk_blocks=0`, checkpoints the whole objective. Without it, saved logits accumulate across chunks. |
-| `training.learning_rate` | `1e-4` | Positive peak learning rate. |
-| `training.lr_scheduler` | `cosine` | Learning-rate schedule after warmup: `cosine` or `constant`. |
-| `training.warmup_ratio` | `0.015` | Fraction in `[0, 1]` used for scheduler warmup. |
+| `training.learning_rate` | `1e-4` | Positive peak learning rate for `cosine`/`constant`; WSD uses `stable_lr` instead. |
+| `training.lr_scheduler` | `cosine` | `cosine`, `constant`, or `wsd` (linear warmup, stable plateau, cosine decay to zero). |
+| `training.warmup_ratio` | `0.015` | Fraction in `[0, 1]` used for `cosine`/`constant` warmup; ignored by WSD. |
+| `training.warmup_steps` | `null` | Required for WSD: nonnegative number of optimizer updates in warmup. |
+| `training.stable_steps` | `null` | Required for WSD: nonnegative plateau length after warmup, not an absolute end step. |
+| `training.warmup_lr` | `null` | Required for WSD: finite starting LR, `0 <= warmup_lr <= stable_lr`. |
+| `training.stable_lr` | `null` | Required for WSD: finite positive plateau LR, before Muon/AdamW group multipliers. |
 | `training.max_grad_norm` | `0.5` | Positive gradient-clipping norm. |
 | `training.optimizer_cpu_offload` | `false` | Keep FP32 masters and AdamW/Muon state on CPU; Muon matrix computation stays on the model device. |
 | `training.optimizer` | `adamw` | `adamw`, configurable `muon_adamw`, or the named `v41_flash_muon` algorithm. Muon supports FULL_SHARD or NO_SHARD. |
@@ -327,6 +331,33 @@ Strategy-specific fields should be written only when tuning that objective:
 | Native V4.1 exhaustive coverage | `training.anchor_sampling` (`uniform` or `all`; default `uniform`). `all` ignores `num_anchors`, enumerates every legal anchor once, and pads to a common rank width. `training.anchor_forward_chunk_blocks` (`32`) bounds each recomputed draft+objective chunk; it is not a coverage limit. The native trainer runs each chunk through a complete root FSDP forward/backward before starting the next, using one global denominator for the entire microbatch. FSDP disables speculative parameter prefetch and reduces gradients after each chunk to retain only shards during accumulation; chunk gradients accumulate in FP32 local shards and round once per microbatch; optimizer updates still follow `training.accumulation_steps`. Reduction timing can change floating-point rounding. The original continuous target mask and globally pooled loss normalization remain in force. |
 | P-EAGLE | `training.num_depths` (`8`), `training.down_sample_ratio` (`0.8`), `training.down_sample_ratio_min` (`0.2`), `training.norm_before_residual` (`null`) |
 | MTP | `training.mtp_objective_chunk_size` (`4096` token positions per `lm_head` + cross-entropy chunk; `0` disables chunking). |
+
+For an optional WSD schedule, add the following to a recipe:
+
+```yaml
+training:
+  lr_scheduler: wsd
+  total_steps: 118
+  warmup_steps: 3
+  stable_steps: 75
+  warmup_lr: 1.0e-5
+  stable_lr: 1.0e-4
+```
+
+The four WSD fields are required with `wsd` and rejected for other schedulers.
+WSD ignores `learning_rate` and `warmup_ratio`. Group LR multipliers still apply
+to both `warmup_lr` and `stable_lr`, including Muon + AdamW groups.
+All phase lengths count **optimizer updates**, not microbatches. With `s`
+completed updates, the next update uses a linear interpolation from `warmup_lr`
+at `s=0` to `stable_lr` at `s=warmup_steps`; it stays there until
+`s=warmup_steps+stable_steps`, then follows cosine decay to zero at
+`s=total_steps`. The last scheduled update therefore uses a positive LR; any
+updates beyond the horizon use zero. Zero-length warmup starts at `stable_lr`.
+Zero-length stable skips the plateau. The remaining decay length must be
+positive: `warmup_steps + stable_steps < total_steps` (40 in this example).
+The same check runs when an omitted horizon is resolved from the data source.
+Checkpoint resume restores the exact phase and rejects changes to the WSD
+lengths, rates, or group base rates.
 
 New recipes must not write the loader-only migration fields
 `training.deployment_mode`, `training.server_urls`, or
