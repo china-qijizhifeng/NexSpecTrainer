@@ -79,6 +79,7 @@ def captures(store, output, shard, before_request):
                    manifest_sha256=short.MANIFEST_SHA, model_revision=short.MODEL_REVISION,
                    truncated=False, attn_cp_size=1, brotli_quality=codec['quality'],
                    hybrid_chunk_size=codec['chunk_size'], compression_workers=codec['workers'],
+                   native_bucket=os.environ.get('SPECFORGE_HYBRID_NATIVE_BUCKET') == '1',
                    pipeline_depth=2, receipt_name='CAPTURED.json',
                    status='captured', metadata=entry['metadata'],
                    token_sha256=entry['metadata']['token_sha256'],

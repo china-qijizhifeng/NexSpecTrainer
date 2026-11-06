@@ -6,6 +6,9 @@ mkdir -p "$RUN_DIR/python-deps" "$RUN_DIR/cache"
 export PYTHONPATH="$RUN_DIR/python-deps:$PWD:${PYTHONPATH:-}"
 export HF_HUB_OFFLINE=1 TRANSFORMERS_OFFLINE=1 UV_NO_SYNC=1
 python3 -m pip install --no-index --no-deps --target "$RUN_DIR/python-deps" "$NORTHGATE_ROOT"/wheels/*.whl
+if [ "${SPECFORGE_HYBRID_NATIVE_BUCKET:-0}" = 1 ]; then
+    python3 -m specforge.data.hybrid_bucket > "$RUN_DIR/native-bucket.txt"
+fi
 cp -a plugins/sglang-spec-capture "$RUN_DIR/plugin-source"
 python3 -m pip install --no-index --no-deps --no-build-isolation --target "$RUN_DIR/python-deps" "$RUN_DIR/plugin-source"
 export SPECFORGE_SPEC_CAPTURE=1 SGLANG_PLUGINS=specforge_spec_capture NORTHGATE_LONG_CAPTURE=0
@@ -33,10 +36,16 @@ import json,os,torch,brotli,zstandard
 from pathlib import Path
 assert torch.cuda.device_count()==8
 assert all('H200' in torch.cuda.get_device_name(i) for i in range(8))
+cpu = {}
+for name in ['cpu.max', 'cpu.stat', 'cpu/cpu.cfs_quota_us', 'cpu/cpu.cfs_period_us', 'cpu/cpu.stat']:
+    path = Path('/sys/fs/cgroup') / name
+    if path.exists():
+        cpu[name] = path.read_text()
 Path(os.environ['RUN_DIR'],'environment.json').write_text(json.dumps({
  'torch':torch.__version__,'brotli':brotli.__version__,'zstandard':zstandard.__version__,
+ 'cpu_count':os.cpu_count(),'cpu_affinity':sorted(os.sched_getaffinity(0)),'cgroup_cpu':cpu,
  'gpus':[torch.cuda.get_device_name(i) for i in range(8)],
- 'env':{k:v for k,v in os.environ.items() if k.startswith(('SGLANG_','NORTHGATE_','MOONCAKE_','PYTORCH_'))}
+ 'env':{k:v for k,v in os.environ.items() if k.startswith(('SGLANG_','NORTHGATE_','MOONCAKE_','PYTORCH_','SPECFORGE_'))}
 },indent=2))
 PY
 exec python3 -m "${NORTHGATE_CAPTURE_MODULE:-ops.northgate_capture.retest}"

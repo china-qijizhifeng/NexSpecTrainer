@@ -27,7 +27,7 @@ description: 在 NexSpecTrainer 中采集完整轨迹 hidden states，复用 SGL
 |---|---|---|
 | Brotli quality | 10（本次用户要求） | 未获授权不降质量；不把高质量等同于已调优 |
 | Brotli chunk | 256 KiB 默认 | 对比 64/256/1024 KiB 的耗时、体积、峰值 RAM |
-| compression workers | 通用 CLI 默认最多12；Northgate 当前16 | 对比8/16/32，按真实 CPU 配额而非宿主机核数设置 |
+| compression workers | 通用 CLI 默认最多12；Northgate 优化配置32 | 对比8/16/32，按真实 CPU 配额而非宿主机核数设置 |
 | Brotli window | `lgwin=22` | 每块独立；窗口大于块长不等于跨块共享字典 |
 | Zstd mantissa | level1、单线程、1 MiB块 | hybrid 不读取 `SPECFORGE_ZSTD_WORKERS`；该变量只影响另一套Zstd codec |
 | pipeline depth | 正式流水线2；通用CLI默认1 | 显式设置2，不能仅凭存在pipeline代码就声称已启用 |
@@ -52,10 +52,27 @@ description: 在 NexSpecTrainer 中采集完整轨迹 hidden states，复用 SGL
 ```text
 NORTHGATE_PIPELINED_CAPTURE=1
 NORTHGATE_RESUME_RUN=<先前已完成模型/codec gate的不可变run>
-NORTHGATE_COMPRESSION_WORKERS=16
+NORTHGATE_COMPRESSION_WORKERS=32
+SPECFORGE_HYBRID_NATIVE_BUCKET=1
 NORTHGATE_HYBRID_CHUNK_SIZE=262144
 ```
 
 该模式复用旧gate并记录来源，调用现有depth2流水线，写入阶段不解码。`CAPTURED.json` 记录 request、transfer、queue、encode/write、file hash 秒数及生产/消费时间戳。模型或层契约变化时不能复用旧gate；是否做新的验收遵循用户的当前要求。
 
 2026-11-06 的真实64H200续采（源码`22a0948`）已迁入97条完成记录并开始新采集。首批约19K–21K-token记录中，6个worker的第二条`produced_at`早于首条`written_at`，确认请求/传输与CPU写入实际重叠；这些worker完成间隔约35–40秒，请求约1.8–2秒、传输约0.4秒、编码写盘约34–39秒、file hash约0.4秒。另一worker首条编码约72秒。这只是首批实测，不是最优参数证明，也不是同样本受控加速比；CPU压缩仍决定吞吐，增加GPU或depth并不能自动解决。
+
+## 计数分桶优化实测（2026-11-06）
+
+使用同一生产镜像、64 CPU 配额，对固定 19,006-token 真实产物运行 `ops/northgate_capture/codec_bench.sh`（`CODEC_BENCH_NATIVE=1`）。Brotli quality10、256KiB 不变：
+
+| 实现 | 线程 | 压缩写盘 | 文件字节 |
+|---|---:|---:|---:|
+| NumPy stable argsort | 16 | 33.70秒 | 489,838,893 |
+| native stable counting bucket | 16 | 18.82秒 | 489,838,893 |
+| native stable counting bucket | 32 | 13.36 / 13.44秒 | 489,838,893 |
+
+分桶阶段从16.60秒降至1.23–1.31秒；32线程的Brotli阶段约8秒。所有256KiB输出文件SHA完全相同，单样本加速约2.5倍。64KiB为12.85秒、490,155,631字节，收益较小，当前保留256KiB。此为受控单样本结果，不代表全量或每个GPU节点统一加速。
+
+`SPECFORGE_HYBRID_NATIVE_BUCKET=1` 显式启用 [`hybrid_bucket.py`](../../../specforge/data/hybrid_bucket.py) 的C稳定计数分桶，保持上下文内字节顺序；未启用继续用NumPy。启动时先运行 `python3 -m specforge.data.hybrid_bucket`，以便在模型加载前暴露编译器问题；编译产物按源码hash和架构缓存在节点临时目录，不写冻结源。需要C编译器。开发测试覆盖全部BF16位模式、空输入、随机上下文及非法context；生产不因此恢复每条回读。
+
+显式指定压缩线程；实测容器 `os.cpu_count()` 为1，但affinity与cgroup配额均为64。保存CPU affinity、配额和codec开关到environment.json，每条新回执记录native_bucket。不要仅凭宿主机核数或慢worker耗时断言CPU争抢/NUMA原因。
