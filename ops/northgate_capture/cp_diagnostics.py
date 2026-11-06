@@ -87,6 +87,9 @@ def install():
              record(f'engram{s.layer_hash_index}-hash', a['hash_ids'], b)),
          after=lambda s, a, b, out: record(f'engram{s.layer_hash_index}-output', out, b))
 
+    if os.environ.get('NORTHGATE_CP_ATTENTION_DIAGNOSTICS') == '1':
+        _install_attention_probes(record, wrap, root, parallel)
+
     if rank == 0:
         import shutil
         import sglang
@@ -102,3 +105,64 @@ def install():
             if (source / relative).is_file():
                 shutil.copy2(source / relative, target)
     print(f'[DEBUG-cp-r5] synchronized token probes installed rank={rank}', flush=True)
+
+
+def _install_attention_probes(record, wrap, root, parallel):
+    """Separate first-layer KV, attention, and both output projections."""
+    from sglang.srt.models import deepseek_v4
+    from sglang.srt.layers.attention.deepseek_v4_backend import DeepseekV4AttnBackend
+    from sglang.kernels.ops.attention.dsv4.dequant_k_cache import dequantize_k_cache_paged_dsv4
+
+    active = {}
+
+    def enter(layer, args, batch):
+        active['layer'], active['batch'] = layer, batch
+
+    def leave(layer, args, batch, out):
+        active.clear()
+
+    wrap(deepseek_v4.MQALayer, 'forward', before=enter, after=leave)
+
+    def attention(backend, args, batch, out):
+        if args['layer'].layer_id != 0 or len(batch.input_ids) != 4096:
+            return
+        record('l00-raw-attn', out, batch, all_ranks=True)
+        core = backend.forward_metadata.core_attn_metadata
+        record('l00-swa-indices', core.swa_page_indices, batch, all_ranks=True)
+        record('l00-swa-lengths', core.swa_topk_lengths, batch, all_ranks=True)
+        path = root / f'l00-attention-static-rank{parallel.tp_rank}.pt'
+        if path.exists():
+            return
+        item = {'sink': args['attn_sink'].detach().cpu().clone(),
+                'scale': backend.softmax_scale,
+                'sparse_prefill': backend._use_sparse_prefill(batch, num_qo_tokens=args['q'].shape[0]),
+                'head_dim': backend.head_dim_v}
+        if parallel.tp_rank == 0:
+            pool = backend.token_to_kv_pool
+            locations = core.swa_out_cache_loc
+            assert locations is not None and locations.numel() == 4096
+            kv = torch.empty((locations.numel(), 1, backend.head_dim_v),
+                             device=locations.device, dtype=torch.bfloat16)
+            dequantize_k_cache_paged_dsv4(
+                pool.get_swa_key_buffer_radix(0), locations,
+                page_size=pool.get_swa_key_page_size(), out=kv,
+                layout=pool.get_swa_key_layout())
+            item.update(locations=locations.detach().cpu().clone(),
+                        kv=kv.detach().cpu().clone())
+        torch.save(item, path)
+
+    wrap(DeepseekV4AttnBackend, '_forward_attention', after=attention)
+    original = deepseek_v4.MQALayer._project_wo_b
+
+    @functools.wraps(original)
+    def project(layer, value, defer_all_reduce=False):
+        batch = active.get('batch')
+        probing = layer.layer_id == 0 and batch is not None
+        if probing:
+            record('l00-wo-a-output', value, batch, all_ranks=True)
+        result = original(layer, value, defer_all_reduce)
+        if probing:
+            record('l00-wo-b-partial', getattr(result, 'partial', result), batch, all_ranks=True)
+        return result
+
+    deepseek_v4.MQALayer._project_wo_b = project
