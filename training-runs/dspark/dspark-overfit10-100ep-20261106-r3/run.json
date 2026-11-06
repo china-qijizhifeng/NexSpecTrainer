@@ -1,0 +1,42 @@
+{
+  "id": "dspark-overfit10-100ep-20261106-r3",
+  "category": "过拟合实验",
+  "platform": "BP / H100",
+  "host": "linlizhi-bp-dev",
+  "job_id": "job-5c54beb13e96-20261106162221",
+  "alias": "dspark-overfit10-100ep-20261106-r3",
+  "uuid": null,
+  "local_source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r3",
+  "remote_root": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r3",
+  "status": "已停止，替换为8卡r4",
+  "status_evidence": "../dspark-overfit10-100ep-20261106-r4/evidence/RUN.md",
+  "checked_at": null,
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 0.0001,
+    "epochs": 100,
+    "max_steps": 200,
+    "total_steps": 200,
+    "gpus": 5,
+    "micro_batch": 1,
+    "accumulation_steps": 1,
+    "global_batch": 5,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 10,
+    "save_interval": 100,
+    "feature_path": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r3/features",
+    "validation_feature_path": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r3/features"
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "notes": [
+    "替代运行：dspark-overfit10-100ep-20261106-r4；旧目录与证据保留。"
+  ],
+  "checkpoint_root": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r3/training",
+  "source_provenance": null,
+  "evidence_manifest": "evidence-manifest.json",
+  "replacement_run": "dspark-overfit10-100ep-20261106-r4"
+}

@@ -1,0 +1,65 @@
+{
+  "id": "yicloud-dspark-denovo-tuned-train-20261105",
+  "category": "训练",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793850195-756982",
+  "alias": "dspark-denovo-tuned-train-20261105",
+  "uuid": "2612a903-4aa8-4afd-be90-72f9caa4e064",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-tuned-train-20261105",
+  "source": {
+    "commit": "e56f5fbd0834ea0e73f699f69a903f57781a595d",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105",
+    "argv": [
+      "bash",
+      "ops/yicloud-tuned/launch_train.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "已完成（结果passed）",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:11.930847+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 1e-05,
+    "epochs": 1,
+    "max_steps": 796,
+    "total_steps": 796,
+    "gpus": 8,
+    "micro_batch": 1,
+    "accumulation_steps": 16,
+    "global_batch": 128,
+    "anchor_sampling": "config default",
+    "anchor_chunk": null,
+    "seed": 42,
+    "eval_interval": 796,
+    "save_interval": 100,
+    "feature_path": "/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105/stream/train",
+    "validation_feature_path": "/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105/stream/validation"
+  },
+  "completed_steps": 796,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-tuned-train-20261105/training",
+  "notes": [],
+  "result_summary": {
+    "passed": true,
+    "global_step": 796,
+    "world_size": 8,
+    "checkpoint": "/mnt/work/shom/training_runs/dspark-denovo-tuned-train-20261105/training/yicloud-denovo-full-stream-step796",
+    "checkpoint_bytes": 199168061846,
+    "all_train_windows_consumed": true,
+    "train_trajectories": 4188,
+    "validation_trajectories": 241,
+    "test_heldout": 247,
+    "full_epoch": true,
+    "final_checkpoint_restore_verified": false
+  },
+  "evidence_manifest": "evidence-manifest.json"
+}

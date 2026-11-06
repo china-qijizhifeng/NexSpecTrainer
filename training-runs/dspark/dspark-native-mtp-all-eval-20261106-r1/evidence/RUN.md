@@ -1,0 +1,1 @@
+官方未微调 DeepSeek-V4.1-Flash-1017 MTP，BP 17 validation traces /136 windows /323930 legal anchors，all anchors/chunk64，8H100 FULL_SHARD。无resume、无draft checkpoint、无optimizer updates、无checkpoint writes。复用固定历史源码及特征；输入与mask逐窗口同历史重评测核对。报告136去重指标及按32rank补齐160窗口重加权acc、按32rank分母分组重建loss（8GPU前向非32GPU逐位复现）。项目WeaverRSI，队列proj-32。

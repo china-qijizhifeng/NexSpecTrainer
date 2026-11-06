@@ -1,0 +1,61 @@
+{
+  "recorded_utc": "2026-11-03T22:35:45Z",
+  "stage": "failed",
+  "job": "job-7fd88bb2852e-20261104054920",
+  "terminal": {
+    "name": "job-7fd88bb2852e-20261104054920",
+    "user_def_name": "denovo-specforge-stage1-train-20261104-r4",
+    "status": "Failed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "deletion": {
+    "name": "job-7fd88bb2852e-20261104054920",
+    "alias": "denovo-specforge-stage1-train-20261104-r4",
+    "response": {
+      "success": true
+    }
+  },
+  "optimizer_steps_by_rank": [
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25,
+    25
+  ],
+  "validation_passed": true,
+  "step25_eval_loss": 0.6652339372272295,
+  "step25_eval_acc": 0.8099694246270731,
+  "failure_call_chain": "NativeCheckpoint.save -> MegatronCheckpointRuntime.save -> native Core async plan -> _DistWrapper.gather_object -> torch dist.gather (WORLD NCCL)",
+  "rank0_error": "NCCL Error 1: unhandled cuda error",
+  "rank5_error": "NCCL Error 2: unhandled system error",
+  "checkpoint_published": false,
+  "restore_verified": false,
+  "staging": [
+    {
+      "directory": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r4/training/.denovo-v41-specforge-stage1-step25-18fc21804a9a49f6a355d077bf577a54",
+      "published": false,
+      "files": [
+        {
+          "path": "training/.denovo-v41-specforge-stage1-step25-18fc21804a9a49f6a355d077bf577a54/.nfc.nfc-staging-246f249f609bb487f248b92343be464a/common.pt",
+          "bytes": 87143,
+          "sha256": "c61cda865917e0cd23b2d7dfc3fc26937624e9c6216bda05b150d1196bcd2af1"
+        }
+      ],
+      "bytes": 87143
+    }
+  ],
+  "root_cause_confirmed": false,
+  "hypotheses": [
+    "CPU metadata over CUDA gather",
+    "node/driver/fabric gather failure",
+    "resource pressure at full-model save"
+  ],
+  "next_attempt": "r5 independent source CPU Gloo/CUDA NCCL WORLD; CPU48tests passed; real GPU and full-model save/restore gate pending",
+  "free_bytes": 1524126187520
+}

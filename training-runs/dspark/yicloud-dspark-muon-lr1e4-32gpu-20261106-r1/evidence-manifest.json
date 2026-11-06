@@ -1,0 +1,29 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-muon-lr1e4-32gpu-20261106-r1/config.yaml",
+    "bytes": 5654,
+    "sha256": "fa0843ef1b53b93d369db313f53bf599a385db89c993e414a1b6a9ff3b2966cf"
+  },
+  {
+    "file": "config/1-recipe.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/dspark-muon-lr1e4-32gpu-20261106-r1/source/ops/yicloud-muon32/recipe.yaml",
+    "bytes": 1824,
+    "sha256": "6ef5dbb55787652acf8bf0d6eeff63e60c0ee7718606e3836aa48346cb69016d"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-muon-lr1e4-32gpu-20261106-r1",
+    "bytes": 120253,
+    "sha256": "d9ab62a8cf4da8cdaf9a7583dbecaba0a0e45dc0ab26679317dcb5ef2e9b533d",
+    "original_archive_sha256": "a06b5cb2dd3357871fea3c246371ea951140a4cb6b873d33d1d4257b0207f5d4",
+    "original_archive_bytes": 120252,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  },
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/yicloud-dspark-muon-lr1e4-32gpu-20261106-r1/RUN.md",
+    "bytes": 1461,
+    "sha256": "acd7158b5e3e78f9db21fcc6694e280e328515542b4513f6c39de101cc483dc4"
+  }
+]

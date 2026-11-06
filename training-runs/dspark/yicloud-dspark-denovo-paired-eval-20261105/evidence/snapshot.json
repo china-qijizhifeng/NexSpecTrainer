@@ -1,0 +1,140 @@
+{
+  "id": "dspark-denovo-paired-eval-20261105",
+  "uuid": "85d474f1-f411-47f8-94b7-987c9bafb2a8",
+  "job_id": "j-1793859958-803845",
+  "run_state": "verified",
+  "created_at": "2026-11-05T06:25:31.203270+00:00",
+  "source": {
+    "commit": "1013a805f93afdfed3236cea1d450e65c99fb692",
+    "branch": "ops/yicloud-eval-20261105",
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-eval-20261105"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-eval-20261105",
+    "argv": [
+      "bash",
+      "ops/yicloud-eval/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 1,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-paired-eval-20261105",
+  "checked_at": "2026-11-06T20:56:09.815681+08:00",
+  "platform": {
+    "JobId": "j-1793859958-803845",
+    "Phase": "Succeeded",
+    "TaskStatusCounts": {
+      "t0": {
+        "Succeeded": 1
+      }
+    },
+    "CreationTime": "2026-11-05T06:25:58Z",
+    "StopTime": "2026-11-05T06:42:36Z"
+  },
+  "RESULT.json": {
+    "passed": true,
+    "checkpoint_restore_verified": true,
+    "paired_anchors_identical": true,
+    "validation_windows": 5896,
+    "validation_trajectories": 241,
+    "test_heldout_untouched": 247,
+    "metrics": {
+      "native": {
+        "acc": 0.7617550917777219,
+        "accuracy_position": [
+          0.8578579268583669,
+          0.8121661484493343,
+          0.7619022254418392,
+          0.7121962160170455,
+          0.6635069821712438
+        ],
+        "ce_loss": 0.9091763979822365,
+        "ce_position": [
+          0.455635886933065,
+          0.7322872047005632,
+          1.0561161611418206,
+          1.3769919257684144,
+          1.6852394770090031
+        ],
+        "confidence_abs_error": 0.10740382344097854,
+        "confidence_loss": 0.3122963784178533,
+        "draft_top1_prob": 0.8364013055750091,
+        "dspark/hard_label/walk_accepted_length": 4.1043683425280175,
+        "l1_loss": 0.3613185795531105,
+        "tau_probabilistic": 4.3880375321869804,
+        "teacher_agreement": 0.7947349803744411,
+        "teacher_top1_prob": 0.8884306506285774
+      },
+      "trained": {
+        "acc": 0.7692388010722673,
+        "accuracy_position": [
+          0.8603818805576029,
+          0.8180286481171437,
+          0.7706218240313628,
+          0.7218724467727207,
+          0.6741903196972697
+        ],
+        "ce_loss": 0.8794632823511911,
+        "ce_position": [
+          0.4452441812423134,
+          0.7056058074733009,
+          1.0179665912294775,
+          1.3317337757819356,
+          1.6300302347572582
+        ],
+        "confidence_abs_error": 0.10287034350600155,
+        "confidence_loss": 0.2903033172264594,
+        "draft_top1_prob": 0.8407287868007512,
+        "dspark/hard_label/walk_accepted_length": 4.144431830029773,
+        "l1_loss": 0.3464330228381419,
+        "tau_probabilistic": 4.4535247739898765,
+        "teacher_agreement": 0.8027929663360935,
+        "teacher_top1_prob": 0.8884306506285774
+      }
+    },
+    "trained_minus_native": {
+      "acc": 0.007483709294545338,
+      "accuracy_position": [
+        0.00252395369923597,
+        0.005862499667809384,
+        0.008719598589523647,
+        0.009676230755675141,
+        0.010683337526025904
+      ],
+      "ce_loss": -0.029713115631045395,
+      "ce_position": [
+        -0.010391705690751596,
+        -0.02668139722726226,
+        -0.038149569912343084,
+        -0.04525814998647881,
+        -0.05520924225174495
+      ],
+      "confidence_abs_error": -0.004533479934976992,
+      "confidence_loss": -0.02199306119139388,
+      "draft_top1_prob": 0.004327481225742114,
+      "dspark/hard_label/walk_accepted_length": 0.04006348750175537,
+      "l1_loss": -0.01488555671496855,
+      "tau_probabilistic": 0.065487241802896,
+      "teacher_agreement": 0.008057985961652414,
+      "teacher_top1_prob": 0.0
+    },
+    "weighted_objective": {
+      "native": 0.7284007398138763,
+      "trained": 0.6900393660159063
+    },
+    "scope": "offline teacher-forced validation; acceptance proxies are not measured serving acceptance or speedup"
+  },
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

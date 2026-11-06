@@ -1,0 +1,50 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/RUN.md",
+    "bytes": 2632,
+    "sha256": "245f3277fa80faaf126c2326836ad2111544b899438f45d672dc137cdf717549"
+  },
+  {
+    "file": "evidence/RESULT.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/RESULT.md",
+    "bytes": 1594,
+    "sha256": "ba7e4f4487381027e612963c07f875637689cf7e50451a0350d0f68041a03d76"
+  },
+  {
+    "file": "evidence/DIAGNOSIS.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/DIAGNOSIS.md",
+    "bytes": 2068,
+    "sha256": "791ed3dbdeadef89c5ebf237c2eda196b7484ff92641f52d692e8318ec1b55ce"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/train.yaml",
+    "bytes": 1776,
+    "sha256": "76023d5671082ab9eb29cab8ec78a005f482b110844b5923ea2e56be4c912821"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/source-provenance.json",
+    "bytes": 183420,
+    "sha256": "9bd8b4c35829e90481ad6086aa9b72e5b84fd4e4ca65a82794bd5f3689ab7ee4"
+  },
+  {
+    "file": "evidence/runtime-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/runtime-provenance.json",
+    "bytes": 1087,
+    "sha256": "2f0a2241164145862c56eca3709035fd7a827d7cf996e0ddaf4149d7f569bc7f"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/submitted-job.json",
+    "bytes": 131,
+    "sha256": "27bb41c0f55eff243ee51b0796dfec9f2db576f8255b4396b93d57193cec27b3"
+  },
+  {
+    "file": "evidence/user-stop-result.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r2/user-stop-result.json",
+    "bytes": 142,
+    "sha256": "e5384e7b239728e1f622569d8e74a657af944f206dafe56bb91cb8b7ae849cdf"
+  }
+]

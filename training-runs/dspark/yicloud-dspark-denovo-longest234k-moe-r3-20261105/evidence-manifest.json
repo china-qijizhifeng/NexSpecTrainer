@@ -1,0 +1,17 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-longest234k-moe-r3-20261105/config.yaml",
+    "bytes": 1506,
+    "sha256": "a95d93ef5db47c12743af538683175901f5068d970d0bf306d8dab3755293137"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-longest234k-moe-r3-20261105",
+    "bytes": 1357,
+    "sha256": "d50a473ebce624611f45fd2e300b5a0084a5d59029a7348b83290f96888e5752",
+    "original_archive_sha256": "6e5bca5017994b27f4afe86377448bc7040d8f488085c199f2d1c08a9df9bd8e",
+    "original_archive_bytes": 1356,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

@@ -1,0 +1,56 @@
+{
+  "id": "yicloud-dspark-all-anchors-muon32-20261105-r1",
+  "category": "训练",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793879453-84333",
+  "alias": "dspark-all-anchors-muon32-20261105-r1",
+  "uuid": "31e3e2fe-4e55-4642-a977-2d7b7ee5f079",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-muon32-20261105-r1",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r1",
+  "source": {
+    "commit": "d5d1147074619a327d07436a50f7302d686630b9",
+    "branch": "codex/yicloud-muon32-20261105",
+    "repository": "/mnt/work/shom/dspark-muon32-20261105-r1/source"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-muon32-20261105-r1/source",
+    "argv": [
+      "bash",
+      "ops/yicloud-muon32/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "失败",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:06.540638+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "v41_flash_muon",
+    "learning_rate": 1e-05,
+    "epochs": 1,
+    "max_steps": 118,
+    "total_steps": 118,
+    "gpus": 32,
+    "micro_batch": 1,
+    "accumulation_steps": 4,
+    "global_batch": 128,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 25,
+    "save_interval": 25,
+    "feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features",
+    "validation_feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/validation-features"
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r1/training",
+  "notes": [
+    "启动接口检查失败、无实际训练更新；r2修复后重新启动。共享本地目录的RESULT.md属于r2。",
+    "替代运行：yicloud-dspark-all-anchors-muon32-20261105-r2；旧目录与证据保留。"
+  ],
+  "evidence_manifest": "evidence-manifest.json",
+  "replacement_run": "yicloud-dspark-all-anchors-muon32-20261105-r2"
+}

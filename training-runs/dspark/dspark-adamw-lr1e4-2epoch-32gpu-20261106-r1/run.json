@@ -1,0 +1,42 @@
+{
+  "id": "dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "category": "训练",
+  "platform": "BP / H100",
+  "host": "linlizhi-bp-dev",
+  "job_id": "job-65b3a28c23d2-20261106191543",
+  "alias": "dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "uuid": null,
+  "local_source": "/Users/shom/Downloads/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "remote_root": "/gpfs/users/linlizhi/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "status": "已取消，迁移仪电",
+  "status_evidence": "evidence/RUN.md",
+  "checked_at": null,
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 0.0001,
+    "epochs": 2,
+    "max_steps": 236,
+    "total_steps": 236,
+    "gpus": 32,
+    "micro_batch": 1,
+    "accumulation_steps": 4,
+    "global_batch": 128,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 25,
+    "save_interval": 25,
+    "feature_path": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6/train-features",
+    "validation_feature_path": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6/validation-features"
+  },
+  "completed_steps": 0,
+  "latest_eval": null,
+  "notes": [
+    "替代运行：yicloud-dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1；旧目录与证据保留。"
+  ],
+  "checkpoint_root": "/gpfs/users/linlizhi/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/training",
+  "source_provenance": "evidence/source-provenance.json",
+  "evidence_manifest": "evidence-manifest.json",
+  "replacement_run": "yicloud-dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1"
+}

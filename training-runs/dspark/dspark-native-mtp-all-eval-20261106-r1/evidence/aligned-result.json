@@ -1,0 +1,81 @@
+{
+  "passed": true,
+  "validation_traces": 17,
+  "unique_windows": 136,
+  "weights": "official_native_MTP_no_finetune",
+  "evaluation_sampling": "all",
+  "results": {
+    "0": {
+      "unique136": {
+        "acc": 0.7764844036788116,
+        "ce_loss": 0.8555976033368842,
+        "l1_loss": 0.33882132686209454,
+        "confidence_loss": 0.29372250304855557,
+        "confidence_abs_error": 0.10346994169753637,
+        "ce_position": [
+          0.42451411946971795,
+          0.6796876956248961,
+          0.987470185262035,
+          1.302174592400961,
+          1.615272010849084
+        ],
+        "accuracy_position": [
+          0.868567283054981,
+          0.8257961212465921,
+          0.7780099169870188,
+          0.7291784825465895,
+          0.6802498789706923
+        ],
+        "teacher_agreement": 0.8068803457691625,
+        "teacher_top1_prob": 0.8948121637462242,
+        "draft_top1_prob": 0.8464749268346027,
+        "tau_probabilistic": 4.484485924938361,
+        "dspark/hard_label/walk_accepted_length": 3.8428911721833114,
+        "legacy_avg_loss": 0.9297811956126476,
+        "weighted_objective": 0.6842214575581291
+      },
+      "matched32gpu160": {
+        "acc": 0.7743185795783795,
+        "ce_loss": 0.8630788181699621,
+        "l1_loss": 0.3414002207900131,
+        "confidence_loss": 0.2958188330434956,
+        "confidence_abs_error": 0.10383469512782402,
+        "ce_position": [
+          0.4294142330725422,
+          0.6863474948371232,
+          0.9962725940374835,
+          1.3118305502019476,
+          1.62675019506984
+        ],
+        "accuracy_position": [
+          0.8667570608276638,
+          0.823849973828319,
+          0.7756655509852229,
+          0.7268135170561719,
+          0.6778669412712556
+        ],
+        "teacher_agreement": 0.805299176862542,
+        "teacher_top1_prob": 0.8932460645940486,
+        "draft_top1_prob": 0.8447219888572717,
+        "tau_probabilistic": 4.474303392770443,
+        "dspark/hard_label/walk_accepted_length": 3.8237267521410834,
+        "weighted_objective": 0.6893869135715036,
+        "legacy_avg_loss_from8rank_reweighting": 0.9385596599513755,
+        "legacy_avg_loss_reconstructed32rank": 0.9444196990960408
+      },
+      "anchor_count_unique": 323930,
+      "padded_windows": 24,
+      "parameters_unchanged": true,
+      "elapsed_seconds": 391.1478099822998,
+      "loss_reconstruction_check": {
+        "measured8rank": 0.9297811956126476,
+        "reconstructed8rank": 0.9297812137583614,
+        "absolute_error": 1.814571382041663e-08
+      }
+    }
+  },
+  "inputs_identical_to_previous_evaluation": true,
+  "identity_note": "sample IDs include the run namespace; numeric indices, input SHA, mask SHA and all anchor counts match exactly",
+  "postprocess_repair": "original GPU job completed evaluation but exited1 in overly strict sample-ID-prefix comparison; CPU-only corrected aggregation, no GPU rerun",
+  "comparison_note": "matched32gpu160 reproduces sampler multiplicity and reconstructs loss normalization in groups of32; forward computed on8 GPUs so floating-point equivalence is not claimed"
+}

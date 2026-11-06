@@ -1,0 +1,16 @@
+{
+  "complete": false,
+  "status": "blocked_before_training",
+  "samples": 10,
+  "epochs_requested": 100,
+  "optimizer_steps": 0,
+  "job": "job-7cb0017758b3-20261106155850",
+  "job_terminal": "Aborted",
+  "failure": "glibc free(): double free detected in tcache 2 during first FSDP all_gather in same-set evaluation; reproduced by isolated probe job-311101d875dc-20261106160540",
+  "evidence": [
+    "DIAGNOSIS.md",
+    "reference.json"
+  ],
+  "training_accuracy": null,
+  "memorization_verified": false
+}

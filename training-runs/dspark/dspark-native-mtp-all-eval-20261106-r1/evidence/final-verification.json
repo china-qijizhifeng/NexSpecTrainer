@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "gpu_evaluation_passed_ranks": 8,
+  "unique_windows": 136,
+  "unique_anchors": 323930,
+  "zero_optimizer_updates": true,
+  "zero_checkpoint_writes": true,
+  "parameters_unchanged": true,
+  "gpu_job_platform_status": "Failed",
+  "gpu_job_failure": "CPU summary compared run-name-prefixed sample IDs literally after all GPU evaluations passed",
+  "cpu_postprocess_repaired": true,
+  "input_mask_and_counts_match_previous": true,
+  "identity_regression": "identity-regression.json",
+  "gpu_resources_released": true,
+  "baseline_matched32gpu160": {
+    "acc": 0.7743185795783795,
+    "ce_loss": 0.8630788181699621,
+    "l1_loss": 0.3414002207900131,
+    "confidence_loss": 0.2958188330434956,
+    "confidence_abs_error": 0.10383469512782402,
+    "ce_position": [
+      0.4294142330725422,
+      0.6863474948371232,
+      0.9962725940374835,
+      1.3118305502019476,
+      1.62675019506984
+    ],
+    "accuracy_position": [
+      0.8667570608276638,
+      0.823849973828319,
+      0.7756655509852229,
+      0.7268135170561719,
+      0.6778669412712556
+    ],
+    "teacher_agreement": 0.805299176862542,
+    "teacher_top1_prob": 0.8932460645940486,
+    "draft_top1_prob": 0.8447219888572717,
+    "tau_probabilistic": 4.474303392770443,
+    "dspark/hard_label/walk_accepted_length": 3.8237267521410834,
+    "weighted_objective": 0.6893869135715036,
+    "legacy_avg_loss_from8rank_reweighting": 0.9385596599513755,
+    "legacy_avg_loss_reconstructed32rank": 0.9444196990960408
+  },
+  "comparisons": [
+    {
+      "config": "adamw_1e5",
+      "step": 100,
+      "acc": 0.7806236773475701,
+      "loss": 0.9135519767141073,
+      "acc_gain_percentage_points": 0.6305097769190637,
+      "loss_reduction_percent": 3.268432711799518
+    },
+    {
+      "config": "adamw_1e4",
+      "step": 100,
+      "acc": 0.7827979223880724,
+      "loss": 0.906610415719248,
+      "acc_gain_percentage_points": 0.847934280969298,
+      "loss_reduction_percent": 4.003440780934819
+    }
+  ],
+  "timestamp": "2026-11-06T19:03:54.091162+08:00"
+}

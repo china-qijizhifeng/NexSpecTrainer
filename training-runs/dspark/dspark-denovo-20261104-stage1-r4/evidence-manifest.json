@@ -1,0 +1,32 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r4/RUN.md",
+    "bytes": 4923,
+    "sha256": "b8b5da04eb02dd8d5ca092d6ba95d49fd3317d56503e55ce266c6aa73b67fd1c"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r4/train.yaml",
+    "bytes": 1624,
+    "sha256": "f6279692b2c3d5ff1db9efad65aa1d53e4e96f4f23e9ad7771a261284145af4f"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r4/source-provenance.json",
+    "bytes": 598,
+    "sha256": "b9934e0834b0fa8f12783b68d3d13e923616f98dc7c475bed4c6ada88c689261"
+  },
+  {
+    "file": "evidence/training-job.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r4/training-job.json",
+    "bytes": 229,
+    "sha256": "63bbd16383282e71e7d76527303f068bc25bc301ab7a812c4974275965d68324"
+  },
+  {
+    "file": "evidence/training-nfc-failure.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r4/training-nfc-failure.json",
+    "bytes": 2006,
+    "sha256": "54441a80eb751f470f6fe30283ef1612e2b8a419e68b737e506af0edef3d51eb"
+  }
+]

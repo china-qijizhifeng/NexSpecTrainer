@@ -1,0 +1,56 @@
+{
+  "id": "yicloud-dspark-adamw-lr2e4-32gpu-20261106-r1",
+  "category": "训练",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793940402-922604",
+  "alias": "dspark-adamw-lr2e4-32gpu-20261106-r1",
+  "uuid": "0008929f-5488-4d37-8f2c-cc2d111fc6c7",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-adamw-lr2e4-32gpu-20261106-r1",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-adamw-lr2e4-32gpu-20261106-r1",
+  "source": {
+    "commit": "b2e6e77f8a45ccc7d14cd3b3c1f85a2c37b41f4d",
+    "branch": "codex/yicloud-adamw2e4-20261106",
+    "repository": "/mnt/work/shom/dspark-adamw-lr2e4-32gpu-20261106-r1/source"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-adamw-lr2e4-32gpu-20261106-r1/source",
+    "argv": [
+      "bash",
+      "ops/yicloud-adamw32/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "运行中",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:03.970596+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 0.0002,
+    "epochs": 1,
+    "max_steps": 118,
+    "total_steps": 118,
+    "gpus": 32,
+    "micro_batch": 1,
+    "accumulation_steps": 4,
+    "global_batch": 128,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 25,
+    "save_interval": 25,
+    "feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features",
+    "validation_feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/validation-features"
+  },
+  "completed_steps": 114,
+  "latest_eval": {
+    "step": 100,
+    "loss": 0.9125264340266721,
+    "accuracy": 0.7825446329511465
+  },
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-adamw-lr2e4-32gpu-20261106-r1/training",
+  "notes": [],
+  "evidence_manifest": "evidence-manifest.json"
+}

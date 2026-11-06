@@ -1,0 +1,52 @@
+{
+  "id": "yicloud-dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "category": "训练",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793964028-161646",
+  "alias": "dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "uuid": "ebff47ff-1db3-42da-9fdb-2eee6709d407",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "source": {
+    "commit": "7f6954a7d4338a05051926cadcf40d8a44edb3ef",
+    "branch": "codex/yicloud-adamw1e4-2epoch-20261106",
+    "repository": "/mnt/work/shom/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/source"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/source",
+    "argv": [
+      "bash",
+      "ops/yicloud-adamw32/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "运行中",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:01.221605+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 0.0001,
+    "epochs": 2,
+    "max_steps": 236,
+    "total_steps": 236,
+    "gpus": 32,
+    "micro_batch": 1,
+    "accumulation_steps": 4,
+    "global_batch": 128,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 25,
+    "save_interval": 25,
+    "feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features",
+    "validation_feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/validation-features"
+  },
+  "completed_steps": 22,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/training",
+  "notes": [],
+  "evidence_manifest": "evidence-manifest.json"
+}

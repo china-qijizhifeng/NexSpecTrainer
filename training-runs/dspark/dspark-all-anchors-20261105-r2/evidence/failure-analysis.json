@@ -1,0 +1,17 @@
+{
+  "attempt": "r2",
+  "job": "job-a781b14cb939-20261105120919",
+  "formal_optimizer_steps": 0,
+  "all_gpu_gates_passed": true,
+  "formal_micro1_forward_passed_all_ranks": true,
+  "formal_micro1_coverage_matches_independent_audit": true,
+  "error": "MoE GroupedLinear.backward full 11.25GiB FP32 wgrad plus 5.625GiB BF16 cast exceeds 79GiB with accumulated full gradients",
+  "static_scope": [
+    "all grouped wgrad allocations and callers",
+    "both native up/down expert matrices",
+    "FSDP full-gradient no_sync accumulation and prefetch",
+    "outer and stage activation checkpoint lifetimes"
+  ],
+  "fix": "Compute complete token reduction independently in groups of eight experts, one reusable FP32 workspace; copy directly into final BF16 gradient. Anchors, losses and optimizer unchanged.",
+  "validation_required": "Bitwise old/new gradients at both native up/down shapes; GPU peak allocation; 8-rank uneven-mask updates; native CUDA optimizer; formal full-size training backward"
+}

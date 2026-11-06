@@ -1,0 +1,61 @@
+{
+  "id": "yicloud-dspark-denovo-pilot8-configfix-r2-20261105",
+  "category": "训练探针",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793810576-946821",
+  "alias": "dspark-denovo-pilot8-configfix-r2-20261105",
+  "uuid": "8c73d3f0-2813-4fcb-b658-113d8cbef0dc",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-configfix-r2-20261105",
+  "source": {
+    "commit": "d767011da621f35bc1f1e2d907299564a782bf98",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-d767011d"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-d767011d",
+    "argv": [
+      "bash",
+      "ops/yicloud-pilot/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "平台成功",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:11.081792+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 1e-05,
+    "epochs": 4,
+    "max_steps": 3,
+    "total_steps": 3,
+    "gpus": 8,
+    "micro_batch": 1,
+    "accumulation_steps": 1,
+    "global_batch": 8,
+    "anchor_sampling": "config default",
+    "anchor_chunk": null,
+    "seed": 42,
+    "eval_interval": 0,
+    "save_interval": 0,
+    "feature_path": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/pilot-features/train",
+    "validation_feature_path": ""
+  },
+  "completed_steps": 3,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-configfix-r2-20261105/training",
+  "notes": [],
+  "result_summary": {
+    "passed": true,
+    "global_step": 3,
+    "world_size": 8,
+    "checkpoint": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-configfix-r2-20261105/training/yicloud-denovo-pilot-step3",
+    "checkpoint_bytes": 199168059852,
+    "resumed_and_updated": true,
+    "scope": "3 optimizer updates on 8 real 4K windows; not full DeNovoSWE training or YiCloud capture acceptance"
+  },
+  "evidence_manifest": "evidence-manifest.json"
+}

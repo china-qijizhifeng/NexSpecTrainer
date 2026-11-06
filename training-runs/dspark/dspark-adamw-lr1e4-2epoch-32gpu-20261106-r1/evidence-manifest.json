@@ -1,0 +1,32 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/RUN.md",
+    "bytes": 1579,
+    "sha256": "73557d59740230c12b6c174a1bc4717943b22cf7aca27ae3ed974b60490460d1"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/train.yaml",
+    "bytes": 1699,
+    "sha256": "20671d22e0980bdec920f940be8d678c59481321730d0bbb4d66ab0d55395d8c"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/source-provenance.json",
+    "bytes": 182116,
+    "sha256": "7cb60dc0303d3b3343ad444bebb35a84008ecfb6738de2e4fcc06a88e9d4c66b"
+  },
+  {
+    "file": "evidence/job-identity.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/job-identity.json",
+    "bytes": 168,
+    "sha256": "495b390fede01eb5e08ef02e1189b419904719298b49d428daeb546e1e0c90e2"
+  },
+  {
+    "file": "evidence/user-cancel-response.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/user-cancel-response.json",
+    "bytes": 131,
+    "sha256": "2a844adc7c47c67e8915b91ee96c7159b25c84dedbaedba740e08608a78ad30f"
+  }
+]

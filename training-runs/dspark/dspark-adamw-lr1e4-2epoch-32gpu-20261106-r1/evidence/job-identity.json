@@ -1,0 +1,7 @@
+{
+  "alias": "dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+  "name": "job-65b3a28c23d2-20261106191543",
+  "gpus": 32,
+  "project": "WeaverRSI",
+  "queue": "proj-32"
+}

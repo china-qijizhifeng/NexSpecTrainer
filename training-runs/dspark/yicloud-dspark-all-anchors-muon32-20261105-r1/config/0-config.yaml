@@ -1,0 +1,218 @@
+model:
+  target_model_path: /gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017
+  draft_model_config: /mnt/work/shom/dspark-muon32-20261105-r1/source/ops/yicloud-muon32/draft-config.json
+  draft_checkpoint_path: null
+  draft_num_hidden_layers: null
+  draft_block_size: null
+  target_backend: sglang
+  shard_target_output: false
+  input_modality: text
+  trust_remote_code: false
+  use_liger_kernel: false
+  embedding_key: embed.weight
+  lm_head_key: head.weight
+  vocab_mapping_path: ''
+  load_target_embedding: true
+  aux_hidden_state_layer_ids: null
+  torch_dtype: bfloat16
+  cache_dir: null
+  mask_token_id: null
+  tokenizer_pad_token_id: null
+  sglang_attention_backend: flashinfer
+  sglang_mem_fraction_static: 0.4
+  sglang_disable_radix_cache: true
+  sglang_context_length: null
+  sglang_enable_nccl_nvls: false
+  sglang_enable_symm_mem: false
+  sglang_enable_torch_compile: false
+  sglang_enable_dp_attention: false
+  sglang_enable_dp_lm_head: false
+  sglang_ep_size: 1
+  sglang_max_running_requests: null
+  sglang_max_total_tokens: null
+  sglang_dp_size: null
+  sglang_moe_a2a_backend: null
+  sglang_moe_runner_backend: null
+  sglang_page_size: null
+  sglang_quantization: null
+  sglang_fp4_gemm_runner_backend: null
+  sglang_mamba_radix_cache_strategy: null
+  sglang_max_mamba_cache_size: null
+  sglang_swa_full_tokens_ratio: null
+  sglang_mamba_full_memory_ratio: null
+  sglang_max_prefill_tokens: null
+  sglang_linear_attn_prefill_backend: null
+  sglang_fp8_gemm_backend: null
+  sglang_disable_cuda_graph: false
+  sglang_extra_args: []
+data:
+  train_data_path: ''
+  prompts_path: ''
+  hidden_states_path: /mnt/work/shom/dspark-muon32-20261105-r1/train-features
+  eval_data_path: ''
+  eval_hidden_states_path: /mnt/work/shom/dspark-muon32-20261105-r1/validation-features
+  max_length: 4096
+  chat_template: llama3
+  is_preformatted: false
+  train_only_last_turn: false
+  build_dataset_num_proc: 8
+  dataloader_num_workers: 2
+  cache_dir: /mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r1/cache/data
+  cache_key: null
+  max_prompts: null
+training:
+  strategy: deepseek_v41
+  num_epochs: 1
+  max_steps: 118
+  total_steps: 118
+  batch_size: 1
+  accumulation_steps: 4
+  fsdp_sharding: FULL_SHARD
+  ddp_bucket_cap_mb: null
+  fused_logits_loss: true
+  learning_rate: 1.0e-05
+  lr_scheduler: cosine
+  warmup_ratio: 0.03
+  max_grad_norm: 1.0
+  optimizer_cpu_offload: true
+  optimizer: v41_flash_muon
+  muon:
+    version: muon_adamw.v1
+    profile: v41_flash_muon
+    momentum: 0.95
+    nesterov: true
+    momentum_convention: sum
+    ns_steps: 10
+    ns_coefficients:
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 3.4445
+      - -4.775
+      - 2.0315
+    - - 2.0
+      - -1.5
+      - 0.5
+    - - 2.0
+      - -1.5
+      - 0.5
+    ns_dtype: bfloat16
+    eps: 1.0e-07
+    scaling: v41_rms
+    rms: 0.18
+    muon_lr_multiplier: 1.0
+    adamw_lr_multiplier: 1.0
+    muon_weight_decay: 0.1
+    adamw_weight_decay: 0.1
+    adamw_betas:
+    - 0.9
+    - 0.95
+    adamw_eps: 1.0e-20
+    max_matrix_elements: 134217728
+  ttt_length: 7
+  attention_backend: megatron_csa
+  tp_size: 1
+  sp_ulysses_size: 1
+  sp_ring_size: 1
+  dist_timeout: 30
+  lk_loss_type: null
+  kl_scale: 1.0
+  kl_decay: 1.0
+  trim_loss_positions: false
+  mtp_objective_chunk_size: 4096
+  num_anchors: 32
+  anchor_sampling: all
+  anchor_forward_chunk_blocks: 64
+  loss_decay_gamma: 4.0
+  objective_chunk_blocks: 8
+  objective_checkpointing: true
+  loss_type: dflash
+  dpace_alpha: 0.5
+  dflash2_selector_loss_alpha: 1.0
+  dflash2_selector_warmup_ratio: 0.0
+  dflash2_selector_ramp_ratio: 0.0
+  dflash2_selector_stop_gradient: false
+  dflash_teacher_metrics: true
+  lambda_base_start: 1.0
+  lambda_base_decay_ratio: 0.5
+  dspark_ce_loss_alpha: 0.1
+  dspark_l1_loss_alpha: 0.9
+  dspark_confidence_head_alpha: 1.0
+  num_depths: 8
+  down_sample_ratio: 0.8
+  down_sample_ratio_min: 0.2
+  norm_before_residual: null
+  save_interval: 25
+  eval_interval: 25
+  log_interval: 1
+  max_checkpoints: 1
+  nfc_checkpoint:
+    max_shared_memory_bytes: 34359738368
+    pipeline_max_inflight_bytes: 34359738368
+    staging_tile_bytes: 134217728
+    writer_thread_count: 4
+    load_worker_count: 16
+  compact_teacher: false
+  compact_teacher_chunk_size: null
+  resume_from: null
+  role: all
+  seed: 42
+  prompt_seed: null
+tracking:
+  report_to: none
+  wandb_project: null
+  wandb_name: null
+  wandb_key: null
+  wandb_offline: false
+  wandb_dir: null
+  swanlab_project: null
+  swanlab_name: null
+  swanlab_key: null
+  mlflow_tracking_uri: null
+  mlflow_experiment_name: null
+  mlflow_run_name: null
+profiling:
+  enabled: false
+  start_step: 30
+  num_steps: 4
+  record_shapes: false
+runtime:
+  producer_lease: 8
+  consumer_dispatch: round_robin
+  producer_concurrency: 1
+  in_flight_high_watermark: 256
+  in_flight_low_watermark: 192
+  resident_high_watermark_bytes: null
+  resident_low_watermark_bytes: null
+  feature_store_max_resident_bytes: null
+  feature_store_max_quarantined_bytes: 8589934592
+  capture_max_sample_bytes: null
+deployment:
+  mode: local_colocated
+  trainer:
+    nnodes: 4
+    nproc_per_node: 8
+    node_rank: 0
+    master_addr: rjob-f1e4af94675e6c65-f61eb500bddbbf61-0.yanhang.fdj-infra.svc.lg.shzhisuan.local
+    master_port: 29763
+  disaggregated: null
+run_id: yicloud-all-anchors-muon32
+output_dir: /mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r1/training

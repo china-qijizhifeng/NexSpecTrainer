@@ -1,0 +1,17 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-full-trajectory-capture-20261105/config.yaml",
+    "bytes": 1502,
+    "sha256": "9aa758bac85208dcb47ee5eba44a93cb51fb367e716f2dadc9b8ffaa05b40a98"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-full-trajectory-capture-20261105",
+    "bytes": 2127,
+    "sha256": "74ebc82be4544db974bca5139b376b1e89faa33cb1e44d47440792b6d3721b4d",
+    "original_archive_sha256": "b542343629a31c32a9e008743989cdc749a0970e343e4696153f95c4198926b2",
+    "original_archive_bytes": 2126,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

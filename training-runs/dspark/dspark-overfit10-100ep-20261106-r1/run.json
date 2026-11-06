@@ -1,0 +1,41 @@
+{
+  "id": "dspark-overfit10-100ep-20261106-r1",
+  "category": "过拟合实验",
+  "platform": "BP / H100",
+  "host": "linlizhi-bp-dev",
+  "job_id": "job-7cb0017758b3-20261106155850",
+  "alias": "dspark-overfit10-100ep-20261106-r1",
+  "uuid": null,
+  "local_source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r1",
+  "remote_root": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r1",
+  "status": "失败",
+  "status_evidence": "evidence/monitor-terminal.json",
+  "checked_at": null,
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 0.0001,
+    "epochs": 100,
+    "max_steps": 500,
+    "total_steps": 500,
+    "gpus": 2,
+    "micro_batch": 1,
+    "accumulation_steps": 1,
+    "global_batch": 2,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 25,
+    "save_interval": 250,
+    "feature_path": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r1/features",
+    "validation_feature_path": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r1/features"
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "notes": [
+    "历史monitor终态详见 evidence/monitor-terminal.json；不从提交状态推断当前状态。"
+  ],
+  "checkpoint_root": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r1/training",
+  "source_provenance": "evidence/source-provenance.json",
+  "evidence_manifest": "evidence-manifest.json"
+}

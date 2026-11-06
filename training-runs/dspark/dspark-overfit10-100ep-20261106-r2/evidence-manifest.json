@@ -1,0 +1,26 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r2/RUN.md",
+    "bytes": 2085,
+    "sha256": "acc51bd07d057f051b1bd7504116b71236f398d6721b31ad413459e199a7f3a7"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r2/train.yaml",
+    "bytes": 1635,
+    "sha256": "485911c6f47dfaae2afefd6a7f03a091bc2f50467409c8fb163d0a286e818e86"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r2/submitted-job.json",
+    "bytes": 99,
+    "sha256": "5ae3eb7bc1ba62a4312ece1ca5d635358e8db48932fe5d60b355c17a3a37c012"
+  },
+  {
+    "file": "evidence/monitor-terminal.json",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r2/monitor-terminal.json",
+    "bytes": 341,
+    "sha256": "93247e77802104314e662d14b3170fc01875b2a8b940b96764cd0df46d21710b"
+  }
+]

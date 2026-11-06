@@ -1,0 +1,47 @@
+{
+  "id": "dspark-denovo-tuned-capture-20261105",
+  "uuid": "0560bc7e-7398-4ee8-a3ff-97f0d1fba0f2",
+  "job_id": "j-1793849191-804965",
+  "run_state": "verified",
+  "created_at": "2026-11-05T03:23:30.991000+00:00",
+  "source": {
+    "commit": "e56f5fbd0834ea0e73f699f69a903f57781a595d",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105",
+    "argv": [
+      "bash",
+      "ops/yicloud-tuned/launch_capture.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 4,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105",
+  "checked_at": "2026-11-06T20:56:11.636806+08:00",
+  "platform": {
+    "JobId": "j-1793849191-804965",
+    "Phase": "Succeeded",
+    "TaskStatusCounts": {
+      "t0": {
+        "Succeeded": 4
+      }
+    },
+    "CreationTime": "2026-11-05T03:26:31Z",
+    "StopTime": "2026-11-05T05:22:16Z"
+  },
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

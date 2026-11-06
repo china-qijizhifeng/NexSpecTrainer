@@ -1,0 +1,47 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-32gpu-20261106-r1/RUN.md",
+    "bytes": 781,
+    "sha256": "bc38505f20a215dbe5234962df007e235fd11c68bbdeaa030c211c3dbc8dd33e"
+  },
+  {
+    "file": "evidence/FINAL.md",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-32gpu-20261106-r1/FINAL.md",
+    "bytes": 2002,
+    "sha256": "2a324131f6f112c30970cd6a0b14d73a44f9e8e8470b26d547a1ea437d01cbef"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-32gpu-20261106-r1/train.yaml",
+    "bytes": 1678,
+    "sha256": "7ce7e8e2ab1deee6032047beadb065654c5ebc97ea032b3e3911b63b647f40da"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-32gpu-20261106-r1/source-provenance.json",
+    "bytes": 182116,
+    "sha256": "7cb60dc0303d3b3343ad444bebb35a84008ecfb6738de2e4fcc06a88e9d4c66b"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-32gpu-20261106-r1/submitted-job.json",
+    "bytes": 176,
+    "sha256": "84c0a60298f6eb9febaac00787fc20291e9e929b1e639ed6b3b4fdce68cac101",
+    "original_archive_sha256": "c7374b48cc084d8ebf492f2fb9ae3e9d15c2e735477bc17cdca8cf0374f733ea",
+    "original_archive_bytes": 175,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  },
+  {
+    "file": "evidence/terminal-verification.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-32gpu-20261106-r1/terminal-verification.json",
+    "bytes": 9535,
+    "sha256": "5b6fc275c243dd1a968536dc08e0bf344c372ed25e25c23212234154a04547fa"
+  },
+  {
+    "file": "evidence/curves.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr1e4-32gpu-20261106-r1/curves.json",
+    "bytes": 202485,
+    "sha256": "ef4c8ff6670f9c501c695c3110e6d753a1951a4d365dc249b3318ad0af19b65e"
+  }
+]

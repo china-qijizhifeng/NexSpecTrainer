@@ -1,0 +1,1296 @@
+{
+  "original_windows": 15053,
+  "inherited_padding_windows": 51,
+  "additional_padding_windows": 256,
+  "total_windows": 15360,
+  "world_size": 32,
+  "microbatch_size": 1,
+  "accumulation_steps": 16,
+  "global_batch": 512,
+  "microbatches_per_rank": 480,
+  "optimizer_steps": 30,
+  "num_epochs": 1,
+  "warmup_steps": 1,
+  "padding": [
+    {
+      "name": "zz-bsz512-padding-0000.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0001.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0002.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0003.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0004.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0005.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0006.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0007.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0008.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0009.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0010.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0011.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0012.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00045b5edefe34256c0a47f8-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-00045b5edefe34256c0a47f8-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0013.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0014.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0015.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0016.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0017.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0018.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0019.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0020.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0021.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-002c49993ff9069461a89ad8-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-002c49993ff9069461a89ad8-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0022.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0023.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0024.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0025.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0026.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0027.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0028.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0029.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0030.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0031.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0032.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0033.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0034.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0035.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s055538.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s055538.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0036.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s059505.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-003a1ed5fa1d6d1a094cf61a-s059505.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0037.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0038.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0039.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0040.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0041.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0042.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0043.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0044.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0045.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0046.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0047.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0048.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0049.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-006f1c18214962443a3ca39c-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-006f1c18214962443a3ca39c-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0050.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-008e3fbb09c912d1be92b5d9-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-008e3fbb09c912d1be92b5d9-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0051.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-008e3fbb09c912d1be92b5d9-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-008e3fbb09c912d1be92b5d9-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0052.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-008e3fbb09c912d1be92b5d9-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-008e3fbb09c912d1be92b5d9-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0053.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-008e3fbb09c912d1be92b5d9-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-008e3fbb09c912d1be92b5d9-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0054.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-008e3fbb09c912d1be92b5d9-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-008e3fbb09c912d1be92b5d9-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0055.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00e858fea87217b0395424d5-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-00e858fea87217b0395424d5-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0056.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00e858fea87217b0395424d5-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-00e858fea87217b0395424d5-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0057.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00e858fea87217b0395424d5-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-00e858fea87217b0395424d5-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0058.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00e858fea87217b0395424d5-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-00e858fea87217b0395424d5-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0059.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0060.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0061.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0062.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0063.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0064.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0065.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0066.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0067.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-00f6ea9857e9577984a4e34d-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-00f6ea9857e9577984a4e34d-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0068.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0069.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0070.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0071.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0072.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0073.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0074.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0075.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0076.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0077.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0078.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0079.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0080.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0081.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01107562df930c7381568ee8-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01107562df930c7381568ee8-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0082.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0083.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0084.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0085.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0086.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0087.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0088.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0089.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0090.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0091.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0092.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0093.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0094.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0095.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-012bf5ac27601f8618c77418-s055538.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-012bf5ac27601f8618c77418-s055538.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0096.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0097.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0098.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0099.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0100.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0101.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0102.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0103.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0104.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0105.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0106.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0107.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0108.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-01cbdcba482b230e7a8c2b41-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-01cbdcba482b230e7a8c2b41-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0109.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0110.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0111.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0112.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0113.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0114.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0115.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0116.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0214e8356588c57762b7090b-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-0214e8356588c57762b7090b-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0117.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0118.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0119.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0120.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0121.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0122.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0123.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0124.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0125.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0126.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0127.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0128.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0129.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0130.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-024fe5c484a933b5a76afed9-s055538.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-024fe5c484a933b5a76afed9-s055538.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0131.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0132.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0133.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0134.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0135.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0136.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0137.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0138.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0139.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0140.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0141.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0142.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0143.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-026babeb592377036c421804-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-026babeb592377036c421804-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0144.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02750b8aa8c25751bdf1875d-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-02750b8aa8c25751bdf1875d-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0145.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02750b8aa8c25751bdf1875d-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-02750b8aa8c25751bdf1875d-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0146.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02750b8aa8c25751bdf1875d-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-02750b8aa8c25751bdf1875d-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0147.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02750b8aa8c25751bdf1875d-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-02750b8aa8c25751bdf1875d-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0148.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02750b8aa8c25751bdf1875d-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-02750b8aa8c25751bdf1875d-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0149.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02750b8aa8c25751bdf1875d-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-02750b8aa8c25751bdf1875d-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0150.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02750b8aa8c25751bdf1875d-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w1/train-features/denovo-02750b8aa8c25751bdf1875d-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0151.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0152.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0153.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0154.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0155.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0156.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0157.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0158.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0159.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0160.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0161.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0162.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0163.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0164.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0165.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s055538.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s055538.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0166.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02caa9a7608564f979e173c3-s059505.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-02caa9a7608564f979e173c3-s059505.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0167.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0168.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0169.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0170.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0171.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0172.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0173.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0174.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0175.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0176.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0177.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0178.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0179.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0180.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0181.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s055538.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s055538.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0182.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-02e70c3a7d6442b750ed9c44-s059505.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-02e70c3a7d6442b750ed9c44-s059505.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0183.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0184.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0185.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0186.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0187.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0188.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0189.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0190.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-031b34d3238c6093b40222b4-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-031b34d3238c6093b40222b4-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0191.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0192.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0193.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0194.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0195.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0196.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0197.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0198.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0199.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0200.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0201.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0202.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0203.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0204.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-034fd2a349c0c876d370bcda-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-034fd2a349c0c876d370bcda-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0205.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0206.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0207.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0208.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0209.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0210.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0211.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0212.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0213.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0214.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0215.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0216.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0360982eb3f435bef3c5c9c6-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-0360982eb3f435bef3c5c9c6-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0217.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0218.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0219.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0220.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0221.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0222.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0223.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0224.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0225.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0226.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0227.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0228.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0229.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-03662e699b5aba96ecf6eb0d-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w2/train-features/denovo-03662e699b5aba96ecf6eb0d-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0230.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0231.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0232.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0233.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0234.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0235.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0236.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0237.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0238.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0239.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0240.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s043637.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0241.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s047604.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s047604.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0242.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s051571.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s051571.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0243.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-0375957d1e231f85d7a4db2d-s055538.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/train-features/denovo-0375957d1e231f85d7a4db2d-s055538.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0244.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s000000.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s000000.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0245.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s003967.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s003967.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0246.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s007934.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s007934.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0247.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s011901.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s011901.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0248.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s015868.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s015868.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0249.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s019835.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s019835.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0250.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s023802.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s023802.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0251.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s027769.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s027769.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0252.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s031736.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s031736.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0253.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s035703.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s035703.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0254.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s039670.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s039670.ckpt.zst"
+    },
+    {
+      "name": "zz-bsz512-padding-0255.ckpt.zst",
+      "source": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features/denovo-039979e2379c377cc7d784b0-s043637.ckpt.zst",
+      "resolved": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w3/train-features/denovo-039979e2379c377cc7d784b0-s043637.ckpt.zst"
+    }
+  ]
+}

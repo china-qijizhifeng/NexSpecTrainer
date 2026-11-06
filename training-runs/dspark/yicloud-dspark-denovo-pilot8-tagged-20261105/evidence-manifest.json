@@ -1,0 +1,17 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-pilot8-tagged-20261105/config.yaml",
+    "bytes": 1711,
+    "sha256": "a47a6520699888582d727d0fd8f49e49d7bf732b4741f2e92aa48baadb2880f0"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-pilot8-tagged-20261105",
+    "bytes": 1351,
+    "sha256": "a5d7e56554372f8f86d16c585a41a57e7ea407760c7696b3eef46a5323479bf6",
+    "original_archive_sha256": "7e1e5490b9a31053e966b234e61d0439647b5e68ea6bdab6bba162404b779140",
+    "original_archive_bytes": 1350,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

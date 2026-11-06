@@ -1,0 +1,44 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-adamw-lr5e5-32gpu-20261106-r1/config.yaml",
+    "bytes": 4742,
+    "sha256": "ea5bdae860f148df581b24f73d6eb6a8837a1f37551ac9fa08ddf19f7ac3d6ea"
+  },
+  {
+    "file": "config/1-recipe.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/dspark-adamw-lr5e5-32gpu-20261106-r1/source/ops/yicloud-adamw32/recipe.yaml",
+    "bytes": 1679,
+    "sha256": "116b0fff21a0591dbe14ac91b93e26413669c3078c66995c50babc17004e327d"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-adamw-lr5e5-32gpu-20261106-r1",
+    "bytes": 161509,
+    "sha256": "4fd88d06155ca9a2eef011ecb5e2f68572239c8e78b8049763c5df6034ae886a",
+    "original_archive_sha256": "3a16700d2daa72c566ca6a004da5dd8ef36c13f955903a917211e685d5b0a855",
+    "original_archive_bytes": 161508,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  },
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/yicloud-dspark-adamw-lr5e5-32gpu-20261106-r1/RUN.md",
+    "bytes": 1871,
+    "sha256": "ee207db6716455a382c27354f3fc0c8120aefca87486c72dd68a4b9ee55b5876"
+  },
+  {
+    "file": "evidence/FINAL.md",
+    "source": "/Users/shom/Downloads/yicloud-dspark-adamw-lr5e5-32gpu-20261106-r1/FINAL.md",
+    "bytes": 1803,
+    "sha256": "323b06e52aca0aa67cb89241255f21995e6bbc81e18887f9cc2717a766c2de68"
+  },
+  {
+    "file": "evidence/terminal-verification.json",
+    "source": "/Users/shom/Downloads/yicloud-dspark-adamw-lr5e5-32gpu-20261106-r1/terminal-verification.json",
+    "bytes": 16914,
+    "sha256": "77ef324fdc70076b9a969437eedf3dd55e975732402ee52c66047393741685f0",
+    "original_archive_sha256": "5a8cee8869c5dadbecae52762ef959f67d4796820af6f5114b44f6b185556b2e",
+    "original_archive_bytes": 16913,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

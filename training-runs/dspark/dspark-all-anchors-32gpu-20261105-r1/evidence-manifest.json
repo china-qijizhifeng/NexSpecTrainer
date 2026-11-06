@@ -1,0 +1,47 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-32gpu-20261105-r1/RUN.md",
+    "bytes": 1407,
+    "sha256": "5a8b729bc58a06573d73597b64359a98c4e038921672271cfaf540c6f72aa3e5"
+  },
+  {
+    "file": "evidence/FINAL.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-32gpu-20261105-r1/FINAL.md",
+    "bytes": 1395,
+    "sha256": "96f927534fe71c68fec2091c878cea3bd2cadc06400fd0e3eed827ed3d300248"
+  },
+  {
+    "file": "evidence/RESULT.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-32gpu-20261105-r1/RESULT.md",
+    "bytes": 2306,
+    "sha256": "6fb886c2af74d1577c76f430e6570e76efd8470f11c1382db42889624a605a60"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-32gpu-20261105-r1/train.yaml",
+    "bytes": 1679,
+    "sha256": "e3861b57ae5082c0b23f7f3e4f94bfac6e0d95a38c39892137e61cdf3bf16866"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-32gpu-20261105-r1/source-provenance.json",
+    "bytes": 182116,
+    "sha256": "7cb60dc0303d3b3343ad444bebb35a84008ecfb6738de2e4fcc06a88e9d4c66b"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-32gpu-20261105-r1/submitted-job.json",
+    "bytes": 181,
+    "sha256": "aee5278f6e3bf67a7c26a9e68b0804f0e4c22a9b095941aace2be0e86eb3609c"
+  },
+  {
+    "file": "evidence/curves.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-32gpu-20261105-r1/curves.json",
+    "bytes": 235503,
+    "sha256": "f90c50ee102ea535ddffcf86b6be4ac77c6d35eaf5861307ecc8907261c983d0",
+    "original_archive_sha256": "ac6aaf50d0863c384ca05cac9e3831ae32b14101100dfc00d2abaadb6a894758",
+    "original_archive_bytes": 235502,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

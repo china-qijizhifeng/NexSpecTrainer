@@ -1,0 +1,7 @@
+{
+  "name": "job-d3b052f034c2-20261106043222",
+  "alias": "dspark-adamw-lr1e4-32gpu-20261106-r1",
+  "gpu_count": 32,
+  "peak_lr": 0.0001,
+  "status_at_submission": "Pending"
+}

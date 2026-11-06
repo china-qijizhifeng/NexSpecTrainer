@@ -1,0 +1,9 @@
+{
+  "name": "job-2aee0829988b-20261105142405",
+  "user_def_name": "dspark-all-anchors-20261105-r8",
+  "status": "Pending",
+  "ready_status": "0/1",
+  "namespace": "qiji",
+  "job_creator": "linlizhi",
+  "user_gpu": 8
+}

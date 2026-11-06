@@ -1,0 +1,47 @@
+{
+  "id": "dspark-denovo-pilot8-20261105",
+  "uuid": "7e25e9ef-aa07-44a6-898b-4b5019f5b37e",
+  "job_id": "j-1793809241-735498",
+  "run_state": "verified",
+  "created_at": "2026-11-04T16:07:30.732564+00:00",
+  "source": {
+    "commit": "74e295b3b87c25bf679f518c8f7414f87a31b556",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-74e295b3"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-74e295b3",
+    "argv": [
+      "bash",
+      "ops/yicloud-pilot/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 1,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-20261105",
+  "checked_at": "2026-11-06T20:56:10.387327+08:00",
+  "platform": {
+    "JobId": "j-1793809241-735498",
+    "Phase": "Stopped",
+    "TaskStatusCounts": {
+      "t0": {
+        "Stopped": 1
+      }
+    },
+    "CreationTime": "2026-11-04T16:20:41Z",
+    "StopTime": "2026-11-04T16:24:41Z"
+  },
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

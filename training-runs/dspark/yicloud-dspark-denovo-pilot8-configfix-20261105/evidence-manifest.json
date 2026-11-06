@@ -1,0 +1,11 @@
+[
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-pilot8-configfix-20261105",
+    "bytes": 1102,
+    "sha256": "b390161a26f08a640131b5da748920d2db4d92881d547ef06ce9ed8c4ace06f3",
+    "original_archive_sha256": "39b0605b8bb1a0815acf4c7ef8c3a4a6844d2419c94d92642448759e31ff29dc",
+    "original_archive_bytes": 1101,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

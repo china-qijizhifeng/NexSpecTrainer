@@ -1,0 +1,109 @@
+{
+  "time": 1793740409.102643,
+  "time_utc": "2026-11-03T21:13:29Z",
+  "stage": "failed",
+  "job": {
+    "name": "job-233a7b0593fa-20261104042010",
+    "user_def_name": "denovo-specforge-stage1-train-20261104-r3",
+    "status": "Failed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 8
+  },
+  "exact_job_absent_confirmed": true,
+  "cleanup_receipt": {
+    "name": "job-233a7b0593fa-20261104042010",
+    "alias": "denovo-specforge-stage1-train-20261104-r3",
+    "response": {
+      "success": true
+    }
+  },
+  "worker_exit": 1,
+  "optimizer_steps_by_rank": {
+    "0": 5,
+    "1": 5,
+    "2": 5,
+    "3": 5,
+    "4": 5,
+    "5": 5,
+    "6": 5,
+    "7": 5
+  },
+  "checkpoint_path": null,
+  "checkpoint_published": false,
+  "restore_verified": false,
+  "frozen_final_audit_complete": false,
+  "full_dataset_complete": false,
+  "free_bytes": 1587929939968,
+  "watchdog_sequence": 5784,
+  "watchdog_by_rank": {
+    "4": {
+      "op": "_ALLGATHER_BASE",
+      "numel_in": 672,
+      "numel_out": 5376,
+      "timeout_ms": 1800000,
+      "evidence": "[rank4]:[E1103 21:01:38.654459943 ProcessGroupNCCL.cpp:694] [Rank 4] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=_ALLGATHER_BASE, NumelIn=672, NumelOut=5376, Timeout(ms)=1800000) ran for 1800013 milliseconds before timing out."
+    },
+    "6": {
+      "op": "_ALLGATHER_BASE",
+      "numel_in": 672,
+      "numel_out": 5376,
+      "timeout_ms": 1800000,
+      "evidence": "[rank6]:[E1103 21:01:38.658514992 ProcessGroupNCCL.cpp:694] [Rank 6] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=_ALLGATHER_BASE, NumelIn=672, NumelOut=5376, Timeout(ms)=1800000) ran for 1800017 milliseconds before timing out."
+    },
+    "2": {
+      "op": "_ALLGATHER_BASE",
+      "numel_in": 672,
+      "numel_out": 5376,
+      "timeout_ms": 1800000,
+      "evidence": "[rank2]:[E1103 21:01:38.670245973 ProcessGroupNCCL.cpp:694] [Rank 2] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=_ALLGATHER_BASE, NumelIn=672, NumelOut=5376, Timeout(ms)=1800000) ran for 1800028 milliseconds before timing out."
+    },
+    "5": {
+      "op": "_ALLGATHER_BASE",
+      "numel_in": 672,
+      "numel_out": 5376,
+      "timeout_ms": 1800000,
+      "evidence": "[rank5]:[E1103 21:01:38.687810524 ProcessGroupNCCL.cpp:694] [Rank 5] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=_ALLGATHER_BASE, NumelIn=672, NumelOut=5376, Timeout(ms)=1800000) ran for 1800047 milliseconds before timing out."
+    },
+    "7": {
+      "op": "_ALLGATHER_BASE",
+      "numel_in": 672,
+      "numel_out": 5376,
+      "timeout_ms": 1800000,
+      "evidence": "[rank7]:[E1103 21:01:38.689034816 ProcessGroupNCCL.cpp:694] [Rank 7] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=_ALLGATHER_BASE, NumelIn=672, NumelOut=5376, Timeout(ms)=1800000) ran for 1800047 milliseconds before timing out."
+    },
+    "3": {
+      "op": "_ALLGATHER_BASE",
+      "numel_in": 672,
+      "numel_out": 5376,
+      "timeout_ms": 1800000,
+      "evidence": "[rank3]:[E1103 21:01:38.697038569 ProcessGroupNCCL.cpp:694] [Rank 3] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=_ALLGATHER_BASE, NumelIn=672, NumelOut=5376, Timeout(ms)=1800000) ran for 1800054 milliseconds before timing out."
+    },
+    "1": {
+      "op": "_ALLGATHER_BASE",
+      "numel_in": 672,
+      "numel_out": 5376,
+      "timeout_ms": 1800000,
+      "evidence": "[rank1]:[E1103 21:01:38.704348009 ProcessGroupNCCL.cpp:694] [Rank 1] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=_ALLGATHER_BASE, NumelIn=672, NumelOut=5376, Timeout(ms)=1800000) ran for 1800060 milliseconds before timing out."
+    },
+    "0": {
+      "op": "ALLREDUCE",
+      "numel_in": 1,
+      "numel_out": 1,
+      "timeout_ms": 1800000,
+      "evidence": "[rank0]:[E1103 21:01:40.982215288 ProcessGroupNCCL.cpp:694] [Rank 0] Watchdog caught collective operation timeout: WorkNCCL(SeqNum=5784, OpType=ALLREDUCE, NumelIn=1, NumelOut=1, Timeout(ms)=1800000) ran for 1800074 milliseconds before timing out."
+    }
+  },
+  "last_completed_sequence": 5783,
+  "original_source_commit": "66f0cfd81443a6481232d8fdf7b4abaa7c1f63b7",
+  "failure_class": "collective_order_divergence",
+  "root_cause_evidence": "CPU replay first variable objective chunk count at micro-step92 predicts rank0 3 confidence-head calls vs 4 on ranks1-7; 5376-element FP32 head sharded 672 elements per rank matches timed-out allgather; rank0 advances to scalar DSpark denominator allreduce.",
+  "limitations": [
+    "No live process stacks: pods/exec and events forbidden; no repeated forbidden requests",
+    "Flight recorder disabled in failed job",
+    "CPU replay torch2.12.1 differs from training torch2.10.0; GPU/FSDP repair acceptance not performed"
+  ],
+  "retry_or_resubmit": false,
+  "active_training_controllers": false
+}

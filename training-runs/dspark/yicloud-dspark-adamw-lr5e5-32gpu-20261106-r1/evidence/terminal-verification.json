@@ -1,0 +1,863 @@
+{
+  "checked_at": "2026-11-06T12:14:33.272401+00:00",
+  "result": {
+    "passed": true,
+    "optimizer": "adamw",
+    "optimizer_steps": 118,
+    "world_size": 32,
+    "train_traces": 1326,
+    "validation_traces": 17,
+    "checkpoint": "/mnt/work/shom/training_runs/dspark-adamw-lr5e5-32gpu-20261106-r1/training/denovo-v41-all-anchors-step118",
+    "checkpoint_restore_verified": false,
+    "model_quality_improvement_verified": false
+  },
+  "complete_ranks": [
+    {
+      "rank": 0,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 1,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 2,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 3,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 4,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 5,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 6,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 7,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 8,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 9,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 10,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 11,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 12,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 13,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 14,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 15,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 16,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 17,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 18,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 19,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 20,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 21,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 22,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 23,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 24,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 25,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 26,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 27,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 28,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 29,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 30,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    },
+    {
+      "rank": 31,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true
+    }
+  ],
+  "node_exit": [
+    "0",
+    "0",
+    "0",
+    "0"
+  ],
+  "training_state": {
+    "format": "specforge-nfc-fsdp-v1",
+    "common_sha256": "dc2f00ce6581e1789f7884e554a463e7a8187a06e4baf09d3086cfb3029fab5b",
+    "global_step": 118,
+    "run_id": "denovo-v41-all-anchors"
+  },
+  "common_sha256_actual": "dc2f00ce6581e1789f7884e554a463e7a8187a06e4baf09d3086cfb3029fab5b",
+  "common_sha256_matches": true,
+  "nfc_receipt": {
+    "checkpoint_id": "/mnt/work/shom/training_runs/dspark-adamw-lr5e5-32gpu-20261106-r1/training/.denovo-v41-all-anchors-step118-80415c7375ce48f6a9f8c3b32f9eee3f/nfc",
+    "metadata": {
+      "format": "specforge-nfc-fsdp-v1",
+      "step": 118
+    },
+    "schema": "nexflash-megatron-receipt",
+    "snapshot_id": "76159f2fa37b785d735c440a42eb5dcc",
+    "training_mode": "fullft",
+    "version": 1
+  },
+  "nfc_metadata": {
+    "sharded_backend": "torch_dist",
+    "sharded_backend_version": 1,
+    "common_backend": "torch",
+    "common_backend_version": 1
+  },
+  "metadata_bytes": 648694,
+  "shards": [
+    {
+      "name": "__0_0.distcp",
+      "bytes": 1557698332
+    },
+    {
+      "name": "__0_1.distcp",
+      "bytes": 1553300454
+    },
+    {
+      "name": "__0_2.distcp",
+      "bytes": 1559777160
+    },
+    {
+      "name": "__0_3.distcp",
+      "bytes": 1553294758
+    },
+    {
+      "name": "__10_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__10_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__10_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__10_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__11_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__11_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__11_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__11_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__12_0.distcp",
+      "bytes": 1556032370
+    },
+    {
+      "name": "__12_1.distcp",
+      "bytes": 1556033861
+    },
+    {
+      "name": "__12_2.distcp",
+      "bytes": 1556028270
+    },
+    {
+      "name": "__12_3.distcp",
+      "bytes": 1556023863
+    },
+    {
+      "name": "__13_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__13_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__13_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__13_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__14_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__14_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__14_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__14_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__15_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__15_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__15_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__15_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__16_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__16_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__16_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__16_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__17_0.distcp",
+      "bytes": 1556038783
+    },
+    {
+      "name": "__17_1.distcp",
+      "bytes": 1556011022
+    },
+    {
+      "name": "__17_2.distcp",
+      "bytes": 1556013885
+    },
+    {
+      "name": "__17_3.distcp",
+      "bytes": 1556030780
+    },
+    {
+      "name": "__18_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__18_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__18_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__18_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__19_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__19_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__19_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__19_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__1_0.distcp",
+      "bytes": 1555568938
+    },
+    {
+      "name": "__1_1.distcp",
+      "bytes": 1555596959
+    },
+    {
+      "name": "__1_2.distcp",
+      "bytes": 1557347955
+    },
+    {
+      "name": "__1_3.distcp",
+      "bytes": 1555562002
+    },
+    {
+      "name": "__20_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__20_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__20_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__20_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__21_0.distcp",
+      "bytes": 1555586443
+    },
+    {
+      "name": "__21_1.distcp",
+      "bytes": 1555576805
+    },
+    {
+      "name": "__21_2.distcp",
+      "bytes": 1555599917
+    },
+    {
+      "name": "__21_3.distcp",
+      "bytes": 1557313384
+    },
+    {
+      "name": "__22_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__22_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__22_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__22_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__23_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__23_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__23_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__23_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__24_0.distcp",
+      "bytes": 1555838785
+    },
+    {
+      "name": "__24_1.distcp",
+      "bytes": 1555878870
+    },
+    {
+      "name": "__24_2.distcp",
+      "bytes": 1555864589
+    },
+    {
+      "name": "__24_3.distcp",
+      "bytes": 1556483694
+    },
+    {
+      "name": "__25_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__25_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__25_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__25_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__26_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__26_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__26_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__26_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__27_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__27_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__27_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__27_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__28_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__28_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__28_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__28_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__29_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__29_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__29_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__29_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__2_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__2_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__2_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__2_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__30_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__30_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__30_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__30_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__31_0.distcp",
+      "bytes": 1554212925
+    },
+    {
+      "name": "__31_1.distcp",
+      "bytes": 1555617430
+    },
+    {
+      "name": "__31_2.distcp",
+      "bytes": 1559188630
+    },
+    {
+      "name": "__31_3.distcp",
+      "bytes": 1555120284
+    },
+    {
+      "name": "__3_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__3_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__3_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__3_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__4_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__4_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__4_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__4_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__5_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__5_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__5_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__5_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__6_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__6_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__6_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__6_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__7_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__7_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__7_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__7_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__8_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__8_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__8_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__8_3.distcp",
+      "bytes": 1553255133
+    },
+    {
+      "name": "__9_0.distcp",
+      "bytes": 1557697890
+    },
+    {
+      "name": "__9_1.distcp",
+      "bytes": 1553290093
+    },
+    {
+      "name": "__9_2.distcp",
+      "bytes": 1559818120
+    },
+    {
+      "name": "__9_3.distcp",
+      "bytes": 1553255133
+    }
+  ],
+  "platform": {
+    "job": {
+      "JobId": "j-1793942702-213881",
+      "Name": "dspark-adamw-lr5e5-3-c363a7e3-a7cf-46a6-8cc2-6897b0dfda40",
+      "Phase": "Succeeded",
+      "Message": "RJob succeeded",
+      "TaskStatusCounts": {
+        "t0": {
+          "Succeeded": 4
+        }
+      },
+      "CreationTime": "2026-11-06T05:25:02Z",
+      "StopTime": "2026-11-06T12:07:13Z"
+    },
+    "replicas": [
+      {
+        "ReplicaIndex": "1",
+        "TaskType": "t0",
+        "Phase": "Succeeded",
+        "NodeName": "lg-cmc-gpu-0170.host.lg.shzhisuan.com",
+        "Message": null
+      },
+      {
+        "ReplicaIndex": "2",
+        "TaskType": "t0",
+        "Phase": "Succeeded",
+        "NodeName": "lg-cmc-gpu-0587.host.lg.shzhisuan.com",
+        "Message": null
+      },
+      {
+        "ReplicaIndex": "0",
+        "TaskType": "t0",
+        "Phase": "Succeeded",
+        "NodeName": "lg-cmc-gpu-0497.host.lg.shzhisuan.com",
+        "Message": null
+      },
+      {
+        "ReplicaIndex": "3",
+        "TaskType": "t0",
+        "Phase": "Succeeded",
+        "NodeName": "lg-cmc-gpu-0121.host.lg.shzhisuan.com",
+        "Message": null
+      }
+    ]
+  }
+}

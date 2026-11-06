@@ -1,0 +1,26 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r2/RUN.md",
+    "bytes": 6623,
+    "sha256": "7e732c0f7d58415ae56acf66bcacdd433e83a248712ce1d6dcfa3ae719f94095"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r2/train.yaml",
+    "bytes": 1640,
+    "sha256": "d842518cfe5f624fcde6aa8db45ebae7faac099ac74bf163fc3b86041711416d"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r2/source-provenance.json",
+    "bytes": 181494,
+    "sha256": "e95e4932c200e92a5706ebcdbbcd47eef5a045e93462c542eb3f0b806213169a"
+  },
+  {
+    "file": "evidence/failure-analysis.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r2/failure-analysis.json",
+    "bytes": 995,
+    "sha256": "d467d7e0af6fef1244a274ad84af490558426d9d31c461a70d2c1dc6270f4c43"
+  }
+]

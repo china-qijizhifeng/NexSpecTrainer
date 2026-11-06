@@ -1,0 +1,26 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-native-mtp-all-eval-20261106-r1/RUN.md",
+    "bytes": 482,
+    "sha256": "1a61dafa21e418c6b8f83e066cc3bdeb89b4876ad7cc5bd4f19e8ba187e58ad2"
+  },
+  {
+    "file": "evidence/FINAL.md",
+    "source": "/Users/shom/Downloads/dspark-native-mtp-all-eval-20261106-r1/FINAL.md",
+    "bytes": 2374,
+    "sha256": "db7c388dd8619d7a2ade3dc8edbc3b46c85f299dbc6b1f7c8e88ab368cfa3998"
+  },
+  {
+    "file": "evidence/final-verification.json",
+    "source": "/Users/shom/Downloads/dspark-native-mtp-all-eval-20261106-r1/final-verification.json",
+    "bytes": 2039,
+    "sha256": "e351f852c72a9afe51b40beb42fd0aeb6e2afeeb8ba91b651b9b99fdf2cc334a"
+  },
+  {
+    "file": "evidence/aligned-result.json",
+    "source": "/Users/shom/Downloads/dspark-native-mtp-all-eval-20261106-r1/aligned-result.json",
+    "bytes": 3116,
+    "sha256": "d5dc238028b048d60e210dcfe73351eb7b83c61d1dfa2d7b690d42bbb38ac652"
+  }
+]

@@ -1,0 +1,47 @@
+{
+  "id": "dspark-denovo-full-capture-wide-r4-20261105",
+  "uuid": "05a1489a-0f70-46ad-a1d0-86cde069b664",
+  "job_id": "j-1793819908-584020",
+  "run_state": "verified",
+  "created_at": "2026-11-04T19:10:21.807497+00:00",
+  "source": {
+    "commit": "5b082248dc90737747cf56c3572ac0eff366a1db",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-full-5b082248"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-full-5b082248",
+    "argv": [
+      "bash",
+      "ops/yicloud-full/launch_capture.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 4,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-full-capture-wide-r4-20261105",
+  "checked_at": "2026-11-06T20:56:07.922398+08:00",
+  "platform": {
+    "JobId": "j-1793819908-584020",
+    "Phase": "Stopped",
+    "TaskStatusCounts": {
+      "t0": {
+        "Stopped": 4
+      }
+    },
+    "CreationTime": "2026-11-04T19:18:28Z",
+    "StopTime": "2026-11-05T03:25:21Z"
+  },
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

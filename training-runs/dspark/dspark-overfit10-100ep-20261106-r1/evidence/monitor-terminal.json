@@ -1,0 +1,16 @@
+{
+  "time": 1793952204.9066784,
+  "job": {
+    "name": "job-7cb0017758b3-20261106155850",
+    "user_def_name": "dspark-overfit10-100ep-20261106-r1",
+    "status": "Aborted",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 2
+  },
+  "node_exits": {
+    "trainer": "1"
+  },
+  "result": null
+}

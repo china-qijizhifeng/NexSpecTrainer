@@ -1,0 +1,23 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r1/config.yaml",
+    "bytes": 5649,
+    "sha256": "f9df45b175c91427ce90057a65a5487e5f18b59d0f19c7e56ac52a404121d70d"
+  },
+  {
+    "file": "config/1-recipe.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/dspark-muon32-20261105-r1/source/ops/yicloud-muon32/recipe.yaml",
+    "bytes": 1824,
+    "sha256": "daef90dac76d55f1976c09613c948c15d820ad2ed67c52cbaf6c68162bd54520"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r1",
+    "bytes": 1349,
+    "sha256": "533141ef2f4cfeabf5b30e7152bce8495a4ae30dc3ef9d2107f27a341200af8b",
+    "original_archive_sha256": "711d7cd447ba4857d98c1d4d094cebbe0eacce7d96bbdc99f73265b671e149c1",
+    "original_archive_bytes": 1348,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

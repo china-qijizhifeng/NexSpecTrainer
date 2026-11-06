@@ -1,0 +1,11 @@
+[
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-full-epoch-wide-r4-20261105",
+    "bytes": 1109,
+    "sha256": "4c2a89e543f59073728fc223c49b5841214ac14b9d8f796b09039110e0c52154",
+    "original_archive_sha256": "a79ad35d60bca2d0b8d7586ad53e02b0b25cf5440c09bc175ca700f9ed3b77e5",
+    "original_archive_bytes": 1108,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]
