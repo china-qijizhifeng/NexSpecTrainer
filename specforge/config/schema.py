@@ -1014,14 +1014,41 @@ class TrainingConfig(StrictConfigModel):
     #: Joint logits loss; independent of objective checkpointing.
     fused_logits_loss: bool = True
     learning_rate: float = Field(default=1e-4, gt=0.0)
-    lr_scheduler: Literal["cosine", "constant"] = "cosine"
+    lr_scheduler: Literal["cosine", "constant", "wsd"] = "cosine"
     warmup_ratio: float = Field(default=0.015, ge=0.0, le=1.0)
+    warmup_steps: Optional[int] = Field(default=None, ge=0, strict=True)
+    stable_steps: Optional[int] = Field(default=None, ge=0, strict=True)
+    warmup_lr: Optional[float] = Field(default=None, ge=0.0, allow_inf_nan=False)
+    stable_lr: Optional[float] = Field(default=None, gt=0.0, allow_inf_nan=False)
     max_grad_norm: float = Field(default=0.5, gt=0.0)
     #: Keep FP32 Adam masters and moments on CPU while the trainable draft
     #: remains on the accelerator.
     optimizer_cpu_offload: bool = False
     optimizer: Literal["adamw", "muon_adamw", "v41_flash_muon"] = "adamw"
     muon: Optional[MuonConfig] = None
+
+    @field_validator("warmup_steps", "stable_steps", mode="before")
+    @classmethod
+    def _parse_wsd_steps(cls, value):
+        # Dotted CLI overrides arrive as strings; retain strict integer checks
+        # for YAML/Python inputs so booleans and fractional counts are rejected.
+        return int(value) if isinstance(value, str) else value
+
+    @model_validator(mode="after")
+    def _validate_wsd(self):
+        fields = ("warmup_steps", "stable_steps", "warmup_lr", "stable_lr")
+        if self.lr_scheduler != "wsd":
+            if any(getattr(self, name) is not None for name in fields):
+                raise ValueError(f"{', '.join(fields)} require lr_scheduler=wsd")
+            return self
+        if any(getattr(self, name) is None for name in fields):
+            raise ValueError(f"WSD requires {', '.join(fields)}")
+        if self.warmup_lr > self.stable_lr:
+            raise ValueError("WSD requires warmup_lr <= stable_lr")
+        horizon = self.total_steps or self.max_steps
+        if horizon is not None and self.warmup_steps + self.stable_steps >= horizon:
+            raise ValueError("WSD requires warmup_steps + stable_steps < total_steps")
+        return self
 
     @model_validator(mode="after")
     def _validate_optimizer(self):

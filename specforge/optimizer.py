@@ -4,7 +4,11 @@ import math
 import torch
 import torch.distributed as dist
 
-from specforge.lr_scheduler import ConstantWarmupLR, CosineAnnealingWarmupLR
+from specforge.lr_scheduler import (
+    ConstantWarmupLR,
+    CosineAnnealingWarmupLR,
+    WarmupStableDecayLR,
+)
 from specforge.utils import print_on_rank0
 
 logger = logging.getLogger(__name__)
@@ -66,6 +70,10 @@ class BF16Optimizer:
         warmup_ratio=0.015,
         lr_scheduler="cosine",
         offload_master=False,
+        warmup_steps=None,
+        stable_steps=None,
+        warmup_lr=None,
+        stable_lr=None,
     ):
         # defaults copied from EAGLE traineagle3 ds_config.json
         self.model = model
@@ -89,13 +97,17 @@ class BF16Optimizer:
             if self.fp32_params and all(mp.is_cuda for mp in self.fp32_params)
             else None
         )
-        self.optimizer = self._build_optimizer(lr, weight_decay)
+        self.optimizer = self._build_optimizer(
+            stable_lr if lr_scheduler == "wsd" and stable_lr is not None else lr,
+            weight_decay,
+        )
         self.last_grad_norm = None
         self._grad_norm_process_group = None
         self._reduce_grad_norm_across_ranks = True
         scheduler_types = {
             "constant": ConstantWarmupLR,
             "cosine": CosineAnnealingWarmupLR,
+            "wsd": WarmupStableDecayLR,
         }
         if lr_scheduler not in scheduler_types:
             raise ValueError(
@@ -103,10 +115,26 @@ class BF16Optimizer:
                 f"expected one of {sorted(scheduler_types)}"
             )
         self.lr_scheduler_type = lr_scheduler
+        wsd_options = dict(
+            warmup_steps=warmup_steps,
+            stable_steps=stable_steps,
+            warmup_lr=warmup_lr,
+            stable_lr=stable_lr,
+        )
+        if lr_scheduler != "wsd" and any(v is not None for v in wsd_options.values()):
+            raise ValueError(
+                "warmup_steps/stable_steps/warmup_lr/stable_lr require wsd"
+            )
         self.scheduler = scheduler_types[lr_scheduler](
             self.optimizer,
             total_steps=total_steps,
-            warmup_steps=int(warmup_ratio * total_steps),
+            **(
+                wsd_options
+                if lr_scheduler == "wsd"
+                else {
+                    "warmup_steps": int(warmup_ratio * total_steps),
+                }
+            ),
         )
 
     def _build_optimizer(self, lr, weight_decay):
@@ -318,6 +346,8 @@ class BF16Optimizer:
                 f"{saved_scheduler_type!r} but this run has "
                 f"lr_scheduler={self.lr_scheduler_type!r}"
             )
+        if self.lr_scheduler_type == "wsd":
+            self.scheduler.validate_state_dict(state_dict["scheduler_state_dict"])
         saved_max_grad_norm = state_dict.get("max_grad_norm")
         if saved_max_grad_norm is not None and float(saved_max_grad_norm) != float(
             self.max_grad_norm
