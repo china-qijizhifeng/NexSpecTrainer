@@ -59,7 +59,7 @@ def stop(process):
         process.wait(timeout=15)
 
 
-def launch(cp, folder):
+def launch(cp, folder, context_length=16384):
     if os.environ.get('NORTHGATE_CP_DIAGNOSTIC_RUN') == '1':
         os.environ['NORTHGATE_CP_DIAGNOSTICS'] = str(folder / 'probes')
     argv = ['sglang', 'serve', '--model-path', MODEL, '--trust-remote-code',
@@ -67,8 +67,8 @@ def launch(cp, folder):
             '--tp-size', '8', '--ep-size', '8', '--attention-backend', 'dsv4',
             '--moe-runner-backend', 'flashinfer_mxfp4',
             '--engram-config', '{"placement":"cpu"}', '--mem-fraction-static', '0.8',
-            '--context-length', '16384', '--max-total-tokens', '16384',
-            '--swa-full-tokens-ratio', '1.0', '--max-prefill-tokens', '16384',
+            '--context-length', str(context_length), '--max-total-tokens', str(context_length),
+            '--swa-full-tokens-ratio', '1.0', '--max-prefill-tokens', str(context_length),
             '--max-running-requests', '1', '--skip-tokenizer-init',
             '--chunked-prefill-size', '-1', '--disable-radix-cache',
             '--speculative-algorithm', 'DSPARK', '--enable-return-aux-hidden-states',
@@ -87,7 +87,8 @@ def launch(cp, folder):
         info = json.loads((folder / 'server-info.json').read_text())
         args = info.get('server_args', info)
         expected = {'attn_cp_size': 8 if cp else 1, 'random_seed': 20261106,
-                    'language_model_only': True, 'context_length': 16384,
+                    'language_model_only': True, 'context_length': context_length,
+                    'max_total_tokens': context_length, 'max_prefill_tokens': context_length,
                     'chunked_prefill_size': -1, 'return_hidden_states_mode': 'full',
                     'enable_decoder_swa_bounded_replay': False}
         for key, value in expected.items():
