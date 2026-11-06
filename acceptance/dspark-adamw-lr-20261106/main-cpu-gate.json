@@ -1,7 +1,7 @@
 {
   "passed": true,
   "scope": "two-rank CPU Gloo real streamed/whole trainer FSDP and AdamW differential; not GPU or 32-rank main validation",
-  "base_commit": "0ff81d9d23bd16475606405a0ec9e8f636f1a10f",
+  "base_commit": "a7cc3984",
   "torch": "2.13.0",
   "command": "PYTHONPATH=. OMP_NUM_THREADS=1 python -m torch.distributed.run --standalone --nproc_per_node=2 ops/yicloud-adamw32/fixed_gate.py --device cpu --output <output>",
   "ranks": [
@@ -65,5 +65,6 @@
         }
       ]
     }
-  ]
+  ],
+  "latest_main_cosine_config_passed": true
 }

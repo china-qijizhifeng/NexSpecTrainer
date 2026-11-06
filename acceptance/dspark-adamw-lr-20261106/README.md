@@ -30,7 +30,7 @@ Muon mixed-precision-copy fix and later capture/runtime work. Existing GPU
 receipts verify the pinned experiment snapshots, not a new full training run of
 this merge commit. The isolated running job's source and configuration are not
 modified by this merge. The branch includes no changes to optimizer algorithms,
-LR schedule implementations, library defaults or the user's concurrent WSD work.
+LR schedule implementations, library defaults or the separately merged optional WSD implementation.
 
 ## Completed BP1e-4
 
@@ -73,3 +73,9 @@ ranks, including two optimizer updates under each policy; see
 checks passed. This is separate from the existing32H200 experiment acceptance.
 Curves retain plotted step/accuracy/loss/gradient/LR fields from worker logs;
 reported `lr` is the next LR, while per-rank `lr_used` is the actual update LR.
+
+The final branch also incorporates main PR17 (optional WSD). Config validation
+confirms this recipe still selects cosine; the two-rank CPU differential was
+repeated successfully on that base. GitHub PR Test cannot start: the repository
+runner API returned zero registered runners. Its queued check is not reported
+as a pass; local checks and pinned GPU acceptance are the available evidence.
