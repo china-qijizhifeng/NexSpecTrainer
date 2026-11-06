@@ -154,6 +154,7 @@ export default defineConfig({
           text: 'Advanced Features',
           items: [
             { text: 'Customize a Training Run', link: '/advanced_features/customization' },
+            { text: 'DFlash / DSpark Training Recipes', link: '/advanced_features/specdec-training-recipes' },
           ],
         },
         {

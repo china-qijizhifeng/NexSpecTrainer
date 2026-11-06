@@ -83,7 +83,7 @@ accumulator required by SM90. Each MoE dispatch synchronizes padded counts to
 the host once; both expert GEMMs reuse them. Other GPU architectures are rejected. Keep the SGLang capture server in a separate environment.
 
 Use the offline Weaver build/assembly workflow in
-[`docker/deepseek-v41/README.md`](../docker/deepseek-v41/README.md). It builds
+[`docker/deepseek-v41/README.md`](https://github.com/china-qijizhifeng/NexSpecTrainer/blob/main/docker/deepseek-v41/README.md). It builds
 DeepGEMM commit `5081f8513af57e61696de4f4f04b0e707ffb503e` and FlashMLA
 `b7643bd54521f563b839b98289b5cd048c062ba2` against the existing Torch ABI,
 then adds the pinned TileKernels/Megatron source and TileLang/CuTe DSL overlays.
@@ -116,8 +116,8 @@ older V4 chat template. Responses from an API or HF dataset still need a local
 teacher-forcing pass to obtain hidden states.
 
 For the separate SGLang server, use the inspected revision in
-[the source notice](../NOTICE.deepseek-v41.md), with the
-[capture plugin](../plugins/sglang-spec-capture/README.md). The capture flags are:
+[the source notice](https://github.com/china-qijizhifeng/NexSpecTrainer/blob/main/NOTICE.deepseek-v41.md), with the
+[capture plugin](https://github.com/china-qijizhifeng/NexSpecTrainer/blob/main/plugins/sglang-spec-capture/README.md). The capture flags are:
 
 ```text
 --skip-tokenizer-init
