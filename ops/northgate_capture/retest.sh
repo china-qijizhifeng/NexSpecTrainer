@@ -35,4 +35,4 @@ Path(os.environ['RUN_DIR'],'environment.json').write_text(json.dumps({
  'env':{k:v for k,v in os.environ.items() if k.startswith(('SGLANG_','NORTHGATE_','MOONCAKE_','PYTORCH_'))}
 },indent=2))
 PY
-exec python3 ops/northgate_capture/retest.py
+exec python3 -m "${NORTHGATE_CAPTURE_MODULE:-ops.northgate_capture.retest}"

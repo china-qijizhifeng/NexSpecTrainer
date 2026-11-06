@@ -60,6 +60,8 @@ def stop(process):
 
 
 def launch(cp, folder):
+    if os.environ.get('NORTHGATE_CP_DIAGNOSTIC_RUN') == '1':
+        os.environ['NORTHGATE_CP_DIAGNOSTICS'] = str(folder / 'probes')
     argv = ['sglang', 'serve', '--model-path', MODEL, '--trust-remote-code',
             '--language-model-only', '--random-seed', '20261106',
             '--tp-size', '8', '--ep-size', '8', '--attention-backend', 'dsv4',
@@ -174,7 +176,7 @@ def compare(actual, reference):
     return result
 
 
-def main():
+def main(lengths=(4096, 14226), repeats=3):
     from mooncake.store import MooncakeDistributedStore
     torch.set_num_threads(8)
     assert os.environ.get('NORTHGATE_LONG_CAPTURE') == '0'
@@ -182,8 +184,8 @@ def main():
     assert len(payload['input_ids']) == len(payload['loss_mask']) == 14226
     write(ROOT / 'config.yaml', {'seed': 20261106, 'context_length': 16384,
           'model': MODEL, 'input': str(INPUT), 'input_file_sha256': hashlib.sha256(INPUT.read_bytes()).hexdigest(),
-          'variants': ['noncp-text-native', 'cp8-text-native'], 'lengths': [4096, 14226],
-          'repeats': 3, 'helpers': False, 'language_model_only': True, 'codec': 'hybrid-brotli10',
+          'variants': ['noncp-text-native', 'cp8-text-native'], 'lengths': list(lengths),
+          'repeats': repeats, 'helpers': False, 'language_model_only': True, 'codec': 'hybrid-brotli10',
           'failure_policy': 'stop at first failed comparison'})
     master_log = (ROOT / 'mooncake.log').open('x')
     master = subprocess.Popen(['mooncake_master', '--enable_http_metadata_server=true',
@@ -212,9 +214,9 @@ def main():
             state('starting', variant=folder.name)
             server, log = launch(cp, folder)
             try:
-                for n in [4096, 14226]:
+                for n in lengths:
                     first = None
-                    for repeat in range(3):
+                    for repeat in range(repeats):
                         state('capture', variant=folder.name, tokens=n, repeat=repeat)
                         values = capture(store, folder, payload, n, repeat)
                         if first is None:
@@ -235,8 +237,8 @@ def main():
                 stop(server)
                 server = None
                 log.close()
-        write(ROOT / 'RESULT.json', {'passed': True, 'captures': 12,
-              'scope': '4096 prefix and one complete 14226-token real trace; not long-input capacity'})
+        write(ROOT / 'RESULT.json', {'passed': True, 'captures': 2 * len(lengths) * repeats,
+              'lengths': list(lengths), 'scope': 'short real-trace comparison; not long-input capacity'})
         state('complete', passed=True)
     except BaseException as error:
         write(ROOT / 'REJECTED.json', {'passed': False, 'error': str(error),
