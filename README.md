@@ -1,6 +1,8 @@
 > NexSpecTrainer is a fork of SpecForge. The candidate native DeepSeek V4.1 Flash
 > strategy uses TileKernels, DeepGEMM and Megatron training kernels.
 > See [setup, recipes and validation limits](docs/deepseek-v41-native.md).
+> See also the [DFlash, DSpark and MoE training recipe reference](docs/sections/advanced_features/specdec-training-recipes.md)
+> for public hyperparameters, pinned sources and DeepSeek V4/V4.1 distinctions.
 
 <div align="center" id="sglangtop">
 <img src="./assets/logo.png" alt="logo" width="400" margin="10px"></img>

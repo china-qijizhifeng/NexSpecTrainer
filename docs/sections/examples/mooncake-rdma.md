@@ -111,7 +111,7 @@ Both decode back to the original BF16 values before normalization.
 
 ## Verified scope
 
-The [V4.1 validation record](../../validation/deepseek-v41-20261103.md) reports
+The [V4.1 validation record](https://github.com/china-qijizhifeng/NexSpecTrainer/blob/main/docs/validation/deepseek-v41-20261103.md) reports
 same-node, independent-process, CPU-buffer RDMA and real-trajectory capture.
 It does not establish cross-node RDMA, GPUDirect, convergence, throughput gains
 or strict speculative-output preservation. Keep raw tensor bytes, encoded wire

@@ -50,7 +50,7 @@ included CPU view cloning and was not isolated planner computation.
 Historical synchronous pool and writer comparisons are recorded separately;
 increasing from four to eight or sixteen writers showed only small warm-save
 differences. See exact rank receipts, parameters and limits in
-[`acceptance/nfc-fsdp-20261103/performance/`](../acceptance/nfc-fsdp-20261103/performance/).
+[`acceptance/nfc-fsdp-20261103/performance/`](https://github.com/china-qijizhifeng/NexSpecTrainer/blob/main/acceptance/nfc-fsdp-20261103/performance/README.md).
 
 ## Dependencies and verified runtime
 

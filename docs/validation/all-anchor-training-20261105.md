@@ -91,7 +91,7 @@ activation kernel was not transplanted into this different native kernel stack.
 
 Fixed settings are an opt-in experimental launch policy, not the default CLI
 configuration. The exact tested helper is retained in
-[`tests/gpu/fixed_reduction.py`](../../tests/gpu/fixed_reduction.py). It changes
+[`tests/gpu/fixed_reduction.py`](https://github.com/china-qijizhifeng/NexSpecTrainer/blob/main/tests/gpu/fixed_reduction.py). It changes
 FSDP construction process-wide and must be installed once, before wrapping any
 model. Custom kernels still prevent a bitwise-determinism guarantee.
 
