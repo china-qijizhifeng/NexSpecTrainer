@@ -58,6 +58,12 @@ def _install(result, scheduler, *args, **kwargs):
     # Raising here fails scheduler startup, unlike errors in register(), which
     # load_plugins() only logs.
     install(scheduler)
+    if os.environ.get("NORTHGATE_CP_NUMERICAL_PARITY") == "1":
+        from ops.northgate_capture import cp_numerics
+
+        scheduler._northgate_cp_numerics_restore = cp_numerics.install(
+            scheduler.tp_worker.model_runner.model
+        )
     return result
 
 

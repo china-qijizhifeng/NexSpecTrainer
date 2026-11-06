@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "tokens": 131072,
+  "repeats": 2,
+  "all_tensors_match_original_tp": true,
+  "repeat_exact": true,
+  "native_roundtrip_exact": true,
+  "codec_seconds": 403.74999874201603,
+  "file": "/mnt/work/shom/northgate-hidden-20261106-v2/runs/northgate-cp128k-mhc-ablation-8h200-20261106-v1/worker-0/captures/n131072-fixed.ckpt.hybrid",
+  "bytes": 3369155204
+}

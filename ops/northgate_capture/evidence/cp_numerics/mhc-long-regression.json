@@ -1,0 +1,343 @@
+{
+  "passed": true,
+  "fixture_sha256": "681bfcf75f668822c2e47181a3b0a184dc0f23b0ef0b9a26a4eb5c4d79a1af7e",
+  "weight": "layers.0.hc_attn_fn",
+  "weight_sha256": "3d3843475164dd6b825a4ab7f9f26f7a1afbf7a3d423e8321738a299a25d5afa",
+  "scope": "real 1784-row captured operands cyclically extended; not full-model 128K proof",
+  "baseline": "hc_mix_stats + hc_split_sinkhorn",
+  "old_cp": "BF16x3 128-row tile",
+  "records": [
+    {
+      "global_tokens": 65537,
+      "full_repeat_exact": true,
+      "shards": [
+        {
+          "rank": 0,
+          "rows": 8193,
+          "old": [
+            {
+              "different": 31636,
+              "max_abs": 1.0132789611816406e-06
+            },
+            {
+              "different": 32441,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 117229,
+              "max_abs": 2.384185791015625e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 1,
+          "rows": 8192,
+          "old": [
+            {
+              "different": 32144,
+              "max_abs": 1.0132789611816406e-06
+            },
+            {
+              "different": 32399,
+              "max_abs": 2.60770320892334e-07
+            },
+            {
+              "different": 117431,
+              "max_abs": 2.384185791015625e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 2,
+          "rows": 8192,
+          "old": [
+            {
+              "different": 31223,
+              "max_abs": 9.5367431640625e-07
+            },
+            {
+              "different": 32584,
+              "max_abs": 2.384185791015625e-07
+            },
+            {
+              "different": 117783,
+              "max_abs": 1.862645149230957e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 3,
+          "rows": 8192,
+          "old": [
+            {
+              "different": 31264,
+              "max_abs": 9.5367431640625e-07
+            },
+            {
+              "different": 32512,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 117935,
+              "max_abs": 1.7881393432617188e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 4,
+          "rows": 8192,
+          "old": [
+            {
+              "different": 31293,
+              "max_abs": 1.043081283569336e-06
+            },
+            {
+              "different": 32586,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 116776,
+              "max_abs": 1.7881393432617188e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 5,
+          "rows": 8192,
+          "old": [
+            {
+              "different": 31407,
+              "max_abs": 9.238719940185547e-07
+            },
+            {
+              "different": 32512,
+              "max_abs": 2.682209014892578e-07
+            },
+            {
+              "different": 116426,
+              "max_abs": 2.980232238769531e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 6,
+          "rows": 8192,
+          "old": [
+            {
+              "different": 31409,
+              "max_abs": 1.1324882507324219e-06
+            },
+            {
+              "different": 32694,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 115973,
+              "max_abs": 2.384185791015625e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 7,
+          "rows": 8192,
+          "old": [
+            {
+              "different": 31260,
+              "max_abs": 9.5367431640625e-07
+            },
+            {
+              "different": 32436,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 117324,
+              "max_abs": 2.980232238769531e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        }
+      ]
+    },
+    {
+      "global_tokens": 131072,
+      "full_repeat_exact": true,
+      "shards": [
+        {
+          "rank": 0,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 63259,
+              "max_abs": 1.0132789611816406e-06
+            },
+            {
+              "different": 64874,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 234448,
+              "max_abs": 2.384185791015625e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 1,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 64288,
+              "max_abs": 1.0132789611816406e-06
+            },
+            {
+              "different": 64801,
+              "max_abs": 2.60770320892334e-07
+            },
+            {
+              "different": 234874,
+              "max_abs": 2.384185791015625e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 2,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 62452,
+              "max_abs": 9.5367431640625e-07
+            },
+            {
+              "different": 65168,
+              "max_abs": 2.384185791015625e-07
+            },
+            {
+              "different": 235564,
+              "max_abs": 1.862645149230957e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 3,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 62525,
+              "max_abs": 9.5367431640625e-07
+            },
+            {
+              "different": 65022,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 235841,
+              "max_abs": 1.7881393432617188e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 4,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 62593,
+              "max_abs": 1.043081283569336e-06
+            },
+            {
+              "different": 65169,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 233571,
+              "max_abs": 1.7881393432617188e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 5,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 62815,
+              "max_abs": 9.238719940185547e-07
+            },
+            {
+              "different": 65023,
+              "max_abs": 2.682209014892578e-07
+            },
+            {
+              "different": 232835,
+              "max_abs": 2.980232238769531e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 6,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 62819,
+              "max_abs": 1.1324882507324219e-06
+            },
+            {
+              "different": 65388,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 231948,
+              "max_abs": 2.384185791015625e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        },
+        {
+          "rank": 7,
+          "rows": 16384,
+          "old": [
+            {
+              "different": 62524,
+              "max_abs": 9.5367431640625e-07
+            },
+            {
+              "different": 64873,
+              "max_abs": 2.5331974029541016e-07
+            },
+            {
+              "different": 234664,
+              "max_abs": 2.980232238769531e-07
+            }
+          ],
+          "fixed_exact": true,
+          "repeat_exact": true
+        }
+      ]
+    }
+  ]
+}
