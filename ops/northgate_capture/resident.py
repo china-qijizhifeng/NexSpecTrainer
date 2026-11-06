@@ -31,7 +31,8 @@ def main():
     if index == 0:
         retest.write(run / 'config.yaml', config)
     retest.write(root / 'config.json', {**config, 'cp_size': 8 if cp else 1})
-    payload = json.loads(retest.INPUT.read_text())
+    payload = json.loads(retest.INPUT.read_text())['input']['payload']
+    assert len(payload['input_ids']) == len(payload['loss_mask']) == 14226
     master_log = (root / 'mooncake.log').open('x')
     master = subprocess.Popen(['mooncake_master', '--enable_http_metadata_server=true',
         '--http_metadata_server_host=127.0.0.1', '--rpc_port=35551',
