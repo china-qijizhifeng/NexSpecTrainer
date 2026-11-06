@@ -76,3 +76,5 @@ NORTHGATE_HYBRID_CHUNK_SIZE=262144
 `SPECFORGE_HYBRID_NATIVE_BUCKET=1` 显式启用 [`hybrid_bucket.py`](../../../specforge/data/hybrid_bucket.py) 的C稳定计数分桶，保持上下文内字节顺序；未启用继续用NumPy。启动时先运行 `python3 -m specforge.data.hybrid_bucket`，以便在模型加载前暴露编译器问题；编译产物按源码hash和架构缓存在节点临时目录，不写冻结源。需要C编译器。开发测试覆盖全部BF16位模式、空输入、随机上下文及非法context；生产不因此恢复每条回读。
 
 显式指定压缩线程；实测容器 `os.cpu_count()` 为1，但affinity与cgroup配额均为64。保存CPU affinity、配额和codec开关到environment.json，每条新回执记录native_bucket。不要仅凭宿主机核数或慢worker耗时断言CPU争抢/NUMA原因。
+
+生产应用于64H200后，首批39条新记录中7路连续完成吞吐约1199–1350 tokens/s，压缩约1218–1386 tokens/s；另1路约578/549 tokens/s（仅2条）。说明优化已在真实链路生效，但仍有节点间差异。切换前后样本与分配节点不同，不能把跨run比值当严格受控加速比。观察最慢分片，避免用各worker不同时间窗口的速率之和直接承诺全量ETA。
