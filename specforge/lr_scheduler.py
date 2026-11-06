@@ -1,3 +1,4 @@
+import math
 from warnings import warn
 
 from torch.optim.lr_scheduler import CosineAnnealingLR as _CosineAnnealingLR
@@ -147,4 +148,80 @@ class ConstantWarmupLR(_WarmupScheduler):
         super().__init__(optimizer, warmup_steps, base_scheduler, last_epoch=last_epoch)
 
 
-__all__ = ["ConstantWarmupLR", "CosineAnnealingWarmupLR"]
+class WarmupStableDecayLR(_LRScheduler):
+    """Linear warmup, stable LR, then cosine decay to zero.
+
+    ``last_epoch`` counts completed optimizer updates. At zero the LR is
+    ``warmup_lr``; at ``warmup_steps`` it reaches ``stable_lr``. Decay starts
+    after another ``stable_steps`` updates and reaches zero at ``total_steps``.
+    Optimizer base LRs must be stable_lr times each group's LR multiplier.
+    """
+
+    def __init__(
+        self,
+        optimizer,
+        total_steps: int,
+        warmup_steps: int,
+        stable_steps: int,
+        warmup_lr: float,
+        stable_lr: float,
+        last_epoch: int = -1,
+    ):
+        for name, value in (
+            ("total_steps", total_steps),
+            ("warmup_steps", warmup_steps),
+            ("stable_steps", stable_steps),
+        ):
+            if type(value) is not int or value < 0:
+                raise ValueError(f"{name} must be a nonnegative integer")
+        if warmup_steps + stable_steps >= total_steps:
+            raise ValueError("WSD requires warmup_steps + stable_steps < total_steps")
+        if (
+            warmup_lr is None
+            or stable_lr is None
+            or not math.isfinite(warmup_lr)
+            or not math.isfinite(stable_lr)
+            or not 0 <= warmup_lr <= stable_lr
+            or stable_lr <= 0
+        ):
+            raise ValueError("WSD requires finite 0 <= warmup_lr <= stable_lr > 0")
+        self.total_steps = total_steps
+        self.warmup_steps = warmup_steps
+        self.stable_steps = stable_steps
+        self.warmup_lr = warmup_lr
+        self.stable_lr = stable_lr
+        super().__init__(optimizer, last_epoch)
+
+    def get_lr(self):
+        step = max(0, self.last_epoch)
+        decay_start = self.warmup_steps + self.stable_steps
+        if step < self.warmup_steps:
+            start = self.warmup_lr / self.stable_lr
+            factor = start + (1 - start) * step / self.warmup_steps
+        elif step < decay_start:
+            factor = 1.0
+        else:
+            progress = min(1.0, (step - decay_start) / (self.total_steps - decay_start))
+            factor = 0.5 * (1 + math.cos(math.pi * progress))
+        return [lr * factor for lr in self.base_lrs]
+
+    def validate_state_dict(self, state_dict):
+        for key in (
+            "total_steps",
+            "warmup_steps",
+            "stable_steps",
+            "warmup_lr",
+            "stable_lr",
+            "base_lrs",
+        ):
+            if state_dict.get(key) != getattr(self, key):
+                raise ValueError(f"checkpoint WSD scheduler {key} mismatch")
+
+    def load_state_dict(self, state_dict):
+        self.validate_state_dict(state_dict)
+        super().load_state_dict(state_dict)
+        for group, lr in zip(self.optimizer.param_groups, self._last_lr, strict=True):
+            group["lr"] = lr
+
+
+__all__ = ["ConstantWarmupLR", "CosineAnnealingWarmupLR", "WarmupStableDecayLR"]
