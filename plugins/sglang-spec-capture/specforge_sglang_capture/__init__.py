@@ -58,6 +58,10 @@ def _install(result, scheduler, *args, **kwargs):
     # Raising here fails scheduler startup, unlike errors in register(), which
     # load_plugins() only logs.
     install(scheduler)
+    if os.environ.get("NORTHGATE_RESIDENT_DEBUG") == "1":
+        from ops.northgate_capture.resident_control import ResidentControl
+
+        scheduler._northgate_debug = ResidentControl(scheduler)
     if os.environ.get("NORTHGATE_CP_DIAGNOSTICS"):
         from ops.northgate_capture import cp_diagnostics
 
@@ -75,6 +79,10 @@ def _install(result, scheduler, *args, **kwargs):
 def _capture_internal_state(result, scheduler, *args, **kwargs):
     """Advertise the plugin, and the writer's cleanup endpoint, through
     SGLang's /server_info (``server_capture: auto`` detects the former)."""
+    debug = getattr(scheduler, "_northgate_debug", None)
+    if debug is not None:
+        debug.poll()
+        result.internal_state['northgate_resident_debug'] = True
     runtime = getattr(scheduler, "_specforge_capture_runtime", None)
     if runtime is not None:
         result.internal_state["spec_capture_backend"] = "plugin"
