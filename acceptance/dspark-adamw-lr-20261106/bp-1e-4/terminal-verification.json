@@ -1,0 +1,385 @@
+{
+  "passed": true,
+  "ranks": [
+    {
+      "rank": 0,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1222825,
+      "target_exposures": 6099839
+    },
+    {
+      "rank": 1,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1267448,
+      "target_exposures": 6322140
+    },
+    {
+      "rank": 2,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1264656,
+      "target_exposures": 6307449
+    },
+    {
+      "rank": 3,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1238193,
+      "target_exposures": 6175251
+    },
+    {
+      "rank": 4,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1293057,
+      "target_exposures": 6449755
+    },
+    {
+      "rank": 5,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1297658,
+      "target_exposures": 6473040
+    },
+    {
+      "rank": 6,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1233581,
+      "target_exposures": 6153122
+    },
+    {
+      "rank": 7,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1259703,
+      "target_exposures": 6283489
+    },
+    {
+      "rank": 8,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1240834,
+      "target_exposures": 6188402
+    },
+    {
+      "rank": 9,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1261408,
+      "target_exposures": 6290414
+    },
+    {
+      "rank": 10,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1255764,
+      "target_exposures": 6263242
+    },
+    {
+      "rank": 11,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1273890,
+      "target_exposures": 6354520
+    },
+    {
+      "rank": 12,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1263447,
+      "target_exposures": 6301923
+    },
+    {
+      "rank": 13,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1303828,
+      "target_exposures": 6503440
+    },
+    {
+      "rank": 14,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1232067,
+      "target_exposures": 6144795
+    },
+    {
+      "rank": 15,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1241253,
+      "target_exposures": 6191311
+    },
+    {
+      "rank": 16,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1215081,
+      "target_exposures": 6060241
+    },
+    {
+      "rank": 17,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1225305,
+      "target_exposures": 6111514
+    },
+    {
+      "rank": 18,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1253302,
+      "target_exposures": 6251467
+    },
+    {
+      "rank": 19,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1208127,
+      "target_exposures": 6025608
+    },
+    {
+      "rank": 20,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1280734,
+      "target_exposures": 6388738
+    },
+    {
+      "rank": 21,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1278231,
+      "target_exposures": 6375769
+    },
+    {
+      "rank": 22,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1254058,
+      "target_exposures": 6254959
+    },
+    {
+      "rank": 23,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1245159,
+      "target_exposures": 6209535
+    },
+    {
+      "rank": 24,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1229967,
+      "target_exposures": 6133631
+    },
+    {
+      "rank": 25,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1246667,
+      "target_exposures": 6218399
+    },
+    {
+      "rank": 26,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1245563,
+      "target_exposures": 6212558
+    },
+    {
+      "rank": 27,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1256409,
+      "target_exposures": 6266646
+    },
+    {
+      "rank": 28,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1230907,
+      "target_exposures": 6139035
+    },
+    {
+      "rank": 29,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1259690,
+      "target_exposures": 6284225
+    },
+    {
+      "rank": 30,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1272212,
+      "target_exposures": 6345272
+    },
+    {
+      "rank": 31,
+      "optimizer_steps": 118,
+      "training_micro": 472,
+      "eval_micro": 20,
+      "passed": true,
+      "frozen_unchanged": true,
+      "eligible_anchors": 1246618,
+      "target_exposures": 6217394
+    }
+  ],
+  "node_exits": {
+    "0": "0",
+    "1": "0",
+    "2": "0",
+    "3": "0"
+  },
+  "platform_terminal": {
+    "time": 1793936758.7647285,
+    "job": {
+      "name": "job-d3b052f034c2-20261106043222",
+      "user_def_name": "dspark-adamw-lr1e4-32gpu-20261106-r1",
+      "status": "Completed",
+      "ready_status": "0/4",
+      "namespace": "qiji",
+      "job_creator": "linlizhi",
+      "user_gpu": 32
+    },
+    "node_exits": {
+      "0": "0",
+      "1": "0",
+      "2": "0",
+      "3": "0"
+    },
+    "result": {
+      "complete": true,
+      "global_step": 118,
+      "world_size": 32,
+      "checkpoint": "/gpfs/users/linlizhi/dspark-adamw-lr1e4-32gpu-20261106-r1/training/denovo-v41-all-anchors-step118",
+      "train_trajectories": 1326,
+      "final_checkpoint_restore_verified": false
+    }
+  },
+  "checkpoint": "/gpfs/users/linlizhi/dspark-adamw-lr1e4-32gpu-20261106-r1/training/denovo-v41-all-anchors-step118",
+  "training_state": {
+    "format": "specforge-nfc-fsdp-v1",
+    "common_sha256": "e2fa732538c425b2f18552e70d9f71feedc305e8c15996283108fafa7b092cd1",
+    "global_step": 118,
+    "run_id": "denovo-v41-all-anchors"
+  },
+  "nfc_receipt": {
+    "checkpoint_id": "/gpfs/users/linlizhi/dspark-adamw-lr1e4-32gpu-20261106-r1/training/.denovo-v41-all-anchors-step118-e192c5e98c6f4f99a4ec49ac470eaef8/nfc",
+    "metadata": {
+      "format": "specforge-nfc-fsdp-v1",
+      "step": 118
+    },
+    "schema": "nexflash-megatron-receipt",
+    "snapshot_id": "d8b4bbb3d4560d3794c9deb5ce6bea5f",
+    "training_mode": "fullft",
+    "version": 1
+  },
+  "common_sha256_verified": true,
+  "nonempty_shards": 128,
+  "shard_ranks": 32,
+  "checkpoint_restore_verified": false,
+  "last_update_time": 1793936648.4318542,
+  "elapsed_start_to_last_update_h": 7.149988764921824,
+  "median_step_s_excluding_eval_boundaries": 214.53094863891602,
+  "anchor_exposures": 40097642,
+  "target_exposures": 199997123,
+  "delete_readback": []
+}
