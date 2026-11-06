@@ -1,0 +1,47 @@
+{
+  "Name": "shom-dspark-adamw-lr2e4-32gpu-20261106-r1",
+  "Project": "fdj-infra",
+  "ZoneId": "cn-shanghai-a",
+  "QuotaGroup": "nex_bp",
+  "Priority": "9",
+  "Qos": "Guaranteed",
+  "UsePrivateMachine": true,
+  "JobType": "normal",
+  "RestartPolicy": "Never",
+  "BackoffLimit": 1,
+  "TaskSpecs": {
+    "t0": {
+      "Replicas": 4,
+      "CPU": "64",
+      "Memory": "640Gi",
+      "GPU": "8",
+      "Image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+      "PositiveTags": [
+        "feature/gpfs=yes",
+        "H200"
+      ],
+      "Command": [
+        "bash",
+        "ops/yicloud-adamw32/launch.sh"
+      ],
+      "Env": {
+        "MIGRATION_ROOT": "/mnt/work/shom/dspark-v41-denovo-migration-20261104",
+        "INPUT_ROOT": "/mnt/work/shom/dspark-muon32-20261105-r1",
+        "YICLOUD_RENDEZVOUS_NAMESPACE": "yanhang.fdj-infra",
+        "NCCL_NET": "IB",
+        "NCCL_IB_DISABLE": "0",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "MountGPFS": "gpfs://gpfs1/bp-data-pvc:/mnt/work;gpfs://gpfs1/shared-model-weight:/gpfs/shared-model-weight",
+      "RootfsSource": {
+        "Kind": "image"
+      },
+      "UpdatePolicy": "Active",
+      "RestartPolicy": "Never",
+      "MaxRunningDuration": "72h",
+      "CustomResources": {
+        "mellanox.com/mlnx_rdma": "8"
+      }
+    }
+  }
+}

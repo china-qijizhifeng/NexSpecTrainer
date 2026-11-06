@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "scope": "two-rank CPU Gloo real streamed/whole trainer FSDP and AdamW differential; not GPU or 32-rank main validation",
+  "base_commit": "0ff81d9d23bd16475606405a0ec9e8f636f1a10f",
+  "torch": "2.13.0",
+  "command": "PYTHONPATH=. OMP_NUM_THREADS=1 python -m torch.distributed.run --standalone --nproc_per_node=2 ops/yicloud-adamw32/fixed_gate.py --device cpu --output <output>",
+  "ranks": [
+    {
+      "rank": 0,
+      "passed": true,
+      "comparison": [
+        {
+          "kind": "gradient",
+          "step": 1,
+          "relative_l2": 0.001143645029515028,
+          "tolerance": 0.03
+        },
+        {
+          "kind": "gradient",
+          "step": 2,
+          "relative_l2": 0.0019445018842816353,
+          "tolerance": 0.03
+        },
+        {
+          "kind": "master_update",
+          "step": 1,
+          "relative_l2": 0.0,
+          "tolerance": 0.1
+        },
+        {
+          "kind": "master_update",
+          "step": 2,
+          "relative_l2": 0.0003298077208455652,
+          "tolerance": 0.1
+        }
+      ]
+    },
+    {
+      "rank": 1,
+      "passed": true,
+      "comparison": [
+        {
+          "kind": "gradient",
+          "step": 1,
+          "relative_l2": 0.001406399765983224,
+          "tolerance": 0.03
+        },
+        {
+          "kind": "gradient",
+          "step": 2,
+          "relative_l2": 0.0023670794907957315,
+          "tolerance": 0.03
+        },
+        {
+          "kind": "master_update",
+          "step": 1,
+          "relative_l2": 5.616162070509745e-06,
+          "tolerance": 0.1
+        },
+        {
+          "kind": "master_update",
+          "step": 2,
+          "relative_l2": 0.00030607584631070495,
+          "tolerance": 0.1
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "selected_chunk": 64,
+  "selected_gradient_checkpointing": false,
+  "selected_mode": "fixed_fp32_reduce",
+  "fsdp_reduce_dtype": "float32",
+  "controlled_determinism": true,
+  "policies": [
+    {
+      "chunk": 32,
+      "seconds": 83.13941955566406,
+      "peak_allocated_GiB": 44.13240146636963,
+      "max_loss_relative_error": 0.0,
+      "max_gradient_relative_l2": 0.001968565964176394
+    },
+    {
+      "chunk": 64,
+      "seconds": 44.07734680175781,
+      "peak_allocated_GiB": 44.316370487213135,
+      "max_loss_relative_error": 0.0002855472664013916,
+      "max_gradient_relative_l2": 0.046234375063630206
+    }
+  ],
+  "pure_training_hours_estimate": 23.116119656032986,
+  "speedup_vs_controlled32": 1.8862165168332783,
+  "speedup_vs_original32": 1.6631312241380325,
+  "scope": "same full-size second microbatch; custom kernels are not bitwise deterministic; all 8 ranks below unchanged 5% gradient L2 threshold"
+}

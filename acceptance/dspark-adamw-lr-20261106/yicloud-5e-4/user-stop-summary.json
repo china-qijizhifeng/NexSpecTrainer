@@ -1,0 +1,211 @@
+{
+  "user_requested_stop": true,
+  "job": {
+    "JobId": "j-1793931458-946720",
+    "Name": "dspark-adamw-lr5e4-3-b756ae89-74cf-44f7-8f57-f41de963f6c2",
+    "Phase": "Stopped",
+    "Message": "RJob stopped",
+    "TaskStatusCounts": {
+      "t0": {
+        "Stopped": 4
+      }
+    },
+    "CreationTime": "2026-11-06T02:17:39Z",
+    "StopTime": "2026-11-06T04:45:55Z"
+  },
+  "replicas": [
+    {
+      "ReplicaIndex": "1",
+      "TaskType": "t0",
+      "Phase": "Stopped",
+      "NodeName": "lg-cmc-gpu-0178.host.lg.shzhisuan.com",
+      "Message": null
+    },
+    {
+      "ReplicaIndex": "2",
+      "TaskType": "t0",
+      "Phase": "Stopped",
+      "NodeName": "lg-cmc-gpu-0913.host.lg.shzhisuan.com",
+      "Message": null
+    },
+    {
+      "ReplicaIndex": "0",
+      "TaskType": "t0",
+      "Phase": "Stopped",
+      "NodeName": "lg-cmc-gpu-0113.host.lg.shzhisuan.com",
+      "Message": null
+    },
+    {
+      "ReplicaIndex": "3",
+      "TaskType": "t0",
+      "Phase": "Stopped",
+      "NodeName": "lg-cmc-gpu-0288.host.lg.shzhisuan.com",
+      "Message": null
+    }
+  ],
+  "ranks": [
+    {
+      "rank": 0,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 1,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 2,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 3,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 4,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 5,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 6,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 7,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 8,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 9,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 10,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 11,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 12,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 13,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 14,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 15,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 16,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 17,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 18,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 19,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 20,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 21,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 22,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 23,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 24,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 25,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 26,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 27,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 28,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 29,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 30,
+      "steps": 39,
+      "micros": 156
+    },
+    {
+      "rank": 31,
+      "steps": 39,
+      "micros": 156
+    }
+  ],
+  "checkpoint25_retained": true,
+  "checkpoint25_shards": 128,
+  "replacement": "j-1793940402-922604"
+}
