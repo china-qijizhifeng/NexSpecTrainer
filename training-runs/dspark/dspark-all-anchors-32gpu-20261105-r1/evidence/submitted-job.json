@@ -1,0 +1,8 @@
+{
+  "name": "job-0a081d7a6923-20261105192255",
+  "alias": "dspark-all-anchors-32gpu-20261105-r1",
+  "project": "WeaverRSI",
+  "queue": "proj-32",
+  "world_size": 32,
+  "nodes": 4
+}

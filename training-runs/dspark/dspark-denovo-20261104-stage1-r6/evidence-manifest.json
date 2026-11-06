@@ -1,0 +1,38 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/RUN.md",
+    "bytes": 7521,
+    "sha256": "d51460ae476035f07844cd73e0b01b72f03a9f1187b1c3ed15f3e643913738d2"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/train.yaml",
+    "bytes": 1624,
+    "sha256": "6eb162bafa4facf3afc56142d624321de244631a4b7a0a538cb1b134f9a1b64f"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/source-provenance.json",
+    "bytes": 502,
+    "sha256": "340fff4b2e5be86ddae44e3e008df4588886e894014ee5c74363e5ebf32e6b70"
+  },
+  {
+    "file": "evidence/training-job.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/training-job.json",
+    "bytes": 229,
+    "sha256": "7387b0ab9107ee00b65aa3f07806ef21c175f22dc618c21e046696786b1d4428"
+  },
+  {
+    "file": "evidence/training-terminal.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/training-terminal.json",
+    "bytes": 231,
+    "sha256": "ccf5c27f91174e9256fb5fea5ec6085354ed79053ef90baf1429dcfd636f4d9d"
+  },
+  {
+    "file": "evidence/stage1-final-acceptance.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r6/stage1-final-acceptance.json",
+    "bytes": 4972,
+    "sha256": "436c67dafae56d0933a91a089d7877e57b4af08ae83911f968be7d4ad8e9c023"
+  }
+]

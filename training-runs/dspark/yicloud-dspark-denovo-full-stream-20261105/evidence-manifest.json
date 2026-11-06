@@ -1,0 +1,17 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105/config.yaml",
+    "bytes": 1614,
+    "sha256": "aae3c276531d24ee79a532f31d18fab428c61ae47fafe35f55853729e5365edb"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105",
+    "bytes": 1356,
+    "sha256": "16f6bfc189cc3372671bc3c23bf90d8346218d3330746439886bdab78a9c5a1f",
+    "original_archive_sha256": "ebc70c71620f407f43128dbe8d4e403999b54c44fc7e32cf44a9ae78015bd8d6",
+    "original_archive_bytes": 1355,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

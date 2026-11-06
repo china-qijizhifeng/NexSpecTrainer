@@ -1,0 +1,36 @@
+{
+  "id": "dspark-denovo-pilot8-configfix-20261105",
+  "uuid": "478c671e-2e5b-4089-9cb3-3136a5618abf",
+  "job_id": null,
+  "run_state": "prepared",
+  "created_at": "2026-11-04T16:38:04.210833+00:00",
+  "source": {
+    "commit": "2126882a9dad56b50d589bccb69ccd9c7bd2bcf4",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-2126882a"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-2126882a",
+    "argv": [
+      "bash",
+      "ops/yicloud-pilot/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 1,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-configfix-20261105",
+  "checked_at": "2026-11-06T20:56:10.923852+08:00",
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

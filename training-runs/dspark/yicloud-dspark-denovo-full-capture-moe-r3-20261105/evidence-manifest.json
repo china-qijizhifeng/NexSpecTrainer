@@ -1,0 +1,11 @@
+[
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-denovo-full-capture-moe-r3-20261105",
+    "bytes": 1106,
+    "sha256": "2ad20ccf899b8f9f631c4a7891c315880d326c9d9a6ccaf949cc824caccb7e6c",
+    "original_archive_sha256": "2397062baf436291ef4472671a4c16b0b9538897c3170478dbddc624f1b5c2dd",
+    "original_archive_bytes": 1105,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  }
+]

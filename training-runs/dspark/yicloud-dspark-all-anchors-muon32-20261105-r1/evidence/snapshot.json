@@ -1,0 +1,48 @@
+{
+  "id": "dspark-all-anchors-muon32-20261105-r1",
+  "uuid": "31e3e2fe-4e55-4642-a977-2d7b7ee5f079",
+  "job_id": "j-1793879453-84333",
+  "run_state": "verified",
+  "created_at": "2026-11-05T11:48:59.723498+00:00",
+  "source": {
+    "commit": "d5d1147074619a327d07436a50f7302d686630b9",
+    "branch": "codex/yicloud-muon32-20261105",
+    "repository": "/mnt/work/shom/dspark-muon32-20261105-r1/source"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-muon32-20261105-r1/source",
+    "argv": [
+      "bash",
+      "ops/yicloud-muon32/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 4,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r1",
+  "checked_at": "2026-11-06T20:56:06.540638+08:00",
+  "platform": {
+    "JobId": "j-1793879453-84333",
+    "Phase": "Failed",
+    "TaskStatusCounts": {
+      "t0": {
+        "Failed": 1,
+        "Stopped": 3
+      }
+    },
+    "CreationTime": "2026-11-05T11:50:53Z",
+    "StopTime": "2026-11-05T11:56:38Z"
+  },
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

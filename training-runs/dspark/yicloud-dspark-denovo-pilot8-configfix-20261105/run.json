@@ -1,0 +1,39 @@
+{
+  "id": "yicloud-dspark-denovo-pilot8-configfix-20261105",
+  "category": "训练探针",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": null,
+  "alias": "dspark-denovo-pilot8-configfix-20261105",
+  "uuid": "478c671e-2e5b-4089-9cb3-3136a5618abf",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-configfix-20261105",
+  "source": {
+    "commit": "2126882a9dad56b50d589bccb69ccd9c7bd2bcf4",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-2126882a"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-2126882a",
+    "argv": [
+      "bash",
+      "ops/yicloud-pilot/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "未提交（prepared）",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:10.923852+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "gpus": 8
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-configfix-20261105/training",
+  "notes": [
+    "未发现落盘resolved config；不得将prepared计划认作已训练。源码commit和执行入口已记录。"
+  ],
+  "evidence_manifest": "evidence-manifest.json"
+}

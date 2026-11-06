@@ -1,0 +1,17 @@
+{
+  "attempt": "r1",
+  "job": "job-9ea7585fa73d-20261105120022",
+  "formal_optimizer_steps": 0,
+  "gpu_unequal_rank_gate_passed": true,
+  "failed_gate": "native V4.1 full-chunk backward recomputation",
+  "error": "RoPE cache shape grew from [12,64] to [13,64] between first chunk forward and replay",
+  "static_scope": [
+    "DeepSeekV41DraftModel forward cache ownership",
+    "Stage checkpoint args",
+    "Attention Rotary saved tensors",
+    "all-anchor outer checkpoint closure",
+    "other persistent mutations in native model/ops"
+  ],
+  "fix": "return exact-length RoPE view on every forward/replay; cache values and model objective unchanged",
+  "regression": "CPU interleaved lengths 12/13/7/30 with checkpointed backward plus native GPU optimizer test"
+}

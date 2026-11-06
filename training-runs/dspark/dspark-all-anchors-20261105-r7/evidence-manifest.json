@@ -1,0 +1,20 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r7/RUN.md",
+    "bytes": 8909,
+    "sha256": "f7f616b60d6c80bd405846f57417b5029daa1aee8ab3cfdbfe812d9a144e3b05"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r7/train.yaml",
+    "bytes": 1639,
+    "sha256": "582f0acd8e59871891f5a61a793310df7d4be844f0b7577f10adb47c3b5fd0ec"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r7/source-provenance.json",
+    "bytes": 181736,
+    "sha256": "d7d8a32f5d60b36a7884be5f6c77edf38289a87c64fcbc90aa3190f8b96c9ad0"
+  }
+]

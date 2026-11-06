@@ -1,0 +1,26 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r3/RUN.md",
+    "bytes": 4617,
+    "sha256": "48560cd07f3f7f96e527165a0570f8ee068aeb4759b39d28fdf5f6afe3632373"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r3/train.yaml",
+    "bytes": 1624,
+    "sha256": "b5c9aec0bff15695f6b86b64b2a2541e1256562ae5eb1f3c02434483a7668e35"
+  },
+  {
+    "file": "evidence/training-job.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r3/training-job.json",
+    "bytes": 229,
+    "sha256": "b892fb73e28978e9637c535c1d80819d845866116ac19d2fa9736a4a044a793d"
+  },
+  {
+    "file": "evidence/training-collective-failure.json",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r3/training-collective-failure.json",
+    "bytes": 4956,
+    "sha256": "700f719b6f8a27ec9411cd2c707bd21e53e461762ecd436373c2d9013018d901"
+  }
+]

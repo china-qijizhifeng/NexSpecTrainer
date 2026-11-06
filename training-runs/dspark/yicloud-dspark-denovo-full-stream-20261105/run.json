@@ -1,0 +1,52 @@
+{
+  "id": "yicloud-dspark-denovo-full-stream-20261105",
+  "category": "训练",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793832865-45312",
+  "alias": "dspark-denovo-full-stream-20261105",
+  "uuid": "56979481-48f0-48d4-a420-e4ea8e53fca5",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105",
+  "source": {
+    "commit": "95a0d4d0d103f825fcda1834a61af2fc21650f8e",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-stream-95a0d4d0"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-stream-95a0d4d0",
+    "argv": [
+      "bash",
+      "ops/yicloud-stream/launch_train.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "已停止",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:08.566986+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 1e-05,
+    "epochs": 1,
+    "max_steps": 796,
+    "total_steps": 796,
+    "gpus": 8,
+    "micro_batch": 1,
+    "accumulation_steps": 16,
+    "global_batch": 128,
+    "anchor_sampling": "config default",
+    "anchor_chunk": null,
+    "seed": 42,
+    "eval_interval": 796,
+    "save_interval": 100,
+    "feature_path": "/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105/stream/train",
+    "validation_feature_path": "/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105/stream/validation"
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-full-stream-20261105/training",
+  "notes": [],
+  "evidence_manifest": "evidence-manifest.json"
+}

@@ -1,0 +1,9 @@
+{
+  "attempt": "r3",
+  "job": "job-0155ac7d3123-20261105122251",
+  "formal_optimizer_steps": 0,
+  "phase": "first backward",
+  "error": "CUDA OOM allocating 720 MiB expert FP32 workspace; 67.83 GiB live and 9.00 GiB reserved but unallocated; 696.94 MiB driver free",
+  "deleted_and_readback_absent": true,
+  "next_repair": "Reduce FSDP gradients each microbatch; use expandable allocator segments; preserve accumulation and optimizer boundaries."
+}

@@ -1,0 +1,30 @@
+{
+  "id": "dspark-native-mtp-all-eval-20261106-r1",
+  "category": "评测",
+  "platform": "BP / H100",
+  "host": "linlizhi-bp-dev",
+  "job_id": "job-0828a6b23265-20261106185151",
+  "alias": "dspark-native-mtp-all-eval-20261106-r1",
+  "uuid": null,
+  "local_source": "/Users/shom/Downloads/dspark-native-mtp-all-eval-20261106-r1",
+  "remote_root": "/gpfs/users/linlizhi/dspark-native-mtp-all-eval-20261106-r1",
+  "status": "评测结果已验收；平台Failed",
+  "status_evidence": "evidence/FINAL.md",
+  "checked_at": null,
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "gpus": 8,
+    "max_steps": 0
+  },
+  "completed_steps": 0,
+  "latest_eval": {
+    "step": 0,
+    "accuracy": 0.774319,
+    "loss": 0.94442
+  },
+  "notes": [
+    "GPU评测完成后CPU汇总因ID命名空间失败；CPU修复重算通过。8卡前向重建32rank权重，非32卡逐位复现。"
+  ],
+  "checkpoint_root": null,
+  "evidence_manifest": "evidence-manifest.json"
+}

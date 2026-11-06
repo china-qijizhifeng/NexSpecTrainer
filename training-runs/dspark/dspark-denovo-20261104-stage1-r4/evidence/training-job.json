@@ -1,0 +1,9 @@
+{
+  "name": "job-7fd88bb2852e-20261104054920",
+  "user_def_name": "denovo-specforge-stage1-train-20261104-r4",
+  "status": "Pending",
+  "ready_status": "0/1",
+  "namespace": "qiji",
+  "job_creator": "linlizhi",
+  "user_gpu": 8
+}

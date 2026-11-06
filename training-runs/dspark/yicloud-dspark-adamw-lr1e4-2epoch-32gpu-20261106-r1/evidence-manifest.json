@@ -1,0 +1,29 @@
+[
+  {
+    "file": "config/0-config.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/config.yaml",
+    "bytes": 4762,
+    "sha256": "454ca0a8efd966b2a85784969bdef2d7978424c76f25070ea2b2b3e18d98f59c"
+  },
+  {
+    "file": "config/1-recipe.yaml",
+    "source": "yicloud-dev:/mnt/work/shom/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/source/ops/yicloud-adamw32/recipe.yaml",
+    "bytes": 1678,
+    "sha256": "21c1c18e924fd44c9cff4d29ae73eb67de3575f552efb5349b7c1f85b2e9103b"
+  },
+  {
+    "file": "evidence/snapshot.json",
+    "source": "yicloud-dev:/mnt/work/shom/training_runs/dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1",
+    "bytes": 42351,
+    "sha256": "aea54c2c1773ccf3137407825100f5e072e6acd9d2c5f9e309faf791422d296f",
+    "original_archive_sha256": "c4d947742ca67aa3110bd6118cf1ef4dafe33523980d713308420083d9982023",
+    "original_archive_bytes": 42350,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  },
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/yicloud-dspark-adamw-lr1e4-2epoch-32gpu-20261106-r1/RUN.md",
+    "bytes": 1277,
+    "sha256": "157ad81b09afc0e846c872e4f46bfc5cb3ad3c6875dcdfac9454b6a6206fa0e8"
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "id": "dspark-denovo-full-epoch-moe-r3-20261105",
+  "uuid": "dceb5547-8608-4aef-9f02-9f18f40d691a",
+  "job_id": null,
+  "run_state": "prepared",
+  "created_at": "2026-11-04T18:47:42.872130+00:00",
+  "source": {
+    "commit": "ef6dddf069d752b939206cec46ece51372a3fec9",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-full-ef6dddf0"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-full-ef6dddf0",
+    "argv": [
+      "bash",
+      "ops/yicloud-full/launch_train.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 1,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-full-epoch-moe-r3-20261105",
+  "checked_at": "2026-11-06T20:56:08.287896+08:00",
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

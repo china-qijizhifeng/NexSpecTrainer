@@ -1,0 +1,8 @@
+{
+  "attempt": "r4",
+  "job": "job-8f055928e871-20261105123926",
+  "first_formal_backward": "passed on all eight ranks",
+  "formal_optimizer_steps": 0,
+  "failure": "second microbatch backward: allocating 8.50 GiB; 71.22 GiB live, 142 MiB reserved unused; driver free 6.15 GiB",
+  "diagnosis": "Fragmentation fixed. Live memory peak still too high with prior sharded gradients, full expert parameters, recompute activations and speculative FSDP prefetch. Disable speculative gathers and shrink computation chunks (not coverage)."
+}

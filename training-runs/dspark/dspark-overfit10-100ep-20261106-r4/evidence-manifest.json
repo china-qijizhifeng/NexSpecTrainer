@@ -1,0 +1,50 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/RUN.md",
+    "bytes": 1862,
+    "sha256": "8f5a2c52cbb5aca9be2c74c2d8f614a2be5b0e8486b544371e4ae981b250fe0a"
+  },
+  {
+    "file": "evidence/FINAL.md",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/FINAL.md",
+    "bytes": 3273,
+    "sha256": "1fa2f64f38d27afe9f7ca1d58392071bb7cb88cf10d11024f6969cdfc5a7257f"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/train.yaml",
+    "bytes": 1635,
+    "sha256": "7768c84ff281b7592102ce5e236bb422eadcc199c8af5fd8048382d5b228aca4"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/submitted-job.json",
+    "bytes": 99,
+    "sha256": "1c4d9def51b0370f43a4ed09f45d466acb94c157cc001c75e8e7fab39f4d6663"
+  },
+  {
+    "file": "evidence/job-identity.json",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/job-identity.json",
+    "bytes": 137,
+    "sha256": "bcdc836ad9a4ee7e6bc89a687d7c5ed3a118f3120f5bd90d4661e9c5fba7193b"
+  },
+  {
+    "file": "evidence/final-verification.json",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/final-verification.json",
+    "bytes": 1120,
+    "sha256": "95e9dedca3da550e5e435aa321775148355174505029ab540742ac9418aa3506"
+  },
+  {
+    "file": "evidence/RESULT.json",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/RESULT.json",
+    "bytes": 34925,
+    "sha256": "6bd1891bd7e46b355e1f05d2178407e04de91195da3ecc59c0dd9b18b184a792"
+  },
+  {
+    "file": "evidence/result.json",
+    "source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4/result.json",
+    "bytes": 34925,
+    "sha256": "6bd1891bd7e46b355e1f05d2178407e04de91195da3ecc59c0dd9b18b184a792"
+  }
+]

@@ -1,0 +1,54 @@
+model:
+  target_model_path: /gpfs/users/linlizhi/models/huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
+  draft_model_config: /gpfs/users/linlizhi/dspark-all-anchors-32gpu-20261105-r1/draft-config.json
+  target_backend: sglang
+  embedding_key: embed.weight
+  lm_head_key: head.weight
+  torch_dtype: bfloat16
+  use_liger_kernel: false
+data:
+  hidden_states_path: /gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6/train-features
+  max_length: 4096
+  cache_dir: /gpfs/users/linlizhi/dspark-all-anchors-32gpu-20261105-r1/cache/train
+  dataloader_num_workers: 2
+  eval_hidden_states_path: /gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r6/validation-features
+training:
+  nfc_checkpoint:
+    max_shared_memory_bytes: 34359738368
+    pipeline_max_inflight_bytes: 34359738368
+  strategy: deepseek_v41
+  fsdp_sharding: FULL_SHARD
+  optimizer_cpu_offload: true
+  batch_size: 1
+  accumulation_steps: 4
+  num_epochs: 1
+  learning_rate: 1.0e-05
+  warmup_ratio: 0.03
+  max_grad_norm: 1.0
+  attention_backend: megatron_csa
+  num_anchors: 32
+  objective_chunk_blocks: 8
+  objective_checkpointing: true
+  loss_decay_gamma: 4.0
+  dspark_ce_loss_alpha: 0.1
+  dspark_l1_loss_alpha: 0.9
+  dspark_confidence_head_alpha: 1.0
+  save_interval: 25
+  log_interval: 1
+  dist_timeout: 30
+  seed: 42
+  max_steps: 118
+  total_steps: 118
+  max_checkpoints: 1
+  eval_interval: 25
+  anchor_sampling: all
+  anchor_forward_chunk_blocks: 64
+run_id: denovo-v41-all-anchors
+output_dir: /gpfs/users/linlizhi/dspark-all-anchors-32gpu-20261105-r1/training
+deployment:
+  mode: local_colocated
+  trainer:
+    nnodes: 4
+    nproc_per_node: 8
+    master_addr: trainer-0
+    master_port: 29753

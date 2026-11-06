@@ -1,0 +1,32 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r1/RUN.md",
+    "bytes": 2113,
+    "sha256": "6ce12616c29c00f760df959abfb4f578d75fc1ee386e7b4399319d204b9f4937"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r1/train.yaml",
+    "bytes": 1776,
+    "sha256": "06e0deb0c2f0060b88b29043323bfaa9dd0503365d4902ba4dc7ea28352c4527"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r1/source-provenance.json",
+    "bytes": 183420,
+    "sha256": "9bd8b4c35829e90481ad6086aa9b72e5b84fd4e4ca65a82794bd5f3689ab7ee4"
+  },
+  {
+    "file": "evidence/runtime-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r1/runtime-provenance.json",
+    "bytes": 1087,
+    "sha256": "13a6482859d4c1379e41445f0e2dab6517f800a1c7b3c0dc91fdc8187583cb29"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-muon-20261105-r1/submitted-job.json",
+    "bytes": 131,
+    "sha256": "7182c9d021b95426ea316d761dd34b5d4b9eceaeb940ba73dde72e4cca9ba771"
+  }
+]

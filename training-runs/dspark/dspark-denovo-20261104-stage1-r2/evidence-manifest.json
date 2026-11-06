@@ -1,0 +1,14 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r2/RUN.md",
+    "bytes": 4110,
+    "sha256": "38674f17e10ad4b0121c21eae9816ffa943f1dc806ce3ed0913da47df6150b45"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1-r2/train.yaml",
+    "bytes": 1624,
+    "sha256": "0c5723a7bea3b4cba6cea383a6989aa7438a6c36fea5ca8d52317edfc8238671"
+  }
+]

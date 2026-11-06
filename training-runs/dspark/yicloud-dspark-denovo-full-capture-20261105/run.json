@@ -1,0 +1,39 @@
+{
+  "id": "yicloud-dspark-denovo-full-capture-20261105",
+  "category": "数据采集",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": null,
+  "alias": "dspark-denovo-full-capture-20261105",
+  "uuid": "726a4d39-5490-44f8-b1a3-19b595952e99",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-full-capture-20261105",
+  "source": {
+    "commit": "268e133ec089d8191810241f70572d65dcf3ca85",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-full-268e133e"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-full-268e133e",
+    "argv": [
+      "bash",
+      "ops/yicloud-full/launch_capture.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+    "workload_kind": "training"
+  },
+  "status": "未提交（prepared）",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:07.649128+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "gpus": 32
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-full-capture-20261105/training",
+  "notes": [
+    "未发现落盘resolved config；不得将prepared计划认作已训练。源码commit和执行入口已记录。"
+  ],
+  "evidence_manifest": "evidence-manifest.json"
+}

@@ -1,0 +1,39 @@
+{
+  "id": "yicloud-dspark-denovo-pilot8-20261105",
+  "category": "训练探针",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793809241-735498",
+  "alias": "dspark-denovo-pilot8-20261105",
+  "uuid": "7e25e9ef-aa07-44a6-898b-4b5019f5b37e",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-20261105",
+  "source": {
+    "commit": "74e295b3b87c25bf679f518c8f7414f87a31b556",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-74e295b3"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-74e295b3",
+    "argv": [
+      "bash",
+      "ops/yicloud-pilot/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "已停止",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:10.387327+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "gpus": 8
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-20261105/training",
+  "notes": [
+    "未发现落盘resolved config；不得将prepared计划认作已训练。源码commit和执行入口已记录。"
+  ],
+  "evidence_manifest": "evidence-manifest.json"
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr5e4-32gpu-20261106-r1/RUN.md",
+    "bytes": 430,
+    "sha256": "e747a28cd0a2099b8131a4878837717d6041e400d3cb9f7423ec243c40b68575"
+  },
+  {
+    "file": "evidence/MIGRATED.md",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr5e4-32gpu-20261106-r1/MIGRATED.md",
+    "bytes": 429,
+    "sha256": "e855f4512a943aa8cca24f7a5663a0bcbccef94c3c26b4979c212ee1e460a524"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr5e4-32gpu-20261106-r1/train.yaml",
+    "bytes": 1678,
+    "sha256": "481afbe5bfa2ac2ff96f24e8ca0ead8e38587ac57975c309a65c23e02283680a"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr5e4-32gpu-20261106-r1/source-provenance.json",
+    "bytes": 182116,
+    "sha256": "7cb60dc0303d3b3343ad444bebb35a84008ecfb6738de2e4fcc06a88e9d4c66b"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr5e4-32gpu-20261106-r1/submitted-job.json",
+    "bytes": 176,
+    "sha256": "97f17327fbf2c74a98145724a360fab4073e3adb0c069fcc2f62464943e5aa85",
+    "original_archive_sha256": "3f794ed656fd3ffbb05887795b11afb62f282bb1783b697fcacad6c4c537350c",
+    "original_archive_bytes": 175,
+    "normalization": "Exactly one trailing newline, required by repository pre-commit hook."
+  },
+  {
+    "file": "evidence/migration-cancel-response.json",
+    "source": "/Users/shom/Downloads/dspark-adamw-lr5e4-32gpu-20261106-r1/migration-cancel-response.json",
+    "bytes": 124,
+    "sha256": "9245b940f7ef76ae455135ecf735701d4bb1b9896b08750d32de5da9fb6585cb"
+  }
+]

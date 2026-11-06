@@ -1,0 +1,11 @@
+{
+  "source_commit": "e925d251e9eece36339b3bc2a888ad19e15727ef",
+  "base_commit": "952e70c3e8109e5295436141b6c6336897448bc2",
+  "archive_sha256": "4c3b4c5a5b0dfc90b2258a2adc4dcf42123a0555a0f4e561755ef727ff6c2462",
+  "source_independent": true,
+  "capture_reused_from": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r4",
+  "omitted_documentation_links": [
+    "docs/web/data"
+  ],
+  "formal_config_change": "run paths only; extra early cap/save/resume at step1 retains total_steps118"
+}

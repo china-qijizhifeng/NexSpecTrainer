@@ -1,0 +1,1 @@
+User-requested stop2026-11-06 12:45:55 Beijing. All32 ranks39 steps/156 completed train micros;4 replicasStopped. Checkpoint25 retained with128 shards. Replacement2e-4 starts fresh on32H200,job j-1793940402-922604. See user-stop-summary.json and curves.json for retained evidence. Do not restart or treat expected absent/Stopped as failure.

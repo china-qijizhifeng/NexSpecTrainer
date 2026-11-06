@@ -1,0 +1,14 @@
+{
+  "source_commit": "952e70c3e8109e5295436141b6c6336897448bc2",
+  "base_commit": "66f0cfd81443a6481232d8fdf7b4abaa7c1f63b7",
+  "archive_sha256": "9eca5279027050ce90619bbe004300344a2ffb7f146727c6a1294023f8528012",
+  "capture_reused_from": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r3",
+  "source_independent": true,
+  "omitted_documentation_links": [
+    "docs/web/data"
+  ],
+  "config_changes": [
+    "run paths only; original training hyperparameters unchanged"
+  ],
+  "fix": "pad masked anchor slots to configured budget; all valid anchors and all input features retained"
+}

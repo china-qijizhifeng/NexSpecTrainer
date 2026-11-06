@@ -1,0 +1,60 @@
+{
+  "id": "dspark-denovo-tuned-train-20261105",
+  "uuid": "2612a903-4aa8-4afd-be90-72f9caa4e064",
+  "job_id": "j-1793850195-756982",
+  "run_state": "verified",
+  "created_at": "2026-11-05T03:25:37.484398+00:00",
+  "source": {
+    "commit": "e56f5fbd0834ea0e73f699f69a903f57781a595d",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105",
+    "argv": [
+      "bash",
+      "ops/yicloud-tuned/launch_train.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "topology": [
+    {
+      "Replicas": 1,
+      "GPU": "8",
+      "CPU": "64",
+      "Memory": "640Gi"
+    }
+  ],
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-tuned-train-20261105",
+  "checked_at": "2026-11-06T20:56:11.930847+08:00",
+  "platform": {
+    "JobId": "j-1793850195-756982",
+    "Phase": "Succeeded",
+    "TaskStatusCounts": {
+      "t0": {
+        "Succeeded": 1
+      }
+    },
+    "CreationTime": "2026-11-05T03:43:15Z",
+    "StopTime": "2026-11-05T06:06:35Z"
+  },
+  "RESULT.json": {
+    "passed": true,
+    "global_step": 796,
+    "world_size": 8,
+    "checkpoint": "/mnt/work/shom/training_runs/dspark-denovo-tuned-train-20261105/training/yicloud-denovo-full-stream-step796",
+    "checkpoint_bytes": 199168061846,
+    "all_train_windows_consumed": true,
+    "train_trajectories": 4188,
+    "validation_trajectories": 241,
+    "test_heldout": 247,
+    "full_epoch": true,
+    "final_checkpoint_restore_verified": false
+  },
+  "ranks": [],
+  "curves": {
+    "eval": [],
+    "train": []
+  }
+}

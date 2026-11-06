@@ -1,0 +1,67 @@
+{
+  "id": "yicloud-dspark-all-anchors-muon32-20261105-r2",
+  "category": "训练",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793880042-617264",
+  "alias": "dspark-all-anchors-muon32-20261105-r2",
+  "uuid": "69e9394b-b815-47d2-b4b3-111784cd0d56",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-muon32-20261105-r1",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r2",
+  "source": {
+    "commit": "3966a11f345c8fb42b43dfe51e86ec74693deb1d",
+    "branch": "codex/yicloud-muon32-r2-20261105",
+    "repository": "/mnt/work/shom/dspark-muon32-20261105-r1/source-r2"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-muon32-20261105-r1/source-r2",
+    "argv": [
+      "bash",
+      "ops/yicloud-muon32/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "已完成（结果passed）",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:06.783262+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "v41_flash_muon",
+    "learning_rate": 1e-05,
+    "epochs": 1,
+    "max_steps": 118,
+    "total_steps": 118,
+    "gpus": 32,
+    "micro_batch": 1,
+    "accumulation_steps": 4,
+    "global_batch": 128,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 25,
+    "save_interval": 25,
+    "feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/train-features",
+    "validation_feature_path": "/mnt/work/shom/dspark-muon32-20261105-r1/validation-features"
+  },
+  "completed_steps": 118,
+  "latest_eval": {
+    "step": 100,
+    "loss": 0.928088360990563,
+    "accuracy": 0.7772910056175979
+  },
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r2/training",
+  "notes": [],
+  "result_summary": {
+    "passed": true,
+    "optimizer": "v41_flash_muon",
+    "optimizer_steps": 118,
+    "world_size": 32,
+    "train_traces": 1326,
+    "validation_traces": 17,
+    "checkpoint": "/mnt/work/shom/training_runs/dspark-all-anchors-muon32-20261105-r2/training/yicloud-all-anchors-muon32-step118",
+    "checkpoint_restore_verified": false,
+    "model_quality_improvement_verified": false
+  },
+  "evidence_manifest": "evidence-manifest.json"
+}

@@ -1,0 +1,24 @@
+{
+  "passed": true,
+  "ranks": 8,
+  "steps_per_rank": 200,
+  "real_sample_consumptions": {
+    "18a425e08253c9318002ddc93e87e15d15da8785096c506d5c2fcc7c94999c56": 100,
+    "3756f215c0cc8be9c51594dbff9938a65ce2a30cf34ecc2f48c3a6e50393d274": 100,
+    "0f3d5127f79bf69c297bb57862acd6d99ec58c919155dbe129d328fd5bf0048b": 100,
+    "d1acf3afd81db671d5d400847a7d0df39871846525db40290db7c6cf4d2772ee": 100,
+    "701502e6d4952d1bd8f3d44c335589d6e8e07c5c4c2fc74de9ecbef2199cf1a4": 100,
+    "1fbb031acf53029036d677cceaa06b98703ebbd506d09dd5153882f175aff1c7": 100,
+    "c9836095578649f4b93545ef795f2fa817aee9b14394f76f35b9ddba39f84b46": 100,
+    "c46d529a3cbb81b7bb78541155705751c2b30a581885b6bdf6c8172799bbe0aa": 100,
+    "284a5b37d25824096e80c6ca4e848282219689381c514202d0f3677dc29519b8": 100,
+    "386d26f7f9ee4d7abce73e3001a769064677d15ba85af44c2002d84f96415e24": 100
+  },
+  "padding_microbatches": 600,
+  "evaluations": 21,
+  "peak_allocated_gib": 44.31611204147339,
+  "elapsed_seconds_to_last_update": 2626.45512342453,
+  "loss_grad_finite": true,
+  "padding_zero_loss_and_exposures": true,
+  "zero_duplicate_anchors": true
+}

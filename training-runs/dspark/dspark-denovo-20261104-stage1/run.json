@@ -1,0 +1,41 @@
+{
+  "id": "dspark-denovo-20261104-stage1",
+  "category": "训练",
+  "platform": "BP / H100",
+  "host": "linlizhi-bp-dev",
+  "job_id": null,
+  "alias": "dspark-denovo-20261104-stage1",
+  "uuid": null,
+  "local_source": "/Users/shom/Downloads/dspark-denovo-20261104-stage1",
+  "remote_root": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r1",
+  "status": "历史记录，终态未核验",
+  "status_evidence": "local historical receipts",
+  "checked_at": null,
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 1e-05,
+    "epochs": 1,
+    "max_steps": 118,
+    "total_steps": 118,
+    "gpus": 8,
+    "micro_batch": 1,
+    "accumulation_steps": 16,
+    "global_batch": 128,
+    "anchor_sampling": "config default",
+    "anchor_chunk": null,
+    "seed": 42,
+    "eval_interval": 25,
+    "save_interval": 25,
+    "feature_path": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r1/train-features",
+    "validation_feature_path": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r1/validation-features"
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "notes": [
+    "本地仅有计划/采集阶段材料，未找到正式training Job ID；不能认定训练已提交。"
+  ],
+  "checkpoint_root": "/gpfs/users/linlizhi/dspark-denovo-specforge-stage1-20261104-r1/training",
+  "source_provenance": null,
+  "evidence_manifest": "evidence-manifest.json"
+}

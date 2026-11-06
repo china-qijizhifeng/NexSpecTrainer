@@ -1,0 +1,45 @@
+{
+  "id": "dspark-overfit10-100ep-20261106-r4",
+  "category": "过拟合实验",
+  "platform": "BP / H100",
+  "host": "linlizhi-bp-dev",
+  "job_id": "job-01c79ce0f5e7-20261106162729",
+  "alias": "dspark-overfit10-100ep-20261106-r4",
+  "uuid": null,
+  "local_source": "/Users/shom/Downloads/dspark-overfit10-100ep-20261106-r4",
+  "remote_root": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r4",
+  "status": "已完成（历史验收）",
+  "status_evidence": "evidence/FINAL.md",
+  "checked_at": null,
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 0.0001,
+    "epochs": 100,
+    "max_steps": 200,
+    "total_steps": 200,
+    "gpus": 8,
+    "micro_batch": 1,
+    "accumulation_steps": 1,
+    "global_batch": 8,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 10,
+    "save_interval": 100,
+    "feature_path": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r4/features",
+    "validation_feature_path": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r4/features"
+  },
+  "completed_steps": 200,
+  "latest_eval": {
+    "step": 200,
+    "accuracy": 0.9715498938428875,
+    "loss": 0.027147766799524166
+  },
+  "notes": [
+    "Global batch=8表示8个计算槽位；每epoch两步合计10个真实样本+6个零监督padding槽位，不是16个真实样本。"
+  ],
+  "checkpoint_root": "/gpfs/users/linlizhi/dspark-overfit10-100ep-20261106-r4/training",
+  "source_provenance": null,
+  "evidence_manifest": "evidence-manifest.json"
+}

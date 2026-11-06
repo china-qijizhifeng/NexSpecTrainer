@@ -1,0 +1,9 @@
+# 10-sample, 100-epoch DSpark overfit run (8 GPUs)
+
+User explicitly requested 8 GPUs, replacing stopped five-GPU job job-5c54beb13e96-20261106162221.
+Same ten first <=4096-token windows from ten distinct DeNovo traces; same native DeepSeek V4.1 MTP initialization, AdamW LR1e-4 and losses. No fine-tuned checkpoint resume.
+Eight H100, FULL_SHARD, CPU optimizer offload, gradient checkpointing, all legal anchors/chunk64, FP32 reduction. Project WeaverRSI/queue proj-32, pinned v1.14.92 image.
+Each epoch has 10 real samples and 6 zero-supervision slots; 16 slots divide evenly across 8 ranks with no distributed sampler replication. Padding slots retain valid input features for collective scheduling but the experiment wrapper zeroes their loss masks before any model call. Existing exhaustive-anchor logic supports empty ranks and globally synchronizes all forward chunks. Padding must produce exactly zero loss, zero selected anchors and zero target exposures. It is excluded from evaluation and consumption counts. At least two real samples occur in each global microbatch because there are only six padding slots.
+Two optimizer updates/epoch, 100 epochs, 200 updates; each real sample globally consumed exactly100 times; exactly600 padding microbatches globally. Baseline + evaluation every5 epochs (10 updates), checkpoints at epochs50/100. Full-set objective computed from additive CE/L1/confidence numerators and denominators, avoiding per-micro denominator weighting artifacts; legacy evaluator loss also retained.
+Criterion: same-set hard-label accuracy >=99%; report offline walk/position metrics separately. No live SGLang serving acceptance claim. Features were reused, not regenerated at temperature0.
+Communication fix verified by real failing/passing collective regression: NCCL_NET_PLUGIN=none; no RDMA devices required on this single-node job.

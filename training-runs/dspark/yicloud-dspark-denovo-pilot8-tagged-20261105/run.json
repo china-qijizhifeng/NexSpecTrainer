@@ -1,0 +1,52 @@
+{
+  "id": "yicloud-dspark-denovo-pilot8-tagged-20261105",
+  "category": "训练探针",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793809619-163703",
+  "alias": "dspark-denovo-pilot8-tagged-20261105",
+  "uuid": "ca85d824-e346-47ef-8ec1-ec221df9dc5f",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-tagged-20261105",
+  "source": {
+    "commit": "74e295b3b87c25bf679f518c8f7414f87a31b556",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-74e295b3"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-pilot-74e295b3",
+    "argv": [
+      "bash",
+      "ops/yicloud-pilot/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "失败",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:11.382712+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 1e-05,
+    "epochs": 4,
+    "max_steps": 3,
+    "total_steps": 3,
+    "gpus": 8,
+    "micro_batch": 1,
+    "accumulation_steps": 1,
+    "global_batch": 8,
+    "anchor_sampling": "config default",
+    "anchor_chunk": null,
+    "seed": 42,
+    "eval_interval": 0,
+    "save_interval": 0,
+    "feature_path": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/pilot-features/train",
+    "validation_feature_path": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/pilot-features/validation"
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-pilot8-tagged-20261105/training",
+  "notes": [],
+  "evidence_manifest": "evidence-manifest.json"
+}

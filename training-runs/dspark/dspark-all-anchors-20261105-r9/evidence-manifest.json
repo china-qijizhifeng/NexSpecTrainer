@@ -1,0 +1,44 @@
+[
+  {
+    "file": "evidence/RUN.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r9/RUN.md",
+    "bytes": 1997,
+    "sha256": "1bd0afce66a9b4fb572218db7a74c12618923ff4c66e56404ac3365ac86b5d3a"
+  },
+  {
+    "file": "evidence/RESULT.md",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r9/RESULT.md",
+    "bytes": 3295,
+    "sha256": "b404cb7444de51b11cfa4168206a5641a0ed50323f4e59cecfb2e15a23aaa47f"
+  },
+  {
+    "file": "evidence/train.yaml",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r9/train.yaml",
+    "bytes": 1612,
+    "sha256": "13aac0fcf0aa6a6d4583ec42100ae422e8c143ee63dd13758a5c84633fa4a2e4"
+  },
+  {
+    "file": "evidence/source-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r9/source-provenance.json",
+    "bytes": 182116,
+    "sha256": "7cb60dc0303d3b3343ad444bebb35a84008ecfb6738de2e4fcc06a88e9d4c66b"
+  },
+  {
+    "file": "evidence/runtime-provenance.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r9/runtime-provenance.json",
+    "bytes": 719,
+    "sha256": "6b46cf9975e4a54d62c9d04a13e7024437d6a61e028bf33e77c12949d2e49098"
+  },
+  {
+    "file": "evidence/submitted-job.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r9/submitted-job.json",
+    "bytes": 126,
+    "sha256": "40ab367a2725eed12ad92417a7bb70e675997510f8c96f9a6dbf2fbd8e30032f"
+  },
+  {
+    "file": "evidence/user-requested-restart.json",
+    "source": "/Users/shom/Downloads/dspark-all-anchors-20261105-r9/user-requested-restart.json",
+    "bytes": 3241,
+    "sha256": "1d06f4fc6aba78b54be645c2d7bcc9ad2dd0d18d84914ff77916bad273d17d27"
+  }
+]

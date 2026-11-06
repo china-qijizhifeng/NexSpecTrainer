@@ -1,0 +1,113 @@
+{
+  "time": 1793877736.1484652,
+  "reason": "user requested AdamW restart on 32 GPUs from same initialization",
+  "old_job": "job-7b468f7cfd17-20261105162116",
+  "replacement_alias": "dspark-all-anchors-32gpu-20261105-r1",
+  "latest_steps": [
+    {
+      "rank": 0,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 605832,
+      "target_exposures": 3021916,
+      "start_time": 1793867038.0452635,
+      "time": 1793877325.2570882,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    },
+    {
+      "rank": 1,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 593743,
+      "target_exposures": 2961442,
+      "start_time": 1793867038.0583606,
+      "time": 1793877325.575817,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    },
+    {
+      "rank": 2,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 574826,
+      "target_exposures": 2867063,
+      "start_time": 1793867038.0716934,
+      "time": 1793877325.9221463,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    },
+    {
+      "rank": 3,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 594104,
+      "target_exposures": 2963240,
+      "start_time": 1793867038.167591,
+      "time": 1793877325.5703967,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    },
+    {
+      "rank": 4,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 612367,
+      "target_exposures": 3055147,
+      "start_time": 1793867038.3744464,
+      "time": 1793877326.2188582,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    },
+    {
+      "rank": 5,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 607186,
+      "target_exposures": 3028690,
+      "start_time": 1793867038.013427,
+      "time": 1793877325.4602475,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    },
+    {
+      "rank": 6,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 593222,
+      "target_exposures": 2958750,
+      "start_time": 1793867037.9896042,
+      "time": 1793877325.3176754,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    },
+    {
+      "rank": 7,
+      "optimizer_steps": 14,
+      "training_micro": 224,
+      "eval_micro": 0,
+      "eligible_anchors": 599871,
+      "target_exposures": 2991985,
+      "start_time": 1793867038.091197,
+      "time": 1793877326.8092687,
+      "grad_norm": 0.1569048911333084,
+      "lr_used": 9.816417781446583e-06,
+      "lr_next": 9.777766935128324e-06
+    }
+  ],
+  "checkpoints": []
+}

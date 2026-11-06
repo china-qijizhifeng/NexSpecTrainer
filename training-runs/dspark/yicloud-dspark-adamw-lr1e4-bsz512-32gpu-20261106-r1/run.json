@@ -1,0 +1,56 @@
+{
+  "id": "yicloud-dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1",
+  "category": "训练",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793949241-199779",
+  "alias": "dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1",
+  "uuid": "8d089b34-6ca3-4af5-80da-f57bfc72be0d",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1",
+  "source": {
+    "commit": "4fdccaefb630db9b7eeac4e8901461bc49819a32",
+    "branch": "codex/yicloud-adamw1e4-bsz512-20261106",
+    "repository": "/mnt/work/shom/dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1/source"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1/source",
+    "argv": [
+      "bash",
+      "ops/yicloud-adamw32/launch.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-trainer:v41-weaver-torch210-20261103-r1@sha256:f2e360fea06554224cf3070d8c5c65bba15762ffad7cc6a7f7d7a3719297c960",
+    "workload_kind": "training"
+  },
+  "status": "运行中",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:02.900109+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 0.0001,
+    "epochs": 1,
+    "max_steps": 30,
+    "total_steps": 30,
+    "gpus": 32,
+    "micro_batch": 1,
+    "accumulation_steps": 16,
+    "global_batch": 512,
+    "anchor_sampling": "all",
+    "anchor_chunk": 64,
+    "seed": 42,
+    "eval_interval": 6,
+    "save_interval": 6,
+    "feature_path": "/mnt/work/shom/dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1/inputs/train-features",
+    "validation_feature_path": "/mnt/work/shom/dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1/inputs/validation-features"
+  },
+  "completed_steps": 25,
+  "latest_eval": {
+    "step": 24,
+    "loss": 0.912995667485424,
+    "accuracy": 0.7809727485043418
+  },
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-adamw-lr1e4-bsz512-32gpu-20261106-r1/training",
+  "notes": [],
+  "evidence_manifest": "evidence-manifest.json"
+}

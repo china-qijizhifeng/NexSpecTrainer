@@ -1,0 +1,52 @@
+{
+  "id": "yicloud-dspark-denovo-tuned-capture-20261105",
+  "category": "数据采集",
+  "platform": "仪电 / H200",
+  "host": "yicloud-dev",
+  "job_id": "j-1793849191-804965",
+  "alias": "dspark-denovo-tuned-capture-20261105",
+  "uuid": "0560bc7e-7398-4ee8-a3ff-97f0d1fba0f2",
+  "local_source": "/Users/shom/Downloads/yicloud-dspark-migration-20261104",
+  "remote_root": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105",
+  "source": {
+    "commit": "e56f5fbd0834ea0e73f699f69a903f57781a595d",
+    "branch": null,
+    "repository": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105"
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/dspark-v41-denovo-migration-20261104/source-tuned-20261105",
+    "argv": [
+      "bash",
+      "ops/yicloud-tuned/launch_capture.sh"
+    ],
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+    "workload_kind": "training"
+  },
+  "status": "平台成功",
+  "status_evidence": "evidence/snapshot.json",
+  "checked_at": "2026-11-06T20:56:11.636806+08:00",
+  "archived_at": "2026-11-06T20:57:55+08:00",
+  "parameters": {
+    "optimizer": "AdamW (default)",
+    "learning_rate": 1e-05,
+    "epochs": 1,
+    "max_steps": 3,
+    "total_steps": 3,
+    "gpus": 32,
+    "micro_batch": 1,
+    "accumulation_steps": 1,
+    "global_batch": 32,
+    "anchor_sampling": "config default",
+    "anchor_chunk": null,
+    "seed": 42,
+    "eval_interval": null,
+    "save_interval": 0,
+    "feature_path": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/capture-w0/features",
+    "validation_feature_path": null
+  },
+  "completed_steps": null,
+  "latest_eval": null,
+  "checkpoint_root": "/mnt/work/shom/training_runs/dspark-denovo-tuned-capture-20261105/training",
+  "notes": [],
+  "evidence_manifest": "evidence-manifest.json"
+}

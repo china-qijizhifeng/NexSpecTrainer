@@ -1,0 +1,14 @@
+{
+  "audit_train.py": "febec0937ba1bcf07c2c8959db9be5dad064c55e78f06cdfae8c23bb07c324af",
+  "run_train.sh": "0e2666d8a60d33d14990c9d1ce18ed3e73877330c304a27ab47cdd89b1209fe6",
+  "train.yaml": "06e0deb0c2f0060b88b29043323bfaa9dd0503365d4902ba4dc7ea28352c4527",
+  "train-job.yaml": "3c68d3c54d4aaf4ddad9246f52545f93f650110ca6dccd012b4168ea08ba22c4",
+  "draft-config.json": "4a58b15b4ff2294a36740d1222f223a414c19375cdb067c6602b1c56aadfed6e",
+  "performance-selection.json": "d9629f677725a7bd65c01e94e5f2a405921b8bdd40bf34958fff3394b86b3560",
+  "fixed_reduction.py": "3c8a7410b6ddd94b3d2a622002303d539632b98ce9466a240a3cc8812bc8faa7",
+  "muon_anchor_gate.py": "58aad75a71398b4adafe04ef3d77632614f19b9582f79c0cde0517786c0824ac",
+  "preflight_train.py": "660d50a34d69a56cdcbae2af436020a385bff39d01483dcf57aaac4600dde843",
+  "prepare_train_core.py": "add880d0de1e1bacee38843a2ced465b93116bfe4471faa49400137c73d45ee9",
+  "train_env.sh": "8591b002a4589066e08457a1bf2c40398c8bb574ae30eb2315be5ce0d4b648c7",
+  "data-audit.json": "c1875c753e85784dd8c94058998fa785424ddbbfd9cf56cabae3069c732ec1a4"
+}
