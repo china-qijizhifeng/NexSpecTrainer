@@ -23,12 +23,14 @@ from concurrent.futures import ThreadPoolExecutor
 import numpy as np
 import torch
 
+from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
 FEATURE_SUFFIXES = (".ckpt", ".ckpt.gz", ".ckpt.zst", ".ckpt.hybrid")
 _MAGIC = b"NSACTZ01"
 _NO_HASH_MAGIC = b"NSACTZ02"
 _BLOCK_ELEMENTS = 1 << 20
 _MAX_HEADER = 1 << 20
-_MAX_RECORD_BYTES = 8 << 30
+_MAX_RECORD_BYTES = MAX_CAPTURE_RECORD_BYTES
 _DTYPES = {
     name: getattr(torch, name)
     for name in (

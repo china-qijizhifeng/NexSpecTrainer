@@ -1172,6 +1172,7 @@ class MooncakeFeatureStore(FeatureStore):
         wire_features = ref.metadata.get("wire_features", {})
         if wire_features:
             from specforge.data.wire_codec import validate_wire_metadata
+            from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
 
             if set(wire_features) != set(ref.feature_specs):
                 raise ValueError(
@@ -1181,9 +1182,9 @@ class MooncakeFeatureStore(FeatureStore):
                 validate_wire_metadata(
                     wire_features[name], shape=spec.shape, dtype=spec.dtype
                 )
-            if sum(wire["decoded_bytes"] for wire in wire_features.values()) > 8 << 30:
+            if sum(wire["decoded_bytes"] for wire in wire_features.values()) > MAX_CAPTURE_RECORD_BYTES:
                 raise ValueError(
-                    "compressed capture exceeds the 8 GiB decoded sample limit"
+                    "compressed capture exceeds the configured decoded sample limit"
                 )
         for n in wanted:
             spec = ref.feature_specs.get(n)

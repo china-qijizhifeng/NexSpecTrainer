@@ -199,8 +199,10 @@ def check_capacity(
             "server MOONCAKE_GLOBAL_SEGMENT_SIZE / MOONCAKE_LOCAL_BUFFER_SIZE; "
             "disk compression does not reduce this transport allocation."
         )
-    if total > 8 << 30:
-        raise ValueError("capture exceeds the codec's 8 GiB decoded-record limit")
+    from specforge.data.capture_limits import MAX_CAPTURE_RECORD_BYTES
+
+    if total > MAX_CAPTURE_RECORD_BYTES:
+        raise ValueError("capture exceeds the codec's configured decoded-record limit")
     return total
 
 
