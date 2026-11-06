@@ -111,7 +111,6 @@ def _install_attention_probes(record, wrap, root, parallel):
     """Separate first-layer KV, attention, and both output projections."""
     from sglang.srt.models import deepseek_v4
     from sglang.srt.layers.attention.deepseek_v4_backend import DeepseekV4AttnBackend
-    from sglang.kernels.ops.attention.dsv4.dequant_k_cache import dequantize_k_cache_paged_dsv4
 
     active = {}
 
@@ -141,14 +140,13 @@ def _install_attention_probes(record, wrap, root, parallel):
             pool = backend.token_to_kv_pool
             locations = core.swa_out_cache_loc
             assert locations is not None and locations.numel() == 4096
-            kv = torch.empty((locations.numel(), 1, backend.head_dim_v),
-                             device=locations.device, dtype=torch.bfloat16)
-            dequantize_k_cache_paged_dsv4(
-                pool.get_swa_key_buffer_radix(0), locations,
-                page_size=pool.get_swa_key_page_size(), out=kv,
-                layout=pool.get_swa_key_layout())
+            layout = pool.get_swa_key_layout()
+            page_size = pool.get_swa_key_page_size()
+            packed = pool.get_swa_key_buffer_radix(0).view(torch.uint8)
             item.update(locations=locations.detach().cpu().clone(),
-                        kv=kv.detach().cpu().clone())
+                        packed_cache=packed.detach().cpu().clone(),
+                        page_size=page_size, layout=str(layout),
+                        row_addressing=layout.row_addressing(page_size))
         torch.save(item, path)
 
     wrap(DeepseekV4AttnBackend, '_forward_attention', after=attention)
