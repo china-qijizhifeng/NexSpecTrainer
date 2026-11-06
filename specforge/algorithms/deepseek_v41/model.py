@@ -2,6 +2,7 @@
 
 import torch
 import torch.distributed as dist
+import torch.nn.functional as F
 
 from specforge.algorithms.common.anchor_coverage import (
     all_anchor_positions,
@@ -34,6 +35,19 @@ class OnlineDeepSeekV41Model(OnlineDSparkModel):
         # Many recomputed chunks revisit each expert group. Do not overlap a
         # second full parameter group with the current group's full gradients.
         return self.anchor_sampling != "all"
+
+    def _sample_anchor_positions(
+        self, seq_len, loss_mask, device, max_valid_anchors=None
+    ):
+        anchors, keep = super()._sample_anchor_positions(
+            seq_len, loss_mask, device, max_valid_anchors=max_valid_anchors
+        )
+        # Native confidence heads are nested FULL_SHARD modules, called once
+        # per objective chunk (and again during checkpoint replay). Rank-local
+        # widths would interleave different all-gather counts with loss all-reduce.
+        # Keep the configured budget; masked slots contribute no loss or metrics.
+        padding = self.num_anchors - anchors.shape[1]
+        return F.pad(anchors, (0, padding)), F.pad(keep, (0, padding), value=False)
 
     def _attention_mask(self, anchor_positions, block_keep_mask, sequence_length):
         # The native model gathers a private context window for each block.

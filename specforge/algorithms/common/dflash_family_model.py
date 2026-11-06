@@ -1943,23 +1943,11 @@ class OnlineDSparkModel(OnlineDFlashModel):
         self.dspark_ce_loss_alpha = float(dspark_ce_loss_alpha)
         self.dspark_l1_loss_alpha = float(dspark_l1_loss_alpha)
         self.dspark_confidence_head_alpha = float(dspark_confidence_head_alpha)
-
-    def _sample_anchor_positions(
-        self,
-        seq_len: int,
-        loss_mask: torch.Tensor,
-        device: torch.device,
-        max_valid_anchors: Optional[int] = None,
-    ) -> Tuple[torch.Tensor, torch.Tensor]:
-        anchors, keep = super()._sample_anchor_positions(
-            seq_len, loss_mask, device, max_valid_anchors=max_valid_anchors
-        )
-        # Native confidence heads are nested FULL_SHARD modules, called once
-        # per objective chunk (and again during checkpoint replay). Rank-local
-        # widths would interleave different all-gather counts with loss all-reduce.
-        # Keep the configured budget; masked slots contribute no loss or metrics.
-        padding = self.num_anchors - anchors.shape[1]
-        return F.pad(anchors, (0, padding)), F.pad(keep, (0, padding), value=False)
+        confidence_head = getattr(self.draft_model, "confidence_head", None)
+        if confidence_head is not None and self.dspark_confidence_head_alpha == 0:
+            # As with the DFlash selector: a zero weight statically disables the
+            # head, so keep it out of the optimizer and DDP's gradient reducer.
+            confidence_head.requires_grad_(False)
 
     def _build_dspark_labels_and_mask(
         self,
@@ -2056,11 +2044,15 @@ class OnlineDSparkModel(OnlineDFlashModel):
             if self.dspark_l1_loss_alpha > 0:
                 l1_num = (l1_per_token * loss_weights).sum()
 
-        confidence_pred = self.draft_model.predict_confidence(
-            hidden,
-            prev_token_ids=prev_token_ids,
+        confidence_pred = (
+            self.draft_model.predict_confidence(
+                hidden,
+                prev_token_ids=prev_token_ids,
+            )
+            if self.dspark_confidence_head_alpha > 0
+            else None
         )
-        if confidence_pred is not None and self.dspark_confidence_head_alpha > 0:
+        if confidence_pred is not None:
             if accept_probability is None:
                 raise ValueError(
                     "DSpark confidence loss requires target_last_hidden_states"

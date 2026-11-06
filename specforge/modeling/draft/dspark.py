@@ -324,9 +324,14 @@ class DSparkDraftModel(DFlashDraftModel):
         draft_hidden: torch.Tensor,
         block_output_ids: torch.LongTensor,
     ) -> torch.LongTensor:
-        """Generate a block with the same Markov correction used in training."""
+        """Generate a block with the same Markov correction used in training.
 
-        proposal_hidden = draft_hidden[:, -self.block_size + 1 :, :]
+        Every slot proposes the token after its own position (SGLang's
+        ``sample_from_anchor``): slot 0 holds the anchor and predicts the next
+        token, so a block yields ``block_size`` proposals.
+        """
+
+        proposal_hidden = draft_hidden[:, -self.block_size :, :]
         base_logits = target.lm_head(proposal_hidden)
         if self.markov_head is None:
             return _sample(base_logits)

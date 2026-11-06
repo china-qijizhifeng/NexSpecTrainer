@@ -824,11 +824,12 @@ class DFlashDraftModel(Qwen3PreTrainedModel):
         draft_hidden: torch.Tensor,
         block_output_ids: torch.LongTensor,
     ) -> torch.LongTensor:
-        """Sample one speculative block from the draft-model hidden states.
+        """Sample the proposals that follow ``block_output_ids[:, 0]``.
 
         DFlash predicts the whole suffix in one LM-head call. Draft families
         with an auxiliary logits head can override this boundary without
-        duplicating the target-cache and acceptance logic in ``spec_generate``.
+        duplicating the target-cache and acceptance logic in ``spec_generate``,
+        which verifies ``[anchor, *proposals]`` for any proposal count.
         """
         del block_output_ids
         draft_logits = target.lm_head(draft_hidden[:, -self.block_size + 1 :, :])
@@ -952,7 +953,8 @@ class DFlashDraftModel(Qwen3PreTrainedModel):
 
         block_size = self.block_size
         output_ids = torch.full(
-            (1, max_length + block_size),
+            # Room for a full block of proposals plus the target's bonus token.
+            (1, max_length + block_size + 1),
             self.mask_token_id,
             dtype=torch.long,
             device=target.device,
@@ -987,7 +989,6 @@ class DFlashDraftModel(Qwen3PreTrainedModel):
         start = input_ids.shape[1]
         while start < max_length:
             block_output_ids = output_ids[:, start : start + block_size].clone()
-            block_position_ids = position_ids[:, start : start + block_size]
             noise_embedding = target.model.embed_tokens(block_output_ids)
             draft_hidden = self(
                 target_hidden=target_hidden,
@@ -999,15 +1000,16 @@ class DFlashDraftModel(Qwen3PreTrainedModel):
                 use_cache=True,
             )
             past_key_values_draft.crop(start)
-            block_output_ids[:, 1:] = self._sample_draft_tokens(
+            proposals = self._sample_draft_tokens(
                 target,
                 draft_hidden,
                 block_output_ids,
             )
+            block_output_ids = torch.cat([block_output_ids[:, :1], proposals], dim=1)
 
             output = target(
                 block_output_ids,
-                position_ids=block_position_ids,
+                position_ids=position_ids[:, start : start + block_output_ids.shape[1]],
                 past_key_values=past_key_values_target,
                 use_cache=True,
                 output_hidden_states=True,

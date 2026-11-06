@@ -205,9 +205,9 @@ class AutoLoaderRegistryTest(unittest.TestCase):
         path = _write(TINY_DSPARK)
         self.addCleanup(os.unlink, path)
         model = AutoDraftModel.from_config(AutoDraftModelConfig.from_file(path))
-        expected = torch.tensor([[11, 12, 13]])
+        expected = torch.tensor([[11, 12, 13, 14]])
         target = SimpleNamespace(
-            lm_head=mock.Mock(return_value=torch.zeros(1, model.block_size - 1, 256))
+            lm_head=mock.Mock(return_value=torch.zeros(1, model.block_size, 256))
         )
         draft_hidden = torch.zeros(1, model.block_size, model.config.hidden_size)
         block_ids = torch.tensor([[7, 0, 0, 0]])
@@ -220,9 +220,10 @@ class AutoLoaderRegistryTest(unittest.TestCase):
 
         torch.testing.assert_close(actual, expected)
         self.assertEqual(sampler.call_args.kwargs["first_prev_token_ids"].item(), 7)
+        # Every slot proposes, including the anchor slot (sample_from_anchor).
         self.assertEqual(
             tuple(sampler.call_args.kwargs["hidden_states"].shape),
-            (1, model.block_size - 1, model.config.hidden_size),
+            (1, model.block_size, model.config.hidden_size),
         )
 
     def test_from_config_builds_domino_as_explicit_draft(self):
