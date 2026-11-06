@@ -17,6 +17,7 @@ import numpy as np
 import torch
 
 from ops.northgate_capture import retest
+from ops.northgate_capture import capture_shards
 from specforge.data.feature_file import load_hybrid_features
 
 ROOT = retest.ROOT
@@ -138,9 +139,14 @@ def main():
     assert os.environ.get('NORTHGATE_LONG_CAPTURE') == '0'
     assert os.environ.get('NORTHGATE_CP_DIAGNOSTICS') is None
     assert os.environ.get('NORTHGATE_RESIDENT_DEBUG') is None
-    retest.state('preparing-inputs')
+    run_root = Path(os.environ['NORTHGATE_CAPTURE_RUN_DIR'])
+    rank = int(os.environ.get('KUBEBRAIN_REPLICA', '0'))
+    workers = int(os.environ.get('KUBEBRAIN_REPLICA_TOTAL', '1'))
+    assert 0 <= rank < workers <= 8
+    retest.state('preparing-inputs', rank=rank, workers=workers)
     samples = prepare_inputs()
-    retest.write(ROOT / 'config.yaml', {
+    shard = capture_shards.partition(samples, workers)[rank]
+    config = {
         'model': retest.MODEL, 'model_revision': MODEL_REVISION,
         'context_length': SERVER_CAPACITY, 'max_input_tokens': LIMIT,
         'manifest_sha256': MANIFEST_SHA, 'seed': 20261106,
@@ -150,7 +156,13 @@ def main():
         'supervision_policy': 'preserve curated loss_mask exactly',
         'codec': 'native hybrid Brotli10 sign/exponent and Zstd mantissa',
         'helpers': False, 'baseline': 'non-CP; CP equivalence not accepted',
-        'acceptance': 'shortest/median/longest complete records; longest exact repeat'})
+        'acceptance': 'every worker: shortest/median/longest complete records; longest exact repeat',
+        'workers': workers, 'rank': rank, 'shard_records': len(shard),
+        'shard_tokens': sum(x['tokens'] for x in shard)}
+    retest.write(ROOT / 'config.yaml', config)
+    retest.write(ROOT / 'shard.json', {'rank': rank, 'workers': workers, 'samples': shard})
+    if rank == 0:
+        retest.write(run_root / 'config.yaml', {**config, 'total_gpus': workers * 8})
     attempt = str(time.time_ns())
     master_log = (ROOT / f'mooncake-{attempt}.log').open('x')
     master = subprocess.Popen(['mooncake_master', '--enable_http_metadata_server=true',
@@ -195,13 +207,20 @@ def main():
             'max_repeat_bitwise_exact': True, 'codec_roundtrip_exact': True,
             'brotli_quality': 10, 'attn_cp_size': 1, 'records': len(samples),
             'input_manifest_sha256': MANIFEST_SHA})
+        retest.state('waiting-all-workers-acceptance', rank=rank, workers=workers)
+        accepted = capture_shards.wait_for(run_root, workers, 'ACCEPTED.json', 7200)
+        assert all(x['passed'] and x['max_repeat_bitwise_exact'] and
+                   x['input_manifest_sha256'] == MANIFEST_SHA for x in accepted)
+        if rank == 0:
+            retest.write(run_root / 'ACCEPTED.json', {'passed': True, 'workers': accepted})
         output = ROOT / 'features'
         output.mkdir(exist_ok=True)
         receipts = []
         tokens = 0
-        for index, entry in enumerate(samples):
+        for index, entry in enumerate(shard):
             assert server.poll() is None
-            retest.state('capture', completed=index, total=len(samples),
+            capture_shards.check_failures(run_root, workers)
+            retest.state('capture', completed=index, total=len(shard), rank=rank,
                          completed_tokens=tokens, id=entry['id'], tokens=entry['tokens'])
             receipt = capture(store, output / entry['id'], entry)
             receipts.append(receipt)
@@ -210,7 +229,7 @@ def main():
                 file.write(json.dumps(receipt, ensure_ascii=False) + '\n')
                 file.flush()
                 os.fsync(file.fileno())
-        assert len(receipts) == len(samples) and tokens == 73820977
+        assert len(receipts) == len(shard) and tokens == sum(x['tokens'] for x in shard)
         retest.write(ROOT / 'capture-manifest.json', {'records': receipts})
         retest.write(ROOT / 'RESULT.json', {
             'passed': True, 'records': len(receipts), 'tokens': tokens,
@@ -218,6 +237,19 @@ def main():
             'manifest_sha256': MANIFEST_SHA, 'attn_cp_size': 1,
             'native_roundtrip_exact': True, 'brotli_quality': 10})
         retest.state('complete', passed=True, records=len(receipts), tokens=tokens)
+        retest.stop(server)
+        server = None
+        if rank == 0:
+            capture_shards.wait_for(run_root, workers, 'RESULT.json', 72 * 3600)
+            combined = capture_shards.combine(run_root, samples, workers, MANIFEST_SHA)
+            assert len(combined) == 1718 and sum(x['input_tokens'] for x in combined) == 73820977
+            retest.write(run_root / 'capture-manifest.json', {'records': combined})
+            retest.write(run_root / 'RESULT.json', {
+                'passed': True, 'records': len(combined), 'tokens': 73820977,
+                'workers': workers, 'gpus': workers * 8, 'attn_cp_size': 1,
+                'bytes': sum(Path(x['file']).stat().st_size for x in combined),
+                'manifest_sha256': MANIFEST_SHA,
+                'native_roundtrip_exact': True, 'brotli_quality': 10})
     except BaseException as error:
         retest.write(ROOT / 'REJECTED.json', {
             'passed': False, 'error': repr(error),
