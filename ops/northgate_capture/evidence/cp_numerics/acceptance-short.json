@@ -1,0 +1,93 @@
+{
+  "completed_at": "2026-11-06T03:48:45.836204+00:00",
+  "status": "passed_with_documented_scope",
+  "job_id": "j-1793927136-479755",
+  "tested_lengths": [
+    4096,
+    4097,
+    14226,
+    15871,
+    15872
+  ],
+  "evidence_by_length": {
+    "4097": "CP_EXACT_101-boundary-4097.json",
+    "15871": "CP_EXACT_108-boundary-15871.json",
+    "15872": "CP_EXACT_109-boundary-15872.json",
+    "4096": "CP_EXACT_110-final-4096.json",
+    "14226": "METRICS.json"
+  },
+  "rank_receipts": {
+    "104-final-source": {
+      "worker-1": {
+        "ranks_success": 8,
+        "parameter_pointers_versions_unchanged": true
+      }
+    },
+    "108-boundary-15871": {
+      "worker-0": {
+        "ranks_success": 8,
+        "parameter_pointers_versions_unchanged": true,
+        "client_success": true
+      },
+      "worker-1": {
+        "ranks_success": 8,
+        "parameter_pointers_versions_unchanged": true,
+        "client_success": true
+      }
+    },
+    "109-boundary-15872": {
+      "worker-0": {
+        "ranks_success": 8,
+        "parameter_pointers_versions_unchanged": true,
+        "client_success": true
+      },
+      "worker-1": {
+        "ranks_success": 8,
+        "parameter_pointers_versions_unchanged": true,
+        "client_success": true
+      }
+    },
+    "110-final-4096": {
+      "worker-1": {
+        "ranks_success": 8,
+        "parameter_pointers_versions_unchanged": true,
+        "client_success": true
+      }
+    }
+  },
+  "thresholds": {
+    "max_relative_l2": 0.01,
+    "min_cosine": 0.99995,
+    "row_p95_max_relative_l2": 0.01,
+    "row_p05_min_cosine": 0.99995
+  },
+  "capacity": {
+    "context": 16384,
+    "input_length_check_max": 16378,
+    "actual_prefill_budget_max": 15872,
+    "capacity_admission_issue_modified": false
+  },
+  "resource_cleanup": {
+    "job_phase": "Succeeded",
+    "active_replicas": 0,
+    "succeeded_replicas": 2,
+    "workers": [
+      {
+        "success": true,
+        "stopped": true
+      },
+      {
+        "success": true,
+        "stopped": true
+      }
+    ]
+  },
+  "scope": {
+    "cp_full_dataset_released": false,
+    "64k_validated": false,
+    "model_weights_reloaded": false,
+    "frozen_source_modified": false
+  },
+  "implementation": "SOURCE_AND_TESTS.json",
+  "regressions": "REGRESSION.json"
+}

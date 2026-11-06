@@ -1,0 +1,11 @@
+{
+  "tensor": "target_last_hidden_states",
+  "tokens": 131072,
+  "relative_l2": 0.3350898767165113,
+  "cosine": 0.9441341433457404,
+  "max_abs": 1.953125,
+  "row_relative_l2_p95": 0.6699662552610387,
+  "row_cosine_p05": 0.7863493514782052,
+  "native_tensor_checksums_verified": true,
+  "passed": false
+}

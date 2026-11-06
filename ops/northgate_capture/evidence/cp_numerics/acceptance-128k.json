@@ -1,0 +1,23 @@
+{
+  "status": "passed",
+  "root_cause": "CP mHC coefficient dispatch selected from local rows instead of global length above 65536",
+  "fixed_by": "global-length dispatch to hc_mix_stats and hc_split_sinkhorn",
+  "before_final_relative_l2": 0.3350898767165113,
+  "after_exact": true,
+  "tokens": 131072,
+  "repeats": 2,
+  "all_four_tensor_hashes_match_original_tp": true,
+  "native_roundtrip_exact": true,
+  "parameters_unchanged_all_8_ranks_before_and_after": true,
+  "module_regression_lengths": [
+    65537,
+    131072
+  ],
+  "jobs_succeeded": [
+    "j-1793940418-267260",
+    "j-1793940683-594812"
+  ],
+  "active_replicas": 0,
+  "full_dataset_released": false,
+  "source_and_tests": "SOURCE_AND_TESTS.json"
+}

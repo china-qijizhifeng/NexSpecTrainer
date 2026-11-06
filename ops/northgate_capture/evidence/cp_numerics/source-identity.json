@@ -1,0 +1,34 @@
+{
+  "operator_test_commit": "4796b7e300a89a5eca919cd0ab793e6fbfebb2cd",
+  "full_model_test_commit": "dd82e377c2e3f46081446b889f23993edcd83173",
+  "integration_base": "07252d6",
+  "note": "Python sources compared with the preserved validated checkout. GitHub integration checks are recorded separately in the PR.",
+  "files": {
+    "ops/northgate_capture/cp128k_mhc_regression.py": {
+      "validated_source_sha256": "17ba65c3491eee0d6f25c5ec37c5a323fa7aedc07abb756e49d9029e9668a191",
+      "shipped_sha256": "8d5064011b0a6954b60cd826deffc3c5bb211853ef112a4078c8d07752784b75",
+      "ast_identical": true
+    },
+    "ops/northgate_capture/cp_numerics.py": {
+      "validated_source_sha256": "3f81f3051932c04ae8c6280b8dec1f11557beb7ddf3a309912abad34e9ee805c",
+      "shipped_sha256": "3f81f3051932c04ae8c6280b8dec1f11557beb7ddf3a309912abad34e9ee805c",
+      "ast_identical": true
+    },
+    "ops/northgate_capture/cp_numerics_kernels.py": {
+      "validated_source_sha256": "486b78e7a176e108a4111e4f76f64e951b6d9586d418c8bdbab14ec4686f33f4",
+      "shipped_sha256": "486b78e7a176e108a4111e4f76f64e951b6d9586d418c8bdbab14ec4686f33f4",
+      "ast_identical": true
+    },
+    "ops/northgate_capture/cp_numerics_regression.py": {
+      "validated_source_sha256": "6483e9704b08835dc66ccfcca37fac4d5cd56ad8519ea94bbedef86e8b937510",
+      "shipped_sha256": "2ce88569452eeeacbf190feb535099796dcd868d7495e1ae844e07e648c2a928",
+      "ast_identical": true
+    },
+    "ops/northgate_capture/mhc_index64.py": {
+      "validated_source_sha256": "d430eb0f9d35dd7f455105a2dd741968d3182d54d251aa333ef35f505ec4a145",
+      "shipped_sha256": "f7a121a752500447d9714895344a5deb3d46cd0b31d8d375d850f8470613b218",
+      "ast_identical": false,
+      "difference": "isort reordered two adjacent imports in install(); AST otherwise identical."
+    }
+  }
+}

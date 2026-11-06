@@ -1,0 +1,35 @@
+{
+  "thresholds": {
+    "max_relative_l2": 0.01,
+    "min_cosine": 0.99995,
+    "row_p95_max_relative_l2": 0.01,
+    "row_p05_min_cosine": 0.99995
+  },
+  "tensors": {
+    "hidden_states": {
+      "relative_l2": 0.0,
+      "cosine": 1.0,
+      "max_abs": 0.0,
+      "passed": true,
+      "exact": true,
+      "row_relative_l2_p50": 0.0,
+      "row_relative_l2_p95": 0.0,
+      "row_cosine_p05": 1.0
+    },
+    "target_last_hidden_states": {
+      "relative_l2": 0.0,
+      "cosine": 1.0,
+      "max_abs": 0.0,
+      "passed": true,
+      "exact": true,
+      "row_relative_l2_p50": 0.0,
+      "row_relative_l2_p95": 0.0,
+      "row_cosine_p05": 1.0
+    }
+  },
+  "passed": true,
+  "repeat_exact": [
+    true,
+    true
+  ]
+}

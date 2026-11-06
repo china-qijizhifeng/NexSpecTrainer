@@ -1,0 +1,40 @@
+{
+  "tokens": 131072,
+  "repeat": 0,
+  "file": "/mnt/work/shom/northgate-hidden-20261106-v2/runs/northgate-cp128k-parity-16h200-20261106-v1/worker-0/captures/n131072-r0.ckpt.hybrid",
+  "brotli_quality": 10,
+  "native_roundtrip_exact": true,
+  "cached_tokens": 0,
+  "input_sha256": "2ac41cf6149c8441fe81bd283c933b7317d5924296526536712abee615cb2a5d",
+  "seconds": 921.9407042786479,
+  "tensors": {
+    "hidden_states": {
+      "shape": [
+        1,
+        131072,
+        15360
+      ],
+      "sha256": "af3101ada70c6b8df285172d614b5bdde03519a88fb742d92f7348a973454550"
+    },
+    "target_last_hidden_states": {
+      "shape": [
+        1,
+        131072,
+        5120
+      ],
+      "sha256": "099133889d4af8279aea5487be14b33dcc1a38a7f87c7c8307d5a7f13ed2e4ee"
+    },
+    "input_ids": {
+      "shape": [
+        131072
+      ],
+      "sha256": "bcd80d4fab84b8bcdd47947b7f20b545bbc75069d7ec654d97bc986fbb1b36f1"
+    },
+    "loss_mask": {
+      "shape": [
+        131072
+      ],
+      "sha256": "d64553a560356bf40c82467d92624375573fa40b52e7a011bd0c518adac6fecb"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "lengths": [
+    4095,
+    4096,
+    4097,
+    14226,
+    16383,
+    16384
+  ],
+  "kernels": {
+    "passed": true,
+    "stats": {
+      "five_repeats_exact": true,
+      "reference_exact": true,
+      "original_differences_across_five_runs": 17
+    },
+    "mhc_row_counts": [
+      1,
+      32,
+      96,
+      511,
+      512,
+      513,
+      4095,
+      4096
+    ],
+    "original_index_differences": 55,
+    "original_mhc_differences": 497
+  }
+}
