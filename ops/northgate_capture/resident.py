@@ -10,7 +10,7 @@ import time
 
 
 def main():
-    run = Path(os.environ['RUN_DIR'])
+    run = Path(os.environ['NORTHGATE_RESIDENT_RUN_DIR'])
     index = int(os.environ['KUBEBRAIN_REPLICA'])
     assert int(os.environ['KUBEBRAIN_REPLICA_TOTAL']) == 2
     cp = index == 1
