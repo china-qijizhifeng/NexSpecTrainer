@@ -57,3 +57,5 @@ NORTHGATE_HYBRID_CHUNK_SIZE=262144
 ```
 
 该模式复用旧gate并记录来源，调用现有depth2流水线，写入阶段不解码。`CAPTURED.json` 记录 request、transfer、queue、encode/write、file hash 秒数及生产/消费时间戳。模型或层契约变化时不能复用旧gate；是否做新的验收遵循用户的当前要求。
+
+2026-11-06 的真实64H200续采（源码`22a0948`）已迁入97条完成记录并开始新采集。首批约19K–21K-token记录中，6个worker的第二条`produced_at`早于首条`written_at`，确认请求/传输与CPU写入实际重叠；这些worker完成间隔约35–40秒，请求约1.8–2秒、传输约0.4秒、编码写盘约34–39秒、file hash约0.4秒。另一worker首条编码约72秒。这只是首批实测，不是最优参数证明，也不是同样本受控加速比；CPU压缩仍决定吞吐，增加GPU或depth并不能自动解决。
