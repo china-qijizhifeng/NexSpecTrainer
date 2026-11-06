@@ -71,3 +71,7 @@ The [evidence](evidence/cp_numerics) contains numerical metrics, tensor
 fingerprints, regression results, source identity and resource completion.
 The `.pt` operator fixtures and multi-GiB capture files remain in the recorded
 experiment storage; they are not embedded in the repository.
+
+## Preserved 128K acceptance harness
+
+`cp128k.py`, `cp128k_probe.py` and `cp128k_ablation.py` preserve the isolated TP/CP acceptance and mHC diagnosis harness from `dd82e377c2e3f46081446b889f23993edcd83173`. Their shell launchers require the original pinned serving image and explicit experiment inputs. They are research tools, are not enabled by default, and do not imply new GPU acceptance of this integrated checkout. The numerical implementation and acceptance evidence above remain authoritative.
