@@ -1,0 +1,4 @@
+interface:
+  display_name: "NexSpecTrainer nsp"
+  short_description: "通过 nsp 统一启动、观测与恢复 NexSpecTrainer 训练和评测任务"
+  default_prompt: "使用 $use-nsp 启动并观测这次 NexSpecTrainer 训练，记录 Run、checkpoint 和评测结果。"

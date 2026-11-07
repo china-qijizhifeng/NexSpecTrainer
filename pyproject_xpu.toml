@@ -34,6 +34,7 @@ dependencies = [
 
 [project.scripts]
 specforge = "specforge.cli:main"
+nsp = "specforge.nsp.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["specforge*"]

@@ -95,6 +95,7 @@ class OnlineDeepSeekV41Model(OnlineDSparkModel):
                 target_last_hidden_states,
                 max_valid_anchors,
                 collect_detailed_metrics,
+                anchor_positions=anchor_positions,
             )
         positions = (
             all_anchor_positions(loss_mask)

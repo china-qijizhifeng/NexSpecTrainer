@@ -38,8 +38,13 @@ Check out [**our documentation**](https://docs.sglang.io/SpecForge/) to get star
 Every method uses the same typed training entry point:
 
 ```bash
-specforge train --config examples/configs/online/disaggregated/external/qwen3-8b-eagle3.yaml
+nsp train --config examples/configs/online/disaggregated/external/qwen3-8b-eagle3.yaml --watch
 ```
+
+Use [`nsp`](docs/nsp.md) to submit durable training/evaluation runs and reconnect
+with `nsp list`, `nsp watch RUN`, or `nsp logs RUN --follow`. In an allocated
+scheduler job, use `nsp train --foreground` so the job waits for completion.
+
 
 The path under `examples/configs` identifies feature mode, topology, and online
 service ownership. The command above uses an `external` recipe: SpecForge
