@@ -34,6 +34,7 @@ dependencies = [
 
 [project.scripts]
 specforge = "specforge.cli:main"
+nsp = "specforge.nsp.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["specforge*"]
@@ -42,6 +43,7 @@ include = ["specforge*"]
 data = ["openai"]
 dev = [
     "pre-commit",
+    "pytest>=8",
 ]
 fa = ["flash-attn", "ninja", "packaging"]
 liger = ["liger-kernel>=0.8.3,<0.9"]

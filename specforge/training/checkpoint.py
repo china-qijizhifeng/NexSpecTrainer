@@ -150,6 +150,12 @@ class CheckpointManager:
         return ckpt_dir
 
     def _rewind(self, step: int, *, keep_path: Optional[str] = None) -> None:
+        from specforge.nsp.store import checkpoint_lock
+
+        with checkpoint_lock(self.output_dir):
+            self._rewind_unlocked(step, keep_path=keep_path)
+
+    def _rewind_unlocked(self, step: int, *, keep_path: Optional[str] = None) -> None:
         # Fork semantics: saving step S invalidates on-disk steps >= S, including
         # a best record inside the deleted range.
         stale = sorted(
@@ -536,6 +542,12 @@ class CheckpointManager:
             return  # no symlink support: step dirs + best meta stay authoritative
 
     def _rotate(self, keep_step: int) -> None:
+        from specforge.nsp.store import checkpoint_lock
+
+        with checkpoint_lock(self.output_dir):
+            self._rotate_unlocked(keep_step)
+
+    def _rotate_unlocked(self, keep_step: int) -> None:
         if self.max_checkpoints <= 0:
             return
         dirs = sorted(self._all_checkpoints())

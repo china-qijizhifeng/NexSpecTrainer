@@ -546,6 +546,8 @@ class DFlashTrainStrategy(DraftTrainStrategy):
             "max_valid_anchors": max_valid_anchors,
             "selector_loss_alpha": selector_loss_alpha,
         }
+        if "eval_anchor_positions" in t:
+            model_inputs["anchor_positions"] = t["eval_anchor_positions"].to(device)
         if ctx is not None:
             model_inputs["collect_detailed_metrics"] = collect_detailed_metrics
         target_last_hidden_states = t.get("target_last_hidden_states")
@@ -610,6 +612,9 @@ class DSparkTrainStrategy(DraftTrainStrategy):
         t = batch.tensors
         device = self._device()
         max_valid_anchors = _cpu_max_valid_anchors(t["loss_mask"])
+        eval_options = {}
+        if "eval_anchor_positions" in t:
+            eval_options["anchor_positions"] = t["eval_anchor_positions"].to(device)
         loss, accuracy, model_metrics = self.dspark_model(
             input_ids=t["input_ids"].to(device, non_blocking=True),
             hidden_states=t["hidden_states"].to(device, non_blocking=True),
@@ -618,6 +623,7 @@ class DSparkTrainStrategy(DraftTrainStrategy):
                 device, non_blocking=True
             ),
             max_valid_anchors=max_valid_anchors,
+            **eval_options,
             collect_detailed_metrics=(
                 ctx.collect_detailed_metrics if ctx is not None else True
             ),
@@ -639,6 +645,11 @@ class DSparkTrainStrategy(DraftTrainStrategy):
             loss=loss,
             metrics=metrics,
             ratio_metrics=ratio_metrics,
+            # DSpark's training loss already owns global normalization. These
+            # detached additive terms are reporting-only for no-grad eval.
+            loss_terms=(
+                model_metrics.get("loss_terms") if not torch.is_grad_enabled() else None
+            ),
             sum_metrics=model_metrics.get("sum_metrics", {}),
         )
 

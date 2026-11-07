@@ -80,6 +80,9 @@ class TrainingRun:
             return self.execute()
         try:
             result = self.trainer.fit()
+            from specforge.nsp.telemetry import emit_train_completion
+
+            emit_train_completion(result)
             if self.on_success is not None:
                 self.on_success(result)
             return result
@@ -300,6 +303,9 @@ def _optimizer_factory(cfg: Config):
 
 
 def _logger(metrics, step):
+    from specforge.nsp.telemetry import emit_metrics
+
+    emit_metrics(metrics, step)
     printable = {}
     for key, value in metrics.items():
         try:

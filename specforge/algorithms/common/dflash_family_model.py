@@ -1292,6 +1292,7 @@ class OnlineDFlashModel(nn.Module):
         max_valid_anchors: Optional[int] = None,
         selector_loss_alpha: Optional[float] = None,
         collect_detailed_metrics: bool = True,
+        anchor_positions: Optional[torch.Tensor] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, object]]:
         """Parallel block-wise training forward pass; returns
         (loss, accuracy, metrics) — same shape as Domino's forward."""
@@ -1307,6 +1308,11 @@ class OnlineDFlashModel(nn.Module):
             hidden_states=hidden_states,
             loss_mask=loss_mask,
             max_valid_anchors=max_valid_anchors,
+            anchor_selection=(
+                (anchor_positions.clamp_min(0), anchor_positions >= 0)
+                if anchor_positions is not None
+                else None
+            ),
         )
 
         # --- Labels: same-position prediction (position k predicts token anchor+k) ---
@@ -1467,6 +1473,16 @@ class OnlineDFlashModel(nn.Module):
         if collect_detailed_metrics:
             terms = metric_terms
             block_valid = (weight_mask[..., 1:] > 0.5).any(dim=-1)
+            full_blocks = (weight_mask[..., 1:] > 0.5).all(dim=-1)
+            prefix_counts = (
+                terms.selector_block_accepted
+                if candidate_selector is not None
+                else terms.unary_block_accepted
+            )
+            ratio_metrics["offline/prefix_al"] = (
+                ((1 + prefix_counts) * full_blocks).sum(),
+                full_blocks.sum(),
+            )
             ratio_metrics["dflash/hard_label/walk_accepted_length"] = (
                 compute_walk_accepted_length_terms(
                     terms.unary_block_accepted, anchor_positions, block_valid
@@ -2276,7 +2292,21 @@ class OnlineDSparkModel(OnlineDFlashModel):
                     walk_accepted, anchor_positions, eval_mask.any(dim=-1)
                 )
             )
+        if collect_detailed_metrics:
+            full_blocks = eval_mask.all(dim=-1)
+            ratio_metrics["offline/prefix_al"] = (
+                ((1 + walk_accepted) * full_blocks).sum(),
+                full_blocks.sum(),
+            )
         metrics: Dict[str, object] = {
+            "loss_terms": (
+                (
+                    self.dspark_ce_loss_alpha * ce_num
+                    + self.dspark_l1_loss_alpha * l1_num
+                    + self.dspark_confidence_head_alpha * confidence_num
+                ).detach(),
+                local_loss_den.detach(),
+            ),
             "ratio_metrics": {
                 name: (numerator.detach(), denominator.detach())
                 for name, (numerator, denominator) in ratio_metrics.items()
@@ -2298,6 +2328,7 @@ class OnlineDSparkModel(OnlineDFlashModel):
         target_last_hidden_states: Optional[torch.Tensor] = None,
         max_valid_anchors: Optional[int] = None,
         collect_detailed_metrics: bool = True,
+        anchor_positions: Optional[torch.Tensor] = None,
     ) -> Tuple[torch.Tensor, torch.Tensor, Dict[str, object]]:
         """Parallel DSpark training forward pass."""
         if self.attention_backend == "flex_attention" and not FLEX_ATTENTION_AVAILABLE:
@@ -2309,6 +2340,11 @@ class OnlineDSparkModel(OnlineDFlashModel):
             hidden_states=hidden_states,
             loss_mask=loss_mask,
             max_valid_anchors=max_valid_anchors,
+            anchor_selection=(
+                (anchor_positions.clamp_min(0), anchor_positions >= 0)
+                if anchor_positions is not None
+                else None
+            ),
         )
 
         (

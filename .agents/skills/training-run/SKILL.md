@@ -3,11 +3,11 @@ name: training-run
 description: 在 NexSpecTrainer 中准备、启动和验收 SpecForge 训练，复用 BP Dev 已验证的 V4.1 Flash 环境，核对数据编码、GPU 运行与 NFC checkpoint。适用于训练运行；不用于只读超参调研。
 ---
 
-# Training run（临时方案）
+# Training environment and acceptance
 
 **这是临时运行方案。正式训练镜像构建、发布并验收后，应优先使用固定 digest 的镜像，不再继续依赖 GPFS overlay 或任务目录内的 Megatron 组合。**
 
-本 skill 记录已验证的环境与运行边界，不代表下面的历史路径仍然存在、镜像已经发布，或本次训练已经完成。以用户当前选择的数据、上下文方式和规模为准。
+训练入口统一遵循 [use-nsp](../use-nsp/SKILL.md)。本 skill 记录已验证的环境与运行边界，不代表下面的历史路径仍然存在、镜像已经发布，或本次训练已经完成。以用户当前选择的数据、上下文方式和规模为准。
 
 ## 先确认运行方式
 
@@ -26,7 +26,7 @@ description: 在 NexSpecTrainer 中准备、启动和验收 SpecForge 训练，�
 ## 提交与验收
 
 - BP Dev 使用 SSH `linlizhi-bp-dev`、Northjob project=`WeaverRSI`、queue=`proj-32`，提交前核对当前配置。已有可用的 `northjob-gpu-test-bp-dev` skill 时遵循其认证、提交和精确清理流程。不要改用默认项目或绕过节点专属限制。
-- 先做实际镜像中的环境预检，再启动用户授权规模的 GPU 运行。原生 CLI 为 `python -m specforge.cli train --config ...`；多卡使用对应的 `torch.distributed.run`。临时环境示例见 reference，不将历史 3 步 pilot 配额硬套到正式任务。
+- 先做实际镜像中的环境预检，再启动用户授权规模的 GPU 运行。作业 payload 使用 `nsp train --config ... --foreground`（或 `python -m specforge.nsp.cli`）；由 nsp 内部调用分布式 launcher，不在每个 torchrun rank 各提交一个 Run。临时环境示例见 reference，不将历史 3 步 pilot 配额硬套到正式任务。
 - 镜像拉取失败、容器 Running、target 健康、采集完成和 optimizer 更新是不同状态。出现一类运行错误后，先核查配置、契约及相邻调用方，修复后再试；不要循环重提同样失败的作业。镜像拉取失败时先释放本次失败作业，查相同 digest 的已验证缓存或镜像源。
 - 记录实际训练步数、loss/grad norm、数据消费范围、GPU/host 峰值，检查冻结 target embedding/head 未进 optimizer、没有梯度且未变化。短 pilot 只证明已覆盖的执行链路，收敛、长样本、全量覆盖和推理质量分别报告。
 - 保存完整 NFC 原生分片 checkpoint：模型 shard、FP32 masters/Adam、scheduler、RNG 和训练/消费 metadata。等待发布完成后验证 manifest、step/world/layout，恢复及下一步更新另行验证。遵循 [NFC 契约](../../../docs/native-nfc-checkpoints.md) 和当前 `specforge/training/nfc_checkpoint.py`，不要恢复已移除的 generic snapshot/独立 torch_dcp backend。
