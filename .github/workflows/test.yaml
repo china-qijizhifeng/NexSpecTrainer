@@ -86,7 +86,7 @@ jobs:
             uv venv sf -p 3.11
           fi
           source sf/bin/activate
-          uv pip install wheel setuptools psutil packaging ninja
+          uv pip install wheel setuptools psutil packaging ninja pytest
           uv pip install torch==2.13.0 --index-url https://download.pytorch.org/whl/cu130
           uv pip install -v ".[compression]" --prerelease=allow
           # SGLang 0.5.18 installs cubin separately and requires it to match
@@ -136,6 +136,16 @@ jobs:
           export PYTHONPATH=$PWD
           # test_training is not a package, so discovery does not collect it.
           python -m unittest tests.test_training.test_liger_kernel -v
+
+      - name: Run nsp lifecycle and metric acceptance
+        timeout-minutes: 15
+        shell: bash
+        run: |
+          source sf/bin/activate
+          export PYTHONPATH=$PWD
+          python -m pytest tests/test_nsp -q
+          nsp_evidence=$(mktemp -d)
+          python tests/gpu/nsp_cli_acceptance.py --output "$nsp_evidence"
 
       - name: Run test
         timeout-minutes: 45
