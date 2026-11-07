@@ -1,0 +1,223 @@
+{
+  "implementation_commit": "935e3b3ccc4cfd15bcbc12bd3487746c039dbb97",
+  "archive_sha256": "3ac8472e6f9c9b8f6bcbf61cdda641f9477afbb2f12ac343a7958f668fb621d0",
+  "environment": {
+    "python": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+    "python_executable": "/opt/venv/bin/python",
+    "packages": {
+      "torch": "2.10.0a0+b558c986e8.nv25.11",
+      "transformers": "5.3.0",
+      "pydantic": "2.13.0b2",
+      "click": "8.5.0",
+      "PyYAML": "6.0.3",
+      "accelerate": "1.13.0",
+      "safetensors": "0.9.0rc1",
+      "protobuf": "6.33.6",
+      "pytest": "9.0.2"
+    },
+    "protobuf_backend": "python",
+    "cuda": "13.0",
+    "cuda_available": true,
+    "gpu_count": 1,
+    "gpu_name": "NVIDIA H100 80GB HBM3"
+  },
+  "job": [
+    {
+      "name": "job-970e47f9643e-20261107221719",
+      "user_def_name": "nsp-cli-e2e-20261107-r3",
+      "status": "Completed",
+      "ready_status": "0/1",
+      "namespace": "qiji",
+      "job_creator": "linlizhi",
+      "user_gpu": 1
+    }
+  ],
+  "exit_code": 0,
+  "cleanup_readback": [],
+  "acceptance": {
+    "passed": true,
+    "checks": [
+      {
+        "name": "train-plan",
+        "exit_code": 0,
+        "seconds": 0.6356942895799875
+      },
+      {
+        "name": "empty-list",
+        "exit_code": 0,
+        "seconds": 0.15515659004449844
+      },
+      {
+        "name": "train-submit",
+        "exit_code": 0,
+        "seconds": 0.9881372284144163
+      },
+      {
+        "name": "train-submit-idempotent",
+        "exit_code": 0,
+        "seconds": 0.6225502956658602
+      },
+      {
+        "name": "train-reconnect",
+        "exit_code": 0,
+        "seconds": 23.198828687891364
+      },
+      {
+        "name": "train-reconnect-show",
+        "exit_code": 0,
+        "seconds": 0.15903815440833569
+      },
+      {
+        "name": "train-logs",
+        "exit_code": 0,
+        "seconds": 0.155323788523674
+      },
+      {
+        "name": "train-checkpoints",
+        "exit_code": 0,
+        "seconds": 0.15320640243589878
+      },
+      {
+        "name": "original-cli-checkpoint-parity",
+        "max_abs_diff": 0.0
+      },
+      {
+        "name": "resume-step1-submit",
+        "exit_code": 0,
+        "seconds": 0.8380145188421011
+      },
+      {
+        "name": "resume-step1-watch",
+        "exit_code": 0,
+        "seconds": 20.195256039500237
+      },
+      {
+        "name": "resume-step1-watch-show",
+        "exit_code": 0,
+        "seconds": 0.2309341672807932
+      },
+      {
+        "name": "resume-checkpoints",
+        "exit_code": 0,
+        "seconds": 0.1557527258992195
+      },
+      {
+        "name": "resume-step1-to3-checkpoint-parity",
+        "max_abs_diff": 0.0
+      },
+      {
+        "name": "eval-plan",
+        "exit_code": 0,
+        "seconds": 0.5982686560600996
+      },
+      {
+        "name": "eval-submit",
+        "exit_code": 0,
+        "seconds": 0.8066376317292452
+      },
+      {
+        "name": "eval-watch",
+        "exit_code": 0,
+        "seconds": 22.791691537946463
+      },
+      {
+        "name": "eval-watch-show",
+        "exit_code": 0,
+        "seconds": 0.15904107131063938
+      },
+      {
+        "name": "eval-results",
+        "exit_code": 0,
+        "seconds": 0.15423624403774738
+      },
+      {
+        "name": "eval-chunk1-submit",
+        "exit_code": 0,
+        "seconds": 0.9851831458508968
+      },
+      {
+        "name": "eval-chunk1-watch",
+        "exit_code": 0,
+        "seconds": 18.802017418667674
+      },
+      {
+        "name": "eval-chunk1-watch-show",
+        "exit_code": 0,
+        "seconds": 0.15915723703801632
+      },
+      {
+        "name": "eval-chunk1-results",
+        "exit_code": 0,
+        "seconds": 0.15528626926243305
+      },
+      {
+        "name": "anchor-chunk-invariance",
+        "passed": true
+      },
+      {
+        "name": "stop-train-submit",
+        "exit_code": 0,
+        "seconds": 0.8285650946199894
+      },
+      {
+        "name": "stop-request",
+        "exit_code": 0,
+        "seconds": 0.15387474931776524
+      },
+      {
+        "name": "stop-watch",
+        "exit_code": 4,
+        "seconds": 1.3556989394128323
+      },
+      {
+        "name": "stop-watch-show",
+        "exit_code": 0,
+        "seconds": 0.15393413044512272
+      },
+      {
+        "name": "original-train-still-succeeded",
+        "exit_code": 0,
+        "seconds": 0.15236531384289265
+      },
+      {
+        "name": "final-list",
+        "exit_code": 0,
+        "seconds": 0.15512293949723244
+      }
+    ],
+    "runs": [
+      "tr_a7611b9787454a46a0c8beeb",
+      "ev_b2fbe2e1ea06427693cc4d1b",
+      "ev_e5d16a1647eb45949d91c120",
+      "tr_5b6d88efb8ae4520b0893973"
+    ],
+    "original_cli_max_abs_diff": 0.0,
+    "offline_overall": {
+      "loss": {
+        "value": 5.531845108280337,
+        "numerator": 2721.667793273926,
+        "denominator": 492.0
+      },
+      "accuracy": {
+        "value": 0.022357723577235773,
+        "numerator": 11.0,
+        "denominator": 492.0
+      },
+      "prefix-al": {
+        "value": 1.018987341772152,
+        "numerator": 161.0,
+        "denominator": 158.0
+      }
+    },
+    "limitations": [
+      "Single CUDA GPU, tiny synthetic DFlash; no remote scheduler adapter or real serving AL validation."
+    ]
+  },
+  "evidence_sha256": {
+    "acceptance/e2e-result.json": "80852fd7ad9a26b7dda20bb381a831ce055b9cd58cdff9b1ff26c86aa43c6dd8",
+    "dspark-gpu-junit.xml": "05e928286e96b356521a1503a08785fde8414047a94cbdcaf992bd7542dc9904",
+    "source-manifest.json": "3acd23893cbe182d9b27f6d7e511dde1200cfae66b0b6eb1888613c6fae8366c",
+    "platform-terminal.json": "a4c0fcf67ed3b854249a7e2cd3fbbe14a5f116cefcf4836fad1db2bf485bee6e",
+    "cleanup-readback.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  }
+}
