@@ -9,6 +9,20 @@ SGLang deployment without assuming a particular speculative algorithm.
 | `python benchmarks/bench_eagle3.py` | Launches SGLang per configuration or uses an existing server | Latency, output throughput, acceptance length, and dataset accuracy when available | Timestamped JSON under `--output-dir` |
 | `specforge benchmark` | Uses an existing SGLang server | Aggregate output throughput, acceptance length, and verification count when reported by SGLang | Console and optional `--output-json` |
 
+## Evaluation protocol research
+
+The following research notes were checked on 2026-11-02 and archived in
+NexSpecTrainer on 2026-11-09. They preserve paper versions, source revisions,
+measurement definitions, and unverified assumptions; they are not reproduced
+performance results or a statement of current platform support.
+
+- [投机解码评测协议调研与平台适配参考](./related-evaluation-protocols.md):
+  SPEED-Bench, TraceSpec, DFlash, long reasoning, and energy measurements;
+  datasets, sampling, hardware, concurrency, timing, and acceptance metrics.
+- [NAR + NexEval + NorthGate + SGLang 投机解码评测设计](./nar-nexeval-northgate-sglang-design.md):
+  fixed-prefix generation, serving load tests, and real agent execution;
+  component responsibilities, evidence collection, and acceptance criteria.
+
 ## EAGLE3 benchmark matrix
 
 ### Launch SGLang for each configuration

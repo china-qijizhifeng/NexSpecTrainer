@@ -161,6 +161,8 @@ export default defineConfig({
           text: 'Benchmarks',
           items: [
             { text: 'Benchmarking Inference Serving', link: '/benchmarks/benchmark' },
+            { text: '投机解码评测协议调研', link: '/benchmarks/related-evaluation-protocols' },
+            { text: '投机解码平台评测设计', link: '/benchmarks/nar-nexeval-northgate-sglang-design' },
             { text: 'EAGLE3 Disaggregated Parity', link: '/benchmarks/eagle3-disaggregated-parity' },
             { text: 'Domino Disaggregated Performance', link: '/benchmarks/domino-disaggregated-performance' },
           ],
