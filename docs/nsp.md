@@ -15,6 +15,8 @@ nsp logs RUN --follow
 nsp checkpoints RUN --json
 nsp stop RUN
 nsp train --resume RUN@step-100 --watch
+nsp calibrate -c calibration.yaml --plan
+nsp calibrate -c calibration.yaml --watch
 ```
 
 `NSP_ROOT` or global `--root` selects the durable store; default:
@@ -175,7 +177,21 @@ Each JSONL prompt contains `messages`, and optionally `id`. The endpoint's
 `/get_server_info` must attest `speculative_draft_model_path` matching the fixed
 checkpoint (the endpoint/field are configurable via `info_path` and `checkpoint_field`). Only this
 eval's response counters are aggregated; there is no shared-server counter delta.
-Requests are sequential in this version, with fixed seed and sampling settings.
+Requests use fixed seed and sampling settings. `serving.concurrency` controls
+bounded concurrent requests (default 1), and `warmup_requests` are executed
+before the measurement window. `protocol: native` accepts frozen `input_ids`
+and retains exact `output_ids`; `protocol: openai` accepts `messages`.
+
+Add `performance` to measure total output tokens / HTTP measurement wall time
+and nonstreaming request p50/p95 latency. This does not measure TTFT or TPOT.
+A target-only endpoint uses `metrics: [performance]` and
+`checkpoint_field: model_path`; it does not need speculative counters.
+`expected_server_args` pins additional resolved serving arguments.
+
+Serving-only evaluations freeze prompts and retain checkpoint metadata
+fingerprints instead of copying all weights. The weight inventory checks
+filenames, sizes and modification times; it is not a full shard content hash.
+Offline evaluation retains the complete checkpoint snapshot.
 
 Overall uses `choices[0].meta_info.spec_verify_ct` and usage completion tokens.
 This includes actual emitted correction/bonus tokens after EOS/budget truncation;
@@ -196,7 +212,23 @@ Each cycle goes to the bin of its starting ctx length. Ordinary request-level
 SGLang counters and histograms do **not** provide this information. This PR does
 not modify external SGLang to add telemetry: unsupported endpoints fail grouped
 AL instead of manufacturing bins from prompt length. Both offline and serving
-metrics can be requested in one eval config; `--metrics all` selects all four.
+metrics can be requested in one eval config; `--metrics all` includes loss,
+accuracy, prefix-al and al. Add performance explicitly.
+
+## Hybrid calibration
+
+`nsp calibrate -c calibration.yaml` creates a separate durable Run (`ca_...`)
+and uses the same list/show/watch/logs/results/stop commands. It freezes the
+trajectory input, fits the request-local n-gram logistic estimator on CPU and
+publishes its coefficients, source identities and held-out fit metrics.
+Every trajectory must include observed greedy sampling receipts; warmup or
+nonzero-temperature traces are rejected. Splitting is by trace, and labels
+stop at the first candidate mismatch.
+
+The complete calibration and native V4.1 workflow is in
+[hybrid-spark.md](hybrid-spark.md). A protocol fixture establishes the Run and
+measurement contract; model output equivalence and speedups require actual
+native GPU serving evidence.
 
 ## Agent workflow
 
