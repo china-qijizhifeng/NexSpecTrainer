@@ -54,6 +54,7 @@ def nsp_run(base, argv, folder, label):
 
 def prepare_prompts(model, output):
     from transformers import AutoTokenizer
+    from sglang.srt.entrypoints.openai.chat_encoding import encode_simple_chat
 
     tokenizer = AutoTokenizer.from_pretrained(model, trust_remote_code=True, local_files_only=True)
     calibration, measured = [], []
@@ -63,18 +64,45 @@ def prepare_prompts(model, output):
             code = "\n".join(f"values_{prefix}_{index}_{j} = [{j}, {j+1}, {j+2}]" for j in range(18))
             content = ("Return exactly the following Python source, with no explanation or Markdown. "
                        "Preserve the text and all lines verbatim.\n\n" + code + "\n")
-            ids = tokenizer.apply_chat_template([dict(role="user", content=content)],
-                                                tokenize=True, add_generation_prompt=True)
+            ids = encode_simple_chat(tokenizer=tokenizer, spec="dsv41",
+                messages=[dict(role="user", content=content)], thinking_mode="chat")
             if not isinstance(ids, list) or not ids or len(ids) > 4096:
-                raise ValueError("unexpected official tokenizer chat-template output")
+                raise ValueError("unexpected native dsv41 recipe output")
             group.append(dict(id=f"{prefix}-{index}", suite="exact-code-copy", input_ids=ids))
-    measured += [dict(id="reasoning-no-match", suite="reasoning", input_ids=tokenizer.apply_chat_template(
-        [dict(role="user", content="What is 37 multiplied by 19? Give a short calculation.")],
-        tokenize=True, add_generation_prompt=True))]
+    edge_prompts = [
+        ("short-copy-eos", "short-copy-eos", "Return only this Python statement, without Markdown or explanation:\nanswer = 42\n"),
+        ("repeated-pattern", "repeated-pattern", "Return this Python source verbatim, without Markdown or explanation:\n" +
+            "\n".join(["print('alpha beta gamma delta epsilon')"] * 8) + "\n"),
+    ]
+    for sample_id, suite, content in edge_prompts:
+        measured.append(dict(id=sample_id, suite=suite, input_ids=encode_simple_chat(
+            tokenizer=tokenizer, spec="dsv41", messages=[dict(role="user", content=content)], thinking_mode="chat")))
+    for target_length in (4095, 4096):
+        start = "Return only the final source snippet verbatim, without Markdown or explanation.\nReference context:\n"
+        end = "\nFinal source snippet:\ncopy_marker = ['alpha', 'beta', 'gamma', 'delta', 'epsilon']\n"
+        padding = target_length
+        for _ in range(8):
+            ids = encode_simple_chat(tokenizer=tokenizer, spec="dsv41", thinking_mode="chat",
+                messages=[dict(role="user", content=start + " context" * padding + end)])
+            difference = target_length - len(ids)
+            if not difference:
+                break
+            padding += difference
+            if padding < 0:
+                raise ValueError("cannot construct boundary prompt")
+        if len(ids) != target_length:
+            raise ValueError("native recipe boundary prompt length mismatch")
+        measured.append(dict(id=f"long-copy-{target_length}", suite="long-copy-boundary", input_ids=ids))
+    measured += [dict(id="reasoning-no-match", suite="reasoning-thinking",
+        input_ids=encode_simple_chat(tokenizer=tokenizer, spec="dsv41",
+            messages=[dict(role="user", content="What is 37 multiplied by 19? Give a short calculation.")],
+            thinking_mode="thinking"))]
     for name, rows in (("calibration-prompts", calibration), ("measured-prompts", measured)):
         path = output / (name + ".jsonl")
         path.write_text("".join(json.dumps(row) + "\n" for row in rows))
     write(output / "inputs.json", dict(calibration_count=len(calibration), measured_count=len(measured),
+        encoder="sglang.encode_simple_chat:dsv41", copy_thinking_mode="chat", reasoning_thinking_mode="thinking",
+        measured_prompt_lengths={row["id"]: len(row["input_ids"]) for row in measured},
         calibration_sha256=sha(output / "calibration-prompts.jsonl"),
         measured_sha256=sha(output / "measured-prompts.jsonl"),
         scope="small engineering acceptance dataset; no model-quality or heldout calibration coverage claim"))
