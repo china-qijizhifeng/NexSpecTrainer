@@ -1,0 +1,18 @@
+[2026-11-12 10:14:48 TP0 EP0] Load weight end. elapsed=333.51 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.14 GB, mem usage=38.12 GB.
+[2026-11-12 10:14:48 TP4 EP4] Load weight end. elapsed=333.51 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 10:14:48 TP7 EP7] Load weight end. elapsed=333.51 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.32 GB, mem usage=38.12 GB.
+[2026-11-12 10:14:48 TP6 EP6] Load weight end. elapsed=333.50 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 10:14:48 TP2 EP2] Load weight end. elapsed=333.51 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 10:14:48 TP3 EP3] Load weight end. elapsed=333.50 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 10:14:48 TP1 EP1] Load weight end. elapsed=333.51 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 10:14:48 TP5 EP5] Load weight end. elapsed=333.52 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 10:15:33 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=1792, K=5120, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 10:15:46 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=4096, K=1280, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 10:15:59 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=5120, K=1024, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 10:16:35 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=576, K=5120, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 10:16:48 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=5120, K=288, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 10:20:09 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=25600, K=6144, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 10:21:31] INFO:     Application startup complete.
+[2026-11-12 10:21:39] INFO:     127.0.0.1:51568 - "POST /generate HTTP/1.1" 400 Bad Request
+[2026-11-12 10:21:39] INFO:     127.0.0.1:43430 - "POST /generate HTTP/1.1" 200 OK
+[2026-11-12 10:21:39] The server is fired up and ready to roll!

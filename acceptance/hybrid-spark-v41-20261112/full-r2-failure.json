@@ -1,0 +1,81 @@
+{
+  "passed": false,
+  "job_id": "j-1794477911-83691",
+  "run_uuid": "aa335087-ea2c-4099-aaed-f8da736e4e8b",
+  "source_commit": "0fdd86ea741c0f6970bbbfb4a8f2255c30cf4f95",
+  "terminal_reconciled_at": "2026-11-12T10:22:06.389496+00:00",
+  "failure": {
+    "stage": "target-calibration-warmup",
+    "timestamp": "2026-11-12T10:21:39Z",
+    "nsp_run_id": "ev_ba43abecab1e4276b3afe2c2",
+    "http_status": 400,
+    "evidence": "nsp worker.log: requests.exceptions.HTTPError: 400 Client Error for /generate. Response body was not persisted by this client revision.",
+    "static_cause": "Native SGLang SamplingParams accepts sampling_seed, while nsp sent seed. TokenizerManager directly constructs SamplingParams(**sampling_kwargs).",
+    "scope": "Target server completed startup; evaluation failed before any measured request, DSPARK or Hybrid model execution."
+  },
+  "target_readiness": {
+    "seconds": 800.4245198448189
+  },
+  "resources": {
+    "full-r2-final-GetJob.json": {
+      "sha256": "8e613354414f23300e1146d37ba59865697f56c9a0f98c06b56f3010c4e89621",
+      "job_id": "j-1794477911-83691",
+      "phase": "Failed",
+      "tasks": {
+        "t0": {
+          "Failed": 1
+        }
+      }
+    },
+    "full-r2-final-ListJobReplicas.json": {
+      "sha256": "8cad2cf6a29671c9f1355190d49ff52bc89e06cc944adf6377a3ebab524af4af",
+      "replicas": [
+        {
+          "Name": "j-1794477911-83691-cfcd2",
+          "Phase": "Failed",
+          "NodeName": "lg-cmc-gpu-1266.host.lg.shzhisuan.com"
+        }
+      ]
+    },
+    "full-r2-control-final-GetJob.json": {
+      "sha256": "312fe277f8e99ca1b00969dfaabb3512afac055bb45464c59f4d8655656fe982",
+      "job_id": "j-1794477899-581104",
+      "phase": "Succeeded",
+      "tasks": {
+        "t0": {
+          "Succeeded": 1
+        }
+      }
+    },
+    "full-r2-control-final-ListJobReplicas.json": {
+      "sha256": "1f83d691f657e9565a4cf837fbaafbfb908e71a3de3c2f77f02f45138bfb56d5",
+      "replicas": [
+        {
+          "Name": "j-1794477899-581104-r89jz",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0230.host.lg.shzhisuan.com"
+        }
+      ]
+    },
+    "full-r2-observer-final-GetJob.json": {
+      "sha256": "d8c8fba90271ac5236bfc58e8f0958bb7c62ebd209b17469fd943cdbf24a904d",
+      "job_id": "j-1794478074-795528",
+      "phase": "Succeeded",
+      "tasks": {
+        "t0": {
+          "Succeeded": 1
+        }
+      }
+    },
+    "full-r2-observer-final-ListJobReplicas.json": {
+      "sha256": "dedc80043ab6fe8165d0727fad397e0a72a3531b2db9c844500ef5496fe04ed9",
+      "replicas": [
+        {
+          "Name": "j-1794478074-795528-7dthz",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com"
+        }
+      ]
+    }
+  }
+}

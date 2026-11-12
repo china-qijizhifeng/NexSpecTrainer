@@ -1,0 +1,8 @@
+{
+  "source": "acceptance/hybrid-spark-v41-20261112/full-r2-artifacts/full-model/target/server.log",
+  "bytes": 135380,
+  "sha256": "102332104aad46492692ed9ae6ce1ae74668a026b159af49eb10930df07c1e61",
+  "full_log_remote": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/full-model/target/server.log",
+  "excerpt": "server-log-excerpt.txt",
+  "selection": "last 32 matching weight-load/JIT/readiness/request-status lines"
+}

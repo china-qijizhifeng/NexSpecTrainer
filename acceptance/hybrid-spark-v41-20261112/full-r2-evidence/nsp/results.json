@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "complete": false,
+  "stages": {
+    "serving": {
+      "schema_version": 1,
+      "stage": "serving",
+      "complete": false,
+      "checkpoint": "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+      "runtime": {
+        "version": "0.0.0.dev1+g38d9e4a3f",
+        "disable_radix_cache": true,
+        "json_model_override_args": "{}",
+        "model_path": "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+        "speculative_algorithm": null,
+        "speculative_draft_model_path": null,
+        "speculative_num_draft_tokens": null,
+        "weight_version": "default"
+      },
+      "prompts_sha256": "b25d6aa2308977795dce8648747081ee6c4167264af144a12e41aef1212237fb",
+      "request_count": 0,
+      "overall": {},
+      "bins": [],
+      "sampling": {
+        "temperature": 0.0,
+        "top_p": 1.0,
+        "max_new_tokens": 256,
+        "seed": 42,
+        "concurrency": 4,
+        "protocol": "native",
+        "warmup_requests": 2
+      }
+    }
+  },
+  "error": "HTTPError: 400 Client Error: Bad Request for url: http://127.0.0.1:30000/generate"
+}

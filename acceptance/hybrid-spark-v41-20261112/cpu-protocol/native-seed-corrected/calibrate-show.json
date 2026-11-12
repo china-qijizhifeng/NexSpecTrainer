@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "id": "ca_ff2d6fea832b4c90855b4da4",
+  "kind": "calibrate",
+  "name": null,
+  "request_id": "calibration-fixture",
+  "fingerprint": "e174befa36f79d5c78bdc5528a3aa3434c69a1317d5cb3e02b47b72aab7d5eaf",
+  "created_at": "2026-11-12T10:43:13.394854+00:00",
+  "attempt": 1,
+  "state": "succeeded",
+  "started_at": "2026-11-12T10:43:13.650005+00:00",
+  "supervisor_pid": 29798,
+  "heartbeat_at": "2026-11-12T10:43:18.244885+00:00",
+  "worker_pid": 29820,
+  "finished_at": "2026-11-12T10:43:18.244865+00:00",
+  "exit_code": 0,
+  "completion": {
+    "schema_version": 1,
+    "complete": true,
+    "stages": {},
+    "calibrator": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/nsp/runs/ca_ff2d6fea832b4c90855b4da4/attempts/0001/ngram-calibrator.json",
+    "calibrator_sha256": "7b1f03901d3edba661fcf0a7d1366a863b626b59cf55f750631e00b330542b52",
+    "fit": {
+      "ridge": 0.001,
+      "stride": 4,
+      "seed": 42,
+      "max_iter": 20,
+      "split_unit": "trace",
+      "training": {
+        "labels": 216,
+        "accepted": 216,
+        "log_loss": 0.00015893192239313422,
+        "brier": 5.3058119196939765e-08
+      },
+      "validation": {
+        "labels": 72,
+        "accepted": 72,
+        "log_loss": 0.00015893192239313416,
+        "brier": 5.3058119196939765e-08
+      },
+      "validation_trace_indices": [
+        3,
+        6
+      ]
+    }
+  },
+  "error": null,
+  "path": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/nsp/runs/ca_ff2d6fea832b4c90855b4da4",
+  "config": {
+    "schema_version": 1,
+    "traces": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/nsp/runs/ca_ff2d6fea832b4c90855b4da4/attempts/0001/traces.jsonl",
+    "temperature": 0,
+    "provenance": {
+      "target": "fixture-model-v1",
+      "tokenizer": "fixture-tokenizer-v1",
+      "runtime": "fixture-runtime-v1",
+      "dataset": "fixture-data-v1",
+      "traces_sha256": "1cb0f410df7d33bd19642a33844a6fe4a6371fb987e671df21d7e2027c4055b0"
+    },
+    "stride": 4,
+    "ridge": 0.001,
+    "validation_fraction": 0.2,
+    "seed": 42,
+    "max_iter": 20
+  },
+  "manifest": {
+    "schema_version": 1,
+    "kind": "calibrate",
+    "created_at": "2026-11-12T10:43:13.550841+00:00",
+    "cwd": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer",
+    "argv": [
+      "/Users/shom/.cache/uv/builds-v0/.tmphHezbl/bin/python",
+      "-m",
+      "specforge.nsp.worker",
+      "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/nsp/runs/ca_ff2d6fea832b4c90855b4da4/attempts/0001",
+      "calibrate"
+    ],
+    "commit": "c8d3131c1013edf563343e848d4e8b965e68be7e",
+    "source_sha256": "be9c2a2a26950b5b3cc543e3111bd62c8e6ff7475b13c99959aab14c9389202d",
+    "python": "/Users/shom/.cache/uv/builds-v0/.tmphHezbl/bin/python"
+  }
+}

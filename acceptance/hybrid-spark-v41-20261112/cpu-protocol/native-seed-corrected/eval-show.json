@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "id": "ev_e2371deb59a640d59481e55f",
+  "kind": "eval",
+  "name": null,
+  "request_id": "native-fixture",
+  "fingerprint": "6eba0df9f50f7861ab88cae0d5e58e19314ea3bec7dc06c304f17ea968c3822f",
+  "created_at": "2026-11-12T10:43:11.215851+00:00",
+  "attempt": 1,
+  "state": "succeeded",
+  "started_at": "2026-11-12T10:43:11.521182+00:00",
+  "supervisor_pid": 29041,
+  "heartbeat_at": "2026-11-12T10:43:12.551687+00:00",
+  "worker_pid": 29055,
+  "finished_at": "2026-11-12T10:43:12.551677+00:00",
+  "exit_code": 0,
+  "completion": {
+    "schema_version": 1,
+    "complete": true,
+    "stages": {
+      "serving": {
+        "schema_version": 1,
+        "stage": "serving",
+        "complete": true,
+        "checkpoint": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/model",
+        "runtime": {
+          "version": "protocol-fixture",
+          "disable_radix_cache": null,
+          "hybrid_config": "fixture-v1",
+          "json_model_override_args": null,
+          "model_path": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/model",
+          "speculative_algorithm": "DSPARK",
+          "speculative_draft_model_path": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/model",
+          "speculative_num_draft_tokens": null,
+          "weight_version": null
+        },
+        "prompts_sha256": "c2c6366ad9016f9f0c2dc926f5970853af1a373271403054f0f30916bafdd706",
+        "checkpoint_identity": {
+          "format": "external-path-config-sha256-shard-stat-v1",
+          "path": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/model",
+          "files": [
+            {
+              "name": "config.json",
+              "size": 3,
+              "mtime_ns": 1794480190497910065,
+              "sha256": "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+            },
+            {
+              "name": "model.safetensors",
+              "size": 35,
+              "mtime_ns": 1794480190498065403
+            }
+          ],
+          "fingerprint": "4040f006507c4e87e6c112a278533014a61be9d8e3190384c36c305f632e5348"
+        },
+        "request_count": 8,
+        "overall": {
+          "al": {
+            "value": 8.0,
+            "numerator": 128.0,
+            "denominator": 16.0
+          }
+        },
+        "bins": [
+          {
+            "lower": 0,
+            "upper": 50,
+            "metrics": {
+              "al": {
+                "value": 8.0,
+                "numerator": 64.0,
+                "denominator": 8.0
+              }
+            }
+          },
+          {
+            "lower": 50,
+            "upper": 60,
+            "metrics": {
+              "al": {
+                "value": 8.0,
+                "numerator": 64.0,
+                "denominator": 8.0
+              }
+            }
+          },
+          {
+            "lower": 60,
+            "upper": null,
+            "metrics": {
+              "al": {
+                "value": null,
+                "numerator": 0.0,
+                "denominator": 0.0
+              }
+            }
+          }
+        ],
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_new_tokens": 16,
+          "seed": 42,
+          "concurrency": 4,
+          "protocol": "native",
+          "warmup_requests": 2
+        },
+        "performance": {
+          "wall_seconds": 0.10680820800189395,
+          "completion_tokens": 128,
+          "output_tokens_per_second": 1198.4097701342416,
+          "request_latency_p50_seconds": 0.05143231200054288,
+          "request_latency_p95_seconds": 0.05372554200585,
+          "timing_scope": "nonstreaming HTTP end-to-end; excludes warmup"
+        },
+        "definition": "committed output tokens / verify cycles, including actual correction/bonus tokens"
+      }
+    }
+  },
+  "error": null,
+  "path": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/nsp/runs/ev_e2371deb59a640d59481e55f",
+  "config": {
+    "schema_version": 1,
+    "recipe": null,
+    "features": null,
+    "checkpoint": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/model",
+    "metrics": [
+      "al",
+      "performance"
+    ],
+    "group_by": "ctx-len",
+    "ctx_bins": [
+      0,
+      50,
+      60,
+      "inf"
+    ],
+    "seed": 42,
+    "anchor_chunk_size": 32,
+    "ctx_origin": null,
+    "global_step": null,
+    "total_steps": null,
+    "serving": {
+      "url": "http://127.0.0.1:57578",
+      "prompts": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/nsp/runs/ev_e2371deb59a640d59481e55f/attempts/0001/prompts.jsonl",
+      "model": "fixture",
+      "info_path": "/get_server_info",
+      "checkpoint_field": "speculative_draft_model_path",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_new_tokens": 16,
+      "timeout": 300.0,
+      "api_key_env": null,
+      "protocol": "native",
+      "concurrency": 4,
+      "warmup_requests": 2,
+      "expected_server_args": {
+        "speculative_algorithm": "DSPARK",
+        "hybrid_config": "fixture-v1"
+      }
+    },
+    "resolved_recipe": null
+  },
+  "manifest": {
+    "schema_version": 1,
+    "kind": "eval",
+    "created_at": "2026-11-12T10:43:11.407216+00:00",
+    "cwd": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer",
+    "argv": [
+      "/Users/shom/.cache/uv/builds-v0/.tmphHezbl/bin/python",
+      "-m",
+      "specforge.nsp.worker",
+      "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r8/nsp/runs/ev_e2371deb59a640d59481e55f/attempts/0001",
+      "eval"
+    ],
+    "commit": "c8d3131c1013edf563343e848d4e8b965e68be7e",
+    "source_sha256": "be9c2a2a26950b5b3cc543e3111bd62c8e6ff7475b13c99959aab14c9389202d",
+    "python": "/Users/shom/.cache/uv/builds-v0/.tmphHezbl/bin/python"
+  }
+}

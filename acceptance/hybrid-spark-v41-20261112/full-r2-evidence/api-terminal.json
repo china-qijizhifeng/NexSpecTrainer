@@ -1,0 +1,111 @@
+{
+  "scope": "Selected terminal fields from platform API replies; source digests retain receipt identity",
+  "all_parents_and_replicas_terminal": true,
+  "jobs": [
+    {
+      "role": "gpu",
+      "parent": {
+        "JobId": "j-1794477911-83691",
+        "Uid": "a3d334f0-b88d-42cf-a71d-4040cb874494",
+        "Name": "hybrid-v41-full-aa335087-ea2c-4099-aaed-f8da736e4e8b",
+        "CreationTime": "2026-11-12T10:05:11Z",
+        "Phase": "Failed",
+        "StopTime": "2026-11-12T10:21:52Z",
+        "TaskStatusCounts": {
+          "t0": {
+            "Failed": 1
+          }
+        }
+      },
+      "replicas": [
+        {
+          "Name": "j-1794477911-83691-cfcd2",
+          "Phase": "Failed",
+          "NodeName": "lg-cmc-gpu-1266.host.lg.shzhisuan.com",
+          "CreationTime": "2026-11-12T10:05:11Z",
+          "EndTime": "2026-11-12T10:21:47Z"
+        }
+      ],
+      "sources": [
+        {
+          "path": "full-r2-final-GetJob.json",
+          "sha256": "8e613354414f23300e1146d37ba59865697f56c9a0f98c06b56f3010c4e89621"
+        },
+        {
+          "path": "full-r2-final-ListJobReplicas.json",
+          "sha256": "8cad2cf6a29671c9f1355190d49ff52bc89e06cc944adf6377a3ebab524af4af"
+        }
+      ]
+    },
+    {
+      "role": "controller",
+      "parent": {
+        "JobId": "j-1794477899-581104",
+        "Uid": "bfa31b47-86f8-4cc5-98b6-781d45881ae6",
+        "Name": "hybrid-v41-full-r2-control",
+        "CreationTime": "2026-11-12T10:04:59Z",
+        "Phase": "Succeeded",
+        "StopTime": "2026-11-12T10:22:12Z",
+        "TaskStatusCounts": {
+          "t0": {
+            "Succeeded": 1
+          }
+        }
+      },
+      "replicas": [
+        {
+          "Name": "j-1794477899-581104-r89jz",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0230.host.lg.shzhisuan.com",
+          "CreationTime": "2026-11-12T10:04:59Z",
+          "EndTime": "2026-11-12T10:22:08Z"
+        }
+      ],
+      "sources": [
+        {
+          "path": "full-r2-control-final-GetJob.json",
+          "sha256": "312fe277f8e99ca1b00969dfaabb3512afac055bb45464c59f4d8655656fe982"
+        },
+        {
+          "path": "full-r2-control-final-ListJobReplicas.json",
+          "sha256": "1f83d691f657e9565a4cf837fbaafbfb908e71a3de3c2f77f02f45138bfb56d5"
+        }
+      ]
+    },
+    {
+      "role": "log-relay",
+      "parent": {
+        "JobId": "j-1794478074-795528",
+        "Uid": "d9c53f46-bbb9-45bd-b879-ba0fa9deaaf2",
+        "Name": "hybrid-v41-full-r2-observer",
+        "CreationTime": "2026-11-12T10:07:54Z",
+        "Phase": "Succeeded",
+        "StopTime": "2026-11-12T10:21:54Z",
+        "TaskStatusCounts": {
+          "t0": {
+            "Succeeded": 1
+          }
+        }
+      },
+      "replicas": [
+        {
+          "Name": "j-1794478074-795528-7dthz",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com",
+          "CreationTime": "2026-11-12T10:07:54Z",
+          "EndTime": "2026-11-12T10:21:51Z"
+        }
+      ],
+      "sources": [
+        {
+          "path": "full-r2-observer-final-GetJob.json",
+          "sha256": "d8c8fba90271ac5236bfc58e8f0958bb7c62ebd209b17469fd943cdbf24a904d"
+        },
+        {
+          "path": "full-r2-observer-final-ListJobReplicas.json",
+          "sha256": "dedc80043ab6fe8165d0727fad397e0a72a3531b2db9c844500ef5496fe04ed9"
+        }
+      ]
+    }
+  ]
+}

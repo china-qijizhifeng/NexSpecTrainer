@@ -1,0 +1,47 @@
+{
+  "kind": "native-v41-differential-acceptance",
+  "model": "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "tensor_parallel": 8,
+  "expert_parallel": 8,
+  "variants": [
+    "target",
+    "dspark",
+    "hybrid"
+  ],
+  "temperature": 0,
+  "max_new_tokens": 256,
+  "concurrency": 4,
+  "hybrid_extra_slots_per_request": 15,
+  "launch_timeout_seconds": 5400,
+  "deepgemm_fast_warmup": true,
+  "kernel_cache": {
+    "TRITON_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/triton",
+    "CUDA_CACHE_PATH": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/cuda",
+    "XDG_CACHE_HOME": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/xdg",
+    "TORCHINDUCTOR_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/torchinductor",
+    "TORCH_EXTENSIONS_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/torch_extensions",
+    "TILELANG_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/tilelang",
+    "FLASHINFER_WORKSPACE_BASE": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/flashinfer",
+    "SGLANG_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/sglang",
+    "SGLANG_JIT_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/sglang/jit",
+    "SGLANG_CUTE_AOT_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/sglang/cute_aot",
+    "SGLANG_DG_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/sglang/deep_gemm",
+    "DG_JIT_CACHE_DIR": "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/cache/sglang-03a08910-sm90/sglang/deep_gemm",
+    "TRITON_CACHE_AUTOTUNING": "1",
+    "TILELANG_DISABLE_CACHE": "0",
+    "TILELANG_AUTO_TUNING_DISABLE_CACHE": "0",
+    "SGLANG_FLASHINFER_AUTOTUNE_CACHE": "1",
+    "SGLANG_JIT_DEEPGEMM_FAST_WARMUP": "1"
+  },
+  "entrypoint_sha256": "8a4cac210615a9f5a771541adbbf8a30596a761b10a3f1df7e80e55ec4434940",
+  "argv": [
+    "/opt/sglang/bin/python3",
+    "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r2/source/acceptance/hybrid-spark-v41-20261112/full_model_acceptance.py",
+    "--runtime-bundle",
+    "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r2/source/patches/sglang/v41-hybrid-spark-38d9e4a3fe",
+    "--model",
+    "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "--launch-timeout-seconds",
+    "5400"
+  ]
+}

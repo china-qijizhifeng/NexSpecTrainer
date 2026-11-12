@@ -1,0 +1,19 @@
+{
+  "scope": "real HTTP/detached nsp protocol fixtures",
+  "gpu_tested": false,
+  "passed": true,
+  "eval_run_id": "ev_e2371deb59a640d59481e55f",
+  "calibration_run_id": "ca_ff2d6fea832b4c90855b4da4",
+  "measured_requests": 8,
+  "warmup_requests": 2,
+  "peak_http_concurrency": 4,
+  "serving_copied_checkpoint": false,
+  "checkpoint_identity_persisted": true,
+  "expected_failures": [
+    "missing-cycles",
+    "malformed-output",
+    "warmup-calibration",
+    "sampled-calibration"
+  ],
+  "calibrator_sha256": "7b1f03901d3edba661fcf0a7d1366a863b626b59cf55f750631e00b330542b52"
+}

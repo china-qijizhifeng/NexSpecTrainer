@@ -1,0 +1,11 @@
+{
+  "state": "failed",
+  "started_at": "2026-11-12T10:21:35.704436+00:00",
+  "supervisor_pid": 9135,
+  "heartbeat_at": "2026-11-12T10:21:39.778649+00:00",
+  "worker_pid": 9139,
+  "finished_at": "2026-11-12T10:21:39.778635+00:00",
+  "exit_code": 1,
+  "completion": null,
+  "error": "worker failed or did not publish a completion receipt"
+}

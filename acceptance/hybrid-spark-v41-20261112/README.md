@@ -15,7 +15,10 @@ managed Run records. Serving evaluation and calibration use `nsp`.
   retained external checkpoint identity without copying weights. Missing cycle
   telemetry, malformed token output, warmup calibration and sampled calibration
   failed as expected. These fixtures establish protocol behavior, not model
-  throughput or calibration quality. Existing nsp tests passed 13/13.
+  throughput or calibration quality. The corrected native-seed fixture is in
+  `cpu-protocol/native-seed-corrected/`; nsp tests passed 16/16 after the fix.
+  `native-sampling-contract.json` records the pinned SGLang parser's rejection
+  of `seed` and successful parsing of all 41 corrected request settings.
 - H100 n-gram scan, selection, history writes and CUDA graph replay passed on BP Dev;
   see the [independent H100 report](northjob/README.md).
 - YiCloud H200 module Run `1aeaa3c1-a709-4045-b45f-9e65662e3a2f`,
@@ -61,13 +64,24 @@ not evidence about Hybrid output correctness. See
 [full-r1-evidence/](full-r1-evidence/) for the immutable configuration, terminal
 receipts, log excerpt and complete-log SHA-256.
 
-The retry is Run `aa335087-ea2c-4099-aaed-f8da736e4e8b`, Job
+The second attempt is Run `aa335087-ea2c-4099-aaed-f8da736e4e8b`, Job
 `j-1794477911-83691`, source `0fdd86ea741c0f6970bbbfb4a8f2255c30cf4f95`.
 It keeps the same eight-GPU allocation and comparison gates, increases each
 server readiness limit to 5400 seconds, and uniformly enables fast DeepGEMM
 warmup and persistent kernel caches. All runtime outputs are outside its new
-immutable source checkout. Output equivalence and the full-model gate are
-still pending.
+immutable source checkout. Target readiness succeeded in 800.42 seconds. The
+first calibration warmup then returned HTTP 400 before any measured request;
+the original client did not preserve the response body. The pinned native
+parser reproduces the cause: `/generate` takes `sampling_seed`, while nsp sent
+`seed`. The fix maps the native field while keeping OpenAI `seed`, preserves
+bounded HTTP error bodies, and passed the strict protocol fixture and 16 nsp
+tests. Parent and every replica of the GPU Job, controller and log relay are
+terminal. See [full-r2-failure.json](full-r2-failure.json) and
+[full-r2-evidence/](full-r2-evidence/).
+
+Output equivalence and the full-model gate are still pending a new immutable
+Run using the corrected native request. The earlier CPU fixtures accepted
+unknown sampling keys and therefore did not expose this API mismatch.
 
 The target-only, original DSPARK and Hybrid servers execute sequentially in the
 same allocation with the same immutable token IDs and T=0. Calibration uses the

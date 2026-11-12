@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "uuid": "aa335087-ea2c-4099-aaed-f8da736e4e8b",
+  "run_name": "hybrid-v41-full-0fdd86e-r2",
+  "label": "hybrid-v41-full",
+  "created_at": "2026-11-12T10:05:10.764468+00:00",
+  "state": "verified",
+  "source": {
+    "repository": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r2/source",
+    "remote": "origin",
+    "remote_url": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full/source",
+    "branch": null,
+    "commit": "0fdd86ea741c0f6970bbbfb4a8f2255c30cf4f95",
+    "submodules": {},
+    "selection": {
+      "policy": "explicit-ref",
+      "ref": "0fdd86ea741c0f6970bbbfb4a8f2255c30cf4f95",
+      "ref_commit": "0fdd86ea741c0f6970bbbfb4a8f2255c30cf4f95",
+      "remote": "origin",
+      "remote_url": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full/source"
+    }
+  },
+  "execution": {
+    "cwd": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r2/source",
+    "workspace_lifecycle": "source-worktree",
+    "argv": [
+      "python3",
+      "-c",
+      "import hashlib,json,os,runpy,sys\nfrom pathlib import Path\nworkspace=Path(os.environ['WORKSPACE'])\nmodel=Path('/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017')\nscript=workspace/'acceptance/hybrid-spark-v41-20261112/full_model_acceptance.py'\nbundle=workspace/'patches/sglang/v41-hybrid-spark-38d9e4a3fe'\ncache_module=runpy.run_path(str(workspace/'scripts/with_kernel_cache.py'))\ncache_settings,cache_directories=cache_module['cache_environment'](Path(os.environ['RUN_DIR'])/'cache','sglang-03a08910-sm90',dict(os.environ))\nfor path in set(cache_directories.values()):\n if path:Path(path).mkdir(parents=True,exist_ok=True)\nos.environ.update(cache_settings)\nargv=[sys.executable,str(script),'--runtime-bundle',str(bundle),'--model',str(model),'--launch-timeout-seconds','5400']\nconfig=dict(kind='native-v41-differential-acceptance',model=str(model),tensor_parallel=8,expert_parallel=8,variants=['target','dspark','hybrid'],temperature=0,max_new_tokens=256,concurrency=4,hybrid_extra_slots_per_request=15,launch_timeout_seconds=5400,deepgemm_fast_warmup=True,kernel_cache=cache_settings,entrypoint_sha256=hashlib.sha256(script.read_bytes()).hexdigest(),argv=argv)\nPath(os.environ['RUN_DIR'],'config.yaml').write_text(json.dumps(config,indent=2)+'\\n')\nos.execv(sys.executable,argv)\n"
+    ],
+    "workload_kind": "training",
+    "image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+    "nccl_hca_policy": null,
+    "core_loading": null
+  },
+  "yicloud": {
+    "payload": {
+      "Name": "hybrid-v41-full-aa335087-ea2c-4099-aaed-f8da736e4e8b",
+      "Project": "fdj-infra",
+      "ZoneId": "cn-shanghai-a",
+      "QuotaGroup": "nex_bp",
+      "Priority": "9",
+      "Qos": "Guaranteed",
+      "UsePrivateMachine": true,
+      "JobType": "normal",
+      "RestartPolicy": "Never",
+      "BackoffLimit": 1,
+      "TaskSpecs": {
+        "t0": {
+          "Replicas": 1,
+          "CPU": "64",
+          "Memory": "640Gi",
+          "GPU": "8",
+          "Image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+          "PositiveTags": [
+            "feature/gpfs=yes",
+            "H200"
+          ],
+          "Command": [
+            "env",
+            "RUN_UUID=aa335087-ea2c-4099-aaed-f8da736e4e8b",
+            "RUN_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2",
+            "WORKSPACE=/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r2/source",
+            "MEGATRON_BRIDGE_RUN_CONFIG_PATH=/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/config.yaml",
+            "TENSORBOARD_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/tensorboard",
+            "tensorboard_folder=/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/tensorboard",
+            "CHECKPOINT_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/checkpoints",
+            "PROFILE_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/torch_profile",
+            "PYTHONPYCACHEPREFIX=/tmp/yicloud-training-runs/aa335087-ea2c-4099-aaed-f8da736e4e8b/pycache",
+            "bash",
+            "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/launch.sh"
+          ],
+          "MountGPFS": "gpfs://gpfs1/bp-data-pvc:/mnt/work;gpfs://gpfs1/shared-model-weight:/gpfs/shared-model-weight",
+          "RootfsSource": {
+            "Kind": "image"
+          },
+          "UpdatePolicy": "Active",
+          "RestartPolicy": "Never",
+          "MaxRunningDuration": "240m",
+          "Env": {
+            "PYTHONDONTWRITEBYTECODE": "1",
+            "PYTHONUNBUFFERED": "1",
+            "HF_HUB_OFFLINE": "1",
+            "TRANSFORMERS_OFFLINE": "1",
+            "OMP_NUM_THREADS": "8",
+            "PYTHONPATH": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r2/source:/opt/nexspec/overlay/nvidia_cutlass_dsl/dsl_packages:/opt/nexspec/overlay:/opt/nexspec/tile"
+          }
+        }
+      }
+    },
+    "job_id": "j-1794477911-83691",
+    "uid": "a3d334f0-b88d-42cf-a71d-4040cb874494",
+    "creation_time": "2026-11-12T10:05:11Z",
+    "terminal_phase": "Failed",
+    "terminal_reconciled_at": "2026-11-12T10:22:06.389496+00:00"
+  },
+  "artifacts": {
+    "config": "config.yaml",
+    "logs": "logs",
+    "tensorboard": "tensorboard",
+    "profile": "torch_profile",
+    "checkpoints": "checkpoints"
+  },
+  "retry_of": "58cc695e-ee65-4046-8df4-2955afa66755",
+  "submission_attempted_at": "2026-11-12T10:05:10.990112+00:00"
+}
