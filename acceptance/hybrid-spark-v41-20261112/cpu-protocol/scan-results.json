@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "device": "cpu",
+  "seed": 42,
+  "cases": 135,
+  "length_dtypes": [
+    "int32",
+    "int64"
+  ],
+  "elapsed_seconds": 0.41033341600268614,
+  "torch": "2.12.1",
+  "harness_sha256": "4f6469269061cf7b694e98c77d1653b2405700b32f373716c95b56fa61d9b01b"
+}

@@ -1,0 +1,22 @@
+[2026-11-12 09:45:48 TP7 EP7] Load weight end. elapsed=341.59 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.32 GB, mem usage=38.12 GB.
+[2026-11-12 09:45:48 TP5 EP5] Load weight end. elapsed=341.59 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 09:45:48 TP4 EP4] Load weight end. elapsed=341.59 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 09:45:48 TP3 EP3] Load weight end. elapsed=341.59 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 09:45:48 TP6 EP6] Load weight end. elapsed=341.64 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 09:45:48 TP0 EP0] Load weight end. elapsed=341.64 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.14 GB, mem usage=38.12 GB.
+[2026-11-12 09:45:48 TP2 EP2] Load weight end. elapsed=341.65 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 09:45:48 TP1 EP1] Load weight end. elapsed=341.64 s, type=DeepseekV4ForCausalLM, quant=fp8, avail mem=100.09 GB, mem usage=38.12 GB.
+[2026-11-12 09:46:33 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=1792, K=5120, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 09:47:35 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=4096, K=1280, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 09:48:16 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=5120, K=1024, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 09:49:22 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=576, K=5120, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 09:49:52 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=5120, K=288, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+[2026-11-12 09:53:26 TP0 EP0] Try DeepGEMM JIT Compiling for <GEMM_NT_F8F8BF16_BLOCK32> N=25600, K=6144, num_groups=1 with all Ms. It only takes a little time (typically 1 sec) if you have run `python3 -m sglang.compile_deep_gemm`. 
+DeepGEMM warmup:  66%|██████▌   | 42966/65536 [05:37<05:51, 64.25it/s]
+DeepGEMM warmup:  66%|██████▌   | 42973/65536 [05:37<05:51, 64.26it/s]
+DeepGEMM warmup:  66%|██████▌   | 42980/65536 [05:37<05:51, 64.26it/s]
+DeepGEMM warmup:  66%|██████▌   | 42987/65536 [05:37<05:50, 64.26it/s]
+DeepGEMM warmup:  66%|██████▌   | 42994/65536 [05:37<05:50, 64.26it/s]
+DeepGEMM warmup:  66%|██████▌   | 43001/65536 [05:37<05:50, 64.25it/s]
+DeepGEMM warmup:  66%|██████▌   | 43008/65536 [05:37<05:50, 64.25it/s]
+DeepGEMM warmup:  66%|██████▌   | 43015/65536 [05:37<05:50, 64.22it/s]/opt/python/cpython-3.12.16-linux-x86_64-gnu/lib/python3.12/multiprocessing/resource_tracker.py:279: UserWarning: resource_tracker: There appear to be 8 leaked semaphore objects to clean up at shutdown

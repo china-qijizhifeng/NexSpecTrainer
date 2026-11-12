@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "temperature": 0,
+  "results": {},
+  "calibration_artifact": "None",
+  "budget_scope": "fixed 15 extra slots/request engineering gate; no AV throughput or calibration-quality claim"
+}

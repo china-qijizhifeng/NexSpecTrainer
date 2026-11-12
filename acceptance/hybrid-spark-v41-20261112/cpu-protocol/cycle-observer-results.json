@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "scope": "CPU native request observer and pinned source-anchor contract",
+  "pinned_source_sha256": "31870b8591b10ce6232546ff89171f49c20f066a40cbc848ee2901f5a53aaaa3",
+  "patched_source_sha256": "dbdd6f8b02992a6dd774f05cf03a7e775492b3abd9e08cfe262c416ebdd930f4",
+  "observed_commits": [
+    8,
+    2
+  ],
+  "rejected_corruptions": 4,
+  "nonzero_tp_rank_writes": false,
+  "gpu_tested": false
+}

@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "complete": true,
+  "stages": {},
+  "calibrator": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/nsp/runs/ca_b391e1f574fb434a8ead1325/attempts/0001/ngram-calibrator.json",
+  "calibrator_sha256": "bc9fe65cbad141a7e7631bae8f834a0375435ec83a7c63f75b2f9e40da2703d7",
+  "fit": {
+    "ridge": 0.001,
+    "stride": 4,
+    "seed": 42,
+    "max_iter": 20,
+    "split_unit": "trace",
+    "training": {
+      "labels": 216,
+      "accepted": 216,
+      "log_loss": 0.00015893192239313422,
+      "brier": 5.3058119196939765e-08
+    },
+    "validation": {
+      "labels": 72,
+      "accepted": 72,
+      "log_loss": 0.00015893192239313416,
+      "brier": 5.3058119196939765e-08
+    },
+    "validation_trace_indices": [
+      3,
+      6
+    ]
+  }
+}

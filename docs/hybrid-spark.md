@@ -91,3 +91,12 @@ The tested scan, selection and history kernels match the current source hashes;
 the native SGLang integration has a separate acceptance gate. Environment,
 source fingerprints, results and resource-release receipts are in the
 [Northjob report](../acceptance/hybrid-spark-v41-20261112/northjob/README.md).
+
+The independent H200 gate also passed native SGLang acceptance and output
+assembly with 256 rejection/cap cases for each prefix-length dtype, four
+fused-argmax cases and commits up to sixteen tokens. Ring-address checks covered
+51 cases at each of sizes 128 and 1024. The official model configuration kept
+MTP at five and the target verifier at sixteen. These checks use synthetic logits;
+the native-model gate separately checks output IDs and continued decode after a
+long commit. Full results and current model-gate status are in the
+[acceptance report](../acceptance/hybrid-spark-v41-20261112/README.md).

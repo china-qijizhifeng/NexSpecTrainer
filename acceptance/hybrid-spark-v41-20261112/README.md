@@ -6,6 +6,16 @@ managed Run records. Serving evaluation and calibration use `nsp`.
 
 ## Completed gates
 
+- CPU scan passed 135 independent cases for both prefix-length dtypes;
+  chain selection passed 54 scenarios and 331 prefix-budget allocations.
+  The native CPU cycle observer also rejected four corrupted receipts.
+  See [cpu-protocol/manifest.json](cpu-protocol/manifest.json).
+- Detached `nsp` Runs passed the real HTTP protocol fixture with eight measured
+  requests, two separate warmups and peak concurrency four. The serving stage
+  retained external checkpoint identity without copying weights. Missing cycle
+  telemetry, malformed token output, warmup calibration and sampled calibration
+  failed as expected. These fixtures establish protocol behavior, not model
+  throughput or calibration quality. Existing nsp tests passed 13/13.
 - H100 n-gram scan, selection, history writes and CUDA graph replay passed on BP Dev;
   see the [independent H100 report](northjob/README.md).
 - YiCloud H200 module Run `1aeaa3c1-a709-4045-b45f-9e65662e3a2f`,
@@ -42,8 +52,22 @@ Managed Run `58cc695e-ee65-4046-8df4-2955afa66755`, Job `j-1794476150-416069`,
 uses source `7018bd1bc9073be03dc7052bae62ebbc9bd6948f` in an independent clean
 shared checkout. It requests one replica with eight H200, 64 CPU and 640 GiB,
 TP8/EP8, in `fdj-infra/nex_bp`. Submission was verified at
-`2026-11-12T09:35:50Z`. Its target-only server was still in cold startup at
-17:56 CST. Output equivalence and the full-model gate have not yet passed.
+`2026-11-12T09:35:50Z`. It failed at 17:59 CST because target-only cold startup
+exceeded the harness's 1200-second readiness limit. It never entered model
+evaluation; `results` was empty. Parent and sole replica reached `Failed`, and
+the managed reconciler recorded resource release. This is a startup failure,
+not evidence about Hybrid output correctness. See
+[full-r1-failure.json](full-r1-failure.json) and
+[full-r1-evidence/](full-r1-evidence/) for the immutable configuration, terminal
+receipts, log excerpt and complete-log SHA-256.
+
+The retry is Run `aa335087-ea2c-4099-aaed-f8da736e4e8b`, Job
+`j-1794477911-83691`, source `0fdd86ea741c0f6970bbbfb4a8f2255c30cf4f95`.
+It keeps the same eight-GPU allocation and comparison gates, increases each
+server readiness limit to 5400 seconds, and uniformly enables fast DeepGEMM
+warmup and persistent kernel caches. All runtime outputs are outside its new
+immutable source checkout. Output equivalence and the full-model gate are
+still pending.
 
 The target-only, original DSPARK and Hybrid servers execute sequentially in the
 same allocation with the same immutable token IDs and T=0. Calibration uses the

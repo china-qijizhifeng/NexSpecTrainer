@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "id": "ca_9bf555fe20b344cd8cf8518f",
+  "kind": "calibrate",
+  "name": null,
+  "request_id": "6aae2550-a08c-4d8c-902d-0eb50de4578c",
+  "fingerprint": "d074089fbee8154d64853e7f0cbb8280aaa2a23b65e4757379d3d7587d9da656",
+  "created_at": "2026-11-12T07:54:35.654645+00:00",
+  "attempt": 1,
+  "state": "failed",
+  "started_at": "2026-11-12T07:54:35.914015+00:00",
+  "supervisor_pid": 21625,
+  "heartbeat_at": "2026-11-12T07:54:39.464189+00:00",
+  "worker_pid": 21629,
+  "finished_at": "2026-11-12T07:54:39.464173+00:00",
+  "exit_code": 1,
+  "completion": null,
+  "error": "worker failed or did not publish a completion receipt",
+  "path": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/nsp/runs/ca_9bf555fe20b344cd8cf8518f",
+  "config": {
+    "schema_version": 1,
+    "traces": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/nsp/runs/ca_9bf555fe20b344cd8cf8518f/attempts/0001/traces.jsonl",
+    "temperature": 0,
+    "provenance": {
+      "target": "fixture-model-v1",
+      "tokenizer": "fixture-tokenizer-v1",
+      "runtime": "fixture-runtime-v1",
+      "dataset": "fixture-data-v1",
+      "traces_sha256": "cabd5a6332c0893a98a944a67c1a3bb142443d6dddbf32e64f05118af8966626"
+    },
+    "stride": 4,
+    "ridge": 0.001,
+    "validation_fraction": 0.2,
+    "seed": 42,
+    "max_iter": 20
+  },
+  "manifest": {
+    "schema_version": 1,
+    "kind": "calibrate",
+    "created_at": "2026-11-12T07:54:35.838788+00:00",
+    "cwd": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer",
+    "argv": [
+      "/Users/shom/Downloads/research/nexspec-hybrid-spark-20261112/test-venv/bin/python",
+      "-m",
+      "specforge.nsp.worker",
+      "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/nsp/runs/ca_9bf555fe20b344cd8cf8518f/attempts/0001",
+      "calibrate"
+    ],
+    "commit": "97572ea9fa5283d5fb08a1ececef37df6bab9bac",
+    "source_sha256": "36a41330ac749e07273431187c3c857cf000dabab51f095aea25dc4b0285b4cf",
+    "python": "/Users/shom/Downloads/research/nexspec-hybrid-spark-20261112/test-venv/bin/python"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "passed": false,
+  "job_id": "j-1794476150-416069",
+  "run_uuid": "58cc695e-ee65-4046-8df4-2955afa66755",
+  "source_commit": "7018bd1bc9073be03dc7052bae62ebbc9bd6948f",
+  "failure": {
+    "stage": "target-server-readiness",
+    "exception": "TimeoutError",
+    "message": "target readiness exceeded 1200 seconds",
+    "timestamp": "2026-11-12T09:59:04Z",
+    "interpretation": "Cold SGLang startup was still doing its unchunked-prefill DeepGEMM shape sweep. No serving evaluation or Hybrid computation was reached.",
+    "correction": "Use the repository fast DeepGEMM warmup policy in every variant, share caches within the run, and record an explicit 5400-second launch timeout."
+  },
+  "summary": {
+    "passed": false,
+    "temperature": 0,
+    "results": {},
+    "calibration_artifact": "None",
+    "budget_scope": "fixed 15 extra slots/request engineering gate; no AV throughput or calibration-quality claim"
+  },
+  "terminal_reconciled_at": "2026-11-12T09:59:12.203607+00:00",
+  "resources": {
+    "full-r1-final-GetJob.json": {
+      "sha256": "1f3b01605b34b15103e0d1934afc53a210790cf3995492adb4b328ff45543b4e",
+      "job_id": "j-1794476150-416069",
+      "phase": "Failed",
+      "active": {
+        "t0": {
+          "Failed": 1
+        }
+      }
+    },
+    "full-r1-final-ListJobReplicas.json": {
+      "sha256": "4fe5402535527629efa1580cd086b332d58f1d9a0de59bf2994005723f10fcb5",
+      "replicas": [
+        {
+          "Name": "j-1794476150-416069-cfcd2",
+          "Phase": "Failed",
+          "NodeName": "lg-cmc-gpu-0943.host.lg.shzhisuan.com"
+        }
+      ]
+    },
+    "full-control-GetJob.json": {
+      "sha256": "8e8cb74c5ce668b3119b1dcd247cb609520d5aa26082be00830ae8cfb8eeca87",
+      "job_id": "j-1794476141-919557",
+      "phase": "Succeeded",
+      "active": {
+        "t0": {
+          "Succeeded": 1
+        }
+      }
+    },
+    "full-control-ListJobReplicas.json": {
+      "sha256": "38469d9562144f63e8b8159c2940ee5263ca95d025141747bb6d6ea1a4fdb317",
+      "replicas": [
+        {
+          "Name": "j-1794476141-919557-b9jlf",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com"
+        }
+      ]
+    },
+    "full-observer-final-GetJob.json": {
+      "sha256": "784ce035e692742f3377bc8a22ead9a63cd09e440830b5748565631d28f840f1",
+      "job_id": "j-1794476932-718949",
+      "phase": "Succeeded",
+      "active": {
+        "t0": {
+          "Succeeded": 1
+        }
+      }
+    },
+    "full-observer-final-ListJobReplicas.json": {
+      "sha256": "2adf662b7816e6871867729b2e8e4f60bd12d370dd78a808f731621c5858d0ce",
+      "replicas": [
+        {
+          "Name": "j-1794476932-718949-8gnvq",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com"
+        }
+      ]
+    }
+  }
+}

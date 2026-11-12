@@ -1,0 +1,8 @@
+{
+  "source": "acceptance/hybrid-spark-v41-20261112/full-r1-artifacts/full-model/target/server.log",
+  "bytes": 487089,
+  "sha256": "5add0990521f206f8fe9cfd7f5555f402662aecd57ca5c328c73c235f3b6bc15",
+  "full_log_remote": "/mnt/work/shom/training_runs/hybrid-v41-full-7018bd1-r1/full-model/target/server.log",
+  "excerpt": "server-log-excerpt.txt",
+  "selection": "weight-load completion, DeepGEMM specialization starts and last eight warmup progress lines"
+}

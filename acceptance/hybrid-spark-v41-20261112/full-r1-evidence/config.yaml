@@ -1,0 +1,24 @@
+{
+  "kind": "native-v41-differential-acceptance",
+  "model": "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "tensor_parallel": 8,
+  "expert_parallel": 8,
+  "variants": [
+    "target",
+    "dspark",
+    "hybrid"
+  ],
+  "temperature": 0,
+  "max_new_tokens": 256,
+  "concurrency": 4,
+  "hybrid_extra_slots_per_request": 15,
+  "entrypoint_sha256": "72ec2b2229a101873a7214eb3909b0574c80df964904301d0d44781fba9980fb",
+  "argv": [
+    "/opt/sglang/bin/python3",
+    "/mnt/work/shom/hybrid-spark-native-v41-20261112-full/source/acceptance/hybrid-spark-v41-20261112/full_model_acceptance.py",
+    "--runtime-bundle",
+    "/mnt/work/shom/hybrid-spark-native-v41-20261112-full/source/patches/sglang/v41-hybrid-spark-38d9e4a3fe",
+    "--model",
+    "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017"
+  ]
+}

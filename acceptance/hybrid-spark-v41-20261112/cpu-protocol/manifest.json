@@ -1,0 +1,70 @@
+{
+  "scope": "CPU differential and deterministic HTTP protocol fixtures; no native model quality or throughput claim",
+  "receipts": [
+    {
+      "source": "cpu-differential.json",
+      "receipt": "cpu-protocol/scan-results.json",
+      "sha256": "a27123dae415207313a8cbeb7073327ace3b1ac0df238f49f9668681a07233d5"
+    },
+    {
+      "source": "cpu-selection-differential.json",
+      "receipt": "cpu-protocol/selection-results.json",
+      "sha256": "672947c93e01bbc8565b76f5380e50ad4d9bb24a189bc89b78358733f5f66585"
+    },
+    {
+      "source": "cycle-observer-cpu.json",
+      "receipt": "cpu-protocol/cycle-observer-results.json",
+      "sha256": "323bc26d2d70de734f27d08fc4b64af6eecc7cb717b0c110de5be3d71e3ebe57"
+    },
+    {
+      "source": "nsp-protocol-r4/summary.json",
+      "receipt": "cpu-protocol/nsp-summary.json",
+      "sha256": "8b6c1df97cada99c4d1780f05500ca963c6a475f52cb5916eae249ef622471be"
+    },
+    {
+      "source": "nsp-protocol-r4/eval-show.stdout",
+      "receipt": "cpu-protocol/nsp-eval-status.json",
+      "sha256": "4275bda39b0e9d88446d665ab51a1a276e45078a95b0ffe5b70e79a8efe0720f"
+    },
+    {
+      "source": "nsp-protocol-r4/eval-results.stdout",
+      "receipt": "cpu-protocol/nsp-eval-results.json",
+      "sha256": "a6e1dfb4656ec5c5b921fde1acce3a2df3c093df9fe6a1eb43bca0eb235dddab"
+    },
+    {
+      "source": "nsp-protocol-r4/calibrate-show.stdout",
+      "receipt": "cpu-protocol/nsp-calibration-status.json",
+      "sha256": "a936abac1cc0b2e322ca492458c5f594c467b2dd26c97a731df2ea0eb7d9a0e2"
+    },
+    {
+      "source": "nsp-protocol-r4/calibrate-results.stdout",
+      "receipt": "cpu-protocol/nsp-calibration-results.json",
+      "sha256": "2dd3c8beb0c4352cfacb4320e27431705f979de305fda5a6423cac6fc8f18662"
+    },
+    {
+      "source": "nsp-protocol-r4/missing-cycles-show.stdout",
+      "receipt": "cpu-protocol/expected-missing-cycles.json",
+      "sha256": "3632f610d04b4ded848cd935db5741b72f72320890452c3e49e9f8d084bfaa17"
+    },
+    {
+      "source": "nsp-protocol-r4/malformed-output-show.stdout",
+      "receipt": "cpu-protocol/expected-malformed-output.json",
+      "sha256": "d327fbad1eb0f0d53520c746669efb4bd0887684c163c07fb4dc88278ec40c3b"
+    },
+    {
+      "source": "nsp-protocol-r4/warmup-calibrate-show.stdout",
+      "receipt": "cpu-protocol/expected-warmup-calibration.json",
+      "sha256": "510437f029ba5100892a8c356bc88ac0d66492678862d2119f66004d52ee3ad4"
+    },
+    {
+      "source": "nsp-protocol-r4/sampled-calibrate-show.stdout",
+      "receipt": "cpu-protocol/expected-sampled-calibration.json",
+      "sha256": "58dd69f3cdd00e90142612fae2cb9216d35cd2500c034f1a92d500f291471fae"
+    },
+    {
+      "source": "nsp-existing-tests-after-identity.xml",
+      "receipt": "cpu-protocol/existing-nsp-tests.xml",
+      "sha256": "e9ae5b5b55025ee4bf9a1146a048f9a717eb9a7357eaa04603d2cf93dcb964d7"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "ev_639f35dae68b48aa980d31ae",
+  "kind": "eval",
+  "name": null,
+  "request_id": "malformed-output",
+  "fingerprint": "291f3aed7da3659dbeae7c28ae91f3390883ed606b7c7f063570eaa4fbaafe59",
+  "created_at": "2026-11-12T07:54:33.782623+00:00",
+  "attempt": 1,
+  "state": "failed",
+  "started_at": "2026-11-12T07:54:34.152529+00:00",
+  "supervisor_pid": 21602,
+  "heartbeat_at": "2026-11-12T07:54:35.172400+00:00",
+  "worker_pid": 21603,
+  "finished_at": "2026-11-12T07:54:35.172382+00:00",
+  "exit_code": 1,
+  "completion": null,
+  "error": "worker failed or did not publish a completion receipt",
+  "path": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/nsp/runs/ev_639f35dae68b48aa980d31ae",
+  "config": {
+    "schema_version": 1,
+    "recipe": null,
+    "features": null,
+    "checkpoint": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/model",
+    "metrics": [
+      "al",
+      "performance"
+    ],
+    "group_by": "ctx-len",
+    "ctx_bins": [
+      0,
+      50,
+      60,
+      "inf"
+    ],
+    "seed": 42,
+    "anchor_chunk_size": 32,
+    "ctx_origin": null,
+    "global_step": null,
+    "total_steps": null,
+    "serving": {
+      "url": "http://127.0.0.1:62439",
+      "prompts": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/nsp/runs/ev_639f35dae68b48aa980d31ae/attempts/0001/prompts.jsonl",
+      "model": "fixture",
+      "info_path": "/get_server_info",
+      "checkpoint_field": "speculative_draft_model_path",
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "max_new_tokens": 16,
+      "timeout": 300.0,
+      "api_key_env": null,
+      "protocol": "native",
+      "concurrency": 4,
+      "warmup_requests": 2,
+      "expected_server_args": {
+        "speculative_algorithm": "DSPARK",
+        "hybrid_config": "fixture-v1"
+      }
+    },
+    "resolved_recipe": null
+  },
+  "manifest": {
+    "schema_version": 1,
+    "kind": "eval",
+    "created_at": "2026-11-12T07:54:34.060168+00:00",
+    "cwd": "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer",
+    "argv": [
+      "/Users/shom/Downloads/research/nexspec-hybrid-spark-20261112/test-venv/bin/python",
+      "-m",
+      "specforge.nsp.worker",
+      "/Users/shom/.codex/worktrees/hybrid-spark-native-v41/NexSpecTrainer/acceptance/hybrid-spark-v41-20261112/nsp-protocol-r4/nsp/runs/ev_639f35dae68b48aa980d31ae/attempts/0001",
+      "eval"
+    ],
+    "commit": "97572ea9fa5283d5fb08a1ececef37df6bab9bac",
+    "source_sha256": "36a41330ac749e07273431187c3c857cf000dabab51f095aea25dc4b0285b4cf",
+    "python": "/Users/shom/Downloads/research/nexspec-hybrid-spark-20261112/test-venv/bin/python"
+  }
+}

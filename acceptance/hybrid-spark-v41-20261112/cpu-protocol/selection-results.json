@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "device": "cpu",
+  "selection_cases": 54,
+  "allocation_cases": 331,
+  "elapsed_seconds": 0.6862504999880912,
+  "torch": "2.12.1",
+  "harness_sha256": "0b514dff772739e35ef1a40401f362a48fcef8f428d9e0aff6d1ad4365d3968a",
+  "ngram_only_empty_match": "anchor-only"
+}
