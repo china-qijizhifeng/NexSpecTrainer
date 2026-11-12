@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/full-model/nsp/runs/ev_ba43abecab1e4276b3afe2c2/attempts/0001/source/specforge/nsp/worker.py", line 93, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/full-model/nsp/runs/ev_ba43abecab1e4276b3afe2c2/attempts/0001/source/specforge/nsp/worker.py", line 89, in main
+    return execute(args.attempt, args.kind)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/full-model/nsp/runs/ev_ba43abecab1e4276b3afe2c2/attempts/0001/source/specforge/nsp/worker.py", line 69, in execute
+    result["stages"]["serving"] = run_serving(spec, attempt)
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/full-model/nsp/runs/ev_ba43abecab1e4276b3afe2c2/attempts/0001/source/specforge/nsp/serving_eval.py", line 140, in run_serving
+    row = _request(spec, prompts[index % len(prompts)], index, headers, "warmup")
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/work/shom/training_runs/hybrid-v41-full-0fdd86e-r2/full-model/nsp/runs/ev_ba43abecab1e4276b3afe2c2/attempts/0001/source/specforge/nsp/serving_eval.py", line 76, in _request
+    response.raise_for_status()
+  File "/opt/sglang/lib/python3.12/site-packages/requests/models.py", line 1167, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http://127.0.0.1:30000/generate

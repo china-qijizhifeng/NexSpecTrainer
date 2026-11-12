@@ -1,0 +1,31 @@
+{
+  "scope": "Strict native sampling_seed HTTP fixture after the r2 contract failure; no model performance claim",
+  "origin": "nsp-protocol-r8",
+  "receipts": [
+    {
+      "receipt": "calibrate-results.json",
+      "bytes": 837,
+      "sha256": "bc21dca0052ed1370948bd65800e2ec1caa692abeb637362b70a6b3566d63639"
+    },
+    {
+      "receipt": "calibrate-show.json",
+      "bytes": 3039,
+      "sha256": "66a720e20c88094cbcfb829bb6a97d3981c92f394eb5fa0eb780c58e7742237b"
+    },
+    {
+      "receipt": "eval-results.json",
+      "bytes": 3306,
+      "sha256": "9fbccd62a932db72bb93aa3402858e05192d7783c6d557e8be6f87f6b124cc75"
+    },
+    {
+      "receipt": "eval-show.json",
+      "bytes": 6239,
+      "sha256": "2f624a86f1ecdcb99fe121850b49aa173d830b70900226102c79969b2cbc2ea2"
+    },
+    {
+      "receipt": "summary.json",
+      "bytes": 580,
+      "sha256": "4b975d5e54c6760604680fd4249476e95bcb283a61ca09d8138c89dd4dd6d3ef"
+    }
+  ]
+}
