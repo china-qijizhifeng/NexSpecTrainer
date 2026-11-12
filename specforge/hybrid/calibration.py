@@ -86,6 +86,8 @@ def run_calibration(spec, attempt):
     for row in traces:
         if row.get("phase", "measure") != "measure":
             raise ValueError("warmup traces cannot be calibration data")
+        if row.get("sampling", {}).get("temperature") != 0:
+            raise ValueError("calibration requires trace-level temperature=0 sampling receipts")
     artifact = fit_calibrator(traces, stride=spec.stride, ridge=spec.ridge,
                               validation_fraction=spec.validation_fraction, seed=spec.seed,
                               max_iter=spec.max_iter, provenance={**spec.provenance,

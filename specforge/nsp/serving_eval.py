@@ -92,6 +92,7 @@ def _request(spec, prompt, index, headers, phase):
         raise ValueError("invalid completion token count")
     rows = serving_terms(meta, tokens, bool(spec.group_by)) if "al" in spec.metrics else []
     return {"request_id": request_id, "sample_id": prompt.get("id", index), "phase": phase,
+            "sampling": sampling,
             "input_ids": prompt.get("input_ids"), "output_ids": output,
             "completion_tokens": tokens, "duration_seconds": duration, "verify_rows": rows,
             "meta_info": meta, "response": payload}
