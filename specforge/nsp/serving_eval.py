@@ -62,7 +62,9 @@ def _request(spec, prompt, index, headers, phase):
         if not isinstance(ids, list) or not ids or any(type(v) is not int or v < 0 for v in ids):
             raise ValueError("native prompts require nonempty nonnegative input_ids")
         path = "/generate"
-        body = {"rid": request_id, "input_ids": ids, "stream": False, "sampling_params": sampling}
+        native_sampling = dict(sampling)
+        native_sampling["sampling_seed"] = native_sampling.pop("seed")
+        body = {"rid": request_id, "input_ids": ids, "stream": False, "sampling_params": native_sampling}
     else:
         if not isinstance(prompt.get("messages"), list) or not prompt["messages"]:
             raise ValueError("each prompt must contain a nonempty messages array")
@@ -73,7 +75,15 @@ def _request(spec, prompt, index, headers, phase):
     begin = time.perf_counter()
     response = requests.post(serving.url.rstrip("/") + path, json=body,
                              headers={**headers, "X-Request-Id": request_id}, timeout=serving.timeout)
-    response.raise_for_status()
+    try:
+        response.raise_for_status()
+    except requests.HTTPError as exc:
+        # The worker persists this diagnostic in results.json. Keep the server's
+        # validation error bounded and omit request headers from the receipt.
+        raise requests.HTTPError(
+            f"serving HTTP {response.status_code} for request {request_id}: {response.text[:4096]}",
+            response=response,
+        ) from exc
     payload = response.json()
     if "error" in payload:
         raise ValueError(f"serving error: {payload['error']}")
