@@ -65,6 +65,8 @@ class HybridRuntime:
                      max_match=self.config.max_match, max_draft=self.config.max_draft)
         if proposal.confidence is None:
             raise ValueError("native Hybrid Spark requires the original MTP confidence head")
+        if self.config.extra_budget_per_request is not None:
+            slot_price = None  # Fixed-budget runs use their configured price.
         selected = select_chains(block.draft_tokens, proposal.confidence, ngram,
                                  estimate_ngram(ngram, self.coefficients),
                                  slot_price=self.config.slot_price if slot_price is None else slot_price,
@@ -82,8 +84,7 @@ class HybridRuntime:
         from sglang.srt.speculative.ragged_verify import RaggedVerifyLayout
 
         selected = self.last_selection
-        if budget is None and self.config.extra_budget_per_request is not None:
-            budget = selected.lengths.shape[0] * self.config.extra_budget_per_request
+        budget = self.config.extra_budget(selected.lengths.shape[0], budget)
         lens = verify_lengths(selected.survival, selected.lengths, budget)
         if layout is not None:
             lens = torch.minimum(lens, layout.verify_lens)

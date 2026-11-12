@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
-  "patch_sha256": "c82a768532e7fb72d1e8c0353465785fb6fe880cba67a28b62c3f9ee45b9b669",
+  "patch_sha256": "0f76ba1f5d0df11c53399fc04f9df90288b7bd3c68693c860a16153317f7b160",
   "files": {
     "python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py": {
       "before_sha256": "420478eac029ecff9a8914b7df4d7db2fea4f61be9dbafa1cf34b1b890292c06",
@@ -37,7 +37,7 @@
     },
     "python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py": {
       "before_sha256": "28e086c086f2262921fe9f5af870e050073ff3b8054537f3b5a9d77f1142f3a5",
-      "after_sha256": "81ab16a599eb420dca7c6114a9b84eac0d765b824a00c7ca3cc03159665f2c2d"
+      "after_sha256": "b0fa2a4a99f42260e389f73d5c2a7fdeaa26e3e54d56eb4b5feb1abb2049bc3e"
     }
   }
 }

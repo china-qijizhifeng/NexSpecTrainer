@@ -45,6 +45,12 @@ class HybridConfig:
     def verify_width(self):
         return self.max_draft + 1
 
+    def extra_budget(self, num_requests, planned_budget=None):
+        """An explicit fixed budget takes precedence over native AV sizing."""
+        if self.extra_budget_per_request is not None:
+            return num_requests * self.extra_budget_per_request
+        return planned_budget
+
     def coefficients(self):
         if self.calibrator:
             raw = json.loads(Path(self.calibrator).read_text())

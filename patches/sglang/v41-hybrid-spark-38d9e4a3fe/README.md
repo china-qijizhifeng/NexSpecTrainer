@@ -35,13 +35,14 @@ must be available on PYTHONPATH for every worker rank.
 `mode: mtp` measures the additional scan/history overhead while forcing the
 original MTP chain; `mode: ngram` uses an anchor-only step if no match exists.
 `extra_budget_per_request` optionally fixes a batch-wide extra-token budget
-(the count excludes anchors). Without a profiled SPS table this is a fixed
-policy, not a measured adaptive-verification speedup. `uncalibrated_acceptance`
+(the count excludes anchors), overriding native adaptive budget sizing.
+Fixed-budget runs use the configured `slot_price`. Without a profiled SPS table
+this is a fixed policy, not a measured adaptive-verification speedup. `uncalibrated_acceptance`
 may replace `calibrator` only for explicit smoke tests.
 
-The adapter accepts only greedy native V4.1, single-node tensor parallelism, and no
-attention DP or disaggregated prefill. Draft graphs remain five-wide. Folded
-target acceptance is disabled because its buffers assume a fixed native chain;
+The adapter accepts only greedy native V4.1 and single-node tensor parallelism;
+CP, attention DP, PP and disaggregated prefill are rejected. Draft graphs remain
+five-wide. Folded target acceptance is disabled because its buffers assume a fixed native chain;
 the ordinary exact target verifier and committed-hidden injection are retained.
 Request history reads only prompt + committed output + current anchor once.
 Selection and budget allocation stay on the GPU. Existing delayed confidence
