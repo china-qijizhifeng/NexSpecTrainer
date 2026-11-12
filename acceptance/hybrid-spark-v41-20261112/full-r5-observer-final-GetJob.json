@@ -1,0 +1,114 @@
+{
+  "Code": 0,
+  "Data": {
+    "Name": "hybrid-v41-full-r5-observer",
+    "Project": "fdj-infra",
+    "Labels": {
+      "brainpp-log-collector": "fluent-bit",
+      "kubebrain.brainpp.cn/creator": "yanhang",
+      "kubebrain.brainpp.cn/creator-department": "default",
+      "kubebrain.brainpp.cn/creator-id": "e994309241cbb635c1b469b192f15365",
+      "kubebrain.brainpp.cn/creator-type": "user",
+      "kubebrain.brainpp.cn/resourcetype": "rjob",
+      "privatemachine.brainpp.cn/privatemachine": "group",
+      "quotagroup.brainpp.cn/preemptible": "no",
+      "quotagroup.brainpp.cn/quotagroup": "fdj_cpu_task",
+      "rjob": "rjob",
+      "rjob.brainpp.cn/rjob-name": "j-1794486784-536689",
+      "rjob.brainpp.cn/rjob-version": "v2",
+      "rjob.brainpp.cn/scheduler-name": "volcano",
+      "rjob.brainpp.cn/zs-task-type": "rjob-normal",
+      "scheduling.k8s.io/group-name": "j-1794486784-536689",
+      "scheduling.volcano.sh/queue-name": "fdj-infra-fdj-cpu-task",
+      "topology.brainpp.cn/region": "cn-shanghai",
+      "topology.brainpp.cn/zone": "cn-shanghai-a",
+      "volcano.brainpp.cn/priority-level": "high"
+    },
+    "JobId": "j-1794486784-536689",
+    "Uid": "53e94d3e-dc35-406c-ba0b-2e6142dd93c6",
+    "Creator": "yanhang",
+    "CreatorId": "e994309241cbb635c1b469b192f15365",
+    "RealCreator": "",
+    "RealCreatorId": "",
+    "Priority": "9",
+    "Qos": "Guaranteed",
+    "Description": "",
+    "QuotaGroup": "fdj_cpu_task",
+    "Mount": "",
+    "CreationTime": "2026-11-12T12:33:04Z",
+    "Phase": "Succeeded",
+    "Message": "RJob succeeded",
+    "RestartCount": 0,
+    "FailurePolicy": "None",
+    "RestartPolicy": "Never",
+    "TaskSpecs": {
+      "t0": {
+        "Replicas": 1,
+        "PositiveTags": [
+          "feature/gpfs=yes"
+        ],
+        "MaxRunningDuration": "4h20m0s",
+        "Image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+        "Command": [
+          "python3",
+          "-c",
+          "import hashlib,json,time\nfrom pathlib import Path\nrun=Path('/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5')\npositions={};seen={}\nfor tick in range(1040):\n for path in sorted(run.glob('full-model/*/server.log')):\n  raw=path.read_text(errors='replace');offset=positions.get(str(path),0)\n  if len(raw)>offset:\n   delta=raw[offset:];positions[str(path)]=len(raw)\n   print('SERVER_LOG_FILE',str(path),flush=True)\n   progress=[];lines=[]\n   for line in delta.splitlines():\n    if any(marker in line for marker in ['DeepGEMM warmup:','[AutoTuner]: Tuning','TensorRT-LLM][INFO]']) and not any(marker in line for marker in ['ERROR','Exception','Traceback','RuntimeError']):progress.append(line)\n    else:lines.append(line)\n   if progress:print('WARMUP_PROGRESS',progress[-1],flush=True)\n   if lines:print('\\n'.join(lines)[-35000:],flush=True)\n for pattern in ['config.yaml','full-model/*/readiness.json','full-model/*/server-info.json','full-model/*/summary.json','full-model/*/diagnostics/summary.json','full-model/long-commits.json','full-model/baseline-reuse.json','full-model/summary.json','full-model/target-vs-*.json','full-model/dspark-vs-*.json','full-model/nsp/runs/*/run.json','full-model/nsp/runs/*/attempts/*/status.json','full-model/nsp/runs/*/attempts/*/results.json','logs/runtime-finished-replica-0.json']:\n  for path in sorted(run.glob(pattern)):\n   raw=path.read_text()\n   if seen.get(str(path))!=raw:\n    seen[str(path)]=raw\n    if path.name=='server-info.json':print('SERVER_READY',str(path),flush=True)\n    elif path.name=='status.json':\n     status=json.loads(raw);print('NSP_STATUS',str(path),json.dumps({key:status.get(key) for key in ['state','started_at','finished_at','exit_code','error']}),flush=True)\n    elif path.name=='config.yaml':\n     config=json.loads(raw);print('CONFIG_VALID',json.dumps(dict(sha256=hashlib.sha256(raw.encode()).hexdigest(),launch_timeout_seconds=config['launch_timeout_seconds'],deepgemm_fast_warmup=config['deepgemm_fast_warmup'],kernel_cache=config['kernel_cache'])),flush=True)\n    else:print('ARTIFACT_STATUS',str(path),raw[:12000],flush=True)\n if (run/'logs/runtime-finished-replica-0.json').is_file():print('OBSERVER_FINISHED',flush=True);break\n time.sleep(15)\nelse:raise TimeoutError('file observer expired')\n"
+        ],
+        "CPU": "2",
+        "Memory": "8Gi",
+        "GPU": "0",
+        "EphemeralStorage": "",
+        "SKUId": "",
+        "MountGPFS": "gpfs://gpfs1/bp-data-pvc:/mnt/work",
+        "MountGpfsVolumes": [
+          {
+            "Source": "gpfs://gpfs1/bp-data-pvc",
+            "Target": "/mnt/work"
+          }
+        ],
+        "UpdatePolicy": "Active",
+        "RestartPolicy": "Never",
+        "CustomResources": {
+          "mellanox.com/mlnx_rdma": "0",
+          "rdma/mlnx_shared": "0"
+        },
+        "Volumes": [
+          {
+            "Name": "auth-info",
+            "MountPath": "/.auth/accesskey_id",
+            "ReadOnly": true
+          },
+          {
+            "Name": "auth-info",
+            "MountPath": "/.auth/accesskey_secret",
+            "ReadOnly": true
+          }
+        ],
+        "RootfsSource": {
+          "Kind": "image",
+          "StorageClassName": "",
+          "ReclaimPolicy": ""
+        },
+        "Internet": true,
+        "RegionId": "cn-shanghai",
+        "ZoneId": "cn-shanghai-a"
+      }
+    },
+    "TaskStatusCounts": {
+      "t0": {
+        "Succeeded": 1
+      }
+    },
+    "BackoffLimit": 1,
+    "StopTime": "2026-11-12T12:39:23Z",
+    "AutoDeleteDuration": "720h0m0s",
+    "TopStatus": "",
+    "TopTime": "",
+    "WaitTime": 0,
+    "Rank": 0,
+    "RegionId": "cn-shanghai",
+    "ZoneId": "cn-shanghai-a"
+  },
+  "Msg": "SUCCESS",
+  "_cost": 10
+}

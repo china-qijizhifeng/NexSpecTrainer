@@ -1,0 +1,4616 @@
+{
+  "telemetry": "independent native CPU observer receipts",
+  "total_cycles": 245,
+  "beyond_mtp_commits": [
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 4,
+      "ctx_len": 392,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 5,
+      "ctx_len": 408,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 6,
+      "ctx_len": 424,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 7,
+      "ctx_len": 440,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 8,
+      "ctx_len": 456,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 9,
+      "ctx_len": 472,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 10,
+      "ctx_len": 488,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 11,
+      "ctx_len": 504,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 12,
+      "ctx_len": 520,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 13,
+      "ctx_len": 536,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 14,
+      "ctx_len": 552,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 15,
+      "ctx_len": 568,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 16,
+      "ctx_len": 584,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "cycle_id": 17,
+      "ctx_len": 600,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 15
+    },
+    {
+      "request_id": "nsp-f8b4f5bf09f74a268688d392e7a34e5f",
+      "sample_id": "long-copy-4095",
+      "cycle_id": 1,
+      "ctx_len": 4102,
+      "committed_output_tokens": 12,
+      "accepted_draft_tokens": 11
+    },
+    {
+      "request_id": "nsp-bc7d1da40c284ed494579b702e013943",
+      "sample_id": "long-copy-4096",
+      "cycle_id": 1,
+      "ctx_len": 4103,
+      "committed_output_tokens": 12,
+      "accepted_draft_tokens": 11
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "cycle_id": 2,
+      "ctx_len": 90,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 7
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "cycle_id": 3,
+      "ctx_len": 98,
+      "committed_output_tokens": 8,
+      "accepted_draft_tokens": 7
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "cycle_id": 4,
+      "ctx_len": 106,
+      "committed_output_tokens": 9,
+      "accepted_draft_tokens": 8
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "cycle_id": 5,
+      "ctx_len": 115,
+      "committed_output_tokens": 9,
+      "accepted_draft_tokens": 8
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "cycle_id": 6,
+      "ctx_len": 124,
+      "committed_output_tokens": 9,
+      "accepted_draft_tokens": 8
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "cycle_id": 7,
+      "ctx_len": 133,
+      "committed_output_tokens": 9,
+      "accepted_draft_tokens": 8
+    }
+  ],
+  "long_commits_followed_by_decode": [
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+      "sample_id": "heldout-3",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+      "sample_id": "heldout-0",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+      "sample_id": "heldout-5",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+      "sample_id": "heldout-4",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+      "sample_id": "heldout-6",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+      "sample_id": "heldout-7",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+      "sample_id": "heldout-8",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+      "sample_id": "heldout-10",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+      "sample_id": "heldout-11",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+      "sample_id": "heldout-9",
+      "commit": {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-f8b4f5bf09f74a268688d392e7a34e5f",
+      "sample_id": "long-copy-4095",
+      "commit": {
+        "cycle_id": 1,
+        "ctx_len": 4102,
+        "committed_output_tokens": 12,
+        "accepted_draft_tokens": 11
+      },
+      "next_cycle": {
+        "cycle_id": 2,
+        "ctx_len": 4114,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 1
+      }
+    },
+    {
+      "request_id": "nsp-bc7d1da40c284ed494579b702e013943",
+      "sample_id": "long-copy-4096",
+      "commit": {
+        "cycle_id": 1,
+        "ctx_len": 4103,
+        "committed_output_tokens": 12,
+        "accepted_draft_tokens": 11
+      },
+      "next_cycle": {
+        "cycle_id": 2,
+        "ctx_len": 4115,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 1
+      }
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "commit": {
+        "cycle_id": 2,
+        "ctx_len": 90,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 7
+      },
+      "next_cycle": {
+        "cycle_id": 3,
+        "ctx_len": 98,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 7
+      }
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "commit": {
+        "cycle_id": 3,
+        "ctx_len": 98,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 7
+      },
+      "next_cycle": {
+        "cycle_id": 4,
+        "ctx_len": 106,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      }
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "commit": {
+        "cycle_id": 4,
+        "ctx_len": 106,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      "next_cycle": {
+        "cycle_id": 5,
+        "ctx_len": 115,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      }
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "commit": {
+        "cycle_id": 5,
+        "ctx_len": 115,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      "next_cycle": {
+        "cycle_id": 6,
+        "ctx_len": 124,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      }
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "commit": {
+        "cycle_id": 6,
+        "ctx_len": 124,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      "next_cycle": {
+        "cycle_id": 7,
+        "ctx_len": 133,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      }
+    },
+    {
+      "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+      "sample_id": "repeated-pattern",
+      "commit": {
+        "cycle_id": 7,
+        "ctx_len": 133,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      "next_cycle": {
+        "cycle_id": 8,
+        "ctx_len": 142,
+        "committed_output_tokens": 3,
+        "accepted_draft_tokens": 2
+      }
+    }
+  ]
+}

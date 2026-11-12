@@ -1,0 +1,9 @@
+{
+  "model": "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+  "model_index_sha256": "74b0686a3d2891980d5e303251b075a3bccae2c2ff650747db2620a649b98fa8",
+  "confidence_weights": {
+    "mtp.2.confidence_head.proj.weight": "model-00046-of-00048.safetensors"
+  },
+  "confidence_weight_count": 1,
+  "read_scope": "index keys and referenced shard paths only; no model weights loaded"
+}

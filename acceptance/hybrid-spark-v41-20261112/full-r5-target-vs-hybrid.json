@@ -1,0 +1,20 @@
+{
+  "equal": false,
+  "requests": 17,
+  "differences": [
+    {
+      "sample_id": "reasoning-no-match",
+      "first_divergence": 51,
+      "baseline_tokens": [
+        666,
+        1
+      ],
+      "candidate_tokens": [
+        42499,
+        1
+      ],
+      "baseline_length": 53,
+      "candidate_length": 53
+    }
+  ]
+}

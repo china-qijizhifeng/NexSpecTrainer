@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "variants": [
+    "dspark",
+    "target"
+  ],
+  "request_counts": {
+    "target": 17,
+    "dspark": 17
+  },
+  "calibrator": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r5/control/baseline-preflight/reused-ngram-calibrator.json",
+  "calibrator_sha256": "0f481ca190c4312613fc191ffc94af292407b2f6c3e69f0a4a09bc8b2b8a7d09",
+  "baseline_reuse_sha256": "e37d8e64efd23949cbf2abecdd8391f5f0be5656aac1d9b900c9ed74bf981a55"
+}

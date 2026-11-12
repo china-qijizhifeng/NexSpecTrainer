@@ -1,0 +1,490 @@
+{
+  "baseline_dir": "/mnt/work/shom/training_runs/hybrid-v41-full-d834b94-r4/full-model",
+  "baseline_source": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r4/source",
+  "baseline_commit": "d834b94fef28086490c7c62e3ee5cfc250fcf45d",
+  "baseline_runtime_manifest_sha256": "bffb69ef21d01b27cfe4c906c3b75cc4e7593e5c2722e23ee0f3c68932ea7f10",
+  "current_runtime_manifest_sha256": "e1a9a38e76bd14ea3554852121e278654e406569863db65764240f07d07a95a1",
+  "evaluated_runs": {
+    "target": "ev_75b54b8e73874ed391305313",
+    "dspark": "ev_b7a1bde6dab447ad8674ac21"
+  },
+  "calibration_run": "ca_d62dff735e3b41e6b3e1b08a",
+  "calibrator_sha256": "0f481ca190c4312613fc191ffc94af292407b2f6c3e69f0a4a09bc8b2b8a7d09",
+  "calibration_provenance": {
+    "target": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879",
+    "tokenizer": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+    "runtime": "bffb69ef21d01b27cfe4c906c3b75cc4e7593e5c2722e23ee0f3c68932ea7f10",
+    "dataset": "b25d6aa2308977795dce8648747081ee6c4167264af144a12e41aef1212237fb",
+    "traces_sha256": "8e6584def0d3b02705a3caef133ac6debc2f7db2042858ac5094129465e15647",
+    "temperature": 0
+  },
+  "checkpoint_identity": {
+    "format": "external-path-config-sha256-shard-stat-v1",
+    "path": "/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017",
+    "files": [
+      {
+        "name": ".gitattributes",
+        "size": 2143,
+        "mtime_ns": 1793798747390931833
+      },
+      {
+        "name": "LICENSE",
+        "size": 1084,
+        "mtime_ns": 1793798747353981231
+      },
+      {
+        "name": "README.md",
+        "size": 5231,
+        "mtime_ns": 1793798747313730000
+      },
+      {
+        "name": "config.json",
+        "size": 3311,
+        "mtime_ns": 1793798747323810098,
+        "sha256": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879"
+      },
+      {
+        "name": "configuration.json",
+        "size": 26,
+        "mtime_ns": 1793798747356952287,
+        "sha256": "563571360b3c5a4cf9b14b09732f686a8ed9da2d0dfcd1728d72140b4aeb1467"
+      },
+      {
+        "name": "encoding/README.md",
+        "size": 12164,
+        "mtime_ns": 1793798747334745212
+      },
+      {
+        "name": "encoding/__pycache__/encoding.cpython-310.pyc",
+        "size": 25581,
+        "mtime_ns": 1793896503472725000
+      },
+      {
+        "name": "encoding/encoding.py",
+        "size": 37962,
+        "mtime_ns": 1793798747397129201
+      },
+      {
+        "name": "encoding/test_encoding.py",
+        "size": 22449,
+        "mtime_ns": 1793798747404769072
+      },
+      {
+        "name": "encoding/tests/test_input_1.json",
+        "size": 2761,
+        "mtime_ns": 1793798747687222030,
+        "sha256": "6a5a86694e47169c8f0c9243a7e24cc5db05447be0d3d3a9891034e913c518de"
+      },
+      {
+        "name": "encoding/tests/test_input_2.json",
+        "size": 527,
+        "mtime_ns": 1793798747638990085,
+        "sha256": "fd985cda88e8640b8e2404d8e659f7006cad204eb41f73c9e6662b1f218c01aa"
+      },
+      {
+        "name": "encoding/tests/test_input_3.json",
+        "size": 2554,
+        "mtime_ns": 1793798747715598026,
+        "sha256": "4207613f15c79b95ad92074bdb8b2b81c5ce9cfdf15b7a67f58ded6bb3ec4fa5"
+      },
+      {
+        "name": "encoding/tests/test_input_4.json",
+        "size": 712,
+        "mtime_ns": 1793798747711304819,
+        "sha256": "4c3890a7bc042ec6396d98d024a39a73cdcffbe1d0253e852da0c35e65296f3e"
+      },
+      {
+        "name": "encoding/tests/test_input_5.json",
+        "size": 1143,
+        "mtime_ns": 1793798747696052473,
+        "sha256": "88289b0aac8d650aa55c4ffeb392818fff3a0ac83c2293ddfd90546804d5e5c4"
+      },
+      {
+        "name": "encoding/tests/test_output_1.txt",
+        "size": 2476,
+        "mtime_ns": 1793798747705659422
+      },
+      {
+        "name": "encoding/tests/test_output_2.txt",
+        "size": 294,
+        "mtime_ns": 1793798747733495947
+      },
+      {
+        "name": "encoding/tests/test_output_3.txt",
+        "size": 2481,
+        "mtime_ns": 1793798747704171814
+      },
+      {
+        "name": "encoding/tests/test_output_4.txt",
+        "size": 574,
+        "mtime_ns": 1793798747976459930
+      },
+      {
+        "name": "encoding/tests/test_output_5.txt",
+        "size": 408,
+        "mtime_ns": 1793798748017283365
+      },
+      {
+        "name": "inference/README.md",
+        "size": 2029,
+        "mtime_ns": 1793798748006655981
+      },
+      {
+        "name": "inference/config.json",
+        "size": 1982,
+        "mtime_ns": 1793798748009085020,
+        "sha256": "2e84f45cf1dac8c7fcbb200e96667d4b913275690668ed496f24c7747207a809"
+      },
+      {
+        "name": "inference/convert.py",
+        "size": 9458,
+        "mtime_ns": 1793798748016266528
+      },
+      {
+        "name": "inference/engram.py",
+        "size": 8138,
+        "mtime_ns": 1793798748034920000
+      },
+      {
+        "name": "inference/examples/example.txt",
+        "size": 332,
+        "mtime_ns": 1793798748004710012
+      },
+      {
+        "name": "inference/examples/example_harmony.json",
+        "size": 2156,
+        "mtime_ns": 1793798748016552938,
+        "sha256": "44ae84a3cbd360b1b8d303ed4006756afb77e5d014c4abb7c61ff9b9a094f6ea"
+      },
+      {
+        "name": "inference/examples/images/carrots.jpeg",
+        "size": 212495,
+        "mtime_ns": 1793798748492899525
+      },
+      {
+        "name": "inference/examples/images/corn.jpeg",
+        "size": 56122,
+        "mtime_ns": 1793798748466897538
+      },
+      {
+        "name": "inference/generate.py",
+        "size": 8722,
+        "mtime_ns": 1793798748347026838
+      },
+      {
+        "name": "inference/image_processor.py",
+        "size": 7699,
+        "mtime_ns": 1793798748341537000
+      },
+      {
+        "name": "inference/kernel.py",
+        "size": 23790,
+        "mtime_ns": 1793798748385362949
+      },
+      {
+        "name": "inference/model.py",
+        "size": 61669,
+        "mtime_ns": 1793798748440612339
+      },
+      {
+        "name": "inference/requirements.txt",
+        "size": 98,
+        "mtime_ns": 1793798748378993279
+      },
+      {
+        "name": "inference/run.sh",
+        "size": 1759,
+        "mtime_ns": 1793798748393312253
+      },
+      {
+        "name": "inference/vision.py",
+        "size": 4457,
+        "mtime_ns": 1793798748664935000
+      },
+      {
+        "name": "model-00001-of-00048.safetensors",
+        "size": 970533624,
+        "mtime_ns": 1793798830570736426
+      },
+      {
+        "name": "model-00002-of-00048.safetensors",
+        "size": 1323858272,
+        "mtime_ns": 1793798819532159527
+      },
+      {
+        "name": "model-00003-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799806314524538
+      },
+      {
+        "name": "model-00004-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799092441532055
+      },
+      {
+        "name": "model-00005-of-00048.safetensors",
+        "size": 7405953784,
+        "mtime_ns": 1793799117493005989
+      },
+      {
+        "name": "model-00006-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799361655116314
+      },
+      {
+        "name": "model-00007-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799099441908925
+      },
+      {
+        "name": "model-00008-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799117269070738
+      },
+      {
+        "name": "model-00009-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799314338409578
+      },
+      {
+        "name": "model-00010-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799392909398908
+      },
+      {
+        "name": "model-00011-of-00048.safetensors",
+        "size": 7405953784,
+        "mtime_ns": 1793799417927969598
+      },
+      {
+        "name": "model-00012-of-00048.safetensors",
+        "size": 7389759032,
+        "mtime_ns": 1793799453902975458
+      },
+      {
+        "name": "model-00013-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793799887390073275
+      },
+      {
+        "name": "model-00014-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800648733865157
+      },
+      {
+        "name": "model-00015-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800034194189400
+      },
+      {
+        "name": "model-00016-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793799851326158565
+      },
+      {
+        "name": "model-00017-of-00048.safetensors",
+        "size": 7405956128,
+        "mtime_ns": 1793801711442948104
+      },
+      {
+        "name": "model-00018-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793802436630078371
+      },
+      {
+        "name": "model-00019-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793799727710910613
+      },
+      {
+        "name": "model-00020-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793799959084625377
+      },
+      {
+        "name": "model-00021-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800317345128751
+      },
+      {
+        "name": "model-00022-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800442690309368
+      },
+      {
+        "name": "model-00023-of-00048.safetensors",
+        "size": 7400713088,
+        "mtime_ns": 1793800529369778435
+      },
+      {
+        "name": "model-00024-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800325260974036
+      },
+      {
+        "name": "model-00025-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800761325647401
+      },
+      {
+        "name": "model-00026-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800941814209522
+      },
+      {
+        "name": "model-00027-of-00048.safetensors",
+        "size": 7395337384,
+        "mtime_ns": 1793800846504151964
+      },
+      {
+        "name": "model-00028-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800967169044378
+      },
+      {
+        "name": "model-00029-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793801625694327739
+      },
+      {
+        "name": "model-00030-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793800940272311588
+      },
+      {
+        "name": "model-00031-of-00048.safetensors",
+        "size": 7395337384,
+        "mtime_ns": 1793801141939436639
+      },
+      {
+        "name": "model-00032-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793802300988926888
+      },
+      {
+        "name": "model-00033-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793801269169703784
+      },
+      {
+        "name": "model-00034-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793801268387681238
+      },
+      {
+        "name": "model-00035-of-00048.safetensors",
+        "size": 7395337384,
+        "mtime_ns": 1793801331020724038
+      },
+      {
+        "name": "model-00036-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793801470442489224
+      },
+      {
+        "name": "model-00037-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793801585123611073
+      },
+      {
+        "name": "model-00038-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793801580655244688
+      },
+      {
+        "name": "model-00039-of-00048.safetensors",
+        "size": 7395337384,
+        "mtime_ns": 1793801824842226139
+      },
+      {
+        "name": "model-00040-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793802031439228456
+      },
+      {
+        "name": "model-00041-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793801786717210035
+      },
+      {
+        "name": "model-00042-of-00048.safetensors",
+        "size": 7389761368,
+        "mtime_ns": 1793802037712280735
+      },
+      {
+        "name": "model-00043-of-00048.safetensors",
+        "size": 1323837624,
+        "mtime_ns": 1793801699213395957
+      },
+      {
+        "name": "model-00044-of-00048.safetensors",
+        "size": 2652728736,
+        "mtime_ns": 1793802632855191648
+      },
+      {
+        "name": "model-00045-of-00048.safetensors",
+        "size": 2573998176,
+        "mtime_ns": 1793801846034941270
+      },
+      {
+        "name": "model-00046-of-00048.safetensors",
+        "size": 2706402896,
+        "mtime_ns": 1793802142519867519
+      },
+      {
+        "name": "model-00047-of-00048.safetensors",
+        "size": 101535150936,
+        "mtime_ns": 1793804673822314347
+      },
+      {
+        "name": "model-00048-of-00048.safetensors",
+        "size": 101537926640,
+        "mtime_ns": 1793804720755082684
+      },
+      {
+        "name": "model.safetensors.index.json",
+        "size": 7470294,
+        "mtime_ns": 1793802043721152374,
+        "sha256": "74b0686a3d2891980d5e303251b075a3bccae2c2ff650747db2620a649b98fa8"
+      },
+      {
+        "name": "tokenizer.json",
+        "size": 6367257,
+        "mtime_ns": 1793802045082547794,
+        "sha256": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b"
+      },
+      {
+        "name": "tokenizer_config.json",
+        "size": 801,
+        "mtime_ns": 1793802046262036294,
+        "sha256": "6ac8c8dc065ed118161d02dd532749ae3f52c243deac27872134fae2f50d8547"
+      }
+    ],
+    "fingerprint": "5d82ad0f6d268a07d547fce2aa04fbbe225ddb073519ffddb1ed57ee87053663"
+  },
+  "identical_helpers": {
+    "acceptance/hybrid-spark-v41-20261112/native_cycle_hook.py": "42bffe166108754372122087f0f0884e0c18c7efee87ba5eccd2cee47753ada2",
+    "specforge/nsp/__init__.py": "e8f925cfee0dc6038c15b4b6d128babb048e26cda7f38baa5ee1f5dba8186517",
+    "specforge/nsp/calibrate_config.py": "8e5eca4b594579b8d22491794d329f658322b029f479523ed6f1cc167a7a3c36",
+    "specforge/nsp/cli.py": "a0563c6b2ff15d7b8a51d89ea87670246f17af3a20b8ee059808b50c68627831",
+    "specforge/nsp/eval_config.py": "e986a51a58fdd5957b7fc41d3623838f49ec73a6dee2b73f19e38b342cb4b8e2",
+    "specforge/nsp/eval_inputs.py": "45655337fac362308a36e5a8b40ece97355780f227ca8ac4bedb4efd7c4082d3",
+    "specforge/nsp/manager.py": "235c044196656db3e0dde231e3b2f373e1a29c16f07edee323b35f26b8350580",
+    "specforge/nsp/metrics.py": "7998b482db6dc9bcf54344cd5e0a5afadd291739681edd2c05d6b6b1879e8dde",
+    "specforge/nsp/offline_eval.py": "f90657b1d781b5a9e261c4eb12f7e8827a8e99a1fcb430acbd149fa45ae1c2bb",
+    "specforge/nsp/serving_eval.py": "7ed4058f6a383b38c13eb96136254b5b4c71bf80780f37f3d0fbd3e073f3f0a7",
+    "specforge/nsp/store.py": "4564ec3d20f4bf420c1721d156d310caabf518c1e1703bcbf7f68251446d2f9b",
+    "specforge/nsp/supervisor.py": "39e53963699309ff47efac1ff658f23a71e0b48ef69c97f138e93236296134b0",
+    "specforge/nsp/telemetry.py": "1a068e3842bbe853d352fcbb2344de39ab72d81cfe64002856a03d8fee47792e",
+    "specforge/nsp/worker.py": "ea9e74bd3e148bb57dc0b41d54ad541a1e67f79f6a17d717d9fe1a893155650f",
+    "specforge/hybrid/__init__.py": "d68436894bca14eb97ba0d911bc3a023d6a52d7dde2585b20b228b9948ad14ab",
+    "specforge/hybrid/calibration.py": "8f2ced37f78f2fb700691ca4a3fdd0dd863eb13121335a7bbb742daa6deabad6",
+    "specforge/hybrid/config.py": "cc04a195026b2833e82746370b9f25fe52b6d10321ef8b618fda841ef5ac67a8",
+    "specforge/hybrid/kernels.py": "b4c810c22b8871b32fb17df6524efce512b0061f62ed3dc15b92b5d03a90bf00",
+    "specforge/hybrid/ngram.py": "af861dcdde9492ffbde59dcace30531a3ac1b845d1ec7a625107b81cd2022844",
+    "specforge/hybrid/runtime_patch.py": "cbd2cf1d95877ed6106edc0698ba55573031ae8f0eb72068c55c3f8c4fe1f975",
+    "specforge/hybrid/selection.py": "44fef9af207b839da09dff476befeaeda460004cf4b6a7644f60f3744de94692",
+    "specforge/hybrid/sglang_runtime.py": "80a4feff54839b716072c49b060f032252fa78d9a6e4cfbff92b784d8fcbaa1e"
+  },
+  "scope": "correctness receipts from the preceding allocation; no cross-allocation throughput comparison"
+}

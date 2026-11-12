@@ -1,0 +1,50 @@
+{
+  "Code": 0,
+  "Data": {
+    "Items": [
+      {
+        "Timestamp": "1794487148737590379",
+        "Line": "[2026-11-12T20:39:08+08:00] j-1794486677-162329-cfcd2 >> Traceback (most recent call last):"
+      },
+      {
+        "Timestamp": "1794487148737629244",
+        "Line": "[2026-11-12T20:39:08+08:00] j-1794486677-162329-cfcd2 >>   File \"/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r5/source/acceptance/hybrid-spark-v41-20261112/full_model_acceptance.py\", line 360, in <module>"
+      },
+      {
+        "Timestamp": "1794487148737632904",
+        "Line": "[2026-11-12T20:39:08+08:00] j-1794486677-162329-cfcd2 >>     main()"
+      },
+      {
+        "Timestamp": "1794487148737634661",
+        "Line": "[2026-11-12T20:39:08+08:00] j-1794486677-162329-cfcd2 >>   File \"/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r5/source/acceptance/hybrid-spark-v41-20261112/full_model_acceptance.py\", line 348, in main"
+      },
+      {
+        "Timestamp": "1794487148737638715",
+        "Line": "[2026-11-12T20:39:08+08:00] j-1794486677-162329-cfcd2 >>     raise RuntimeError(\"T=0 output divergence recorded; compare all three receipts before correctness claims\")"
+      },
+      {
+        "Timestamp": "1794487148737640070",
+        "Line": "[2026-11-12T20:39:08+08:00] j-1794486677-162329-cfcd2 >> RuntimeError: T=0 output divergence recorded; compare all three receipts before correctness claims"
+      },
+      {
+        "Timestamp": "1794487149526085661",
+        "Line": "[2026-11-12T20:39:09+08:00] j-1794486677-162329-cfcd2 >> {\"@caller\":\"gitlab.basemind.com/basemind/brainpp/projects/kubebrain/pkg/workspace/worker/shim/runner.(*ShimOptions).Run\",\"@file\":\"projects/kubebrain/pkg/workspace/worker/shim/runner/server.go:133\",\"@level\":\"warning\",\"@msg\":\"Command exited abnormally\",\"@timestamp\":\"2026-11-12T12:39:09.525Z\",\"error\":\"exit status 1\"}"
+      },
+      {
+        "Timestamp": "1794487149528871781",
+        "Line": "[2026-11-12T20:39:09+08:00] j-1794486677-162329-cfcd2 >> {\"@caller\":\"gitlab.basemind.com/basemind/brainpp/projects/kubebrain/pkg/workspace/worker/init.(*Server).wait\",\"@file\":\"projects/kubebrain/pkg/workspace/worker/init/server.go:126\",\"@level\":\"info\",\"@msg\":\"exit status 1\",\"@timestamp\":\"2026-11-12T12:39:09.528Z\",\"exitCode\":1,\"source\":1}"
+      },
+      {
+        "Timestamp": "1794487149532578632",
+        "Line": "[2026-11-12T20:39:09+08:00] j-1794486677-162329-cfcd2 >> {\"@caller\":\"gitlab.basemind.com/basemind/brainpp/projects/kubebrain/pkg/workspace/worker/init.(*Server).stopAllServices\",\"@file\":\"projects/kubebrain/pkg/workspace/worker/init/server.go:194\",\"@level\":\"warning\",\"@msg\":\"Kill service\",\"@timestamp\":\"2026-11-12T12:39:09.532Z\",\"Pid\":0,\"Service\":\"pid\",\"error\":\"os: process not initialized\"}"
+      },
+      {
+        "Timestamp": "1794487149532603615",
+        "Line": "[2026-11-12T20:39:09+08:00] j-1794486677-162329-cfcd2 >> {\"@caller\":\"gitlab.basemind.com/basemind/brainpp/projects/kubebrain/cmd/worker-init/app/options.(*Options).Run\",\"@file\":\"projects/kubebrain/cmd/worker-init/app/options/options.go:122\",\"@level\":\"error\",\"@msg\":\"Exited\",\"@timestamp\":\"2026-11-12T12:39:09.532Z\",\"error\":\"user command: exit status 1\"}"
+      }
+    ],
+    "Total": 10
+  },
+  "Msg": "SUCCESS",
+  "_cost": 31
+}

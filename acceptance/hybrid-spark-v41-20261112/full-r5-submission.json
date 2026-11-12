@@ -1,0 +1,30 @@
+{
+  "source_commit": "2b6a293637efc40d2834a21af6c87580b13f9498",
+  "source_bundle_bytes": 17950,
+  "source_bundle_sha256": "f1891aa9c6142c7eddb8382bde6f05326b91c5e5dc21c7cad1297b2cde12d359",
+  "controller_sha256": "a02a3a09558b01789cefb62ff4da7c4c775ed617804576388db73d883453e894",
+  "run": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5",
+  "retry_of": "41a0c650-2df2-4039-8f4a-295e7f93900a",
+  "baseline_dir": "/mnt/work/shom/training_runs/hybrid-v41-full-d834b94-r4/full-model",
+  "baseline_source": "/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r4/source",
+  "pre_gpu_checks": [
+    "confidence index keys and shard file existence without loading weights",
+    "official tokenizer prompt regeneration",
+    "baseline_reuse with exact model/source/runtime/helper/sampling identities"
+  ],
+  "gpu_allocation": {
+    "project": "fdj-infra",
+    "quota_group": "nex_bp",
+    "replicas": 1,
+    "gpus_per_replica": 8,
+    "priority": 9
+  },
+  "throughput_comparison_valid": false,
+  "uuid": "195ac64f-c389-47e4-99c5-b546632fde5b",
+  "gpu_job_id": "j-1794486677-162329",
+  "controller_job_id": "j-1794486635-862619",
+  "observer_job_id": "j-1794486784-536689",
+  "managed_reconcile": true,
+  "confidence_index_preflight": "passed",
+  "baseline_reuse_cpu_preflight": "passed"
+}

@@ -1,0 +1,949 @@
+{
+  "run_uuid": "195ac64f-c389-47e4-99c5-b546632fde5b",
+  "source_commit": "2b6a293637efc40d2834a21af6c87580b13f9498",
+  "run_dir": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5",
+  "gpu_job_id": "j-1794486677-162329",
+  "terminal_phase": "Failed",
+  "terminal_reconciled_at": "2026-11-12T12:39:26.046556+00:00",
+  "gate_passed": false,
+  "throughput_comparison_valid": false,
+  "first_failure": {
+    "scope": "strict output-equality gate after all five new nsp eval Runs succeeded",
+    "timestamp_ns": "1794487148737640070",
+    "error_type": "RuntimeError",
+    "message": "T=0 output divergence recorded; compare all three receipts before correctness claims",
+    "stack": "Traceback (most recent call last):\n  File \"/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r5/source/acceptance/hybrid-spark-v41-20261112/full_model_acceptance.py\", line 360, in <module>\n    main()\n  File \"/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r5/source/acceptance/hybrid-spark-v41-20261112/full_model_acceptance.py\", line 348, in main\n    raise RuntimeError(\"T=0 output divergence recorded; compare all three receipts before correctness claims\")\nRuntimeError: T=0 output divergence recorded; compare all three receipts before correctness claims",
+    "source": "full-r5-gpu-final-GetLogs.json",
+    "source_sha256": "b1a8886dfb718ea9f5ce7888094c38758b2e4d889c8c86ee52f546ce070fb43a"
+  },
+  "scheduler_failure": null,
+  "main_summary": {
+    "passed": false,
+    "temperature": 0,
+    "results": {
+      "target": {
+        "complete": true,
+        "request_count": 17,
+        "overall": {},
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_new_tokens": 256,
+          "seed": 42,
+          "concurrency": 4,
+          "protocol": "native",
+          "warmup_requests": 2
+        },
+        "prompts_sha256": "d0a87c09575deaa96e7395a51ad9dae365f7c612bde81d8aca2db9d8068a4fda"
+      },
+      "dspark": {
+        "complete": true,
+        "request_count": 17,
+        "overall": {
+          "al": {
+            "value": 5.903284671532846,
+            "numerator": 3235.0,
+            "denominator": 548.0
+          }
+        },
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_new_tokens": 256,
+          "seed": 42,
+          "concurrency": 4,
+          "protocol": "native",
+          "warmup_requests": 2
+        },
+        "prompts_sha256": "d0a87c09575deaa96e7395a51ad9dae365f7c612bde81d8aca2db9d8068a4fda"
+      },
+      "hybrid": {
+        "complete": true,
+        "request_count": 17,
+        "overall": {
+          "al": {
+            "value": 13.204081632653061,
+            "numerator": 3235.0,
+            "denominator": 245.0
+          }
+        },
+        "sampling": {
+          "temperature": 0.0,
+          "top_p": 1.0,
+          "max_new_tokens": 256,
+          "seed": 42,
+          "concurrency": 4,
+          "protocol": "native",
+          "warmup_requests": 2
+        },
+        "prompts_sha256": "d0a87c09575deaa96e7395a51ad9dae365f7c612bde81d8aca2db9d8068a4fda"
+      }
+    },
+    "calibration_artifact": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/reused-ngram-calibrator.json",
+    "reused_baseline": "/mnt/work/shom/training_runs/hybrid-v41-full-d834b94-r4/full-model",
+    "throughput_comparison_valid": false,
+    "budget_scope": "fixed 15 extra slots/request engineering gate; no AV throughput or calibration-quality claim",
+    "original_receipt": {
+      "relative_path": "full-model/summary.json",
+      "sha256": "5313aeab27c7b721ea313a9cabb763e4e2b731f5a6a9907966845418f48b0adb"
+    }
+  },
+  "readiness_seconds": 250.15171109512448,
+  "nsp_runs": {
+    "hybrid-fixed-prefix-0": {
+      "id": "ev_1fa9ec3d605f4a82ad2230d7",
+      "kind": "eval",
+      "state": "succeeded",
+      "exit_code": 0,
+      "error": null
+    },
+    "hybrid-original-0": {
+      "id": "ev_275c4d93d0c0472eb4b4233b",
+      "kind": "eval",
+      "state": "succeeded",
+      "exit_code": 0,
+      "error": null
+    },
+    "hybrid-original-1": {
+      "id": "ev_3a2e7fc5ede645b1936c45f8",
+      "kind": "eval",
+      "state": "succeeded",
+      "exit_code": 0,
+      "error": null
+    },
+    "hybrid-fixed-prefix-1": {
+      "id": "ev_f08210cd72b347dd8d2f3705",
+      "kind": "eval",
+      "state": "succeeded",
+      "exit_code": 0,
+      "error": null
+    },
+    "hybrid-measured": {
+      "id": "ev_f0adef4c025c4596b5c2e256",
+      "kind": "eval",
+      "state": "succeeded",
+      "exit_code": 0,
+      "error": null
+    }
+  },
+  "comparisons": {
+    "target-vs-dspark": {
+      "equal": false,
+      "complete_coverage": true,
+      "requests": 17,
+      "suites": {
+        "exact-code-copy": {
+          "equal": 12,
+          "total": 12
+        },
+        "long-copy-boundary": {
+          "equal": 2,
+          "total": 2
+        },
+        "reasoning-thinking": {
+          "equal": 0,
+          "total": 1
+        },
+        "repeated-pattern": {
+          "equal": 1,
+          "total": 1
+        },
+        "short-copy-eos": {
+          "equal": 1,
+          "total": 1
+        }
+      },
+      "differences": [
+        {
+          "sample_id": "reasoning-no-match",
+          "first_divergence": 51,
+          "left_length": 53,
+          "right_length": 53,
+          "left_tail": [
+            666,
+            1
+          ],
+          "right_tail": [
+            42499,
+            1
+          ]
+        }
+      ]
+    },
+    "target-vs-hybrid": {
+      "equal": false,
+      "complete_coverage": true,
+      "requests": 17,
+      "suites": {
+        "exact-code-copy": {
+          "equal": 12,
+          "total": 12
+        },
+        "long-copy-boundary": {
+          "equal": 2,
+          "total": 2
+        },
+        "reasoning-thinking": {
+          "equal": 0,
+          "total": 1
+        },
+        "repeated-pattern": {
+          "equal": 1,
+          "total": 1
+        },
+        "short-copy-eos": {
+          "equal": 1,
+          "total": 1
+        }
+      },
+      "differences": [
+        {
+          "sample_id": "reasoning-no-match",
+          "first_divergence": 51,
+          "left_length": 53,
+          "right_length": 53,
+          "left_tail": [
+            666,
+            1
+          ],
+          "right_tail": [
+            42499,
+            1
+          ]
+        }
+      ]
+    },
+    "dspark-vs-hybrid": {
+      "equal": true,
+      "complete_coverage": true,
+      "requests": 17,
+      "suites": {
+        "exact-code-copy": {
+          "equal": 12,
+          "total": 12
+        },
+        "long-copy-boundary": {
+          "equal": 2,
+          "total": 2
+        },
+        "reasoning-thinking": {
+          "equal": 1,
+          "total": 1
+        },
+        "repeated-pattern": {
+          "equal": 1,
+          "total": 1
+        },
+        "short-copy-eos": {
+          "equal": 1,
+          "total": 1
+        }
+      },
+      "differences": []
+    }
+  },
+  "diagnostics": {
+    "target": {
+      "original_repeatable": true,
+      "prefix_repeatable": true,
+      "original_outputs": [
+        [
+          2581,
+          1309,
+          3287,
+          3107,
+          15540,
+          16,
+          223,
+          1942,
+          12,
+          511,
+          438,
+          223,
+          1942,
+          18390,
+          397,
+          15,
+          19,
+          6912,
+          24438,
+          15,
+          1942,
+          31,
+          26739,
+          16,
+          21017,
+          47468,
+          16,
+          128822,
+          1942,
+          2863,
+          223,
+          511,
+          438,
+          223,
+          1942,
+          2863,
+          343,
+          397,
+          5420,
+          223,
+          19,
+          11,
+          438,
+          223,
+          24438,
+          5420,
+          223,
+          1942,
+          438,
+          2619,
+          26739,
+          666,
+          1
+        ],
+        [
+          2581,
+          1309,
+          3287,
+          3107,
+          15540,
+          16,
+          223,
+          1942,
+          12,
+          511,
+          438,
+          223,
+          1942,
+          18390,
+          397,
+          15,
+          19,
+          6912,
+          24438,
+          15,
+          1942,
+          31,
+          26739,
+          16,
+          21017,
+          47468,
+          16,
+          128822,
+          1942,
+          2863,
+          223,
+          511,
+          438,
+          223,
+          1942,
+          2863,
+          343,
+          397,
+          5420,
+          223,
+          19,
+          11,
+          438,
+          223,
+          24438,
+          5420,
+          223,
+          1942,
+          438,
+          2619,
+          26739,
+          666,
+          1
+        ]
+      ],
+      "prefix_outputs": [
+        [
+          42499
+        ],
+        [
+          42499
+        ]
+      ],
+      "primary_reasoning_output": [
+        2581,
+        1309,
+        3287,
+        3107,
+        15540,
+        16,
+        223,
+        1942,
+        12,
+        511,
+        438,
+        223,
+        1942,
+        18390,
+        397,
+        15,
+        19,
+        6912,
+        24438,
+        15,
+        1942,
+        31,
+        26739,
+        16,
+        21017,
+        47468,
+        16,
+        128822,
+        1942,
+        2863,
+        223,
+        511,
+        438,
+        223,
+        1942,
+        2863,
+        343,
+        397,
+        5420,
+        223,
+        19,
+        11,
+        438,
+        223,
+        24438,
+        5420,
+        223,
+        1942,
+        438,
+        2619,
+        26739,
+        666,
+        1
+      ],
+      "original_matches_primary": [
+        true,
+        true
+      ],
+      "fixed_prefix_input_sha256": "bdac82218d05121f3456bf2544a7e5bbefd6c3f1411d5c83b73f27e325498000",
+      "fixed_prefix_input_tokens": 95
+    },
+    "dspark": {
+      "original_repeatable": true,
+      "prefix_repeatable": true,
+      "original_outputs": [
+        [
+          2581,
+          1309,
+          3287,
+          3107,
+          15540,
+          16,
+          223,
+          1942,
+          12,
+          511,
+          438,
+          223,
+          1942,
+          18390,
+          397,
+          15,
+          19,
+          6912,
+          24438,
+          15,
+          1942,
+          31,
+          26739,
+          16,
+          21017,
+          47468,
+          16,
+          128822,
+          1942,
+          2863,
+          223,
+          511,
+          438,
+          223,
+          1942,
+          2863,
+          343,
+          397,
+          5420,
+          223,
+          19,
+          11,
+          438,
+          223,
+          24438,
+          5420,
+          223,
+          1942,
+          438,
+          2619,
+          26739,
+          666,
+          1
+        ],
+        [
+          2581,
+          1309,
+          3287,
+          3107,
+          15540,
+          16,
+          223,
+          1942,
+          12,
+          511,
+          438,
+          223,
+          1942,
+          18390,
+          397,
+          15,
+          19,
+          6912,
+          24438,
+          15,
+          1942,
+          31,
+          26739,
+          16,
+          21017,
+          47468,
+          16,
+          128822,
+          1942,
+          2863,
+          223,
+          511,
+          438,
+          223,
+          1942,
+          2863,
+          343,
+          397,
+          5420,
+          223,
+          19,
+          11,
+          438,
+          223,
+          24438,
+          5420,
+          223,
+          1942,
+          438,
+          2619,
+          26739,
+          666,
+          1
+        ]
+      ],
+      "prefix_outputs": [
+        [
+          42499
+        ],
+        [
+          42499
+        ]
+      ],
+      "primary_reasoning_output": [
+        2581,
+        1309,
+        3287,
+        3107,
+        15540,
+        16,
+        223,
+        1942,
+        12,
+        511,
+        438,
+        223,
+        1942,
+        18390,
+        397,
+        15,
+        19,
+        6912,
+        24438,
+        15,
+        1942,
+        31,
+        26739,
+        16,
+        21017,
+        47468,
+        16,
+        128822,
+        1942,
+        2863,
+        223,
+        511,
+        438,
+        223,
+        1942,
+        2863,
+        343,
+        397,
+        5420,
+        223,
+        19,
+        11,
+        438,
+        223,
+        24438,
+        5420,
+        223,
+        1942,
+        438,
+        2619,
+        26739,
+        42499,
+        1
+      ],
+      "original_matches_primary": [
+        false,
+        false
+      ],
+      "fixed_prefix_input_sha256": "bdac82218d05121f3456bf2544a7e5bbefd6c3f1411d5c83b73f27e325498000",
+      "fixed_prefix_input_tokens": 95
+    },
+    "hybrid": {
+      "original_repeatable": true,
+      "prefix_repeatable": true,
+      "original_outputs": [
+        [
+          2581,
+          1309,
+          3287,
+          3107,
+          15540,
+          16,
+          223,
+          1942,
+          12,
+          511,
+          438,
+          223,
+          1942,
+          18390,
+          397,
+          15,
+          19,
+          6912,
+          24438,
+          15,
+          1942,
+          31,
+          26739,
+          16,
+          21017,
+          47468,
+          16,
+          128822,
+          1942,
+          2863,
+          223,
+          511,
+          438,
+          223,
+          1942,
+          2863,
+          343,
+          397,
+          5420,
+          223,
+          19,
+          11,
+          438,
+          223,
+          24438,
+          5420,
+          223,
+          1942,
+          438,
+          2619,
+          26739,
+          42499,
+          1
+        ],
+        [
+          2581,
+          1309,
+          3287,
+          3107,
+          15540,
+          16,
+          223,
+          1942,
+          12,
+          511,
+          438,
+          223,
+          1942,
+          18390,
+          397,
+          15,
+          19,
+          6912,
+          24438,
+          15,
+          1942,
+          31,
+          26739,
+          16,
+          21017,
+          47468,
+          16,
+          128822,
+          1942,
+          2863,
+          223,
+          511,
+          438,
+          223,
+          1942,
+          2863,
+          343,
+          397,
+          5420,
+          223,
+          19,
+          11,
+          438,
+          223,
+          24438,
+          5420,
+          223,
+          1942,
+          438,
+          2619,
+          26739,
+          42499,
+          1
+        ]
+      ],
+      "prefix_outputs": [
+        [
+          42499
+        ],
+        [
+          42499
+        ]
+      ],
+      "primary_reasoning_output": [
+        2581,
+        1309,
+        3287,
+        3107,
+        15540,
+        16,
+        223,
+        1942,
+        12,
+        511,
+        438,
+        223,
+        1942,
+        18390,
+        397,
+        15,
+        19,
+        6912,
+        24438,
+        15,
+        1942,
+        31,
+        26739,
+        16,
+        21017,
+        47468,
+        16,
+        128822,
+        1942,
+        2863,
+        223,
+        511,
+        438,
+        223,
+        1942,
+        2863,
+        343,
+        397,
+        5420,
+        223,
+        19,
+        11,
+        438,
+        223,
+        24438,
+        5420,
+        223,
+        1942,
+        438,
+        2619,
+        26739,
+        42499,
+        1
+      ],
+      "original_matches_primary": [
+        true,
+        true
+      ],
+      "fixed_prefix_input_sha256": "bdac82218d05121f3456bf2544a7e5bbefd6c3f1411d5c83b73f27e325498000",
+      "fixed_prefix_input_tokens": 95
+    }
+  },
+  "observed_cycles": {
+    "dspark": {
+      "requests": 17,
+      "total_cycles": 548,
+      "maximum_commit": 6,
+      "suites": {
+        "exact-code-copy": {
+          "requests": 12,
+          "output_tokens": 3072,
+          "verify_cycles": 516,
+          "al": 5.953488372093023
+        },
+        "short-copy-eos": {
+          "requests": 1,
+          "output_tokens": 5,
+          "verify_cycles": 1,
+          "al": 5.0
+        },
+        "long-copy-boundary": {
+          "requests": 2,
+          "output_tokens": 40,
+          "verify_cycles": 8,
+          "al": 5.0
+        },
+        "repeated-pattern": {
+          "requests": 1,
+          "output_tokens": 65,
+          "verify_cycles": 11,
+          "al": 5.909090909090909
+        },
+        "reasoning-thinking": {
+          "requests": 1,
+          "output_tokens": 53,
+          "verify_cycles": 12,
+          "al": 4.416666666666667
+        }
+      }
+    },
+    "hybrid": {
+      "requests": 17,
+      "total_cycles": 245,
+      "maximum_commit": 16,
+      "suites": {
+        "exact-code-copy": {
+          "requests": 12,
+          "output_tokens": 3072,
+          "verify_cycles": 216,
+          "al": 14.222222222222221
+        },
+        "short-copy-eos": {
+          "requests": 1,
+          "output_tokens": 5,
+          "verify_cycles": 1,
+          "al": 5.0
+        },
+        "long-copy-boundary": {
+          "requests": 2,
+          "output_tokens": 40,
+          "verify_cycles": 6,
+          "al": 6.666666666666667
+        },
+        "repeated-pattern": {
+          "requests": 1,
+          "output_tokens": 65,
+          "verify_cycles": 10,
+          "al": 6.5
+        },
+        "reasoning-thinking": {
+          "requests": 1,
+          "output_tokens": 53,
+          "verify_cycles": 12,
+          "al": 4.416666666666667
+        }
+      }
+    }
+  },
+  "long_commits": {
+    "total_cycles": 245,
+    "beyond_mtp_commits": 200,
+    "followed_by_decode": 188,
+    "maximum": 16
+  },
+  "baseline_reuse": {
+    "relative_path": "full-model/baseline-reuse.json",
+    "sha256": "e37d8e64efd23949cbf2abecdd8391f5f0be5656aac1d9b900c9ed74bf981a55",
+    "baseline_commit": "d834b94fef28086490c7c62e3ee5cfc250fcf45d",
+    "baseline_runtime_manifest_sha256": "bffb69ef21d01b27cfe4c906c3b75cc4e7593e5c2722e23ee0f3c68932ea7f10",
+    "current_runtime_manifest_sha256": "e1a9a38e76bd14ea3554852121e278654e406569863db65764240f07d07a95a1",
+    "evaluated_runs": {
+      "target": "ev_75b54b8e73874ed391305313",
+      "dspark": "ev_b7a1bde6dab447ad8674ac21"
+    },
+    "calibrator_sha256": "0f481ca190c4312613fc191ffc94af292407b2f6c3e69f0a4a09bc8b2b8a7d09",
+    "calibration_provenance": {
+      "target": "8be45ce0476004a3f529fd896115a4a2e800a129ad2d3ec05b16050f52e21879",
+      "tokenizer": "c90dfa01249db1be4245780a052ede752e1361c612ac6d08e2bdada7d599476b",
+      "runtime": "bffb69ef21d01b27cfe4c906c3b75cc4e7593e5c2722e23ee0f3c68932ea7f10",
+      "dataset": "b25d6aa2308977795dce8648747081ee6c4167264af144a12e41aef1212237fb",
+      "traces_sha256": "8e6584def0d3b02705a3caef133ac6debc2f7db2042858ac5094129465e15647",
+      "temperature": 0
+    },
+    "scope": "correctness receipts from the preceding allocation; no cross-allocation throughput comparison"
+  },
+  "resource_terminals": {
+    "gpu": {
+      "job_id": "j-1794486677-162329",
+      "phase": "Failed",
+      "replicas": [
+        {
+          "Name": "j-1794486677-162329-cfcd2",
+          "ReplicaIndex": "0",
+          "Phase": "Failed",
+          "NodeName": "lg-cmc-gpu-0655.host.lg.shzhisuan.com",
+          "EndTime": "2026-11-12T12:39:09Z"
+        }
+      ]
+    },
+    "control": {
+      "job_id": "j-1794486635-862619",
+      "phase": "Succeeded",
+      "replicas": [
+        {
+          "Name": "j-1794486635-862619-66l2w",
+          "ReplicaIndex": "0",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com",
+          "EndTime": "2026-11-12T12:39:29Z"
+        }
+      ]
+    },
+    "observer": {
+      "job_id": "j-1794486784-536689",
+      "phase": "Succeeded",
+      "replicas": [
+        {
+          "Name": "j-1794486784-536689-2qqd5",
+          "ReplicaIndex": "0",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com",
+          "EndTime": "2026-11-12T12:39:19Z"
+        }
+      ]
+    }
+  },
+  "artifact_count": 335,
+  "artifact_bytes": 2883398,
+  "claim_limit": "Target/DSPARK correctness receipts are reused from r4; different GPU allocation prohibits throughput comparison. Strict three-way token equality and a measured long commit followed by decode remain required. Serial/prefix probes do not establish logit margins or numerical parity."
+}

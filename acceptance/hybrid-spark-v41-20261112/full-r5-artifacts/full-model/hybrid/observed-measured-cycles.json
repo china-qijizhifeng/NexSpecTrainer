@@ -1,0 +1,1608 @@
+[
+  {
+    "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+    "sample_id": "heldout-2",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/64f9d9ba8d172c163506db007f24d8797906102ded5ed333ad34474922d4e638.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+    "sample_id": "heldout-1",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/41754da26d35d15e8830de268a741df968d76031ae08f7bcc1b2f2f6debbb168.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-8ca67faafdfc4b729fc8f7a43e2fda56",
+    "sample_id": "heldout-3",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/2624e79810b5cfa9ec56311563c9e1343a214e369dd8cacbf477bf013fffb8ad.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-2a4f23b7d6304828acac871dbf93a8ac",
+    "sample_id": "heldout-0",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/89924d5f0baa3ea3887587cbe1df05ec9839254d803ca52e0952a608e4cd6895.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-f042551fa2ae4acf82447cdf0c06dcc5",
+    "sample_id": "heldout-5",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/230d32a16d18a5b45df68027f87d6269720dc584511f01910a584b7d36d58d5b.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-6bfae8763d4c468ab7a166fc21d9fcdd",
+    "sample_id": "heldout-4",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/de9b4a02d8d379e5380106da3612b92a3ec58d60243aad75f61068c7be6b43dd.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-8c28ed3ed0094b47aa9083c0daa39bb3",
+    "sample_id": "heldout-6",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/ae84f0544a22ff5be0efe95a6a9e5dccb89e8b49778e0c593d09f0aa97f32609.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-e6b3bed1d23a41f496ed7d7462742fea",
+    "sample_id": "heldout-7",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/712e783d80b2debdd9600e4e162de9710d219efb51e2dd769f288f4a3b3a01a1.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-26ff27cc92ca48f0920f05827016aa2f",
+    "sample_id": "heldout-8",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/f56949b11d46d2ff31b905cffcfa774511f6eb257db470868089eb8d6274ef47.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-af415e7d60a44a40a5338f49f9ccd3d7",
+    "sample_id": "heldout-10",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/a58d40c705029e4d5ed51882a4a3f01b2b801dded6f6918cdf8d5c79b1ee381a.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-9435e9fcb59f4e0bbe31777e5b9fe959",
+    "sample_id": "heldout-11",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/ec346872bcab24324454030a11692a82017a264d1148b3721587a8ab2f96754f.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-98622d0d166d429da7eb41912054bb04",
+    "sample_id": "heldout-9",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/4b40b8e575a062e0f4d3cc79d479e6e116f6298ede82b48eaa179c9ae209e4db.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 353,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 359,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 360,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 376,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 392,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 408,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 424,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 440,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 456,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 472,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 488,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 13,
+        "ctx_len": 536,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 14,
+        "ctx_len": 552,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 15,
+        "ctx_len": 568,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 16,
+        "ctx_len": 584,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      {
+        "cycle_id": 17,
+        "ctx_len": 600,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 15
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-c1da79fc8a9e45d98e0f94230eda9aca",
+    "sample_id": "short-copy-eos",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/67b567b16dc4965055dcc8c449febaa8ac5b20d6cb8b2e24a7a9b1dbb27b2c07.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 22,
+        "committed_output_tokens": 4,
+        "accepted_draft_tokens": 4
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-f8b4f5bf09f74a268688d392e7a34e5f",
+    "sample_id": "long-copy-4095",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/c0649551b4346bedb1f2d616fb089ea3acabf4aba32a8a29faedc746d5bc4fbc.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 4096,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 4102,
+        "committed_output_tokens": 12,
+        "accepted_draft_tokens": 11
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 4114,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 1
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-bc7d1da40c284ed494579b702e013943",
+    "sample_id": "long-copy-4096",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/595091c70c9de4d5f13961161aa603ffae3ac1d8352d219f33b68db8ff1d5477.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 4097,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 4103,
+        "committed_output_tokens": 12,
+        "accepted_draft_tokens": 11
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 4115,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 1
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-bc7a1f74116545a5aaf5be6256c233d0",
+    "sample_id": "repeated-pattern",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/89f1edd242fbd20ea908cd932d66c1a502473f4a5f1b20c26201ba3f24eb39fb.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 82,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 88,
+        "committed_output_tokens": 2,
+        "accepted_draft_tokens": 1
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 90,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 7
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 98,
+        "committed_output_tokens": 8,
+        "accepted_draft_tokens": 7
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 106,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 115,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 124,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 133,
+        "committed_output_tokens": 9,
+        "accepted_draft_tokens": 8
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 142,
+        "committed_output_tokens": 3,
+        "accepted_draft_tokens": 2
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 145,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 1
+      }
+    ]
+  },
+  {
+    "request_id": "nsp-729b68cd557c4c4a99b66f7fafaea378",
+    "sample_id": "reasoning-no-match",
+    "source": "/mnt/work/shom/training_runs/hybrid-v41-full-2b6a293-r5/full-model/hybrid/verify-cycles/ff5681633470d3ff44e13881b8a759739fd28fdcd0ead1cb0938a4de6d0c6c7e.json",
+    "prefill_tokens": 1,
+    "cycles": [
+      {
+        "cycle_id": 0,
+        "ctx_len": 45,
+        "committed_output_tokens": 3,
+        "accepted_draft_tokens": 2
+      },
+      {
+        "cycle_id": 1,
+        "ctx_len": 48,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 0
+      },
+      {
+        "cycle_id": 2,
+        "ctx_len": 49,
+        "committed_output_tokens": 5,
+        "accepted_draft_tokens": 4
+      },
+      {
+        "cycle_id": 3,
+        "ctx_len": 54,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 4,
+        "ctx_len": 60,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 5,
+        "ctx_len": 66,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 6,
+        "ctx_len": 72,
+        "committed_output_tokens": 4,
+        "accepted_draft_tokens": 3
+      },
+      {
+        "cycle_id": 7,
+        "ctx_len": 76,
+        "committed_output_tokens": 5,
+        "accepted_draft_tokens": 4
+      },
+      {
+        "cycle_id": 8,
+        "ctx_len": 81,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 9,
+        "ctx_len": 87,
+        "committed_output_tokens": 6,
+        "accepted_draft_tokens": 5
+      },
+      {
+        "cycle_id": 10,
+        "ctx_len": 93,
+        "committed_output_tokens": 3,
+        "accepted_draft_tokens": 2
+      },
+      {
+        "cycle_id": 11,
+        "ctx_len": 96,
+        "committed_output_tokens": 1,
+        "accepted_draft_tokens": 1
+      }
+    ]
+  }
+]

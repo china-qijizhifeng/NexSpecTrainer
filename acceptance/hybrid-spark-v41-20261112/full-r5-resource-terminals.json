@@ -1,0 +1,64 @@
+{
+  "run_uuid": "195ac64f-c389-47e4-99c5-b546632fde5b",
+  "source_commit": "2b6a293637efc40d2834a21af6c87580b13f9498",
+  "terminal_reconciled_at": "2026-11-12T12:39:26.046556+00:00",
+  "runtime_finished": {
+    "replica": "0",
+    "exit_code": 1
+  },
+  "expected_replicas_per_job": 1,
+  "active_replicas": 0,
+  "resource_terminals": {
+    "gpu": {
+      "job_id": "j-1794486677-162329",
+      "phase": "Failed",
+      "replicas": [
+        {
+          "Name": "j-1794486677-162329-cfcd2",
+          "ReplicaIndex": "0",
+          "Phase": "Failed",
+          "NodeName": "lg-cmc-gpu-0655.host.lg.shzhisuan.com",
+          "EndTime": "2026-11-12T12:39:09Z"
+        }
+      ]
+    },
+    "control": {
+      "job_id": "j-1794486635-862619",
+      "phase": "Succeeded",
+      "replicas": [
+        {
+          "Name": "j-1794486635-862619-66l2w",
+          "ReplicaIndex": "0",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com",
+          "EndTime": "2026-11-12T12:39:29Z"
+        }
+      ]
+    },
+    "observer": {
+      "job_id": "j-1794486784-536689",
+      "phase": "Succeeded",
+      "replicas": [
+        {
+          "Name": "j-1794486784-536689-2qqd5",
+          "ReplicaIndex": "0",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0185.host.lg.shzhisuan.com",
+          "EndTime": "2026-11-12T12:39:19Z"
+        }
+      ]
+    }
+  },
+  "source_receipts": {
+    "full-r5-gpu-final-GetJob.json": "9632b906804ae5a4d06e803278ae0b65b4e318444050523ba724116a0d6a3943",
+    "full-r5-gpu-final-ListJobReplicas.json": "636ab355c4a8a4c71032268f945e883227c38cb68bfcb02ab4620622cca9ad50",
+    "full-r5-control-final-GetJob.json": "9e65b17434ff07f688505abf089ec3be3d8eb69d8a7ad4e6dd459ca70cc87891",
+    "full-r5-control-final-ListJobReplicas.json": "f40fec75720f1d764264c63f05116da6fb3a19a3267a6e3d7afee022f757cff7",
+    "full-r5-observer-final-GetJob.json": "f85d61aa69df1f7632e1d288eb5730306546256224004097b7566078d7a477e6",
+    "full-r5-observer-final-ListJobReplicas.json": "38862bfb29135e4183680accc09115a1e08d2304a4a07aeea648e10e6949fbd3"
+  },
+  "managed_run_receipt": {
+    "relative_path": "full-r5-artifacts/run.json",
+    "sha256": "0e03bcdcb761a55be329e2a6ffd0314eb28b0871197a1bcec3bba42c3570241f"
+  }
+}

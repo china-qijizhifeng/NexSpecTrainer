@@ -1,0 +1,74 @@
+{
+  "run_uuid": "195ac64f-c389-47e4-99c5-b546632fde5b",
+  "source_commit": "2b6a293637efc40d2834a21af6c87580b13f9498",
+  "nsp_run": {
+    "id": "ev_f0adef4c025c4596b5c2e256",
+    "kind": "eval",
+    "state": "succeeded",
+    "exit_code": 0,
+    "error": null
+  },
+  "telemetry": "independent native CPU observer receipts",
+  "total_cycles": 245,
+  "beyond_mtp_commits": 200,
+  "followed_by_decode": 188,
+  "maximum": 16,
+  "long_commit_followed_by_decode_gate_passed": true,
+  "strict_three_way_equality_gate_passed": false,
+  "first_continued_long_commit": {
+    "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+    "sample_id": "heldout-2",
+    "commit": {
+      "cycle_id": 2,
+      "ctx_len": 360,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    },
+    "next_cycle": {
+      "cycle_id": 3,
+      "ctx_len": 376,
+      "committed_output_tokens": 16,
+      "accepted_draft_tokens": 15
+    }
+  },
+  "continued_long_commits_crossing_ctx512": 12,
+  "ctx512_examples": [
+    {
+      "request_id": "nsp-be0d7c9d99d34f52b43ef339997a244b",
+      "sample_id": "heldout-2",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    },
+    {
+      "request_id": "nsp-3dc525c1f35a43699121750f29f6f9e2",
+      "sample_id": "heldout-1",
+      "commit": {
+        "cycle_id": 11,
+        "ctx_len": 504,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      },
+      "next_cycle": {
+        "cycle_id": 12,
+        "ctx_len": 520,
+        "committed_output_tokens": 16,
+        "accepted_draft_tokens": 15
+      }
+    }
+  ],
+  "source_receipts": {
+    "full-r5-artifacts/full-model/long-commits.json": "5e9f53e97478c8feb655c7ba5575dc2edc96572e49532723dd064fb2bd77e11a",
+    "full-r5-artifacts/full-model/hybrid/observed-measured-cycles.json": "3c28b345eb4d06b4e84b5b464358db898957c84ec9b368059da58b94142b0d3b"
+  },
+  "scope": "Actual measured greedy verify commits; fixed budget 15 extra slots per request; no throughput or calibration-quality claim"
+}

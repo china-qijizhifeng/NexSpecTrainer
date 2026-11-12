@@ -1,7 +1,10 @@
 # Hybrid Spark on native V4.1
 
-This is an experimental adapter. H100/H200 kernel acceptance passed; full-model
-output equivalence is tracked separately in the
+This is an experimental adapter. H100/H200 kernel acceptance and the native
+Hybrid model path passed. On the seventeen-request engineering suite, Hybrid
+matched DSPARK on 17/17 and target-only on 16/17; the reasoning request's final
+token still differs, so strict three-mode equivalence has not passed. Full
+receipts and the unresolved difference are in the
 [acceptance report](../acceptance/hybrid-spark-v41-20261112/README.md).
 
 The runtime bundle is in `patches/sglang/v41-hybrid-spark-38d9e4a3fe`.
@@ -15,6 +18,41 @@ request, unaccepted drafts, padding, or future output.
 Triton kernels (tile top-two, then per-request reduction/gather). The selection
 module implements conditional-to-survival conversion, contains merging, net
 chain value, valid lengths, and prefix-preserving batch top-k allocation.
+
+Apply the bundle only to the pinned SGLang revision. The default invocation
+checks every input hash; `--execute` applies it and verifies all output hashes.
+An already applied bundle is accepted, while partially applied or unfamiliar
+sources fail before mutation:
+
+```bash
+python -m specforge.hybrid.runtime_patch \
+  --root /sgl-workspace/sglang \
+  --bundle patches/sglang/v41-hybrid-spark-38d9e4a3fe
+python -m specforge.hybrid.runtime_patch \
+  --root /sgl-workspace/sglang \
+  --bundle patches/sglang/v41-hybrid-spark-38d9e4a3fe --execute
+```
+
+After calibration, save an explicit Hybrid configuration, for example:
+
+```json
+{
+  "mode": "hybrid",
+  "calibrator": "/shared/ngram-calibrator.json",
+  "extra_budget_per_request": 15,
+  "slot_price": 0.0
+}
+```
+
+Set `SGLANG_DSPARK_HYBRID_CONFIG` to that file when launching the existing V4.1
+DSPARK serving recipe. Keep `--speculative-dspark-block-size 5`, the original
+checkpoint and greedy target sampling. The adapter resolves target verification
+capacity to sixteen without increasing the trained draft horizon. The acceptance
+recipe also sets `SGLANG_DSPARK_USE_GREEDY_DRAFT=1` and
+`SGLANG_RAGGED_VERIFY_MODE=static`. Static Hybrid retains the checkpoint's trained
+confidence head; ordinary static DSPARK still skips it. Missing confidence
+weights are rejected by the native loader. This recipe is an experimental
+correctness gate; it does not establish AV budget performance.
 
 ## Calibration
 
@@ -71,6 +109,14 @@ and only then compare throughput. Target-only requests use `[performance]`;
 they never fabricate AL. Performance covers nonstreaming end-to-end HTTP wall
 time, excludes warmup, and includes output-token throughput and request latency.
 AL remains total emitted tokens / actual verifier cycles.
+
+The completed Hybrid-only run reused validated target/DSPARK receipts from the
+preceding allocation. Its 3235 output tokens across 245 measured verifier cycles
+give AL 13.2041. There were 200 commits beyond six emitted tokens, including 188
+followed by another decode cycle; the maximum was sixteen. These establish the
+long-commit path on the tested engineering prompts. Cross-allocation throughput
+comparison is disabled, and the small copy-heavy suite does not establish a
+representative workload speedup.
 
 Serving-only evals freeze prompts and record an external checkpoint metadata
 identity (config/index content hashes and weight-file size/mtime inventory).

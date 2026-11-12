@@ -1,9 +1,22 @@
 # Native V4.1 Hybrid Spark acceptance
 
 This suite targets SGLang `38d9e4a3fe4a493b0ae468477a274e83defda81a`
-and the official DeepSeek V4.1 Flash-1017 model. H100/H200 kernel gates passed;
-native-model output equivalence is pending. All GPU acceptance runs have
+and the official DeepSeek V4.1 Flash-1017 model. H100/H200 kernel gates and the
+native Hybrid model/long-commit path passed. Strict target-only output equality
+failed on one reasoning request. All GPU acceptance runs have
 immutable managed Run records. Serving evaluation and calibration use `nsp`.
+
+The final engineering attempt used source
+`2b6a293637efc40d2834a21af6c87580b13f9498` on eight H200, TP8/EP8. All seventeen
+Hybrid measured requests and four diagnostic evaluations succeeded. Hybrid
+matched the frozen r4 DSPARK baseline token-for-token on 17/17 requests and
+target-only on 16/17. In 245 actual verifier cycles it emitted 3235 tokens
+(AL 13.2041), with 200 commits longer than six tokens, 188 followed by another
+successful decode cycle, and a maximum commit of sixteen. The three-way gate
+remains failed because the reasoning request differs at output index 51.
+Baseline receipts came from the preceding allocation, so these results do not
+support a throughput speedup claim. See [full-r5-analysis.json](full-r5-analysis.json)
+and [full-r5-failure.json](full-r5-failure.json).
 
 ## Completed gates
 
@@ -132,7 +145,7 @@ still fail in SGLang's loader. Pristine patch application/idempotence and actual
 builder AST checks passed in [confidence-head-patch-acceptance.json](confidence-head-patch-acceptance.json)
 and [pool-confidence-lifecycle.json](pool-confidence-lifecycle.json).
 
-The next Hybrid-only attempt can reuse r4's target/DSPARK correctness receipts
+The Hybrid-only fifth attempt reuses r4's target/DSPARK correctness receipts
 via `--baseline-dir` and `--baseline-source`. Reuse requires exact regenerated
 prompts, checkpoint metadata/config/index/tokenizer identity, the frozen r4
 source and nine previous patch targets, identical nsp/runtime helpers, and the
@@ -142,8 +155,35 @@ The real r4 CPU fixture passed and rejected changed prompts, checkpoint inventor
 calibrator and source; see [baseline-reuse-cpu.json](baseline-reuse-cpu.json).
 The three-mode token equality and long-commit-then-decode gates are unchanged.
 
-The target-only, DSPARK and Hybrid servers execute sequentially in the
-same allocation with the same immutable token IDs and T=0. Every server uses
+That fifth attempt is Run `195ac64f-c389-47e4-99c5-b546632fde5b`, GPU Job
+`j-1794486677-162329`, source `2b6a293637efc40d2834a21af6c87580b13f9498`.
+The CPU preflight found the trained `mtp.2.confidence_head.proj.weight` in
+the official index, and real mounted-model baseline reuse checks passed before
+GPU submission. Hybrid readiness took 250.15 seconds. Its measured nsp Run
+`ev_f0adef4c025c4596b5c2e256` and all four diagnostic Runs succeeded. Primary
+outputs match DSPARK on all seventeen requests. The target-only difference is
+the same final reasoning token 666 (`**`) versus 42499 (`**.`), followed by EOS
+in both cases. No request or reasoning sample was removed from the gate.
+
+In serial repeats Hybrid continued to choose 42499, while r4 DSPARK's serial
+repeats chose 666. All three modes' fixed-prefix prefill probes chose 42499.
+These results do not prove whether numerical sensitivity or another execution
+shape effect causes the difference; no original decode/verify logit margins
+were captured. Strict equivalence therefore remains unresolved. A follow-up
+would capture the competing logits at the same token prefix in each execution
+shape before choosing a numerical or backend change.
+
+The GPU parent and sole replica ended `Failed` after the strict gate; controller
+and observer parents and replicas ended `Succeeded`. Managed reconciliation
+recorded resource release at `2026-11-12T12:39:26.046556+00:00`. The source and
+335 recovered artifact files remain preserved. Final platform receipts and
+the artifact index are named `full-r5-*-final-*.json` and
+[full-r5-artifact-index.json](full-r5-artifact-index.json).
+
+In a fresh three-mode run the target-only, DSPARK and Hybrid servers execute
+sequentially in the same allocation with the same immutable token IDs and T=0.
+The explicit baseline reuse mode instead preserves and verifies earlier
+correctness receipts and disables throughput comparison. Every server uses
 the pinned runtime bundle; DSPARK leaves Hybrid disabled but retains the shared
 native draft window/ring correction. Calibration uses the
 separate 24-prompt population. The Hybrid engineering gate fixes fifteen extra
