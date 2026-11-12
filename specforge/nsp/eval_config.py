@@ -25,6 +25,10 @@ class ServingSpec(BaseModel):
     max_new_tokens: int = Field(default=128, gt=0)
     timeout: float = Field(default=300, gt=0)
     api_key_env: str | None = None
+    protocol: Literal["openai", "native"] = "openai"
+    concurrency: int = Field(default=1, ge=1, le=1024)
+    warmup_requests: int = Field(default=0, ge=0)
+    expected_server_args: dict = Field(default_factory=dict)
 
 
 class EvalSpec(BaseModel):
@@ -33,7 +37,7 @@ class EvalSpec(BaseModel):
     recipe: str | None = None
     features: str | None = None
     checkpoint: str = ""
-    metrics: list[Literal["loss", "accuracy", "prefix-al", "al"]] = Field(
+    metrics: list[Literal["loss", "accuracy", "prefix-al", "al", "performance"]] = Field(
         default_factory=lambda: ["loss", "accuracy"]
     )
     group_by: Literal["ctx-len"] | None = None
@@ -54,13 +58,15 @@ class EvalSpec(BaseModel):
         if not self.metrics or len(set(self.metrics)) != len(self.metrics):
             raise ValueError("metrics must be a nonempty set without duplicates")
         parse_bins(self.ctx_bins)
-        if any(m != "al" for m in self.metrics) and not (self.recipe and self.features):
+        if any(m not in ("al", "performance") for m in self.metrics) and not (self.recipe and self.features):
             raise ValueError("offline metrics require recipe and features")
-        if "al" in self.metrics and self.serving is None:
-            raise ValueError("al requires a dedicated serving endpoint and prompts")
+        if any(m in ("al", "performance") for m in self.metrics) and self.serving is None:
+            raise ValueError("serving metrics require a dedicated endpoint and prompts")
+        if "al" not in self.metrics and self.serving and self.group_by:
+            raise ValueError("serving ctx bins require actual AL cycle telemetry")
         if (
             self.group_by
-            and any(m != "al" for m in self.metrics)
+            and any(m not in ("al", "performance") for m in self.metrics)
             and self.ctx_origin != "record-start"
         ):
             raise ValueError(
@@ -97,7 +103,7 @@ def load_eval(path, checkpoint, metrics=None, group_by=None, ctx_bins=None):
             (path.parent / raw["serving"]["prompts"]).resolve()
         )
     spec = EvalSpec.model_validate(raw)
-    if any(m != "al" for m in spec.metrics):
+    if any(m not in ("al", "performance") for m in spec.metrics):
         from specforge.application import resolve_run
         from specforge.config import Config
 

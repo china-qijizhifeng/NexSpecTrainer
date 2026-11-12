@@ -202,3 +202,5 @@ wandb/
 
 # macOS
 .DS_Store
+# Local durable acceptance Runs contain frozen copies of the entire package.
+acceptance/hybrid-spark-v41-20261112/nsp-protocol-*/nsp/

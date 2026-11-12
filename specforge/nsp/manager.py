@@ -116,19 +116,38 @@ def submit(store, kind, config, *, name=None, request_id=None, resume_run=None):
             if kind == "eval":
                 from specforge.nsp.store import snapshot_checkpoint
 
-                frozen = snapshot_checkpoint(
-                    effective["checkpoint"], attempt / "checkpoint"
-                )
+                offline = any(m not in ("al", "performance") for m in effective["metrics"])
+                if offline:
+                    frozen = snapshot_checkpoint(effective["checkpoint"], attempt / "checkpoint")
+                else:
+                    # A serving eval never loads weights. Cross-fileset hard
+                    # links can fall back to copying a multi-hundred-GB model;
+                    # preserve its external metadata identity instead.
+                    from specforge.nsp.eval_inputs import serving_checkpoint_identity
+
+                    atomic_json(attempt / "checkpoint-identity.json",
+                                serving_checkpoint_identity(effective["checkpoint"]))
                 if effective.get("resolved_recipe"):
                     effective["resolved_recipe"]["model"][
                         "draft_checkpoint_path"
                     ] = frozen
-            elif effective["training"].get("resume_from"):
+                if effective.get("serving"):
+                    prompts = attempt / "prompts.jsonl"
+                    prompts.write_bytes(Path(effective["serving"]["prompts"]).read_bytes())
+                    effective["serving"]["prompts"] = str(prompts)
+            elif kind == "train" and effective["training"].get("resume_from"):
                 from specforge.nsp.store import snapshot_checkpoint
 
                 effective["training"]["resume_from"] = snapshot_checkpoint(
                     effective["training"]["resume_from"], attempt / "resume-checkpoint"
                 )
+            if kind == "calibrate":
+                original = Path(effective["traces"])
+                data = original.read_bytes()
+                frozen = attempt / "traces.jsonl"
+                frozen.write_bytes(data)
+                effective["traces"] = str(frozen)
+                effective["provenance"]["traces_sha256"] = hashlib.sha256(data).hexdigest()
             atomic_json(attempt / "resolved.json", effective)
             provenance = source_snapshot(attempt / "source")
             argv = [sys.executable, "-m", "specforge.nsp.worker", str(attempt), kind]

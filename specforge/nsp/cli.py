@@ -149,7 +149,7 @@ def train(
 @cli.command("eval")
 @click.argument("checkpoint")
 @click.option("-c", "--config", required=True, type=click.Path(exists=True))
-@click.option("--metrics", help="Comma-separated loss,accuracy,prefix-al,al; or all.")
+@click.option("--metrics", help="Comma-separated loss,accuracy,prefix-al,al,performance; or all.")
 @click.option("--group-by", type=click.Choice(["ctx-len"]))
 @click.option("--ctx-bins", help="Left-closed edges, e.g. 0,4k,8k,16k,inf (k=1024).")
 @submission_options
@@ -182,8 +182,8 @@ def evaluate(
                 "stages": [
                     stage
                     for stage, yes in [
-                        ("offline", any(m != "al" for m in spec.metrics)),
-                        ("serving", "al" in spec.metrics),
+                        ("offline", any(m not in ("al", "performance") for m in spec.metrics)),
+                        ("serving", any(m in ("al", "performance") for m in spec.metrics)),
                     ]
                     if yes
                 ],
@@ -200,8 +200,27 @@ def evaluate(
         )
 
 
+@cli.command("calibrate")
+@click.option("-c", "--config", required=True, type=click.Path(exists=True))
+@submission_options
+@click.pass_obj
+def calibrate(store, config, name, request_id, plan, watch_run, foreground, as_json):
+    """Fit a frozen n-gram calibrator from deterministic target trajectories."""
+    from specforge.nsp.calibrate_config import load_calibration
+    from specforge.nsp.manager import submit
+
+    spec = load_calibration(config)
+    if plan:
+        emit({"kind": "calibrate", "config": spec.model_dump(mode="json")})
+        return
+    result = submit(store, "calibrate", spec.model_dump(mode="json"), name=name, request_id=request_id)
+    emit(result) if as_json else click.echo(line(result))
+    if watch_run or foreground:
+        return monitor(store, result["id"], until=True, foreground=foreground, jsonl=as_json)
+
+
 @cli.command("list")
-@click.option("--kind", type=click.Choice(["train", "eval"]))
+@click.option("--kind", type=click.Choice(["train", "eval", "calibrate"]))
 @click.option("--status")
 @click.option("--json", "as_json", is_flag=True)
 @click.pass_obj
@@ -374,6 +393,9 @@ def results(store, run, as_json):
     click.echo(f'complete={value["complete"]}')
     if value.get("error"):
         click.echo(value["error"])
+    if value.get("calibrator"):
+        click.echo(f'calibrator={value["calibrator"]}')
+        emit(value["fit"])
     for stage, result in value["stages"].items():
         click.echo(stage)
         rows = [("overall", result["overall"])] + [

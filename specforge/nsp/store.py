@@ -51,7 +51,7 @@ class RunStore:
         )
 
     def path(self, run_id):
-        if not re.fullmatch(r"(?:tr|ev)_[a-f0-9]{24}", run_id):
+        if not re.fullmatch(r"(?:tr|ev|ca)_[a-f0-9]{24}", run_id):
             raise ValueError(f"invalid run ID: {run_id!r}")
         return self.root / "runs" / run_id
 
@@ -72,7 +72,7 @@ class RunStore:
                         "request ID already belongs to a different submission"
                     )
                 return run["id"], False
-        run_id = ("tr_" if kind == "train" else "ev_") + uuid.uuid4().hex[:24]
+        run_id = {"train": "tr_", "eval": "ev_", "calibrate": "ca_"}[kind] + uuid.uuid4().hex[:24]
         path = self.path(run_id)
         path.mkdir(parents=True, mode=0o700)
         atomic_json(

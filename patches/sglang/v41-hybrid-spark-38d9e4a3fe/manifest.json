@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+  "patch_sha256": "7cda20d766d688560b402ef2bbf0d96b76f9bb82cd7358785360af3ef78ab65b",
+  "files": {
+    "python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py": {
+      "before_sha256": "420478eac029ecff9a8914b7df4d7db2fea4f61be9dbafa1cf34b1b890292c06",
+      "after_sha256": "7fc06f825116e767f54a26f6ce58c891135d49d170a2d28254042593df6ac0d7"
+    },
+    "python/sglang/srt/arg_groups/speculative_hook.py": {
+      "before_sha256": "f46b14ac20117afd455171f2de357c1ec77cc230110cd4f2a00ed3ee0c425b4e",
+      "after_sha256": "98c41359667e0972c6ef693b7d8a0926fa3b090ae9d6d8e80b6dd86b2fca2aa9"
+    },
+    "python/sglang/srt/layers/attention/deepseek_v4_backend.py": {
+      "before_sha256": "edb6d691ad8d4adb0c32884145e765500f3097f4bca1adc7361dfca57627ed1d",
+      "after_sha256": "637570302ec9a54e368dc545b91a26c44d1dab5d552bde4911417ee61868d59e"
+    },
+    "python/sglang/srt/mem_cache/deepseek_v4_memory_pool.py": {
+      "before_sha256": "00f7685a1eb53a6a003be1f59c47dd81d488684928cc1ea44709cbc76dfdd1b0",
+      "after_sha256": "fc2af836a5b79b14c86978f2f0c320b839670e0694807a5c9a67e0e6830aa33a"
+    },
+    "python/sglang/srt/model_executor/model_runner.py": {
+      "before_sha256": "afdeaa9d57decb93a11914d332765d5578e3d3f2aea3b16a301412583d2ec870",
+      "after_sha256": "58a9134f77e02bbaba00313e7562f90dfe60516fb4661693e9d62138084d202e"
+    },
+    "python/sglang/srt/speculative/dspark_components/dspark_config.py": {
+      "before_sha256": "351e15bea157ce66b49f44a6c733f84534e38e95fdf316728c4193b959e2d27e",
+      "after_sha256": "61cdcd4d5176c92759b4f199097d2af88076f823efc96484639f41ec4c97ba75"
+    },
+    "python/sglang/srt/speculative/dspark_components/dspark_observability.py": {
+      "before_sha256": "12ee96f25b27c310c064c9af04e78e447deb1771e6ae1e695f82b7d12c6971f9",
+      "after_sha256": "2b798b5e2953fa2ffb8b983dbf6508569ef9abc7f306f8833a7cb73186bfd0f6"
+    },
+    "python/sglang/srt/speculative/dspark_components/dspark_planner.py": {
+      "before_sha256": "c9f980e249a8f9a2c76b4ab6cccca670bb54ff6230b8125bfe5f6eb54b1f02a1",
+      "after_sha256": "4069494c5c5143a7c05f091f0c2410fcb8c20b16dd152965d41091dd90b95b51"
+    },
+    "python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py": {
+      "before_sha256": "28e086c086f2262921fe9f5af870e050073ff3b8054537f3b5a9d77f1142f3a5",
+      "after_sha256": "8ab2267a32ce35ba1f75cabc8073078a9f6458b807a1da97236045585efea30c"
+    }
+  }
+}

@@ -1,0 +1,446 @@
+diff --git a/python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py b/python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py
+index 52093ff..8e74146 100644
+--- a/python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py
++++ b/python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py
+@@ -30,7 +30,10 @@ class ScheduleVerifyLensTopk:
+         confidence: torch.Tensor,
+         budget: int,
+         cfg: DSparkScheduleConfig,
++        confidence_is_survival: bool = False,
+     ) -> torch.Tensor:
++        if confidence_is_survival:
++            return schedule_verify_lens_topk_from_survival(survival_probs=confidence, budget=budget, cfg=cfg)
+         return schedule_verify_lens_topk(confidence=confidence, budget=budget, cfg=cfg)
+ 
+     @classmethod
+@@ -40,7 +43,14 @@ class ScheduleVerifyLensTopk:
+         confidence: torch.Tensor,
+         budget: int,
+         cfg: DSparkScheduleConfig,
++        confidence_is_survival: bool = False,
+     ) -> torch.Tensor:
++        if confidence_is_survival:
++            from specforge.hybrid.selection import verify_lengths
++
++            lengths = torch.full((confidence.shape[0],), confidence.shape[1],
++                                 dtype=torch.int32, device=confidence.device)
++            return verify_lengths(confidence, lengths, budget, cfg.survival_eps)
+         return schedule_verify_lens_topk_triton(
+             confidence=confidence, budget=budget, cfg=cfg
+         )
+diff --git a/python/sglang/srt/arg_groups/speculative_hook.py b/python/sglang/srt/arg_groups/speculative_hook.py
+index f71619a..9739a9c 100644
+--- a/python/sglang/srt/arg_groups/speculative_hook.py
++++ b/python/sglang/srt/arg_groups/speculative_hook.py
+@@ -826,12 +826,23 @@ def _handle_dspark(server_args: ServerArgs) -> None:
+ 
+     if gamma is not None:
+         verify_window = int(gamma) + 1
++        # Keep the checkpoint's five MTP query rows independent of the
++        # target's anchor + fifteen-token Hybrid verification capacity.
++        import os
++
++        if os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG"):
++            from specforge.hybrid.config import load_config
++
++            hybrid = load_config()
++            if gamma != hybrid.model_horizon:
++                raise ValueError("native Hybrid Spark requires the original five-token MTP")
++            verify_window = hybrid.verify_width
+         if (
+             cfg.speculative_num_draft_tokens is not None
+             and int(cfg.speculative_num_draft_tokens) != verify_window
+         ):
+             raise ValueError(
+-                "DSpark speculative_num_draft_tokens must equal gamma + 1 "
++                "DSpark speculative_num_draft_tokens must equal the resolved verify window "
+                 f"(= {verify_window} for gamma={gamma}), but got "
+                 f"speculative_num_draft_tokens={cfg.speculative_num_draft_tokens}."
+             )
+diff --git a/python/sglang/srt/layers/attention/deepseek_v4_backend.py b/python/sglang/srt/layers/attention/deepseek_v4_backend.py
+index 7a9601a..a04710f 100644
+--- a/python/sglang/srt/layers/attention/deepseek_v4_backend.py
++++ b/python/sglang/srt/layers/attention/deepseek_v4_backend.py
+@@ -1366,6 +1366,18 @@ class DeepseekV4AttnBackend(
+         )
+ 
+         self.is_dspark_draft = model_runner.is_draft_worker and spec_alg.is_dspark()
++        self._dspark_context_window = (
++            int(self.token_to_kv_pool.sliding_window) if self.is_dspark_draft else SWA_WINDOW
++        )
++        if self.is_dspark_draft:
++            import os
++
++            if os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG"):
++                from specforge.hybrid.config import load_config
++
++                # This backend executes the original five MTP query rows;
++                # only the target backend owns the sixteen-row verify window.
++                self.speculative_num_draft_tokens = load_config().model_horizon + 1
+         self.is_draft_runner = model_runner.is_draft_worker
+         self._verify_mask = None
+         self.cuda_graph_swa_out_cache_loc: Optional[torch.Tensor] = None
+@@ -4785,7 +4797,7 @@ class DeepseekV4AttnBackend(
+             seq_lens_casual=seq_lens_casual,
+             max_seq_len=max_seq_len,
+             page_size=self.page_size,
+-            swa_window=SWA_WINDOW,
++            swa_window=self._dspark_context_window,
+         )
+         seq_lens_casual = prep.seq_lens_casual
+ 
+@@ -4857,7 +4869,7 @@ class DeepseekV4AttnBackend(
+                 full_to_swa_mapping=self.token_to_kv_pool.full_to_swa_index_mapping,
+                 req_pool_indices_repeated=req_pool_indices_repeated,
+                 seq_lens_casual=seq_lens_casual,
+-                swa_window=SWA_WINDOW,
++                swa_window=self._dspark_context_window,
+                 page_index_aligned_size=PAGE_INDEX_ALIGNED_SIZE,
+                 swa_replay_start=swa_replay_start,
+             )
+@@ -4926,14 +4938,14 @@ class DeepseekV4AttnBackend(
+                 valid_from=pool.swa_valid_from,
+                 ring_size=pool.swa_req_ring_size,
+                 block_size=block_size,
+-                swa_window=SWA_WINDOW,
++                swa_window=self._dspark_context_window,
+                 page_index_aligned_size=PAGE_INDEX_ALIGNED_SIZE,
+             )
+         gather = ComputeDsparkWindowGather.execute(
+             seq_lens_casual=seq_lens_casual,
+             req_pool_indices_repeated=req_pool_indices_repeated,
+             block_size=block_size,
+-            swa_window=SWA_WINDOW,
++            swa_window=self._dspark_context_window,
+             valid_from=pool.swa_valid_from,
+         )
+ 
+@@ -4946,7 +4958,7 @@ class DeepseekV4AttnBackend(
+             out_loc=out_loc[: gather.num_q],
+             context_lens=gather.context_lens,
+             block_size=block_size,
+-            swa_window=SWA_WINDOW,
++            swa_window=self._dspark_context_window,
+             page_index_aligned_size=PAGE_INDEX_ALIGNED_SIZE,
+         )
+         return swa_page_indices, swa_topk_lengths
+diff --git a/python/sglang/srt/mem_cache/deepseek_v4_memory_pool.py b/python/sglang/srt/mem_cache/deepseek_v4_memory_pool.py
+index f75b57b..1991834 100644
+--- a/python/sglang/srt/mem_cache/deepseek_v4_memory_pool.py
++++ b/python/sglang/srt/mem_cache/deepseek_v4_memory_pool.py
+@@ -1250,7 +1250,9 @@ class DeepSeekV4TokenToKVPool(BaseSWAKVPool):
+                     (self.num_req_slots + 1) * (1 + (online_mtp_max_draft_tokens or 0)),
+                 ),
+             )
+-        elif uses_draft_swa_ring():
++        elif uses_draft_swa_ring() or (
++            is_draft_worker and is_dspark_spec() and not _is_hip
++        ):
+             # The DSpark draft writes SWA rows only from target hidden states, never
+             # while attending, so it addresses its ring directly with no workspace.
+             self.unified_kv_pool = None
+diff --git a/python/sglang/srt/model_executor/model_runner.py b/python/sglang/srt/model_executor/model_runner.py
+index d985094..ffea878 100644
+--- a/python/sglang/srt/model_executor/model_runner.py
++++ b/python/sglang/srt/model_executor/model_runner.py
+@@ -922,6 +922,13 @@ class ModelRunner:
+         """Logits rows per decode batch slot."""
+         if self.spec_algorithm.is_speculative():
+             if self.spec_algorithm.is_dspark() and self.is_draft_worker:
++                import os
++
++                if os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG"):
++                    from specforge.hybrid.config import load_config
++
++                    hybrid = load_config()
++                    return hybrid.model_horizon
+                 from sglang.srt.speculative.dspark_components.dspark_config import (
+                     get_dspark_sample_from_anchor,
+                 )
+diff --git a/python/sglang/srt/speculative/dspark_components/dspark_config.py b/python/sglang/srt/speculative/dspark_components/dspark_config.py
+index 7b57ff0..af7450d 100644
+--- a/python/sglang/srt/speculative/dspark_components/dspark_config.py
++++ b/python/sglang/srt/speculative/dspark_components/dspark_config.py
+@@ -2,6 +2,7 @@ from __future__ import annotations
+ 
+ import json
+ import logging
++import os
+ from typing import TYPE_CHECKING, Any, List, Optional
+ 
+ import msgspec
+@@ -98,7 +99,18 @@ def resolve_runtime_config(
+             f"markov_rank={draft_config.markov_rank}."
+         )
+ 
+-    if speculative_num_draft_tokens is None:
++    hybrid = None
++    if os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG"):
++        from specforge.hybrid.config import load_config
++
++        hybrid = load_config()
++    if hybrid is not None:
++        gamma = int(draft_config.resolve_gamma(default=None) or 0)
++        if gamma != hybrid.model_horizon:
++            raise ValueError("Hybrid Spark requires the original native five-token MTP checkpoint")
++        if speculative_num_draft_tokens != hybrid.verify_width:
++            raise ValueError("Hybrid Spark target verification capacity must be sixteen")
++    elif speculative_num_draft_tokens is None:
+         gamma = int(draft_config.resolve_gamma(default=None) or 0)
+         if gamma < 1:
+             raise ValueError(
+@@ -130,7 +142,7 @@ def resolve_runtime_config(
+ 
+     return DSparkRuntimeConfig(
+         gamma=gamma,
+-        verify_num_draft_tokens=gamma + 1,
++        verify_num_draft_tokens=hybrid.verify_width if hybrid else gamma + 1,
+         mask_token_id=mask_token_id,
+     )
+ 
+diff --git a/python/sglang/srt/speculative/dspark_components/dspark_observability.py b/python/sglang/srt/speculative/dspark_components/dspark_observability.py
+index 9a663d4..16740a5 100644
+--- a/python/sglang/srt/speculative/dspark_components/dspark_observability.py
++++ b/python/sglang/srt/speculative/dspark_components/dspark_observability.py
+@@ -449,7 +449,10 @@ class DsparkInfoDumper:
+         if "confidence" in host:
+             conf_host = host["confidence"].float()
+             conf_rows = conf_host.tolist()
+-            survival_rows = torch.cumprod(conf_host, dim=1).tolist()
++            import os
++
++            survival_rows = (conf_host if os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG")
++                             else torch.cumprod(conf_host, dim=1)).tolist()
+         else:
+             conf_rows = None
+             survival_rows = None
+diff --git a/python/sglang/srt/speculative/dspark_components/dspark_planner.py b/python/sglang/srt/speculative/dspark_components/dspark_planner.py
+index 3a89d93..ac06b71 100644
+--- a/python/sglang/srt/speculative/dspark_components/dspark_planner.py
++++ b/python/sglang/srt/speculative/dspark_components/dspark_planner.py
+@@ -1,6 +1,7 @@
+ from __future__ import annotations
+ 
+ import logging
++import os
+ from typing import Optional, Union
+ 
+ import msgspec
+@@ -92,6 +93,7 @@ class DSparkVerifyPlanner:
+         self.model_runner = model_runner
+         self.device = device
+         self.verify_num_draft_tokens = verify_num_draft_tokens
++        self._confidence_is_survival = bool(os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG"))
+         self._tp_sync = tp_sync
+         self._align_verify_tokens_to_graph_tier = (
+             get_spec().speculative_dspark_align_verify_tokens_to_graph_tier
+@@ -138,7 +140,7 @@ class DSparkVerifyPlanner:
+                 )
+ 
+         self._ragged_verify_mode = read_ragged_verify_mode()
+-        self._schedule_cfg = DSparkScheduleConfig(gamma=self.gamma)
++        self._schedule_cfg = DSparkScheduleConfig(gamma=self.verify_num_draft_tokens - 1)
+         self._budget_planner: Optional[HostConfidenceBudgetPlanner] = None
+         self._dynamic_graph_tier = False
+         self._dp_tier_gather_enabled = False
+@@ -172,6 +174,7 @@ class DSparkVerifyPlanner:
+                 cfg=self._schedule_cfg,
+                 model_runner=self.model_runner,
+                 relay_lag_steps=relay_lag_steps,
++                confidence_is_survival=self._confidence_is_survival,
+             )
+             self._dynamic_graph_tier = not is_dp_attention_enabled()
+             self._dp_tier_gather_enabled = (
+@@ -244,6 +247,11 @@ class DSparkVerifyPlanner:
+             return None
+         return self._budget_planner.take_last_decision()
+ 
++    def hybrid_slot_price(self) -> Optional[float]:
++        if self._budget_planner is None:
++            return None
++        return self._budget_planner.slot_price
++
+     def should_run_compact(self, *, layout: Optional[RaggedVerifyLayout]) -> bool:
+         return (
+             self._ragged_verify_mode is RaggedVerifyMode.COMPACT and layout is not None
+@@ -562,6 +570,7 @@ class DSparkVerifyPlanner:
+             confidence=confidence,
+             budget=budget,
+             cfg=self._schedule_cfg,
++            confidence_is_survival=self._confidence_is_survival,
+         ).to(device=device, dtype=torch.int32)
+         self._tp_sync.sync(SpecTpSyncSite.DSPARK_PLAN, verify_lens)
+ 
+@@ -886,6 +895,7 @@ class VerifyBudgetDecision(msgspec.Struct):
+     budget: int
+     predicted_step_seconds: Optional[float] = None
+     predicted_theta: Optional[float] = None
++    slot_price: Optional[float] = None
+ 
+ 
+ def compute_verify_token_budget(
+@@ -914,6 +924,9 @@ def compute_verify_token_budget(
+         theta = tau_star / step_time
+         idx = int(torch.argmax(theta))
+         predicted_step_seconds = float(step_time[idx])
++        costs = _additive_step_time_tensor(table=sps_table, num_requests=int(num_requests),
++                                          num_budgets=max(2, idx + 2))
++        marginal_cost = max(0.0, float(costs[idx + 1] - costs[idx]))
+     else:
+         batch_tokens = num_requests + torch.arange(tau_star.numel(), dtype=torch.int64)
+         sps = _lookup_sps_tensor(sps_table=sps_table, batch_tokens=batch_tokens)
+@@ -921,10 +934,15 @@ def compute_verify_token_budget(
+         idx = int(torch.argmax(theta))
+         sps_at_idx = float(sps[idx])
+         predicted_step_seconds = 1.0 / sps_at_idx if sps_at_idx > 0 else None
++        next_sps = float(_lookup_sps_tensor(sps_table=sps_table,
++                         batch_tokens=torch.tensor([num_requests + idx + 1]))[0])
++        marginal_cost = (max(0.0, 1.0 / next_sps - predicted_step_seconds)
++                         if next_sps > 0 and predicted_step_seconds is not None else 0.0)
+     return VerifyBudgetDecision(
+         budget=idx,
+         predicted_step_seconds=predicted_step_seconds,
+         predicted_theta=float(theta[idx]),
++        slot_price=min(1.0, max(0.0, float(theta[idx]) * marginal_cost)),
+     )
+ 
+ 
+@@ -965,13 +983,16 @@ class HostConfidenceBudgetPlanner:
+         cfg: DSparkScheduleConfig,
+         model_runner,
+         relay_lag_steps: int = 1,
++        confidence_is_survival: bool = False,
+     ) -> None:
+         cfg.validate()
+         self.sps_table = sps_table
+         self.cfg = cfg
++        self._confidence_is_survival = confidence_is_survival
+         self._model_runner = model_runner
+         self.forced_budget_frac: Optional[float] = None
+         self.last_decision: Optional[VerifyBudgetDecision] = None
++        self.slot_price: Optional[float] = None
+         self.lag_steps = max(
+             int(envs.SGLANG_DSPARK_CONFIDENCE_RELAY_LAG_STEPS.get()), 1
+         )
+@@ -1010,6 +1031,7 @@ class HostConfidenceBudgetPlanner:
+             cfg=self.cfg,
+         )
+         self.last_decision = decision
++        self.slot_price = decision.slot_price
+         return decision.budget
+ 
+     def take_last_decision(self) -> Optional[VerifyBudgetDecision]:
+@@ -1046,7 +1068,9 @@ class HostConfidenceBudgetPlanner:
+         lagged_generation: torch.Tensor,
+         current_generation: torch.Tensor,
+     ) -> torch.Tensor:
+-        k_survival = torch.cumprod(lagged_confidence.to(torch.float32), dim=1)
++        k_survival = lagged_confidence.to(torch.float32)
++        if not self._confidence_is_survival:
++            k_survival = torch.cumprod(k_survival, dim=1)
+         current_gen = current_generation.to(torch.int64)
+         fresh = (
+             (current_gen >= 1) & (lagged_generation.to(torch.int64) == current_gen)
+diff --git a/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py b/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py
+index d688bfc..14efa16 100644
+--- a/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py
++++ b/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py
+@@ -1,4 +1,5 @@
+ import logging
++import os
+ from typing import TYPE_CHECKING, Callable, Optional, Protocol, runtime_checkable
+ 
+ import torch
+@@ -269,6 +270,18 @@ class DSparkWorkerV2(BaseSpecWorker):
+         self.query_token_num = self.gamma if self.sample_from_anchor else self.gamma + 1
+         self.speculative_num_draft_tokens = self.verify_num_draft_tokens
+         self._mask_token_id = runtime_config.mask_token_id
++        self._hybrid = None
++        if os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG"):
++            from specforge.hybrid.config import load_config
++            from specforge.hybrid.sglang_runtime import HybridRuntime
++
++            if (target_model_type(self.target_worker) != "deepseek_v41"
++                or get_parallel().pp_size != 1 or get_parallel().attn_dp_enabled
++                or get_disagg().disaggregation_mode != "null"):
++                raise ValueError("Hybrid Spark v1 supports native V4.1 single-node TP, without DP/PD")
++            self._hybrid = HybridRuntime(load_config(), self.model_runner.req_to_token_pool, self.device)
++            logger.info("Hybrid Spark configuration sha256=%s, MTP=%d, verifier=%d",
++                        self._hybrid.config.fingerprint(), self.gamma, self.verify_num_draft_tokens)
+ 
+         parallel = get_parallel()
+         self._tp_sync = SpecTpSync(get_dp_tp_group())
+@@ -366,6 +379,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+         self._sim_draw_ahead = sim_draw_ahead_enabled(self._simulated_correct_len)
+         self.num_sim_draws_ahead = 0
+         self._greedy_draft = envs.SGLANG_DSPARK_USE_GREEDY_DRAFT.get()
++        if self._hybrid is not None and not self._greedy_draft:
++            raise ValueError("Hybrid Spark requires SGLANG_DSPARK_USE_GREEDY_DRAFT=1")
+         markov_head = self.draft_model.markov_head
+         self._sharded_accept = (
+             envs.SGLANG_DSPARK_SHARDED_ACCEPT.get()
+@@ -417,7 +432,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+         # ROCm (V4.1 target only): inside a HIP graph the accept-site TP broadcasts
+         # need the group's pynccl communicator
+         if (
+-            (self._verify_planner.is_compact_mode or static_epilogue_supported)
++            self._hybrid is None
++            and (self._verify_planner.is_compact_mode or static_epilogue_supported)
+             and self._decode_graph_allowed
+             and (is_cuda() or (is_cuda_alike() and target_is_dsv41))
+         ):
+@@ -499,7 +515,7 @@ class DSparkWorkerV2(BaseSpecWorker):
+ 
+         self._verify_executor = TargetVerifyExecutor(
+             target_worker=self.target_worker,
+-            gamma=self.gamma,
++            gamma=self.verify_num_draft_tokens - 1,
+             verify_num_draft_tokens=self.verify_num_draft_tokens,
+             model_runner=self.model_runner,
+             kv_injector=self._kv_injector,
+@@ -516,7 +532,7 @@ class DSparkWorkerV2(BaseSpecWorker):
+ 
+         self._observers = DsparkStepObservers(
+             planner=self._verify_planner,
+-            gamma=self.gamma,
++            gamma=self.verify_num_draft_tokens - 1,
+             verify_num_draft_tokens=self.verify_num_draft_tokens,
+             tp_rank=get_parallel().tp_rank,
+             device=self.device,
+@@ -834,6 +850,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+         # Placing the draft KV reads scheduler-shared tables, which prefill
+         # read-done releases once the target forward's own reads end.
+         placement = self._kv_injector.place_prefill(batch)
++        if self._hybrid is not None:
++            self._hybrid.prefill(batch)
+         batch_output = self.target_worker.forward_batch_generation(
+             batch,
+             pp_proxy_tensors=pp_proxy_tensors,
+@@ -1091,6 +1109,9 @@ class DSparkWorkerV2(BaseSpecWorker):
+                 verify_window=verify_window,
+                 seq_lens_cpu=window_seq_lens_cpu,
+             )
++        if self._hybrid is not None:
++            proposal = self._hybrid.propose(batch, prefix_lens, draft_input.bonus_tokens, proposal,
++                                            slot_price=self._verify_planner.hybrid_slot_price())
+         draft_block_ids = proposal.draft_block_ids
+         draft_block = proposal.draft_block
+         draft_tokens = draft_block.draft_tokens
+@@ -1115,6 +1136,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+             global_num_reqs=global_num_reqs,
+             dp_tier_num_tokens=self._dp_verify_tier_num_tokens(batch),
+         )
++        if self._hybrid is not None:
++            layout = self._hybrid.cap_layout(layout, budget=verify_token_budget)
+         run_compact = self._verify_planner.should_run_compact(layout=layout)
+ 
+         verify_ids_2d = proposal.verify_ids
+@@ -1256,6 +1279,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+                 draft_tokens=draft_tokens,
+                 simulate_bonus_sampling_info=simulate_bonus_sampling_info,
+             )
++        if self._hybrid is not None:
++            self._hybrid.commit(batch, prefix_lens, verify_ids_2d, accept.commit_lens)
+         if watermark_rows is not None:
+             self.target_worker.model_runner.watermark_state.commit_speculative_chain(
+                 req_pool_indices=batch.req_pool_indices,

@@ -48,17 +48,22 @@ def execute(attempt, kind):
             **training,
             "checkpoints": checkpoints,
         }
+    elif kind == "calibrate":
+        from specforge.hybrid.calibration import run_calibration
+        from specforge.nsp.calibrate_config import CalibrateSpec
+
+        result = run_calibration(CalibrateSpec.model_validate(config), attempt)
     else:
         from specforge.nsp.eval_config import EvalSpec
 
         spec = EvalSpec.model_validate(config)
         result = {"schema_version": 1, "complete": False, "stages": {}}
         try:
-            if any(m != "al" for m in spec.metrics):
+            if any(m not in ("al", "performance") for m in spec.metrics):
                 from specforge.nsp.offline_eval import run_offline
 
                 result["stages"]["offline"] = run_offline(spec, attempt)
-            if "al" in spec.metrics:
+            if any(m in ("al", "performance") for m in spec.metrics):
                 from specforge.nsp.serving_eval import run_serving
 
                 result["stages"]["serving"] = run_serving(spec, attempt)
@@ -79,7 +84,7 @@ def execute(attempt, kind):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("attempt")
-    parser.add_argument("kind", choices=["train", "eval"])
+    parser.add_argument("kind", choices=["train", "eval", "calibrate"])
     args = parser.parse_args()
     return execute(args.attempt, args.kind)
 
