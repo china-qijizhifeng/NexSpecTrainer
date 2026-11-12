@@ -241,10 +241,16 @@ def main():
         cycles = [dict(request_id=row["request_id"], sample_id=row["sample_id"], **cycle)
                   for row in observed["hybrid"] for cycle in row["cycles"]]
         long_commits = [cycle for cycle in cycles if cycle["committed_output_tokens"] > 6]
+        continued_long_commits = [dict(request_id=row["request_id"], sample_id=row["sample_id"],
+                                      commit=cycle, next_cycle=row["cycles"][index + 1])
+            for row in observed["hybrid"] for index, cycle in enumerate(row["cycles"][:-1])
+            if cycle["committed_output_tokens"] > 6
+               and row["cycles"][index + 1]["committed_output_tokens"] > 0]
         write(folder / "long-commits.json", dict(telemetry="independent native CPU observer receipts",
-            total_cycles=len(cycles), beyond_mtp_commits=long_commits))
-        if not long_commits:
-            raise RuntimeError("missing observed Hybrid commit beyond MTP horizon; aggregate AL is insufficient")
+            total_cycles=len(cycles), beyond_mtp_commits=long_commits,
+            long_commits_followed_by_decode=continued_long_commits))
+        if not continued_long_commits:
+            raise RuntimeError("missing Hybrid commit beyond MTP horizon followed by another decode cycle")
         if not target_equal or not dspark_equal:
             raise RuntimeError("T=0 output divergence recorded; compare all three receipts before correctness claims")
         passed = True
