@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "scenarios": [
+    {
+      "scenario": "ready",
+      "passed": true,
+      "stopped_process_group": true
+    },
+    {
+      "scenario": "exited",
+      "passed": true,
+      "stopped_process_group": false
+    },
+    {
+      "scenario": "timeout",
+      "passed": true,
+      "stopped_process_group": true
+    }
+  ]
+}

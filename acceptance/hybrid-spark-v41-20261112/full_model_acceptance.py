@@ -108,7 +108,7 @@ def prepare_prompts(model, output):
         scope="small engineering acceptance dataset; no model-quality or heldout calibration coverage claim"))
 
 
-def launch(model, variant, folder, hybrid_config, port):
+def launch(model, variant, folder, hybrid_config, port, launch_timeout_seconds):
     try:
         response = requests.get(f"http://127.0.0.1:{port}/get_server_info", timeout=2)
     except requests.RequestException:
@@ -133,6 +133,7 @@ def launch(model, variant, folder, hybrid_config, port):
         env.pop(key, None)
     env["SGLANG_RAGGED_VERIFY_MODE"] = "static"
     env["SGLANG_DSPARK_USE_GREEDY_DRAFT"] = "1"
+    env["SGLANG_JIT_DEEPGEMM_FAST_WARMUP"] = "1"
     env["PYTHONPATH"] = str(Path(__file__).resolve().parent) + os.pathsep + env.get("PYTHONPATH", "")
     if variant != "target":
         cycles = folder / "verify-cycles"
@@ -142,13 +143,14 @@ def launch(model, variant, folder, hybrid_config, port):
         env["SGLANG_DSPARK_HYBRID_CONFIG"] = str(hybrid_config)
     if any("SIMULATE" in key and value not in ("", "0", "false", "False") for key, value in env.items()):
         raise ValueError("simulation environment must be absent")
-    write(folder / "launch.json", dict(command=command, environment={key: value for key, value in env.items()
+    write(folder / "launch.json", dict(command=command, launch_timeout_seconds=launch_timeout_seconds,
+        environment={key: value for key, value in env.items()
         if key.startswith(("SGLANG_", "PYTHONPATH", "PYTORCH_"))}))
     log = (folder / "server.log").open("x")
     process = subprocess.Popen(command, stdout=log, stderr=subprocess.STDOUT, env=env, start_new_session=True)
     write(folder / "server-process.json", dict(pid=process.pid))
     started = time.monotonic()
-    while time.monotonic() - started < 1200:
+    while time.monotonic() - started < launch_timeout_seconds:
         if process.poll() is not None:
             stop(process, log)
             raise RuntimeError(f"{variant} server exited {process.returncode}; inspect {folder / 'server.log'}")
@@ -162,7 +164,7 @@ def launch(model, variant, folder, hybrid_config, port):
             pass
         time.sleep(2)
     stop(process, log)
-    raise TimeoutError(f"{variant} readiness exceeded 1200 seconds")
+    raise TimeoutError(f"{variant} readiness exceeded {launch_timeout_seconds} seconds")
 
 
 def stop(process, log):
@@ -212,7 +214,10 @@ def main():
     parser.add_argument("--model", type=Path, default=Path("/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017"))
     parser.add_argument("--runtime-bundle", type=Path, required=True)
     parser.add_argument("--port", type=int, default=30000)
+    parser.add_argument("--launch-timeout-seconds", type=int, default=5400)
     args = parser.parse_args()
+    if args.launch_timeout_seconds <= 0:
+        parser.error("--launch-timeout-seconds must be positive")
     folder = args.output_dir.resolve()
     folder.mkdir(parents=True, exist_ok=False)
     sglang_source = Path(importlib.util.find_spec("sglang").origin).parent
@@ -239,7 +244,8 @@ def main():
                 hybrid_config = variant_folder / "hybrid-config.json"
                 write(hybrid_config, dict(calibrator=str(calibration_artifact), mode="hybrid",
                     extra_budget_per_request=15, slot_price=0.0))
-            process, log = launch(args.model, variant, variant_folder, hybrid_config, args.port)
+            process, log = launch(args.model, variant, variant_folder, hybrid_config, args.port,
+                                  args.launch_timeout_seconds)
             try:
                 if variant == "target":
                     _, _, attempt = evaluate(base, args.model, variant, variant_folder,
