@@ -1,0 +1,130 @@
+{
+  "Code": 0,
+  "Data": {
+    "Name": "hybrid-v41-kernel-1aeaa3c1-a709-4045-b45f-9e65662e3a2f",
+    "Project": "fdj-infra",
+    "Labels": {
+      "brainpp-log-collector": "fluent-bit",
+      "brainpp.machine.cn/pool-name": "fdj_gputask",
+      "kubebrain.brainpp.cn/creator": "yanhang",
+      "kubebrain.brainpp.cn/creator-department": "default",
+      "kubebrain.brainpp.cn/creator-id": "e994309241cbb635c1b469b192f15365",
+      "kubebrain.brainpp.cn/creator-type": "user",
+      "kubebrain.brainpp.cn/resourcetype": "rjob",
+      "privatemachine.brainpp.cn/privatemachine": "group",
+      "quotagroup.brainpp.cn/preemptible": "no",
+      "quotagroup.brainpp.cn/quotagroup": "nex_bp",
+      "rjob": "rjob",
+      "rjob.brainpp.cn/gang-admitted": "true",
+      "rjob.brainpp.cn/rjob-name": "j-1794475750-48378",
+      "rjob.brainpp.cn/rjob-version": "v2",
+      "rjob.brainpp.cn/scheduler-name": "volcano",
+      "rjob.brainpp.cn/zs-task-type": "rjob-normal",
+      "scheduling.k8s.io/group-name": "j-1794475750-48378",
+      "scheduling.volcano.sh/queue-name": "fdj-infra-nex-bp",
+      "topology.brainpp.cn/region": "cn-shanghai",
+      "topology.brainpp.cn/zone": "cn-shanghai-a",
+      "volcano.brainpp.cn/priority-level": "high"
+    },
+    "JobId": "j-1794475750-48378",
+    "Uid": "ef9d8dfb-608c-4427-9b84-7a3caf3563ef",
+    "Creator": "yanhang",
+    "CreatorId": "e994309241cbb635c1b469b192f15365",
+    "RealCreator": "",
+    "RealCreatorId": "",
+    "Priority": "9",
+    "Qos": "Guaranteed",
+    "Description": "",
+    "QuotaGroup": "nex_bp",
+    "PoolName": "fdj_gputask",
+    "Mount": "",
+    "CreationTime": "2026-11-12T09:29:10Z",
+    "Phase": "Succeeded",
+    "Message": "RJob succeeded",
+    "RestartCount": 0,
+    "FailurePolicy": "None",
+    "RestartPolicy": "Never",
+    "TaskSpecs": {
+      "t0": {
+        "Replicas": 1,
+        "PositiveTags": [
+          "feature/gpfs=yes",
+          "H200"
+        ],
+        "MaxRunningDuration": "45m0s",
+        "Image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+        "Command": [
+          "env",
+          "RUN_UUID=1aeaa3c1-a709-4045-b45f-9e65662e3a2f",
+          "RUN_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1",
+          "WORKSPACE=/mnt/work/shom/hybrid-spark-native-v41-20261112-small/source",
+          "MEGATRON_BRIDGE_RUN_CONFIG_PATH=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/config.yaml",
+          "TENSORBOARD_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/tensorboard",
+          "tensorboard_folder=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/tensorboard",
+          "CHECKPOINT_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/checkpoints",
+          "PROFILE_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/torch_profile",
+          "PYTHONPYCACHEPREFIX=/tmp/yicloud-training-runs/1aeaa3c1-a709-4045-b45f-9e65662e3a2f/pycache",
+          "bash",
+          "/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/launch.sh"
+        ],
+        "CPU": "8",
+        "Memory": "32Gi",
+        "GPU": "1",
+        "EphemeralStorage": "",
+        "SKUId": "",
+        "MountGPFS": "gpfs://gpfs1/bp-data-pvc:/mnt/work;gpfs://gpfs1/shared-model-weight:/gpfs/shared-model-weight",
+        "MountGpfsVolumes": [
+          {
+            "Source": "gpfs://gpfs1/bp-data-pvc",
+            "Target": "/mnt/work"
+          },
+          {
+            "Source": "gpfs://gpfs1/shared-model-weight",
+            "Target": "/gpfs/shared-model-weight"
+          }
+        ],
+        "UpdatePolicy": "Active",
+        "RestartPolicy": "Never",
+        "CustomResources": {
+          "mellanox.com/mlnx_rdma": "0",
+          "rdma/mlnx_shared": "0"
+        },
+        "Volumes": [
+          {
+            "Name": "auth-info",
+            "MountPath": "/.auth/accesskey_id",
+            "ReadOnly": true
+          },
+          {
+            "Name": "auth-info",
+            "MountPath": "/.auth/accesskey_secret",
+            "ReadOnly": true
+          }
+        ],
+        "RootfsSource": {
+          "Kind": "image",
+          "StorageClassName": "",
+          "ReclaimPolicy": ""
+        },
+        "RegionId": "cn-shanghai",
+        "ZoneId": "cn-shanghai-a"
+      }
+    },
+    "TaskStatusCounts": {
+      "t0": {
+        "Succeeded": 1
+      }
+    },
+    "BackoffLimit": 1,
+    "StopTime": "2026-11-12T09:33:11Z",
+    "AutoDeleteDuration": "720h0m0s",
+    "TopStatus": "",
+    "TopTime": "",
+    "WaitTime": 0,
+    "Rank": 0,
+    "RegionId": "cn-shanghai",
+    "ZoneId": "cn-shanghai-a"
+  },
+  "Msg": "SUCCESS",
+  "_cost": 9
+}

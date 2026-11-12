@@ -1,0 +1,57 @@
+{
+  "source_commit": "433118a268ccccce364f3eececc3375d9c4f26d3",
+  "files": [
+    {
+      "path": "python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py",
+      "sha256": "420478eac029ecff9a8914b7df4d7db2fea4f61be9dbafa1cf34b1b890292c06"
+    },
+    {
+      "path": "python/sglang/srt/arg_groups/speculative_hook.py",
+      "sha256": "f46b14ac20117afd455171f2de357c1ec77cc230110cd4f2a00ed3ee0c425b4e"
+    },
+    {
+      "path": "python/sglang/srt/layers/attention/deepseek_v4_backend.py",
+      "sha256": "edb6d691ad8d4adb0c32884145e765500f3097f4bca1adc7361dfca57627ed1d"
+    },
+    {
+      "path": "python/sglang/srt/mem_cache/deepseek_v4_memory_pool.py",
+      "sha256": "00f7685a1eb53a6a003be1f59c47dd81d488684928cc1ea44709cbc76dfdd1b0"
+    },
+    {
+      "path": "python/sglang/srt/model_executor/model_runner.py",
+      "sha256": "afdeaa9d57decb93a11914d332765d5578e3d3f2aea3b16a301412583d2ec870"
+    },
+    {
+      "path": "python/sglang/srt/speculative/dspark_components/dspark_config.py",
+      "sha256": "351e15bea157ce66b49f44a6c733f84534e38e95fdf316728c4193b959e2d27e"
+    },
+    {
+      "path": "python/sglang/srt/speculative/dspark_components/dspark_observability.py",
+      "sha256": "12ee96f25b27c310c064c9af04e78e447deb1771e6ae1e695f82b7d12c6971f9"
+    },
+    {
+      "path": "python/sglang/srt/speculative/dspark_components/dspark_planner.py",
+      "sha256": "c9f980e249a8f9a2c76b4ab6cccca670bb54ff6230b8125bfe5f6eb54b1f02a1"
+    },
+    {
+      "path": "python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py",
+      "sha256": "28e086c086f2262921fe9f5af870e050073ff3b8054537f3b5a9d77f1142f3a5"
+    }
+  ],
+  "preflight": {
+    "state": "validated",
+    "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+    "patch_sha256": "0f76ba1f5d0df11c53399fc04f9df90288b7bd3c68693c860a16153317f7b160",
+    "files": 9
+  },
+  "applied": {
+    "state": "applied",
+    "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+    "patch_sha256": "0f76ba1f5d0df11c53399fc04f9df90288b7bd3c68693c860a16153317f7b160",
+    "files": 9
+  },
+  "already_applied": {
+    "state": "already-applied",
+    "patch_sha256": "0f76ba1f5d0df11c53399fc04f9df90288b7bd3c68693c860a16153317f7b160"
+  }
+}

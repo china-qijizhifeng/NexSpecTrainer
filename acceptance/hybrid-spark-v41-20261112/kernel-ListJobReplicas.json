@@ -1,0 +1,51 @@
+{
+  "Code": 0,
+  "Data": {
+    "Items": [
+      {
+        "Name": "j-1794475750-48378-zvjbs",
+        "Namespace": "fdj-infra",
+        "JobName": "j-1794475750-48378",
+        "TaskType": "t0",
+        "ReplicaIndex": "0",
+        "Phase": "Succeeded",
+        "NodeName": "lg-cmc-gpu-1035.host.lg.shzhisuan.com",
+        "PodIP": "172.20.124.8",
+        "EndTime": "2026-11-12T09:33:09Z",
+        "CreationTime": "2026-11-12T09:29:10Z",
+        "Image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+        "Command": [
+          "/kubebrain/worker-init",
+          "run",
+          "--enable-pid-monitor",
+          "--",
+          "env",
+          "RUN_UUID=1aeaa3c1-a709-4045-b45f-9e65662e3a2f",
+          "RUN_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1",
+          "WORKSPACE=/mnt/work/shom/hybrid-spark-native-v41-20261112-small/source",
+          "MEGATRON_BRIDGE_RUN_CONFIG_PATH=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/config.yaml",
+          "TENSORBOARD_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/tensorboard",
+          "tensorboard_folder=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/tensorboard",
+          "CHECKPOINT_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/checkpoints",
+          "PROFILE_DIR=/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/torch_profile",
+          "PYTHONPYCACHEPREFIX=/tmp/yicloud-training-runs/1aeaa3c1-a709-4045-b45f-9e65662e3a2f/pycache",
+          "bash",
+          "/mnt/work/shom/training_runs/hybrid-v41-kernel-native-3c6626d-r1/launch.sh"
+        ],
+        "CPU": "8",
+        "Memory": "32Gi",
+        "GPU": "1",
+        "CustomResources": {
+          "mellanox.com/mlnx_rdma": "0",
+          "rdma/mlnx_shared": "0"
+        },
+        "Internet": false,
+        "RegionId": "cn-shanghai",
+        "ZoneId": "cn-shanghai-a"
+      }
+    ],
+    "Total": 1
+  },
+  "Msg": "SUCCESS",
+  "_cost": 156
+}

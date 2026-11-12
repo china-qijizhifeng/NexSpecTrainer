@@ -1,0 +1,11 @@
+{
+  "workspace": "/mnt/work/shom/hybrid-spark-native-v41-20261112-small/source",
+  "workspace_lifecycle": "source-worktree",
+  "expected_replicas": 1,
+  "completed_replicas": [
+    "0"
+  ],
+  "active_replicas": [],
+  "removed": false,
+  "preserved": true
+}

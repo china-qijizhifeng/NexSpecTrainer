@@ -1,0 +1,29 @@
+{
+  "calibration_count": 24,
+  "measured_count": 17,
+  "encoder": "sglang.encode_simple_chat:dsv41",
+  "copy_thinking_mode": "chat",
+  "reasoning_thinking_mode": "thinking",
+  "measured_prompt_lengths": {
+    "heldout-0": 352,
+    "heldout-1": 352,
+    "heldout-2": 352,
+    "heldout-3": 352,
+    "heldout-4": 352,
+    "heldout-5": 352,
+    "heldout-6": 352,
+    "heldout-7": 352,
+    "heldout-8": 352,
+    "heldout-9": 352,
+    "heldout-10": 352,
+    "heldout-11": 352,
+    "short-copy-eos": 21,
+    "repeated-pattern": 81,
+    "long-copy-4095": 4095,
+    "long-copy-4096": 4096,
+    "reasoning-no-match": 44
+  },
+  "calibration_sha256": "b25d6aa2308977795dce8648747081ee6c4167264af144a12e41aef1212237fb",
+  "measured_sha256": "d0a87c09575deaa96e7395a51ad9dae365f7c612bde81d8aca2db9d8068a4fda",
+  "scope": "small engineering acceptance dataset; no model-quality or heldout calibration coverage claim"
+}

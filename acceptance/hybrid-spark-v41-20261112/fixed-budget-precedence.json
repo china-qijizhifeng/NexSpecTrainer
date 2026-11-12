@@ -1,0 +1,199 @@
+{
+  "commit": "f5e7164e984289631845e13240a6bd893b891b4e",
+  "cases": 32,
+  "passed": true,
+  "rows": [
+    {
+      "fixed": 0,
+      "requests": 1,
+      "planned": null,
+      "actual": 0
+    },
+    {
+      "fixed": 0,
+      "requests": 1,
+      "planned": 0,
+      "actual": 0
+    },
+    {
+      "fixed": 0,
+      "requests": 1,
+      "planned": 5,
+      "actual": 0
+    },
+    {
+      "fixed": 0,
+      "requests": 1,
+      "planned": 19,
+      "actual": 0
+    },
+    {
+      "fixed": 0,
+      "requests": 4,
+      "planned": null,
+      "actual": 0
+    },
+    {
+      "fixed": 0,
+      "requests": 4,
+      "planned": 0,
+      "actual": 0
+    },
+    {
+      "fixed": 0,
+      "requests": 4,
+      "planned": 5,
+      "actual": 0
+    },
+    {
+      "fixed": 0,
+      "requests": 4,
+      "planned": 19,
+      "actual": 0
+    },
+    {
+      "fixed": 5,
+      "requests": 1,
+      "planned": null,
+      "actual": 5
+    },
+    {
+      "fixed": 5,
+      "requests": 1,
+      "planned": 0,
+      "actual": 5
+    },
+    {
+      "fixed": 5,
+      "requests": 1,
+      "planned": 5,
+      "actual": 5
+    },
+    {
+      "fixed": 5,
+      "requests": 1,
+      "planned": 19,
+      "actual": 5
+    },
+    {
+      "fixed": 5,
+      "requests": 4,
+      "planned": null,
+      "actual": 20
+    },
+    {
+      "fixed": 5,
+      "requests": 4,
+      "planned": 0,
+      "actual": 20
+    },
+    {
+      "fixed": 5,
+      "requests": 4,
+      "planned": 5,
+      "actual": 20
+    },
+    {
+      "fixed": 5,
+      "requests": 4,
+      "planned": 19,
+      "actual": 20
+    },
+    {
+      "fixed": 15,
+      "requests": 1,
+      "planned": null,
+      "actual": 15
+    },
+    {
+      "fixed": 15,
+      "requests": 1,
+      "planned": 0,
+      "actual": 15
+    },
+    {
+      "fixed": 15,
+      "requests": 1,
+      "planned": 5,
+      "actual": 15
+    },
+    {
+      "fixed": 15,
+      "requests": 1,
+      "planned": 19,
+      "actual": 15
+    },
+    {
+      "fixed": 15,
+      "requests": 4,
+      "planned": null,
+      "actual": 60
+    },
+    {
+      "fixed": 15,
+      "requests": 4,
+      "planned": 0,
+      "actual": 60
+    },
+    {
+      "fixed": 15,
+      "requests": 4,
+      "planned": 5,
+      "actual": 60
+    },
+    {
+      "fixed": 15,
+      "requests": 4,
+      "planned": 19,
+      "actual": 60
+    },
+    {
+      "fixed": null,
+      "requests": 1,
+      "planned": null,
+      "actual": null
+    },
+    {
+      "fixed": null,
+      "requests": 1,
+      "planned": 0,
+      "actual": 0
+    },
+    {
+      "fixed": null,
+      "requests": 1,
+      "planned": 5,
+      "actual": 5
+    },
+    {
+      "fixed": null,
+      "requests": 1,
+      "planned": 19,
+      "actual": 19
+    },
+    {
+      "fixed": null,
+      "requests": 4,
+      "planned": null,
+      "actual": null
+    },
+    {
+      "fixed": null,
+      "requests": 4,
+      "planned": 0,
+      "actual": 0
+    },
+    {
+      "fixed": null,
+      "requests": 4,
+      "planned": 5,
+      "actual": 5
+    },
+    {
+      "fixed": null,
+      "requests": 4,
+      "planned": 19,
+      "actual": 19
+    }
+  ]
+}

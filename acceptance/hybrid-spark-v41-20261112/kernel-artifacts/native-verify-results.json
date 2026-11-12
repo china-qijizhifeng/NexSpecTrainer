@@ -1,0 +1,39 @@
+{
+  "passed": true,
+  "scope": "native sixteen-column greedy accept and ring address contracts",
+  "torch": "2.14.1+cu130",
+  "cuda": "13.0",
+  "gpu": "NVIDIA H200",
+  "source_sha256": {
+    "dspark_accept.py": "d5657fbab56949a9a2788039153ecf510c88efb825fdba9535b84d427a0dda99",
+    "dspark_verify_window.py": "63e0ca54556dbf6bcf9a9c77ad15371875911828fe418289110d3e813dd26506"
+  },
+  "accept": [
+    {
+      "scenarios": 256,
+      "prefix_dtype": "torch.int32",
+      "fused_argmax": false,
+      "maximum_commit": 16
+    },
+    {
+      "scenarios": 256,
+      "prefix_dtype": "torch.int64",
+      "fused_argmax": false,
+      "maximum_commit": 16
+    },
+    {
+      "scenarios": 4,
+      "prefix_dtype": "torch.int64",
+      "fused_argmax": true,
+      "maximum_commit": 16
+    }
+  ],
+  "ring": {
+    "scenarios": 51,
+    "ring_sizes": [
+      128,
+      1024
+    ],
+    "scope": "committed hidden injection address masks; no model weights"
+  }
+}
