@@ -1,0 +1,115 @@
+{
+  "scope": "Dynamic ctx_len before each native verify cycle; committed-output average excludes the initial prefill token. Request coverage can overlap bins. r4 DSPARK baseline and r5 Hybrid use different allocations; no throughput comparison.",
+  "bins": [
+    {
+      "ctx_min_inclusive": 0,
+      "ctx_max_exclusive": 512,
+      "dspark": {
+        "requests": 15,
+        "cycles": 348,
+        "committed_output_tokens": 2064,
+        "mean_committed_tokens": 5.931034482758621,
+        "actual_ctx_min": 22,
+        "actual_ctx_max": 509
+      },
+      "hybrid": {
+        "requests": 15,
+        "cycles": 167,
+        "committed_output_tokens": 2124,
+        "mean_committed_tokens": 12.718562874251496,
+        "actual_ctx_min": 22,
+        "actual_ctx_max": 504
+      }
+    },
+    {
+      "ctx_min_inclusive": 512,
+      "ctx_max_exclusive": 1024,
+      "dspark": {
+        "requests": 12,
+        "cycles": 192,
+        "committed_output_tokens": 1116,
+        "mean_committed_tokens": 5.8125,
+        "actual_ctx_min": 515,
+        "actual_ctx_max": 605
+      },
+      "hybrid": {
+        "requests": 12,
+        "cycles": 72,
+        "committed_output_tokens": 1056,
+        "mean_committed_tokens": 14.666666666666666,
+        "actual_ctx_min": 520,
+        "actual_ctx_max": 600
+      }
+    },
+    {
+      "ctx_min_inclusive": 1024,
+      "ctx_max_exclusive": 4096,
+      "dspark": {
+        "requests": 0,
+        "cycles": 0,
+        "committed_output_tokens": 0,
+        "mean_committed_tokens": null,
+        "actual_ctx_min": null,
+        "actual_ctx_max": null
+      },
+      "hybrid": {
+        "requests": 0,
+        "cycles": 0,
+        "committed_output_tokens": 0,
+        "mean_committed_tokens": null,
+        "actual_ctx_min": null,
+        "actual_ctx_max": null
+      }
+    },
+    {
+      "ctx_min_inclusive": 4096,
+      "ctx_max_exclusive": 8192,
+      "dspark": {
+        "requests": 2,
+        "cycles": 8,
+        "committed_output_tokens": 38,
+        "mean_committed_tokens": 4.75,
+        "actual_ctx_min": 4096,
+        "actual_ctx_max": 4115
+      },
+      "hybrid": {
+        "requests": 2,
+        "cycles": 6,
+        "committed_output_tokens": 38,
+        "mean_committed_tokens": 6.333333333333333,
+        "actual_ctx_min": 4096,
+        "actual_ctx_max": 4115
+      }
+    },
+    {
+      "ctx_min_inclusive": 8192,
+      "ctx_max_exclusive": null,
+      "dspark": {
+        "requests": 0,
+        "cycles": 0,
+        "committed_output_tokens": 0,
+        "mean_committed_tokens": null,
+        "actual_ctx_min": null,
+        "actual_ctx_max": null
+      },
+      "hybrid": {
+        "requests": 0,
+        "cycles": 0,
+        "committed_output_tokens": 0,
+        "mean_committed_tokens": null,
+        "actual_ctx_min": null,
+        "actual_ctx_max": null
+      }
+    }
+  ],
+  "dspark_overall": {
+    "cycles": 548,
+    "initial_prefill_tokens": 17,
+    "verify_committed_tokens": 3218
+  },
+  "hybrid_overall": {
+    "cycles": 245,
+    "initial_prefill_tokens": 17,
+    "verify_committed_tokens": 3218
+  }
+}

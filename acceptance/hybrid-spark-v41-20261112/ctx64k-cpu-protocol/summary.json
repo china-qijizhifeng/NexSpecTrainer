@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "scope": "Exercise the 64K harness through real detached nsp Runs and local HTTP.\n\nThis is a transport fixture. Token encoding and model output are synthetic;\nofficial tokenizer/model acceptance is performed separately on YiCloud.\n",
+  "nsp_runs": {
+    "target": {
+      "id": "ev_7ebb07bdf74b4f6386e17913",
+      "state": "succeeded",
+      "measured_requests": 12
+    },
+    "dspark": {
+      "id": "ev_433a922d9d87440c8889f270",
+      "state": "succeeded",
+      "measured_requests": 12
+    },
+    "hybrid": {
+      "id": "ev_d1db533b0eab416a892f9ab4",
+      "state": "succeeded",
+      "measured_requests": 12
+    }
+  },
+  "total_http_requests": 39,
+  "measured_per_variant": 12,
+  "warmup_per_variant": 1,
+  "input_lengths": [
+    65535,
+    65536,
+    65537
+  ],
+  "max_input_output_tokens": 66049,
+  "server_context_length": 69632,
+  "corrupt_context_rejected": true
+}
