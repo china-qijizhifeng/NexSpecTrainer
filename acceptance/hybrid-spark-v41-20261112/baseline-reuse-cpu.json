@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "scope": "Validate real r4 receipts and reject changed inputs before GPU allocation.\n\nModel inventory reads are replaced by the recorded r4 identity because this CPU\nhost does not mount the model. All source, prompt, nsp and calibrator files are\nreal. The GPU harness independently reads the mounted model inventory.\n",
+  "cases": [
+    {
+      "case": "valid",
+      "passed": true,
+      "requests_per_mode": 17
+    },
+    {
+      "case": "changed-prompt",
+      "passed": true,
+      "rejected": "baseline reuse rejected: regenerated frozen inputs differ: measured-prompts.jsonl"
+    },
+    {
+      "case": "changed-checkpoint",
+      "passed": true,
+      "rejected": "baseline reuse rejected: checkpoint identity changed"
+    },
+    {
+      "case": "changed-calibrator",
+      "passed": true,
+      "rejected": "baseline reuse rejected: calibrator content changed"
+    },
+    {
+      "case": "changed-source",
+      "passed": true,
+      "rejected": "baseline reuse rejected: baseline source has tracked modifications"
+    }
+  ]
+}

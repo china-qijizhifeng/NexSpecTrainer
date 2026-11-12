@@ -473,3 +473,19 @@ index d688bfc..4d0eff3 100644
          if watermark_rows is not None:
              self.target_worker.model_runner.watermark_state.commit_speculative_chain(
                  req_pool_indices=batch.req_pool_indices,
+diff --git a/python/sglang/srt/models/deepseek_v4_dspark.py b/python/sglang/srt/models/deepseek_v4_dspark.py
+--- a/python/sglang/srt/models/deepseek_v4_dspark.py
++++ b/python/sglang/srt/models/deepseek_v4_dspark.py
+@@ -541,7 +541,11 @@
+ def build_dspark_v4_confidence_head(
+     *, config: DeepSeekV4Config, markov_rank: int
+ ) -> Optional[DSparkConfidenceHead]:
+-    if read_ragged_verify_mode() is RaggedVerifyMode.STATIC:
++    # Fixed-budget Hybrid still scores both chains with the trained head.
++    import os
++
++    if (read_ragged_verify_mode() is RaggedVerifyMode.STATIC
++        and not os.environ.get("SGLANG_DSPARK_HYBRID_CONFIG")):
+         return None
+     if not hasattr(config, "enable_confidence_head"):
+         logger.warning(

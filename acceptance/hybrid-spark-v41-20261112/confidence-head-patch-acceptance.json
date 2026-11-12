@@ -1,0 +1,21 @@
+{
+  "root": "/var/folders/4y/b_9vszm50vv7k7zzw2p41m6m0000gn/T/hybrid-v41-confidence-is331bl1",
+  "receipts": [
+    {
+      "state": "validated",
+      "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+      "patch_sha256": "6f4c7df732300ab1d0a3875d32fa28118ae322f980c6500959c41473fcc0037f",
+      "files": 10
+    },
+    {
+      "state": "applied",
+      "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+      "patch_sha256": "6f4c7df732300ab1d0a3875d32fa28118ae322f980c6500959c41473fcc0037f",
+      "files": 10
+    },
+    {
+      "state": "already-applied",
+      "patch_sha256": "6f4c7df732300ab1d0a3875d32fa28118ae322f980c6500959c41473fcc0037f"
+    }
+  ]
+}

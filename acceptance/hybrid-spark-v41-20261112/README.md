@@ -109,6 +109,39 @@ four real HTTP requests through detached `nsp` in
 store, metric and serving tests passed 15/15 in
 [nsp-lifecycle-regression.xml](nsp-lifecycle-regression.xml).
 
+The fourth attempt is Run `41a0c650-2df2-4039-8f4a-295e7f93900a`, Job
+`j-1794484331-882821`, immutable source
+`d834b94fef28086490c7c62e3ee5cfc250fcf45d`. It uses an independent clean source
+checkout and output directory, the same TP8/EP8 eight-H200 allocation, and only
+reuses the preceding kernel compilation cache. Every server seed is fixed to
+42. Target readiness passed in 226.24 seconds; the separate 24-request
+calibration trajectory Run and calibrator fitting succeeded. Target and DSPARK
+again matched 16/17 requests; the same reasoning token diverged with fixed seeds.
+Serial repeats matched target, while one-token prefill continuations chose the
+other token in both modes. These probes associate the difference with execution
+shape but do not establish the original logit margin. Hybrid became ready, then
+failed because STATIC mode omitted its confidence head. The GPU parent and sole
+replica failed; controller and observer succeeded, and managed reconciliation
+confirmed release at `2026-11-12T12:12:10.853563+00:00`.
+Identity and submission receipts are in
+[full-r4-submission.json](full-r4-submission.json).
+
+The ten-file bundle now retains the real trained confidence head for STATIC
+Hybrid. Native STATIC DSPARK remains unchanged, and missing trained weights
+still fail in SGLang's loader. Pristine patch application/idempotence and actual
+builder AST checks passed in [confidence-head-patch-acceptance.json](confidence-head-patch-acceptance.json)
+and [pool-confidence-lifecycle.json](pool-confidence-lifecycle.json).
+
+The next Hybrid-only attempt can reuse r4's target/DSPARK correctness receipts
+via `--baseline-dir` and `--baseline-source`. Reuse requires exact regenerated
+prompts, checkpoint metadata/config/index/tokenizer identity, the frozen r4
+source and nine previous patch targets, identical nsp/runtime helpers, and the
+original calibrator bytes and provenance. It copies primary output receipts and
+diagnostics into the new Run and forbids a cross-allocation throughput claim.
+The real r4 CPU fixture passed and rejected changed prompts, checkpoint inventory,
+calibrator and source; see [baseline-reuse-cpu.json](baseline-reuse-cpu.json).
+The three-mode token equality and long-commit-then-decode gates are unchanged.
+
 The target-only, DSPARK and Hybrid servers execute sequentially in the
 same allocation with the same immutable token IDs and T=0. Every server uses
 the pinned runtime bundle; DSPARK leaves Hybrid disabled but retains the shared

@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "scope": "Exercise the patched worker pool lifecycle and confidence builder on CPU.\n\nThe GPU history-write import is stubbed and raises if used. No kernels or model\nweights run here. The actual confidence builder is tested with a stub head;\nnative GPU execution and trained weight loading remain separate gates.\n",
+  "constructor_allocation_deferred": true,
+  "hook_pool_identity": true,
+  "draft_pool_allocation_precedes_history": true,
+  "history_shape": [
+    7,
+    128
+  ],
+  "history_dtype": "torch.int32",
+  "lengths_initially_zero": true,
+  "hybrid_disabled_hook": true,
+  "non_host_rank_skipped": true,
+  "worker_sha256": "4bd7794e2285522bd4f8a23b1e8c30846fcf809ac7f00bca22d8b5205c4e1036",
+  "static_hybrid_keeps_trained_confidence_head": true,
+  "static_native_skips_confidence_head": true,
+  "adaptive_head_unchanged": true,
+  "confidence_builder_sha256": "10586ccf1f393233a8a3ffe4e3d59614ceb7a58f872afe47c91af82f9165809f",
+  "model_or_gpu_tested": false
+}

@@ -257,9 +257,15 @@ def main():
     parser.add_argument("--runtime-bundle", type=Path, required=True)
     parser.add_argument("--port", type=int, default=30000)
     parser.add_argument("--launch-timeout-seconds", type=int, default=5400)
+    parser.add_argument("--baseline-dir", type=Path,
+                        help="Reuse validated frozen r4 target/DSPARK correctness receipts")
+    parser.add_argument("--baseline-source", type=Path,
+                        help="Immutable d834b94 source that generated --baseline-dir")
     args = parser.parse_args()
     if args.launch_timeout_seconds <= 0:
         parser.error("--launch-timeout-seconds must be positive")
+    if bool(args.baseline_dir) != bool(args.baseline_source):
+        parser.error("--baseline-dir and --baseline-source must be supplied together")
     folder = args.output_dir.resolve()
     folder.mkdir(parents=True, exist_ok=False)
     sglang_source = Path(importlib.util.find_spec("sglang").origin).parent
@@ -278,7 +284,16 @@ def main():
     calibration_artifact = None
     passed = False
     try:
-        for variant in ("target", "dspark", "hybrid"):
+        variants = ("target", "dspark", "hybrid")
+        if args.baseline_dir:
+            from baseline_reuse import reuse_baseline
+
+            outputs, results, calibration_artifact = reuse_baseline(args.baseline_dir,
+                args.baseline_source, folder, Path(__file__).resolve().parents[2],
+                args.runtime_bundle, args.model)
+            compare_outputs(outputs["target"], outputs["dspark"], folder / "target-vs-dspark.json")
+            variants = ("hybrid",)
+        for variant in variants:
             variant_folder = folder / variant
             variant_folder.mkdir()
             hybrid_config = None
@@ -335,6 +350,8 @@ def main():
     finally:
         write(folder / "summary.json", dict(passed=passed, temperature=0, results=results,
             calibration_artifact=str(calibration_artifact),
+            reused_baseline=str(args.baseline_dir) if args.baseline_dir else None,
+            throughput_comparison_valid=not bool(args.baseline_dir),
             budget_scope="fixed 15 extra slots/request engineering gate; no AV throughput or calibration-quality claim"))
     print(json.dumps(dict(passed=passed, output_dir=str(folder))))
 

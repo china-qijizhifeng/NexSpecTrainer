@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
-  "patch_sha256": "637bf7f216f0b5daff68364903735970e984c64dae00f08514bcf2bd74725c0b",
+  "patch_sha256": "6f4c7df732300ab1d0a3875d32fa28118ae322f980c6500959c41473fcc0037f",
   "files": {
     "python/sglang/kernels/ops/speculative/dspark/dspark_schedule.py": {
       "before_sha256": "420478eac029ecff9a8914b7df4d7db2fea4f61be9dbafa1cf34b1b890292c06",
@@ -38,6 +38,10 @@
     "python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py": {
       "before_sha256": "28e086c086f2262921fe9f5af870e050073ff3b8054537f3b5a9d77f1142f3a5",
       "after_sha256": "4bd7794e2285522bd4f8a23b1e8c30846fcf809ac7f00bca22d8b5205c4e1036"
+    },
+    "python/sglang/srt/models/deepseek_v4_dspark.py": {
+      "before_sha256": "55edc39a44f4e8af5621893a632988947378a80e841771a3c3b21cd49df26b75",
+      "after_sha256": "10586ccf1f393233a8a3ffe4e3d59614ceb7a58f872afe47c91af82f9165809f"
     }
   }
 }
