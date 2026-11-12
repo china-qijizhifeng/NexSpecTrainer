@@ -100,6 +100,15 @@ of the reasoning divergence; all three output equality gates remain required.
 See [full-r3-failure.json](full-r3-failure.json) and
 [full-r3-reasoning-and-suite-comparison.json](full-r3-reasoning-and-suite-comparison.json).
 
+The next harness includes two serial repeats of the reasoning request and two
+one-token continuations of its target prefix in separate `nsp` diagnostic Runs
+after each measured window. Prefix replay uses prefill, so it does not establish
+the original decode/verify logits or their margin. The diagnostic helper passed
+four real HTTP requests through detached `nsp` in
+[diagnostics-cpu-preflight.json](diagnostics-cpu-preflight.json); the existing
+store, metric and serving tests passed 15/15 in
+[nsp-lifecycle-regression.xml](nsp-lifecycle-regression.xml).
+
 The target-only, DSPARK and Hybrid servers execute sequentially in the
 same allocation with the same immutable token IDs and T=0. Every server uses
 the pinned runtime bundle; DSPARK leaves Hybrid disabled but retains the shared

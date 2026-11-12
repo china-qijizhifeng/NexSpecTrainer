@@ -210,6 +210,46 @@ def compare_outputs(baseline, candidate, output):
     return not differences
 
 
+def diagnose_reasoning(base, model, variant, folder, prompts, target_outputs, port):
+    """Keep serial repeatability probes outside the measured throughput window."""
+    prompt = next(row for row in prompts if row["id"] == "reasoning-no-match")
+    target = next(row for row in target_outputs if row["sample_id"] == prompt["id"])
+    diagnostics = folder / "diagnostics"
+    diagnostics.mkdir()
+    # The first observed baseline divergence was at output index 51. Replaying
+    # the preceding target prefix as prefill probes a distinct execution shape;
+    # it does not reproduce the original decode/verify logits or their margin.
+    cut = min(51, len(target["output_ids"]) - 1)
+    probes = (("original", prompt["input_ids"], 256),
+              ("fixed-prefix", prompt["input_ids"] + target["output_ids"][:cut], 1))
+    receipts = {}
+    for kind, ids, max_new_tokens in probes:
+        receipts[kind] = []
+        for repeat in range(2):
+            label = f"{kind}-{repeat}"
+            path = diagnostics / (label + "-prompts.jsonl")
+            path.write_text(json.dumps(dict(id=label, input_ids=ids)) + "\n")
+            config = diagnostics / (label + "-eval.json")
+            write(config, dict(metrics=["performance"], seed=58,
+                serving=dict(protocol="native", url=f"http://127.0.0.1:{port}",
+                    model="deepseek-v4.1-flash", checkpoint_field="model_path", prompts=str(path),
+                    max_new_tokens=max_new_tokens, timeout=2400, concurrency=1, warmup_requests=0,
+                    expected_server_args=dict(model_path=str(model), random_seed=42,
+                        speculative_algorithm=None if variant == "target" else "DSPARK",
+                        speculative_draft_model_path=None if variant == "target" else str(model)))))
+            _, _, attempt = nsp_run(base, ["eval", str(model), "-c", str(config),
+                "--name", variant + "-" + label, "--request-id", variant + "-" + label],
+                diagnostics, label)
+            row, = [json.loads(line) for line in (attempt / "requests.jsonl").read_text().splitlines()]
+            receipts[kind].append(row)
+    write(diagnostics / "summary.json", dict(
+        scope="serial T=0 repeats and target prefix as prefill; no logit-margin claim",
+        target_output_prefix_tokens=cut, target_measured_output_ids=target["output_ids"],
+        original_repeatable=receipts["original"][0]["output_ids"] == receipts["original"][1]["output_ids"],
+        prefix_repeatable=receipts["fixed-prefix"][0]["output_ids"] == receipts["fixed-prefix"][1]["output_ids"],
+        receipts=receipts))
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=Path(os.environ.get("RUN_DIR", ".")) / "full-model")
@@ -268,6 +308,8 @@ def main():
                                                     15 if variant == "hybrid" else 5)
                                          for row in outputs[variant]]
                     write(variant_folder / "observed-measured-cycles.json", observed[variant])
+                prompts = [json.loads(line) for line in (folder / "measured-prompts.jsonl").read_text().splitlines()]
+                diagnose_reasoning(base, args.model, variant, variant_folder, prompts, outputs["target"], args.port)
             finally:
                 stop(process, log)
             if variant == "dspark":

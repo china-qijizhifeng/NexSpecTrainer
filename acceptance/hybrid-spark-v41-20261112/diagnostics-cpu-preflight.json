@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "gpu_tested": false,
+  "requests": 4,
+  "native_seed": 58,
+  "prompt_lengths": [
+    3,
+    3,
+    54,
+    54
+  ],
+  "scope": "real HTTP and detached nsp execution of full-model diagnostic helper",
+  "source_sha256": "fb864aa45bafa692aca8e66fcdbe953a25b5fa68bb980b388987ec2ac5a8d57d"
+}
