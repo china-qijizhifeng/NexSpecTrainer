@@ -1,0 +1,18 @@
+{
+  "preflight": {
+    "state": "validated",
+    "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+    "patch_sha256": "637bf7f216f0b5daff68364903735970e984c64dae00f08514bcf2bd74725c0b",
+    "files": 9
+  },
+  "applied": {
+    "state": "applied",
+    "base_revision": "38d9e4a3fe4a493b0ae468477a274e83defda81a",
+    "patch_sha256": "637bf7f216f0b5daff68364903735970e984c64dae00f08514bcf2bd74725c0b",
+    "files": 9
+  },
+  "idempotent": {
+    "state": "already-applied",
+    "patch_sha256": "637bf7f216f0b5daff68364903735970e984c64dae00f08514bcf2bd74725c0b"
+  }
+}

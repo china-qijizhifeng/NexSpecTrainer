@@ -18,8 +18,9 @@ from .selection import estimate_ngram, select_chains, verify_lengths
 
 
 class HybridRuntime:
-    def __init__(self, config, req_pool, device, model_path):
+    def __init__(self, config, device, model_path):
         self.config = config
+        self.device = device
         if config.calibrator:
             provenance = json.loads(Path(config.calibrator).read_text())["provenance"]
             for key, name in (("target", "config.json"), ("tokenizer", "tokenizer.json")):
@@ -28,11 +29,16 @@ class HybridRuntime:
                     raise ValueError(f"Hybrid calibrator {key} fingerprint differs from native serving model")
             if provenance.get("temperature") != 0:
                 raise ValueError("Hybrid v1 calibrator must use greedy target trajectories")
-        self.history = torch.empty(req_pool.req_to_token.shape, dtype=torch.int32, device=device)
-        self.lengths = torch.zeros(self.history.shape[0], dtype=torch.int32, device=device)
+        # SGLang creates the target/draft workers before allocating their shared
+        # request pool. The scheduler binds its final dimensions in the pool phase.
+        self.history = self.lengths = None
         self.coefficients = {key: torch.as_tensor(value, dtype=torch.float32, device=device)
                              for key, value in config.coefficients().items()}
         self.last_selection = None
+
+    def alloc_memory_pool(self, req_pool):
+        self.history = torch.empty(req_pool.req_to_token.shape, dtype=torch.int32, device=self.device)
+        self.lengths = torch.zeros(self.history.shape[0], dtype=torch.int32, device=self.device)
 
     def prefill(self, batch):
         # These are scheduler-owned CPU prefixes, not a synchronization of

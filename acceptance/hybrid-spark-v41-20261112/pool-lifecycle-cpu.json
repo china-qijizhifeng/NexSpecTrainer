@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "scope": "Exercise the patched worker's real constructor call and pool hook on CPU.\n\nThe GPU history-write import is stubbed and raises if used. No kernels or model\nweights run here; native GPU/model acceptance is a separate gate.\n",
+  "constructor_allocation_deferred": true,
+  "hook_pool_identity": true,
+  "draft_pool_allocation_precedes_history": true,
+  "history_shape": [
+    7,
+    128
+  ],
+  "history_dtype": "torch.int32",
+  "lengths_initially_zero": true,
+  "hybrid_disabled_hook": true,
+  "non_host_rank_skipped": true,
+  "worker_sha256": "4bd7794e2285522bd4f8a23b1e8c30846fcf809ac7f00bca22d8b5205c4e1036",
+  "model_or_gpu_tested": false
+}

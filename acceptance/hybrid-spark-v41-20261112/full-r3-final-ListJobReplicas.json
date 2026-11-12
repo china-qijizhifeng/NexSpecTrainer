@@ -1,0 +1,52 @@
+{
+  "Code": 0,
+  "Data": {
+    "Items": [
+      {
+        "Name": "j-1794480511-583250-cfcd2",
+        "Namespace": "fdj-infra",
+        "JobName": "j-1794480511-583250",
+        "TaskType": "t0",
+        "ReplicaIndex": "0",
+        "Phase": "Failed",
+        "NodeName": "lg-cmc-gpu-1149.host.lg.shzhisuan.com",
+        "PodIP": "10.100.14.177",
+        "EndTime": "2026-11-12T11:10:18Z",
+        "CreationTime": "2026-11-12T10:48:31Z",
+        "Image": "registry.gate.yicloud.com.cn/fdj-infra/nexspec-sglang:v41-c6da252c6837-20261104@sha256:03a08910ead2720094402c9bc36fa896611a60e48b6ffb026f0ca6be3a9fd298",
+        "Command": [
+          "/kubebrain/worker-init",
+          "run",
+          "--enable-pid-monitor",
+          "--metrics-addr=",
+          "--",
+          "env",
+          "RUN_UUID=c675617d-beb9-40e1-9ff3-470baea4ea45",
+          "RUN_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-8225a6c-r3",
+          "WORKSPACE=/mnt/work/shom/hybrid-spark-native-v41-20261112-full-r3/source",
+          "MEGATRON_BRIDGE_RUN_CONFIG_PATH=/mnt/work/shom/training_runs/hybrid-v41-full-8225a6c-r3/config.yaml",
+          "TENSORBOARD_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-8225a6c-r3/tensorboard",
+          "tensorboard_folder=/mnt/work/shom/training_runs/hybrid-v41-full-8225a6c-r3/tensorboard",
+          "CHECKPOINT_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-8225a6c-r3/checkpoints",
+          "PROFILE_DIR=/mnt/work/shom/training_runs/hybrid-v41-full-8225a6c-r3/torch_profile",
+          "PYTHONPYCACHEPREFIX=/tmp/yicloud-training-runs/c675617d-beb9-40e1-9ff3-470baea4ea45/pycache",
+          "bash",
+          "/mnt/work/shom/training_runs/hybrid-v41-full-8225a6c-r3/launch.sh"
+        ],
+        "CPU": "64",
+        "Memory": "640Gi",
+        "GPU": "8",
+        "CustomResources": {
+          "mellanox.com/mlnx_rdma": "0",
+          "rdma/mlnx_shared": "0"
+        },
+        "Internet": false,
+        "RegionId": "cn-shanghai",
+        "ZoneId": "cn-shanghai-a"
+      }
+    ],
+    "Total": 1
+  },
+  "Msg": "SUCCESS",
+  "_cost": 152
+}

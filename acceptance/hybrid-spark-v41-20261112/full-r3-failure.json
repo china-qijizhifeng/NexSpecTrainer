@@ -1,0 +1,105 @@
+{
+  "passed": false,
+  "job_id": "j-1794480511-583250",
+  "run_uuid": "c675617d-beb9-40e1-9ff3-470baea4ea45",
+  "source_commit": "8225a6c721cabccde25e0839b5659f622b8afc1d",
+  "terminal_reconciled_at": "2026-11-12T11:10:35.501876+00:00",
+  "failure": {
+    "stage": "hybrid-runtime-initialization",
+    "timestamp": "2026-11-12T11:10:17Z",
+    "ranks": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "exception": "AttributeError",
+    "message": "'NoneType' object has no attribute 'req_to_token'",
+    "source": "specforge/hybrid/sglang_runtime.py:31",
+    "trigger": "Native draft runner did not own req_to_token_pool; HybridRuntime received None before any request."
+  },
+  "target_vs_dspark": {
+    "equal": false,
+    "requests": 17,
+    "differences": [
+      {
+        "sample_id": "reasoning-no-match",
+        "first_divergence": 51,
+        "baseline_tokens": [
+          666,
+          1
+        ],
+        "candidate_tokens": [
+          42499,
+          1
+        ],
+        "baseline_length": 53,
+        "candidate_length": 53
+      }
+    ]
+  },
+  "completed_serving_variants": {
+    "target": {
+      "complete": true,
+      "request_count": 17,
+      "prompts_sha256": "d0a87c09575deaa96e7395a51ad9dae365f7c612bde81d8aca2db9d8068a4fda"
+    },
+    "dspark": {
+      "complete": true,
+      "request_count": 17,
+      "prompts_sha256": "d0a87c09575deaa96e7395a51ad9dae365f7c612bde81d8aca2db9d8068a4fda"
+    }
+  },
+  "resources": {
+    "full-r3-final-GetJob.json": {
+      "sha256": "a521d68ce62025a758044159448ca55f586e09f954833d8dea58a5e7af8285f4",
+      "job_id": "j-1794480511-583250",
+      "phase": "Failed"
+    },
+    "full-r3-final-ListJobReplicas.json": {
+      "sha256": "f025fafec538c8f491527773a2e1eeb32079f9484493dccac94d5f0bf060f6b0",
+      "replicas": [
+        {
+          "Name": "j-1794480511-583250-cfcd2",
+          "Phase": "Failed",
+          "NodeName": "lg-cmc-gpu-1149.host.lg.shzhisuan.com"
+        }
+      ]
+    },
+    "full-r3-control-final-GetJob.json": {
+      "sha256": "6c8d3bf6fc1c8e08f52882c8274c3385c72b653fcdf7e44da47015ad627f7ec4",
+      "job_id": "j-1794480366-804042",
+      "phase": "Succeeded"
+    },
+    "full-r3-control-final-ListJobReplicas.json": {
+      "sha256": "6571ae235d5371f229096b35b9838523e9324ebbfa6fb91df453135b0f88cbf7",
+      "replicas": [
+        {
+          "Name": "j-1794480366-804042-g4bmt",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0161.host.lg.shzhisuan.com"
+        }
+      ]
+    },
+    "full-r3-observer-final-GetJob.json": {
+      "sha256": "5a3f0afaaba1cdfae463ff8745175737cace2d88216281c89901cff93ec4b39b",
+      "job_id": "j-1794480435-606595",
+      "phase": "Succeeded"
+    },
+    "full-r3-observer-final-ListJobReplicas.json": {
+      "sha256": "852787d13987549c193edc756ab92b3b53b556f3cf5153fe685a0dcfa816de55",
+      "replicas": [
+        {
+          "Name": "j-1794480435-606595-pbbgp",
+          "Phase": "Succeeded",
+          "NodeName": "lg-cmc-cpu-0230.host.lg.shzhisuan.com"
+        }
+      ]
+    }
+  },
+  "followup": "Repair request-history pool ownership and verify all pinned constructor fields before rerunning; retain the baseline divergence and all three equality checks."
+}

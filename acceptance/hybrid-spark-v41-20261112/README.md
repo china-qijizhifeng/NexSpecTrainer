@@ -1,8 +1,9 @@
 # Native V4.1 Hybrid Spark acceptance
 
-The implementation is tested against SGLang `38d9e4a3fe4a493b0ae468477a274e83defda81a`
-and the official DeepSeek V4.1 Flash-1017 model. All GPU acceptance runs have immutable
-managed Run records. Serving evaluation and calibration use `nsp`.
+This suite targets SGLang `38d9e4a3fe4a493b0ae468477a274e83defda81a`
+and the official DeepSeek V4.1 Flash-1017 model. H100/H200 kernel gates passed;
+native-model output equivalence is pending. All GPU acceptance runs have
+immutable managed Run records. Serving evaluation and calibration use `nsp`.
 
 ## Completed gates
 
@@ -48,6 +49,12 @@ managed Run records. Serving evaluation and calibration use `nsp`.
   see `fixed-budget-precedence.json`. The latest nine-file patch was also
   validated, applied and checked for idempotence against pristine source;
   see `pristine9-preflight.json`.
+- Native worker lifecycle passed the CPU regression in
+  [pool_lifecycle_acceptance.py](pool_lifecycle_acceptance.py): the real patched
+  constructor defers history allocation, and the actual worker pool hook binds
+  the scheduler-owned pool after draft allocation. Disabled Hybrid and ranks
+  without draft ownership skip allocation. GPU kernels are not exercised here.
+  See [pool-lifecycle-cpu.json](pool-lifecycle-cpu.json).
 
 ## Full-model gate
 
@@ -79,12 +86,24 @@ tests. Parent and every replica of the GPU Job, controller and log relay are
 terminal. See [full-r2-failure.json](full-r2-failure.json) and
 [full-r2-evidence/](full-r2-evidence/).
 
-Output equivalence and the full-model gate are still pending a new immutable
-Run using the corrected native request. The earlier CPU fixtures accepted
-unknown sampling keys and therefore did not expose this API mismatch.
+The third attempt uses the corrected request contract: Run
+`c675617d-beb9-40e1-9ff3-470baea4ea45`, Job `j-1794480511-583250`, immutable
+source `8225a6c`, submitted at `2026-11-12T10:48:31Z`. Target and DSPARK completed
+all 17 requests: 16 matched exactly, while `reasoning-no-match` diverged at
+output index 51 (target token 666 versus DSPARK 42499). Hybrid then failed at
+startup because history allocation read a request pool before the scheduler
+created it. Parent and all replicas, controller and observer are terminal.
+The fix binds history in the native pool hook. The next comparison also fixes
+all server random seeds at 42: the third attempt used different server seeds,
+despite identical request sampling seeds. Neither change establishes the cause
+of the reasoning divergence; all three output equality gates remain required.
+See [full-r3-failure.json](full-r3-failure.json) and
+[full-r3-reasoning-and-suite-comparison.json](full-r3-reasoning-and-suite-comparison.json).
 
-The target-only, original DSPARK and Hybrid servers execute sequentially in the
-same allocation with the same immutable token IDs and T=0. Calibration uses the
+The target-only, DSPARK and Hybrid servers execute sequentially in the
+same allocation with the same immutable token IDs and T=0. Every server uses
+the pinned runtime bundle; DSPARK leaves Hybrid disabled but retains the shared
+native draft window/ring correction. Calibration uses the
 separate 24-prompt population. The Hybrid engineering gate fixes fifteen extra
 slots per request, records every native verify cycle through an independent CPU
 observer, requires a commit beyond the five-token MTP horizon followed by another

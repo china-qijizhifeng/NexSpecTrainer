@@ -342,7 +342,7 @@ index 3a89d93..ac06b71 100644
          fresh = (
              (current_gen >= 1) & (lagged_generation.to(torch.int64) == current_gen)
 diff --git a/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py b/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py
-index d688bfc..81c8d83 100644
+index d688bfc..4d0eff3 100644
 --- a/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py
 +++ b/python/sglang/srt/speculative/dspark_components/dspark_worker_v2.py
 @@ -1,4 +1,5 @@
@@ -373,7 +373,7 @@ index d688bfc..81c8d83 100644
 +                or get_parallel().attn_cp_size != 1 or get_parallel().attn_dp_enabled
 +                or get_disagg().disaggregation_mode != "null"):
 +                raise ValueError("Hybrid Spark v1 supports native V4.1 single-node TP, without CP/DP/PP/PD")
-+            self._hybrid = HybridRuntime(load_config(), self.model_runner.req_to_token_pool, self.device,
++            self._hybrid = HybridRuntime(load_config(), self.device,
 +                                         model_path=get_model().model_path)
 +            logger.info("Hybrid Spark configuration sha256=%s, MTP=%d, verifier=%d",
 +                        self._hybrid.config.fingerprint(), self.gamma, self.verify_num_draft_tokens)
@@ -417,7 +417,17 @@ index d688bfc..81c8d83 100644
              verify_num_draft_tokens=self.verify_num_draft_tokens,
              tp_rank=get_parallel().tp_rank,
              device=self.device,
-@@ -834,6 +853,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+@@ -565,6 +584,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+             req_to_token_pool=req_to_token_pool,
+             token_to_kv_pool_allocator=token_to_kv_pool_allocator,
+         )
++        if self._hybrid is not None:
++            self._hybrid.alloc_memory_pool(req_to_token_pool)
+-
++
+     def init_attention_backends(self):
+         if not self._hosts_draft:
+@@ -834,6 +855,8 @@ class DSparkWorkerV2(BaseSpecWorker):
          # Placing the draft KV reads scheduler-shared tables, which prefill
          # read-done releases once the target forward's own reads end.
          placement = self._kv_injector.place_prefill(batch)
@@ -426,7 +436,7 @@ index d688bfc..81c8d83 100644
          batch_output = self.target_worker.forward_batch_generation(
              batch,
              pp_proxy_tensors=pp_proxy_tensors,
-@@ -1091,6 +1112,9 @@ class DSparkWorkerV2(BaseSpecWorker):
+@@ -1091,6 +1114,9 @@ class DSparkWorkerV2(BaseSpecWorker):
                  verify_window=verify_window,
                  seq_lens_cpu=window_seq_lens_cpu,
              )
@@ -436,7 +446,7 @@ index d688bfc..81c8d83 100644
          draft_block_ids = proposal.draft_block_ids
          draft_block = proposal.draft_block
          draft_tokens = draft_block.draft_tokens
-@@ -1105,6 +1129,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+@@ -1105,6 +1131,8 @@ class DSparkWorkerV2(BaseSpecWorker):
              prefix_lens=prefix_lens,
              req_pool_indices=batch.req_pool_indices,
          )
@@ -445,7 +455,7 @@ index d688bfc..81c8d83 100644
  
          layout = self._verify_planner.schedule_layout(
              req_pool_indices=batch.req_pool_indices,
-@@ -1115,6 +1141,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+@@ -1115,6 +1143,8 @@ class DSparkWorkerV2(BaseSpecWorker):
              global_num_reqs=global_num_reqs,
              dp_tier_num_tokens=self._dp_verify_tier_num_tokens(batch),
          )
@@ -454,7 +464,7 @@ index d688bfc..81c8d83 100644
          run_compact = self._verify_planner.should_run_compact(layout=layout)
  
          verify_ids_2d = proposal.verify_ids
-@@ -1256,6 +1284,8 @@ class DSparkWorkerV2(BaseSpecWorker):
+@@ -1256,6 +1286,8 @@ class DSparkWorkerV2(BaseSpecWorker):
                  draft_tokens=draft_tokens,
                  simulate_bonus_sampling_info=simulate_bonus_sampling_info,
              )

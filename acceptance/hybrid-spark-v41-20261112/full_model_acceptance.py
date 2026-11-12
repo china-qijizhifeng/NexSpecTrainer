@@ -124,6 +124,7 @@ def launch(model, variant, folder, hybrid_config, port, launch_timeout_seconds):
         "--chunked-prefill-size", "-1", "--no-enable-decoder-swa-bounded-replay",
         "--cuda-graph-backend-prefill", "disabled", "--cuda-graph-backend-decode", "full",
         "--cuda-graph-bs-decode", "1", "2", "3", "4", "--decode-log-interval", "1",
+        "--random-seed", "42",
         "--host", "127.0.0.1", "--port", str(port)]
     if variant != "target":
         command += ["--speculative-draft-model-path", str(model), "--speculative-algorithm", "DSPARK",
@@ -179,7 +180,8 @@ def stop(process, log):
 
 
 def evaluate(base, model, variant, folder, inputs, port, label):
-    args = dict(model_path=str(model), speculative_algorithm=None if variant == "target" else "DSPARK",
+    args = dict(model_path=str(model), random_seed=42,
+                speculative_algorithm=None if variant == "target" else "DSPARK",
                 speculative_draft_model_path=None if variant == "target" else str(model))
     spec = dict(metrics=["performance"] if variant == "target" else ["al", "performance"], seed=42,
         serving=dict(protocol="native", url=f"http://127.0.0.1:{port}", model="deepseek-v4.1-flash",

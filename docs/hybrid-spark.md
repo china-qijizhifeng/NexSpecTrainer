@@ -1,5 +1,9 @@
 # Hybrid Spark on native V4.1
 
+This is an experimental adapter. H100/H200 kernel acceptance passed; full-model
+output equivalence is tracked separately in the
+[acceptance report](../acceptance/hybrid-spark-v41-20261112/README.md).
+
 The runtime bundle is in `patches/sglang/v41-hybrid-spark-38d9e4a3fe`.
 Keep the official W128 MTP frozen. The verifier has room for anchor + 15
 drafts, while MTP still predicts five. GPU suffix search uses request-local
