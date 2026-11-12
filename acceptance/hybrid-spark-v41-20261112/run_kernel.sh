@@ -27,14 +27,13 @@ python3 -m specforge.hybrid.runtime_patch --root /sgl-workspace/sglang --bundle 
 python3 -m specforge.hybrid.runtime_patch --root /sgl-workspace/sglang --bundle "$bundle" --execute > "$RUN_DIR/runtime-patch-result.json"
 python3 - <<'PY'
 import json, os, pathlib
-from transformers import AutoConfig
-from specforge.hybrid.config import HybridConfig
+from sglang.srt.utils.hf_transformers import get_config
 from sglang.srt.speculative.dspark_components.dspark_config import resolve_runtime_config
 path = pathlib.Path(os.environ['RUN_DIR'], 'config-smoke.json')
 path.write_text(json.dumps({'uncalibrated_acceptance':0.9})+'\n')
 os.environ['SGLANG_DSPARK_HYBRID_CONFIG'] = str(path)
 model = '/gpfs/shared-model-weight/models/deepseek-ai/DeepSeek-V4.1-Flash-1017'
-config = AutoConfig.from_pretrained(model, trust_remote_code=True, local_files_only=True)
+config = get_config(model, trust_remote_code=True)
 runtime = resolve_runtime_config(draft_hf_config=config, speculative_num_draft_tokens=16,
                                 target_vocab_size=config.vocab_size)
 assert runtime.gamma == 5 and runtime.verify_num_draft_tokens == 16

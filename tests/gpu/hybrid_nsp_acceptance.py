@@ -133,8 +133,10 @@ def main():
         assert (attempt / "prompts.jsonl").read_bytes() == prompts.read_bytes()
         traces = [json.loads(line) for line in (attempt / "requests.jsonl").read_text().splitlines()]
         assert len(traces) == 8 and all(row["phase"] == "measure" for row in traces)
+        assert all(row["sampling"]["temperature"] == 0 for row in traces)
         warmup = [json.loads(line) for line in (attempt / "warmup.jsonl").read_text().splitlines()]
         assert len(warmup) == 2 and all(row["phase"] == "warmup" for row in warmup)
+        assert all(row["sampling"]["temperature"] == 0 for row in warmup)
         calibrate_config = folder / "calibrate.json"
         calibration = dict(traces=str(attempt / "requests.jsonl"), stride=4, max_iter=20,
             provenance=dict(target="fixture-model-v1", tokenizer="fixture-tokenizer-v1",
@@ -168,10 +170,27 @@ def main():
                       "--interval", "0.1", "--jsonl"], folder, "warmup-calibrate-watch", expected=1)
         status = json.loads(command(base, ["show", warmup_id, "--json"], folder, "warmup-calibrate-show"))
         assert status["state"] == "failed"
+        sampled_traces = json.loads(json.dumps(traces))
+        sampled_traces[0]["sampling"]["temperature"] = 0.7
+        sampled_path = folder / "sampled-traces.jsonl"
+        sampled_path.write_text("".join(json.dumps(row) + "\n" for row in sampled_traces))
+        sampled_config = folder / "sampled-calibrate.json"
+        write(sampled_config, dict(calibration, traces=str(sampled_path)))
+        sampled_id = json.loads(command(base, ["calibrate", "-c", str(sampled_config), "--json"], folder,
+                                       "sampled-calibrate-submit"))["id"]
+        command(base, ["watch", sampled_id, "--until", "terminal", "--timeout", "60",
+                      "--interval", "0.1", "--jsonl"], folder, "sampled-calibrate-watch", expected=1)
+        sampled_status = json.loads(command(base, ["show", sampled_id, "--json"], folder,
+                                            "sampled-calibrate-show"))
+        assert sampled_status["state"] == "failed"
+        sampled_attempt = Path(sampled_status["path"]) / "attempts" / "0001"
+        assert "trace-level temperature=0" in (sampled_attempt / "worker.log").read_text()
+        assert not (sampled_attempt / "calibrator.json").exists()
         report.update(passed=True, eval_run_id=run_id, calibration_run_id=calibration_id,
                       measured_requests=8, warmup_requests=2, peak_http_concurrency=state["peak"],
                       serving_copied_checkpoint=False, checkpoint_identity_persisted=True,
-                      expected_failures=["missing-cycles", "malformed-output", "warmup-calibration"],
+                      expected_failures=["missing-cycles", "malformed-output", "warmup-calibration",
+                                         "sampled-calibration"],
                       calibrator_sha256=fitted["calibrator_sha256"])
     finally:
         server.shutdown()
