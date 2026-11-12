@@ -1,0 +1,37 @@
+apiVersion: batch.volcano.sh/v1alpha1
+kind: Job
+metadata:
+  name: hybrid-spark-kernel-20261112-northjob-r1
+  namespace: qiji
+  annotations:
+    JobAlias: hybrid-spark-kernel-20261112-northjob-r1
+    project: WeaverRSI
+spec:
+  minAvailable: 1
+  schedulerName: volcano
+  queue: proj-32
+  tasks:
+  - replicas: 1
+    name: validation
+    template:
+      spec:
+        tolerations:
+        - {key: task-type, operator: Equal, value: rsi-weaver, effect: NoSchedule}
+        - {key: task-type, operator: Equal, value: weaver, effect: NoSchedule}
+        activeDeadlineSeconds: 1200
+        restartPolicy: Never
+        volumes:
+        - name: gpfs
+          hostPath: {path: /gpfs, type: Directory}
+        - name: shm
+          emptyDir: {medium: Memory, sizeLimit: 4Gi}
+        containers:
+        - name: validation
+          image: harbor.local.clusters/bp/weaver-trainer-megatron-bridge:v1.14.92@sha256:cba116d15f4be378c467a5d15157b69e3307e21c3c67342a06481f8f4a1187df
+          resources:
+            requests: {nvidia.com/gpu: '1', cpu: '8', memory: 32Gi}
+            limits: {nvidia.com/gpu: '1', cpu: '8', memory: 32Gi}
+          volumeMounts:
+          - {name: gpfs, mountPath: /gpfs}
+          - {name: shm, mountPath: /dev/shm}
+          command: [/bin/bash, /gpfs/users/linlizhi/hybrid-spark-kernel-20261112-northjob-r1/run.sh]

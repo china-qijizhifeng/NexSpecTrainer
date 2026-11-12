@@ -82,3 +82,12 @@ The engineering acceptance harness and receipts are in
 `acceptance/hybrid-spark-v41-20261112`. Kernel checks and protocol fixtures do
 not replace native-model E2E, distribution checks at nonzero temperature, or
 representative calibrated throughput benchmarks.
+
+The first independent CUDA gate passed on an H100 80GB with torch 2.10,
+Triton 3.6 and CUDA 13: 270 suffix-scan comparisons, 12 CUDA graph replays,
+54 chain-selection scenarios, 331 budget allocations and four committed-history
+write replays. It exercised 8K, 32K and 64K histories, including batch 129.
+The tested scan, selection and history kernels match the current source hashes;
+the native SGLang integration has a separate acceptance gate. Environment,
+source fingerprints, results and resource-release receipts are in the
+[Northjob report](../acceptance/hybrid-spark-v41-20261112/northjob/README.md).

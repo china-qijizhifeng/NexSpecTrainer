@@ -1,0 +1,20 @@
+{
+  "source_sha": "3c6626db72e6688943457a38043de4102f73a747",
+  "python": "3.12.3 (main, Aug 14 2025, 17:47:21) [GCC 13.3.0]",
+  "platform": "Linux-5.15.0-78-generic-x86_64-with-glibc2.39",
+  "torch": "2.10.0a0+b558c986e8.nv25.11",
+  "triton": "3.6.0",
+  "cuda": "13.0",
+  "protobuf": "6.33.6",
+  "protobuf_backend": "python",
+  "gpu_available": true,
+  "started_at": "2026-11-12T09:18:31.042030+00:00",
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "capability": [
+    9,
+    0
+  ],
+  "nvidia_smi_exit": 0,
+  "nvidia_smi_stdout": "0, NVIDIA H100 80GB HBM3, GPU-95439afb-7f57-0543-744a-4787048003d6, 535.154.05, 81559 MiB\n",
+  "nvidia_smi_stderr": ""
+}

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "job-5357e3835c5f-20261112171747",
+    "user_def_name": "hybrid-spark-kernel-20261112-northjob-r1",
+    "status": "Completed",
+    "ready_status": "0/1",
+    "namespace": "qiji",
+    "job_creator": "linlizhi",
+    "user_gpu": 1
+  }
+]

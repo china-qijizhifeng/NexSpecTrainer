@@ -1,0 +1,15 @@
+{
+  "gpu_passed": true,
+  "source_sha": "3c6626db72e6688943457a38043de4102f73a747",
+  "case_count": 135,
+  "scan_comparisons": 270,
+  "graph_replays": 12,
+  "selection_cases": 54,
+  "history_write_replays": 4,
+  "benchmark_points": 6,
+  "benchmark_repeats": 50,
+  "elapsed_seconds": 45.661081115249544,
+  "gpu": "NVIDIA H100 80GB HBM3",
+  "scope": "GPU ngram/selection/history-write module differential acceptance; no whole-model serving or throughput claim",
+  "cleanup_confirmed": true
+}

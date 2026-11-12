@@ -1,0 +1,45 @@
+{
+  "scope": "CPU config extra_budget precedence only; distinct from fixed-source CUDA gate",
+  "source_head_at_check": "f5e7164e984289631845e13240a6bd893b891b4e",
+  "config_sha256": "cc04a195026b2833e82746370b9f25fe52b6d10321ef8b618fda841ef5ac67a8",
+  "checked_at": "2026-11-12T09:19:04.819553+00:00",
+  "cases": [
+    {
+      "name": "native-no-plan",
+      "num_requests": 3,
+      "fixed_extra_budget": null,
+      "planned_budget": null,
+      "actual": null,
+      "expected": null,
+      "passed": true
+    },
+    {
+      "name": "native-with-plan",
+      "num_requests": 3,
+      "fixed_extra_budget": null,
+      "planned_budget": 7,
+      "actual": 7,
+      "expected": 7,
+      "passed": true
+    },
+    {
+      "name": "fixed-zero",
+      "num_requests": 3,
+      "fixed_extra_budget": 0,
+      "planned_budget": 7,
+      "actual": 0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "name": "fixed-four",
+      "num_requests": 3,
+      "fixed_extra_budget": 4,
+      "planned_budget": 7,
+      "actual": 12,
+      "expected": 12,
+      "passed": true
+    }
+  ],
+  "passed": true
+}

@@ -1,0 +1,17 @@
+{
+  "source_sha": "3c6626db72e6688943457a38043de4102f73a747",
+  "archive_sha256": "02b783ec641300c2006a5e3f6a7e1a17ef7096331f493daabb3ac43231cef8c7",
+  "files": {
+    "specforge/__init__.py": "75fdd124964a31d3e130ae97fe84fa282bef85d93005278468722b1164a5f9da",
+    "specforge/hybrid/__init__.py": "d68436894bca14eb97ba0d911bc3a023d6a52d7dde2585b20b228b9948ad14ab",
+    "specforge/hybrid/calibration.py": "8f2ced37f78f2fb700691ca4a3fdd0dd863eb13121335a7bbb742daa6deabad6",
+    "specforge/hybrid/config.py": "88ff8c5300812dc715b6675cf259afa5b5752716700fe51c218d2ee0fe8af707",
+    "specforge/hybrid/kernels.py": "b4c810c22b8871b32fb17df6524efce512b0061f62ed3dc15b92b5d03a90bf00",
+    "specforge/hybrid/ngram.py": "af861dcdde9492ffbde59dcace30531a3ac1b845d1ec7a625107b81cd2022844",
+    "specforge/hybrid/runtime_patch.py": "cbd2cf1d95877ed6106edc0698ba55573031ae8f0eb72068c55c3f8c4fe1f975",
+    "specforge/hybrid/selection.py": "44fef9af207b839da09dff476befeaeda460004cf4b6a7644f60f3744de94692",
+    "specforge/hybrid/sglang_runtime.py": "24caed6c696feada12670e37fbe55924494a99e790f5be00696a93131e5512e2",
+    "tests/gpu/hybrid_spark_acceptance.py": "e7ce7176d260284e161a391451fd55c367e8533826a53235267adea0973ecb09"
+  },
+  "scope": "Independent GPU ngram/selection/history-write differential acceptance, not full-model V4.1 E2E"
+}
