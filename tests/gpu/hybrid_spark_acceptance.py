@@ -377,6 +377,63 @@ def graph_gate(scan, torch, seed, length_dtype):
     return records
 
 
+def history_write_gate(torch):
+    from specforge.hybrid.kernels import write_history
+    from specforge.hybrid.ngram import scan
+
+    history = torch.full((5, 96), -700, device="cuda", dtype=torch.int32)
+    lengths = torch.zeros(5, device="cuda", dtype=torch.int32)
+    rows = [[100 + k for k in range(16)], [200 + k for k in range(16)],
+            [300 + k for k in range(16)], [400 + k for k in range(16)]]
+    slots = torch.tensor([3, 1, -1, 0], device="cuda")
+    positions = torch.tensor([0, 0, 0, 0], device="cuda", dtype=torch.int32)
+    tokens = torch.tensor(rows, device="cuda", dtype=torch.int64)
+    counts = torch.tensor([16, 6, 4, 16], device="cuda", dtype=torch.int32)
+    write_history(history, lengths, slots, positions, tokens, counts)
+    expected_history = [[-700] * 96 for _ in range(5)]
+    expected_lengths = [0] * 5
+    for slot, count, row in ((3, 16, rows[0]), (1, 6, rows[1]), (0, 16, rows[3])):
+        expected_history[slot][:count] = row[:count]
+        expected_lengths[slot] = count
+    assert history.cpu().tolist() == expected_history
+    assert lengths.cpu().tolist() == expected_lengths
+    # Reset one reused slot to a shorter prefix, then overwrite the same slot's
+    # visible history using changed device positions/counts through one graph.
+    scan_slots = torch.tensor([3, 1, 0, -1], device="cuda")
+    scan(history, lengths, scan_slots)
+    torch.cuda.synchronize()
+    graph = torch.cuda.CUDAGraph()
+    with torch.cuda.graph(graph):
+        write_history(history, lengths, slots, positions, tokens, counts)
+        scanned = scan(history, lengths, scan_slots)
+    replay_specs = [
+        ([3, 1, -1, 0], [16, 6, 0, 16], [16, 15, 0, 8]),
+        ([3, 1, 4, 0], [0, 0, 0, 0], [5, 0, 16, 1]),
+        ([3, 1, 4, 0], [5, 0, 16, 1], [15, 16, 16, 15]),
+        ([3, -1, 4, 0], [95, 0, -1, 96], [2, 0, 16, 1]),
+    ]
+    stream = torch.cuda.current_stream()
+    reports = []
+    for index, (ss, pp, nn) in enumerate(replay_specs):
+        changed_rows = [[500 + index * 100 + row * 20 + k for k in range(16)] for row in range(4)]
+        if index == 2:
+            changed_rows[0] = [500 + k % 5 for k in range(16)]
+        for target, values in ((slots, ss), (positions, pp), (counts, nn), (tokens, changed_rows)):
+            target.copy_(torch.tensor(values, device="cuda", dtype=target.dtype))
+        graph.replay()
+        stream.synchronize()
+        for slot, position, count, row in zip(ss, pp, nn, changed_rows):
+            if 0 <= slot < 5 and 0 <= position and 0 <= count <= 16 and position + count <= 96:
+                expected_history[slot][position:position + count] = row[:count]
+                expected_lengths[slot] = position + count
+        assert history.cpu().tolist() == expected_history, ("history-write", index)
+        assert lengths.cpu().tolist() == expected_lengths, ("history-length", index)
+        case = Case(f"write-replay-{index}", expected_history, expected_lengths, [3, 1, 0, -1], 96)
+        compare(scanned, expected(case), case.name, torch)
+        reports.append(dict(replay=index, slots=ss, positions=pp, counts=nn))
+    return reports
+
+
 def benchmark(scan, torch, cases, repeats):
     records = []
     for case in cases:
@@ -442,6 +499,7 @@ def main():
             str(dtype): graph_gate(scan, torch, args.seed, dtype)
             for dtype in (torch.int32, torch.int64)}
         report["selection_cases"] = selection_gate(torch)
+        report["history_write_replays"] = history_write_gate(torch)
         report["timings"] = benchmark(scan, torch, cases, args.benchmark_repeats)
         report["runtime"] = dict(torch=torch.__version__, triton=triton.__version__,
             cuda=torch.version.cuda, device=torch.cuda.get_device_name(),
