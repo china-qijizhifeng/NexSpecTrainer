@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "scope": "pinned SamplingParams class with real msgspec Struct; GPU-independent external hooks stubbed",
+  "source": "/tmp/sglang-hicache-20261112-7NnqdV/python/sglang/srt/sampling/sampling_params.py",
+  "source_sha256": "1b3c7482594f411ba4062179e04612b9ff4dce0b355fdea578aa5e475847dca6",
+  "original_native_seed_error": "Unexpected keyword argument 'seed'",
+  "new_sampling_seed_cases": 41,
+  "native_seed_field": "sampling_seed",
+  "openai_seed_field": "seed"
+}

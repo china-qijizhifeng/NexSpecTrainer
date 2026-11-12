@@ -75,13 +75,16 @@ def main():
             assert body["rid"] == self.headers["X-Request-Id"]
             assert body["stream"] is False
             assert body["sampling_params"]["temperature"] == 0
+            marker = body["input_ids"][0] - 1000
+            assert set(body["sampling_params"]) == {
+                "temperature", "top_p", "max_new_tokens", "sampling_seed"}
+            assert body["sampling_params"]["sampling_seed"] == 42 + marker
             with lock:
                 state["active"] += 1
                 state["peak"] = max(state["peak"], state["active"])
                 state["requests"].append(body)
             try:
                 time.sleep(0.04)
-                marker = body["input_ids"][0] - 1000
                 output = [200 + marker * 20 + k for k in range(16)]
                 cycles = [dict(cycle_id=0, ctx_len=len(body["input_ids"]), committed_output_tokens=8),
                           dict(cycle_id=1, ctx_len=len(body["input_ids"]) + 8, committed_output_tokens=8)]
