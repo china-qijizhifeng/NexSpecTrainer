@@ -22,8 +22,8 @@ Fit on a separate split before measuring Hybrid:
 traces: /shared/nsp/runs/ev_ID/attempts/0001/requests.jsonl
 temperature: 0
 provenance:
-  target: pinned-target-config-and-weight-identity
-  tokenizer: pinned-tokenizer-sha256
+  target: sha256-of-official-target-config-json
+  tokenizer: sha256-of-official-tokenizer-json
   runtime: pinned-SGLang-and-overlay-sha256
   dataset: calibration-prompt-set-sha256
 ridge: 0.001
@@ -73,6 +73,10 @@ identity (config/index content hashes and weight-file size/mtime inventory).
 They do not copy the server's large model directory. This inventory is not a
 full weight-shard content hash. Offline evaluation keeps its existing complete
 checkpoint snapshot behavior.
+
+The adapter checks target config/tokenizer hashes against the fitted artifact.
+The first runtime version accepts greedy targets only; nonzero temperature
+requires separate calibration and sampling-distribution acceptance.
 
 The engineering acceptance harness and receipts are in
 `acceptance/hybrid-spark-v41-20261112`. Kernel checks and protocol fixtures do

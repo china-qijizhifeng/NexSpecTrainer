@@ -39,7 +39,7 @@ original MTP chain; `mode: ngram` uses an anchor-only step if no match exists.
 policy, not a measured adaptive-verification speedup. `uncalibrated_acceptance`
 may replace `calibrator` only for explicit smoke tests.
 
-The adapter accepts only native V4.1, single-node tensor parallelism, and no
+The adapter accepts only greedy native V4.1, single-node tensor parallelism, and no
 attention DP or disaggregated prefill. Draft graphs remain five-wide. Folded
 target acceptance is disabled because its buffers assume a fixed native chain;
 the ordinary exact target verifier and committed-hidden injection are retained.

@@ -6,6 +6,10 @@ the current anchor and then the accepted verify inputs. Slot reuse therefore
 cannot expose an earlier request's tokens.
 """
 
+import hashlib
+import json
+from pathlib import Path
+
 import torch
 
 from .kernels import write_history
@@ -14,8 +18,16 @@ from .selection import estimate_ngram, select_chains, verify_lengths
 
 
 class HybridRuntime:
-    def __init__(self, config, req_pool, device):
+    def __init__(self, config, req_pool, device, model_path):
         self.config = config
+        if config.calibrator:
+            provenance = json.loads(Path(config.calibrator).read_text())["provenance"]
+            for key, name in (("target", "config.json"), ("tokenizer", "tokenizer.json")):
+                actual = hashlib.sha256((Path(model_path) / name).read_bytes()).hexdigest()
+                if provenance.get(key) != actual:
+                    raise ValueError(f"Hybrid calibrator {key} fingerprint differs from native serving model")
+            if provenance.get("temperature") != 0:
+                raise ValueError("Hybrid v1 calibrator must use greedy target trajectories")
         self.history = torch.empty(req_pool.req_to_token.shape, dtype=torch.int32, device=device)
         self.lengths = torch.zeros(self.history.shape[0], dtype=torch.int32, device=device)
         self.coefficients = {key: torch.as_tensor(value, dtype=torch.float32, device=device)
@@ -41,6 +53,8 @@ class HybridRuntime:
         from sglang.srt.speculative.dspark_components.dspark_draft import DraftBlockResult, DraftProposal
 
         block = proposal.draft_block
+        if batch.sampling_info is not None and not batch.sampling_info.is_all_greedy:
+            raise ValueError("Hybrid Spark v1 currently requires target temperature=0; sampling calibration is pending")
         if not block.greedy_draft:
             raise ValueError("Hybrid selection requires a deterministic greedy MTP proposal")
         slots = batch.req_pool_indices
